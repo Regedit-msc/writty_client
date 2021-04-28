@@ -143,7 +143,7 @@ const Dash = (props) => {
 
 
                 {creatingDoc ? (
-                    <div className="createDoc__container mx-4">
+                        <div className="ml-2 lg:ml-4">
                         <input className="bg-purple-100 placeholder-indigo-800 border border-transparent  focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent p-2 h-10 w-70 " type="text" onChange={handleChange} name="name" placeholder="name" autoComplete="false" />
                         <button className=" mx-5 bg-purple-600 hover:bg-purple-700 p-2 w-20  rounded shadow-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={handleSubmit}>Create</button>
                         <br />
