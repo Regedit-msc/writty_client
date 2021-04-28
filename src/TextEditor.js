@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react"
 import Quill from "quill"
 import "quill/dist/quill.snow.css"
 import { io } from "socket.io-client"
-import { useParams } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom"
 import { API_ENDPOINT } from "./pages/url"
 import "./styles.css"
 
@@ -20,6 +20,7 @@ const TOOLBAR_OPTIONS = [
 ]
 
 export default function TextEditor() {
+  let history = useHistory();
   const { id: documentId } = useParams()
   const [socket, setSocket] = useState()
   const [quill, setQuill] = useState()
@@ -62,8 +63,11 @@ export default function TextEditor() {
     const handler = delta => {
       quill.updateContents(delta)
     }
-    socket.on("receive-changes", handler)
 
+    socket.on("receive-changes", handler)
+    socket.on("not_a_user", () => {
+      history.push("/");
+    })
     return () => {
       socket.off("receive-changes", handler)
     }
