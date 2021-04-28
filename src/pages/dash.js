@@ -133,7 +133,7 @@ const Dash = (props) => {
             <div className="relative">
                 {info ? <div className="bg-purple-500 absolute  bottom-2 left-3 text-white p-2 rounded"><p>{info}</p></div> : <div></div>}
                 {error ? <div className="bg-red-500 absolute  bottom-2  left-3  text-white p-2 rounded"><p>{error}</p></div> : <div></div>}
-                <div className="my-2 mx-2 flex flex-col w-1/4 space-y-3 ">
+                    <div className="my-2 mx-2 flex flex-col w-3/4 lg:w-1/4 space-y-3 ">
 
                         <p><span className="font-bold text-2xl my-b-20 uppercase">Great Sage {username}!!</span><br /> <span className="font-bold text-lg my-b-20  text-purple-900">Welcome to your dash.🧙‍♂️</span>.</p>
                     <button className="bg-green-500 hover:bg-purple-700 p-2 rounded text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={createDoc}>Create a doc</button>
