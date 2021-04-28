@@ -1,10 +1,10 @@
 import { useContext, useState } from "react"
-import { useHistory, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { userContext } from "../contexts/userContext";
 import { API_ENDPOINT } from "./url";
 
 const Register = () => {
-    let history = useHistory();
+
     const [formState, setFormState] = useState({
         username: '',
         password: '',
@@ -42,7 +42,7 @@ const Register = () => {
             if (jsonRes.success) {
 
                 setUserToken(jsonRes.message);
-                setInfo("You are all set proceed to login" + "🥳 ");
+                setInfo("You are all set proceed to login 🥳");
                 setTimeout(() => {
                     setInfo(null);
                 }, 5000)

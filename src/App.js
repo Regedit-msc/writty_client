@@ -3,9 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
 } from "react-router-dom"
-import { v4 as uuidV4 } from "uuid"
 import login from "./pages/login"
 import UserContextProvider from "./contexts/userContext"
 import dash from "./pages/dash"

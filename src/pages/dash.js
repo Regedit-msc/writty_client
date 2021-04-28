@@ -1,16 +1,15 @@
 import { makePriv } from "../auth_hoc/checkAuth";
-import { useContext, useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { useHistory } from "react-router-dom"
-import { userContext } from "../contexts/userContext";
 import { API_ENDPOINT } from "./url";
 import { v4 as uuidV4 } from "uuid";
-import { withRouter } from "react-router-dom"
+
 
 
 const Dash = (props) => {
     let history = useHistory();
     const [error, setError] = useState(null);
-    const userToken = localStorage.getItem("user_token");
+
     const [info, setInfo] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isLoadingCreateDoc, setIsLoadingCreateDoc] = useState(false);
@@ -21,9 +20,8 @@ const Dash = (props) => {
     const [docs, setDocs] = useState();
     const [creatingDoc, setCreatingDoc] = useState();
     const [username, setUsername] = useState();
-    const { getUserToken } = useContext(userContext);
     useEffect(() => {
-
+        const userToken = localStorage.getItem("user_token");
         fetch(`${API_ENDPOINT}/details`, {
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
@@ -53,6 +51,7 @@ const Dash = (props) => {
         })
     }
     function handleSubmit() {
+        const userToken = localStorage.getItem("user_token");
         setIsLoadingCreateDoc(true);
         fetch(`${API_ENDPOINT}/create/doc`, {
             headers: {
@@ -136,7 +135,7 @@ const Dash = (props) => {
                 {error ? <div className="bg-red-500 absolute  bottom-2  left-3  text-white p-2 rounded"><p>{error}</p></div> : <div></div>}
                 <div className="my-2 mx-2 flex flex-col w-1/4 space-y-3 ">
 
-                    <p><span className="font-bold text-2xl my-b-20 uppercase">Great Sage !!</span><br /> <span className="font-bold text-lg my-b-20  text-purple-900">Welcome to your dash.🧙‍♂️</span>.</p>
+                        <p><span className="font-bold text-2xl my-b-20 uppercase">Great Sage {username}!!</span><br /> <span className="font-bold text-lg my-b-20  text-purple-900">Welcome to your dash.🧙‍♂️</span>.</p>
                     <button className="bg-green-500 hover:bg-purple-700 p-2 rounded text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={createDoc}>Create a doc</button>
                     <button className="bg-yellow-900 hover:bg-purple-700 p-2 rounded text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={logOut}>Log Out</button>
                 </div>
