@@ -105,7 +105,7 @@ export default function Editor() {
 
     if (isLoadingEditor) {
         return <div className="m-4 font-bold text-lg flex justify-center items-center w-full h-screen">
-            Loading your gist... 🍏 🍎 🍐 🍊 🍋 🍌 🍉 🍇 🍓
+            Loading your gist... 👩🏻‍🦯
         </div >
     } else {
         return <ControlledEditor
