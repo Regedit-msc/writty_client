@@ -70,6 +70,7 @@ export default function Editor() {
 
     useEffect(() => {
         if (!theEditor) return;
+        codeEditorRef.current.editor.display.wrapper.style.height = "1000px";
         codeEditorRef.current.editor.display.wrapper.style.minHeight = "100%";
         codeEditorRef.current.editor.display.wrapper.style.fontSize = "25px";
     }, [theEditor])
