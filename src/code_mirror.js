@@ -7,7 +7,20 @@ import 'codemirror/theme/material.css'
 import 'codemirror/mode/xml/xml'
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/mode/css/css'
+import "codemirror/mode/dart/dart"
+import "codemirror/mode/python/python"
+import "codemirror/mode/cmake/cmake"
+import "codemirror/mode/dockerfile/dockerfile"
+import "codemirror/mode/django/django"
+import "codemirror/mode/vb/vb"
+import "codemirror/mode/julia/julia"
+import "codemirror/mode/go/go"
+import "codemirror/mode/haml/haml"
+import "codemirror/mode/jsx/jsx"
+import "codemirror/mode/pug/pug"
+import "codemirror/mode/yaml/yaml"
 import { Controlled as ControlledEditor } from 'react-codemirror2'
+import { codeMirrorLangModes } from "./languages"
 const SAVE_INTERVAL_MS = 2000;
 
 
@@ -16,7 +29,7 @@ export default function Editor() {
     const codeEditorRef = useRef();
     const [code, setCode] = useState('');
     const { id: editorId, lang } = useParams()
-    const [language] = useState(lang);
+    const [language] = useState(codeMirrorLangModes[codeMirrorLangModes.findIndex(languageAtIndex => languageAtIndex["name"] === lang || languageAtIndex["other"] === lang)]["mode"]);
     const [socket, setSocket] = useState();
     // const [codeSaved, setCodeSaved] = useState();
     const [theEditor, setTheEditor] = useState();
