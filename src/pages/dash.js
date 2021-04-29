@@ -16,6 +16,7 @@ const Dash = (props) => {
     const [newDocName, setNewDocName] = useState({
         name: '',
         _id: '',
+        language: "javascript"
     });
     const [docs, setDocs] = useState();
     const [creatingDoc, setCreatingDoc] = useState();
@@ -44,11 +45,22 @@ const Dash = (props) => {
         setCreatingDoc(true);
     }
     function handleChange(e) {
-        setNewDocName({
-            ...newDocName,
-            name: e.target.value, _id: uuidV4()
-
-        })
+        switch (e.target.name) {
+            case "name":
+                setNewDocName({
+                    ...newDocName,
+                    name: e.target.value, _id: uuidV4(),
+                })
+                break;
+            case "language":
+                setNewDocName({
+                    ...newDocName,
+                    language: e.target.value,
+                })
+                break;
+            default:
+                break;
+        }
     }
     function handleSubmit() {
         const userToken = localStorage.getItem("user_token");
@@ -73,10 +85,10 @@ const Dash = (props) => {
         })
     }
 
-    function viewTheDoc(id) {
+    function viewTheDoc(id, language) {
         console.log(id);
-
-        history.push(`/document/${id}`)
+        console.log(language);
+        history.push("/editor/" + language + "/" + id)
 
     }
     function handleDelete(id) {
@@ -105,8 +117,8 @@ const Dash = (props) => {
         })
     }
 
-    function initiateCollab(id) {
-        const copyText = `Let's collaborate on my writeup. Join me here ${window.location.host + "/document/" + id}💅🏻.`;
+    function initiateCollab(id, lang) {
+        const copyText = `View my live gist here. Join me here ${window.location.host + "/editor/" + lang + "/" + id}💅🏻.`;
         var input = document.body.appendChild(document.createElement("input"));
         input.value = copyText;
         input.focus();
@@ -125,7 +137,7 @@ const Dash = (props) => {
     }
 
     const UI =
-        isLoading ? (<div>
+        isLoading ? (<div className="m-4 font-bold text-lg">
             Loading... 🍏 🍎 🍐 🍊 🍋 🍌 🍉 🍇 🍓
         </div >
 
@@ -135,21 +147,23 @@ const Dash = (props) => {
                 {error ? <div className="bg-red-500 absolute  bottom-2  left-3  text-white p-2 rounded"><p>{error}</p></div> : <div></div>}
                     <div className="my-2 mx-2 flex flex-col w-3/4 lg:w-1/4 space-y-3 ">
 
-                        <p><span className="font-bold text-2xl my-b-20 uppercase">Great Sage {username}!!</span><br /> <span className="font-bold text-lg my-b-20  text-purple-900">Welcome to your dash.🧙‍♂️</span>.</p>
-                    <button className="bg-green-500 hover:bg-purple-700 p-2 rounded text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={createDoc}>Create a doc</button>
+                        <p><span className="font-bold text-2xl my-b-20 "> Noob coder {username}!!</span><br /> <span className="font-bold text-lg my-b-20  text-purple-900">Welcome to your dash.👩🏻‍🦼</span>.</p>
+                        <button className="bg-green-500 hover:bg-purple-700 p-2 rounded text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={createDoc}>Create a gist</button>
                     <button className="bg-yellow-900 hover:bg-purple-700 p-2 rounded text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={logOut}>Log Out</button>
                 </div>
-                {(docs && docs.length > 0) ? docs.map((doc, index, _) => <div key={doc._id} className=" flex flex-col bg-gray-100 mx-5 mb-2"><span className=" p-3"> {index + 1}. {doc.name}</span>  <span className="flex flex-row space-x-3 justify-end mx-3 my-3"><button className="bg-red-600 hover:bg-purple-700 p-2   rounded shadow-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={() => handleDelete(doc._id)}>Delete doc</button>  <button className="bg-blue-600 hover:bg-purple-700 p-2 rounded shadow-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={() => viewTheDoc(doc._id)}>View doc</button> <button className="bg-gray-800 hover:bg-purple-700 p-2  rounded shadow-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={() => initiateCollab(doc._id)}> Collab</button></span></div>) : <h3 className="flex items-center justify-center font-bold text-4xl">You have no docs yet🧛🏿‍♂️. Create one to get started🏋🏿‍♀️.</h3>}
+                    {(docs && docs.length > 0) ? docs.map((doc, index, _) => <div key={doc._id} className=" flex flex-col bg-gray-100 mx-5 mb-2"><span className=" p-3"> {index + 1}. {doc.name}   <span className="uppercase text-purple-900 font-bold">{doc.language}</span> </span>  <span className="flex flex-row space-x-3 justify-end mx-3 my-3"><button className="bg-red-600 hover:bg-purple-700 p-2   rounded shadow-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={() => handleDelete(doc._id)}>Delete code</button>  <button className="bg-blue-600 hover:bg-purple-700 p-2 rounded shadow-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={() => viewTheDoc(doc._id, doc.language)}>View code</button> <button className="bg-gray-800 hover:bg-purple-700 p-2  rounded shadow-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={() => initiateCollab(doc._id, doc.language)}> Collab</button></span></div>) : <h3 className="flex items-center justify-center font-bold text-4xl">You have no docs yet🧛🏿‍♂️. Create one to get started🏋🏿‍♀️.</h3>}
 
 
                 {creatingDoc ? (
                         <div className="ml-2 lg:ml-4">
                         <input className="bg-purple-100 placeholder-indigo-800 border border-transparent  focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent p-2 h-10 w-70 " type="text" onChange={handleChange} name="name" placeholder="name" autoComplete="false" />
+                            <br />
+
+                            <input className="my-2 bg-purple-100 placeholder-indigo-800 border border-transparent  focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent p-2 h-10 w-70 " type="text" onChange={handleChange} name="language" placeholder="language" autoComplete="false" />
                         <button className=" mx-5 bg-purple-600 hover:bg-purple-700 p-2 w-20  rounded shadow-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={handleSubmit}>Create</button>
                         <br />
-                        {isLoadingCreateDoc ? <div>Creating Doc...</div> : <div></div>}
+                            {isLoadingCreateDoc ? <div>Creating gist...</div> : <div></div>}
                     </div>
-
 
 
                 ) :

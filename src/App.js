@@ -1,4 +1,4 @@
-import TextEditor from "./TextEditor"
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,7 +17,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={login} />
           <Route path="/register" exact component={Register} />
-          <Route path="/document/:id" component={Editor} />
+          <Route path="/editor/:lang/:id" component={Editor} />
           <Route path="/dash" component={dash} />
         </Switch>
       </Router>

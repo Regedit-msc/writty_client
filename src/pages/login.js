@@ -51,7 +51,7 @@ const Login = () => {
 
     return (
         <div className="flex  flex-col space-y-4  items-center justify-center h-screen ">
-            <div> <p className="font-bold font-serif mb-20 text-4xl my-b-20 ">Writty🧑🏼‍🤝‍🧑🏼✍🏾</p></div>
+            <div> <p className="font-bold font-serif mb-20 text-4xl my-b-20 ">Live-Gists👩🏻‍💻</p></div>
             {error ? <div className="bg-red-500 text-white p-2 rounded"><p>{error}</p></div> : <div></div>}
             <p className="font-bold text-4xl my-b-20 uppercase"> Login</p>
 
