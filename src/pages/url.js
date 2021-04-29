@@ -1,1 +1,1 @@
-export const API_ENDPOINT = "https://writty.herokuapp.com"
+export const API_ENDPOINT = "http://localhost:3001"

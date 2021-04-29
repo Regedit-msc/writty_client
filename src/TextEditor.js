@@ -1,29 +1,49 @@
-import { useCallback, useEffect, useState } from "react"
-import Quill from "quill"
-import "quill/dist/quill.snow.css"
+import Editor from "@monaco-editor/react";
+import { useEffect, useState } from "react"
 import { io } from "socket.io-client"
-import { useParams, useHistory } from "react-router-dom"
 import { API_ENDPOINT } from "./pages/url"
-import "./styles.css"
-
-const SAVE_INTERVAL_MS = 2000
-const TOOLBAR_OPTIONS = [
-  [{ header: [1, 2, 3, 4, 5, 6, false] }],
-  [{ font: [] }],
-  [{ list: "ordered" }, { list: "bullet" }],
-  ["bold", "italic", "underline"],
-  [{ color: [] }, { background: [] }],
-  [{ script: "sub" }, { script: "super" }],
-  [{ align: [] }],
-  ["image", "blockquote", "code-block"],
-  ["clean"],
-]
-
-export default function TextEditor() {
-  let history = useHistory();
-  const { id: documentId } = useParams()
+import { useParams } from "react-router-dom"
+import { v4 as uuidV4 } from "uuid";
+function TextEditor() {
+  const { id: editorId } = useParams()
   const [socket, setSocket] = useState()
-  const [quill, setQuill] = useState()
+  const [theEditor, setTheEditor] = useState();
+  const [user, setUser] = useState("");
+  const [code, setCode] = useState("");
+  const [fileName, setFileName] = useState("script.js");
+  const files = {
+    "script.js": {
+      name: "script.js",
+      language: "javascript",
+      value: "////"
+    },
+    "style.css": {
+      name: "style.css",
+      language: "css",
+      value: "css"
+    },
+    "index.html": {
+      name: "index.html",
+      language: "html",
+      value: "html"
+    }
+  };
+
+
+
+  useEffect(() => {
+    const randID = uuidV4();
+    if (socket == null || theEditor == null) return
+
+    socket.once("load-document", document => {
+      console.log(document);
+    })
+
+    socket.emit("join-editor", editorId);
+
+    setUser(randID);
+  }, [socket, theEditor, editorId])
+
 
   useEffect(() => {
     const s = io(`${API_ENDPOINT}/doc`)
@@ -32,74 +52,64 @@ export default function TextEditor() {
     return () => {
       s.disconnect()
     }
-  }, [])
+  }, []);
+
+
+
 
   useEffect(() => {
-    if (socket == null || quill == null) return
+    if (socket == null || theEditor == null) return
 
-    socket.once("load-document", document => {
-      quill.setContents(document)
-      quill.enable()
+    socket.on("receive-changes", ({ event, theUser }) => {
+      console.log(theUser);
+      if (user === theUser) {
+        console.log("some changes", event);
+
+      } else {
+        theEditor.executeEdits("notuser", event.changes);
+        console.log("me", user);
+        console.log("you", theUser);
+      }
     })
+  }, [socket, theEditor])
 
-    socket.emit("get-document", documentId)
-  }, [socket, quill, documentId])
 
-  useEffect(() => {
-    if (socket == null || quill == null) return
+  function handleEditorDidMount(editor, monaco) {
+    setTheEditor(editor);
+  }
+  function handleChange(value, event) {
+    // Since event source cannot be determined this will fire every time
+    // Causing an unending loop
+    // I'm trying code mirror next 
+    setCode(value);
+    console.log(event);
+    console.log(theEditor.getValue());
+    // socket.emit("send-changes", { event, user });
+    console.log("reran change")
+    //
+  }
 
-    const interval = setInterval(() => {
-      socket.emit("save-document", quill.getContents())
-    }, SAVE_INTERVAL_MS)
+  function showValue() {
+    if (!theEditor) return;
+    // theEditor.setValue("Hello there");
+    // alert(theEditor.getValue());
+    alert(theEditor.getValue());
+  }
+  return (
+    <>
+      <button onClick={showValue}>Show value</button>
+      <Editor
+        value={code}
+        height="90vh"
+        defaultLanguage={files[fileName].language}
+        onChange={handleChange}
+        onMount={handleEditorDidMount}
+        
+      />
+    </>
 
-    return () => {
-      clearInterval(interval)
-    }
-  }, [socket, quill])
-
-  useEffect(() => {
-    if (socket == null || quill == null) return
-
-    const handler = delta => {
-      quill.updateContents(delta)
-    }
-
-    socket.on("receive-changes", handler)
-    socket.on("not_a_user", () => {
-      history.push("/");
-    })
-    return () => {
-      socket.off("receive-changes", handler)
-    }
-  }, [socket, quill])
-
-  useEffect(() => {
-    if (socket == null || quill == null) return
-
-    const handler = (delta, oldDelta, source) => {
-      if (source !== "user") return
-      socket.emit("send-changes", delta)
-    }
-    quill.on("text-change", handler)
-
-    return () => {
-      quill.off("text-change", handler)
-    }
-  }, [socket, quill])
-
-  const wrapperRef = useCallback(wrapper => {
-    if (wrapper == null) return
-
-    wrapper.innerHTML = ""
-    const editor = document.createElement("div")
-    wrapper.append(editor)
-    const q = new Quill(editor, {
-      theme: "snow",
-      modules: { toolbar: TOOLBAR_OPTIONS },
-    })
-    q.disable()
-    q.setText("Loading...")
-    setQuill(q)
-  }, [])
-  return <div className="container" ref={wrapperRef}></div>
+  );
 }
+
+
+export default TextEditor;
