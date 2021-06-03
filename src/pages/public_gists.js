@@ -22,9 +22,9 @@ const PublicGists = (props) => {
     const [docs, setDocs] = useState([]);
     useEffect(() => {
         fetch(API_ENDPOINT + "/public/docs").then(res => res.json()).then((response) => {
-            setDocs([...docs, ...response.message]);
+            setDocs(response.message);
         });
-    }, [docs]);
+    }, []);
     function viewTheDoc(id, language) {
         console.log(id);
         console.log(language);
