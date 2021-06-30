@@ -1,114 +1,137 @@
+
 import Editor from "@monaco-editor/react";
 import { useEffect, useState } from "react"
 import { io } from "socket.io-client"
 import { API_ENDPOINT } from "./pages/url"
 import { useParams } from "react-router-dom"
-import { v4 as uuidV4 } from "uuid";
-function TextEditor() {
-  const { id: editorId } = useParams()
+
+function TextEditor(props) {
+  const { id } = useParams()
   const [socket, setSocket] = useState()
   const [theEditor, setTheEditor] = useState();
-  const [user, setUser] = useState("");
   const [code, setCode] = useState("");
-  const [fileName, setFileName] = useState("script.js");
-  const files = {
-    "script.js": {
-      name: "script.js",
-      language: "javascript",
-      value: "////"
-    },
-    "style.css": {
-      name: "style.css",
-      language: "css",
-      value: "css"
-    },
-    "index.html": {
-      name: "index.html",
-      language: "html",
-      value: "html"
-    }
-  };
+  const [language, setLanguage] = useState("javascript");
+  const [username, setUsername] = useState();
+  const [loading, setLoading] = useState(true);
+  const [monaco, setMonaco] = useState()
 
+  const SAVE_INTERVAL_MS = 2000;
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+  }, [])
+  useEffect(() => {
+    const interval = setInterval(() => {
+      socket.emit("save-code", code);
+
+    }, SAVE_INTERVAL_MS)
+
+    return () => {
+      clearInterval(interval)
+
+    }
+  }, [code, socket])
+
+  useEffect(() => {
+    if (socket == null || theEditor == null) return
+    socket.on("receive-changes", ({ data, value, sender_id }) => {
+      if (sender_id !== username) {
+        setCode(value);
+      }
+    })
+  }, [socket, theEditor, username])
 
 
   useEffect(() => {
-    const randID = uuidV4();
-    if (socket == null || theEditor == null) return
 
-    socket.once("load-document", document => {
-      console.log(document);
+    const userToken = localStorage.getItem("user_token");
+    fetch(`${API_ENDPOINT}/details`, {
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        "Authorization": `Bearer ${userToken}`
+      },
+      method: "GET",
+    }).then(res => res.json()
+    ).then(jsonRes => {
+      console.log(jsonRes, "jsonRes");
+      if (jsonRes.success) {
+        setUsername(jsonRes.username);
+      } else {
+        props.history.push("/not_allowed");
+      }
     })
 
-    socket.emit("join-editor", editorId);
-
-    setUser(randID);
-  }, [socket, theEditor, editorId])
-
+  }, [props.history])
 
   useEffect(() => {
-    const s = io(`${API_ENDPOINT}/doc`)
+
+    if (socket == null || theEditor == null || username == null || monaco == null) return
+    console.log(id);
+    socket.emit("join-editor", { id, pubID: "none", type: "normal" });
+    theEditor.updateOptions({ readOnly: true });
+    socket.once("load-code", code => {
+      if (username === code.username) {
+        setCode(code.data);
+        theEditor.updateOptions({ readOnly: false });
+        setLanguage(code.language);
+        monaco.editor.setModelLanguage(theEditor.getModel(), code.language);
+        setLoading(false);
+
+      } else {
+        props.history.push("/not_allowed");
+      }
+
+    });
+    socket.once("code_does_not_exist", () => {
+      props.history.push("/code_not_found");
+    })
+  }, [socket, theEditor, id, username, props.history, monaco]);
+
+  useEffect(() => {
+    const s = io(`${API_ENDPOINT}/editor1`)
     setSocket(s)
 
     return () => {
       s.disconnect()
     }
   }, []);
-
-
-
-
-  useEffect(() => {
-    if (socket == null || theEditor == null) return
-
-    socket.on("receive-changes", ({ event, theUser }) => {
-      console.log(theUser);
-      if (user === theUser) {
-        console.log("some changes", event);
-
-      } else {
-        theEditor.executeEdits("notuser", event.changes);
-        console.log("me", user);
-        console.log("you", theUser);
-      }
-    })
-  }, [socket, theEditor])
-
-
   function handleEditorDidMount(editor, monaco) {
     setTheEditor(editor);
+    setMonaco(monaco);
   }
   function handleChange(value, event) {
-    // Since event source cannot be determined this will fire every time
-    // Causing an unending loop
-    // I'm trying code mirror next 
     setCode(value);
-    console.log(event);
-    console.log(theEditor.getValue());
-    // socket.emit("send-changes", { event, user });
-    console.log("reran change")
-    //
+    socket.emit("send-changes", { data: event, value: value, randID: username });
   }
+  if (loading) {
+    return <div className="loading">
+      <span>Loading your  gist ... 👩🏻‍🦯</span>
+    </div >
+  } else {
+    return (
+      <>
+        <Editor
+          value={code}
+          height="100vh"
+          defaultLanguage={language}
+          options={{
+            minimap: {
+              enabled: true
+            },
+            fontSize: 18,
+            wordWrap: "on",
+          }}
+          onChange={handleChange}
+          onMount={handleEditorDidMount}
+          theme="vs-dark"
+          loading="Preparing your code... 🥳"
+        />
+      </>
 
-  function showValue() {
-    if (!theEditor) return;
-    // theEditor.setValue("Hello there");
-    // alert(theEditor.getValue());
-    alert(theEditor.getValue());
+    );
   }
-  return (
-    <>
-      <button onClick={showValue}>Show value</button>
-      <Editor
-        value={code}
-        height="90vh"
-        defaultLanguage={files[fileName].language}
-        onChange={handleChange}
-        onMount={handleEditorDidMount}
-        
-      />
-    </>
-
-  );
 }
 
 
