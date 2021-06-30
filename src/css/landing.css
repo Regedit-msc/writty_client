@@ -209,6 +209,9 @@
         left: 1240px;
         top: 40px;
     }
+
+
+    
     .toggle-round {
         position: absolute;
         margin-left: -9999px;
@@ -319,3 +322,12 @@
       input.toggle-round1:checked + label:after {
         margin-left: 24px;
       }
+
+
+ @media only screen and (max-width: 1500px) {
+   .theme_switch {
+        position: absolute;
+        left: 1370px;
+        top: 40px;
+    }
+}
