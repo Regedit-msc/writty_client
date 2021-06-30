@@ -160,7 +160,122 @@
         font-weight: 500;
         color: #4F33F6;
     }
+.background_create_doc{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+   width: 100%;
+    height: 100%;
 
+background: rgba(26, 26, 26, 0.9);
+}
+.create_doc_input {
+    width: 265px;
+    font-size: 15px;
+    padding:10px 15px 10px 15px; 
+    outline: none;
+    color: #FFFFFF;
+    border: none;
+    background: #1A1A1A;
+    margin-bottom: 20px;
+border-radius: 10px;
+}
+
+
+.create_doc_dropdown{
+ width: 280px;
+    font-size: 15px;
+    padding:10px 15px 10px 15px; 
+    outline: none;
+    color: #FFFFFF;
+    border: none;
+    background: #1A1A1A;
+    margin-bottom: 20px;
+border-radius: 10px;
+}
+.create_doc_dropdown_light{
+     width: 280px;
+    font-size: 15px;
+    padding:10px 15px 10px 15px; 
+    outline: none;
+    color: #000;
+    border: none;
+    background: #f0f0f0;
+    margin-bottom: 20px;
+border-radius: 10px;
+}
+.create_doc_input_light {
+    width: 265px;
+    font-size: 15px;
+    padding:10px 15px 10px 15px; 
+    outline: none;
+    color: #000;
+    border: none;
+    background: #f0f0f0;
+    margin-bottom: 20px;
+border-radius: 10px;
+}
+
+
+.radio_buttons_doc{
+    display: flex;
+    /* flex-direction: row;
+    justify-content: space-between; */
+}
+.radio_buttons_doc input {
+    margin-left: 50px;
+}
+.create_button_div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+
+}
+.create_button_div_light {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+
+}
+.create_button_div_light button{
+    outline: none;
+    border: none;
+    color: white;
+    padding: 8px 20px 8px 20px;
+    background-color: #1F1F1F;
+    border-radius: 50px;
+}
+.create_button_div button{
+    outline: none;
+    border: none;
+    color: white;
+    padding: 8px 20px 8px 20px;
+    background-color: #3137DC;
+    border-radius: 50px;
+}
+.create_doc_bg{
+  
+    padding: 20px;
+width: 300px;
+height: 200px;
+background: #020202;
+box-shadow: 20px 20px 18px rgba(13, 13, 13, 0.6);
+border-radius: 12px;
+}
+
+
+.create_doc_bg_light{
+  
+    padding: 20px;
+width: 300px;
+height: 200px;
+background: #fcfcfc;
+box-shadow: 20px 20px 18px rgba(13, 13, 13, 0.6);
+border-radius: 12px;
+}
     .options {
         position: relative;
         top: 72px;

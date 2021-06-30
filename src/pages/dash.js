@@ -257,44 +257,20 @@ const Dash = (props) => {
     const ViewOr = theme === "light" ? ViewCodeLight : ViewCode;
     return (
         <>
+            {creatingDoc ? <div className="background_create_doc"></div> : ""}
+
 
             <SideBar
                 page="gists"
             />
+            {isLoadingCreateDoc ? <div>Creating gist...</div> : <div></div>}
             <div id="main">
                 <img src={PadLock} id="padlock" className="point" alt="padlock" />
                 <img src={Jorja} id="profile_pic" className="point" alt="profile_pic" />
                 <h3 id="greeting">Noob coder {username ?? ""}</h3>
                 <h5 id="welcome">Welcome to your dashboard</h5>
                 <Link id={theme === "light" ? "create_button_light" : "create_button"} to="/dash" onClick={createDoc} className="point" >Create a gist</Link>
-                {creatingDoc ? (
-                    <div className="">
 
-                        <input className="" type="text" onChange={handleChange} name="name" placeholder="name" autoComplete="false" />
-                        <br />
-
-                        <input className="" type="text" onChange={handleChange} name="language" placeholder="language" autoComplete="false" />
-                        <br />
-                        <div onChange={handleChange}>
-                            <input type="radio" value={true} name="private" checked /> Private
-                            <br />
-                            <input type="radio" value={false} name="private" /> Public
-                            <br />
-                        </div>
-                        <button className="" onClick={handleSubmit}>Create</button>
-                        <br />
-                        {isLoadingCreateDoc ? <div>Creating gist...</div> : <div></div>}
-                    </div>
-
-
-                ) :
-                    <div>
-
-                    </div>
-
-
-
-                }
                 <p id="your_codes">Your Codes</p>
 
                 <div id="projects">
@@ -329,22 +305,32 @@ const Dash = (props) => {
                     }
 
                     {creatingDoc ? (
-                        <div className="">
+                        <div className={theme === "light" ? "create_doc_bg_light" : "create_doc_bg"}>
 
-                            <input className="" type="text" onChange={handleChange} name="name" placeholder="name" autoComplete="false" />
+                            <input type="text" className={theme === "light" ? "create_doc_input_light" : "create_doc_input"} onChange={handleChange} name="name" placeholder="Name" autoComplete="false" />
                             <br />
+                            <select className={theme === "light" ? "create_doc_dropdown_light" : "create_doc_dropdown"} name="language" placeholder="Language" onChange={handleChange} >
+                                <option value="javascript">JavaScript</option>
+                                <option value="css">CSS</option>
+                                <option value="python">Python</option>
+                                <option value="xml">HTML</option>
+                                <option value="dart">Dart</option>
+                                <option value="java">JAVA</option>
+                                <option value="javascript">JSON</option>
+                                <option value="javascript">JSX</option>
+                            </select>
+                            <br />
+                            <div className="radio_buttons_doc" onChange={handleChange}>
+                                <input type="radio" value={true} name="private" checked />Private
+                                <input type="radio" value={false} name="private" />Public
 
-                            <input className="" type="text" onChange={handleChange} name="language" placeholder="language" autoComplete="false" />
-                            <br />
-                            <div onChange={handleChange}>
-                                <input type="radio" value={true} name="private" checked /> Private
-                                <br />
-                                <input type="radio" value={false} name="private" /> Public
-                                <br />
                             </div>
-                            <button className="" onClick={handleSubmit}>Create</button>
+                            <div className={theme === "light" ? "create_button_div_light" : "create_button_div"}>
+                                <button onClick={handleSubmit}>Create</button>
+                            </div>
+
                             <br />
-                            {isLoadingCreateDoc ? <div>Creating gist...</div> : <div></div>}
+
                         </div>
 
 
