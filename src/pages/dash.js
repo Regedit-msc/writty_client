@@ -23,7 +23,7 @@ import { themeContext } from "../App";
 
 const Dash = (props) => {
     const { theme } = useContext(themeContext);
-    const [setIsLoading] = useState(true);
+    // const [setIsLoading] = useState(true);
     const [isLoadingCreateDoc, setIsLoadingCreateDoc] = useState(false);
     const [newDocName, setNewDocName] = useState({
         name: '',
@@ -315,12 +315,13 @@ const Dash = (props) => {
                                     <div className={theme === "light" ? "big_light" : "big"}><Link className="point" to={`/edit/${_id}`}>{name.slice(0, 6).toUpperCase() + "..."}</Link></div>
 
                                     <div className="options">
-                                        <img src={theme === "light" ? DeleteLight : Delete} alt="Delete code" className="point" onClick={() => handleDelete(_id)} alt="delete_code" />
-                                        <img src={theme === "light" ? ShareLight : Share} alt="Share code" className="point" onClick={() => share(publicLink)} alt="share_code" />
+                                        <img src={theme === "light" ? DeleteLight : Delete} alt="Delete code" className="point" onClick={() => handleDelete(_id)} />
+                                        <img src={theme === "light" ? ShareLight : Share} alt="Share code" className="point" onClick={() => share(publicLink)} />
                                         {/* <img src={ViewCode} alt="View code" className="point" /> */}
-                                        <img src={priv ? PrivateOr : ViewOr} alt="Private code" className="point" onClick={() => handleVisibility(_id)} alt="visibility" />
+                                        <img src={priv ? PrivateOr : ViewOr} alt="Private code" className="point" onClick={() => handleVisibility(_id)}
+                                        />
                                         {/* <img src={Edit} alt="Edit code" className="point" /> */}
-                                        <img src={theme === "light" ? CollabCodeLight : CollabCode} alt="Collab code" className="point" onClick={() => initiateCollab(_id)} alt="collaborate" />
+                                        <img src={theme === "light" ? CollabCodeLight : CollabCode} alt="Collab code" className="point" onClick={() => initiateCollab(_id)} />
                                     </div>
                                 </div>
                             )
