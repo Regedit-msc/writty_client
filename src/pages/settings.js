@@ -35,7 +35,7 @@ const Settings = () => {
             <div id="main">
                 <h4 id="settings">Account Settings</h4>
                 <div>
-                    <img src={Jorja} id="profile_pic1" />
+                    <img src={Jorja} id="profile_pic1" alt="user_image" />
                     <Link id={theme === "light" ? "change_button_light" : "change_button"}>Change</Link>
                 </div>
                 <div>

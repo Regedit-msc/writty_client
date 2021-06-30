@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import "../css/signup.css";
 import { themeContext } from "../App";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 const Signup = () => {
     const { theme } = useContext(themeContext);
