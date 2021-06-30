@@ -223,16 +223,30 @@
   margin-top: 70px;
 }
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
-    #view {
+    .view {
         position: absolute;
-        /*width: 135.8px;*/
+        width: 242.6px;
         height: 29.2px;
         left: 40px;
-        top: 2em;
+        top: 20px;
 
-        font-size: 24px;
-        line-height: 32px;
+        font-size: 18px;
+        line-height:24.5px;
         color: #BFBFBF;
+        font-style: normal;
+        font-weight: 400;
+    }
+
+     .view_light {
+        position: absolute;
+        width: 242.6px;
+        height: 29.2px;
+        left: 40px;
+        top: 20px;
+
+        font-size: 18px;
+        line-height:24.5px;
+        color: #221e1e;
         font-style: normal;
         font-weight: 400;
     }
