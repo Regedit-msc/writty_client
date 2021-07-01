@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
 } from "react-router-dom"
 import Landing from "./pages/landing"
 import UserContextProvider from "./contexts/userContext"
@@ -23,11 +22,15 @@ import { withGetScreen } from 'react-getscreen'
 import Mobile from "./pages/mobile"
 
 
+
 export const themeContext = createContext();
 function App(props) {
-
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
   const [theme, setTheme] = useState('');
-
+  const [mobile, setMobile] = useState();
   function setTheTheme(value) {
     setTheme(value);
   }
@@ -54,30 +57,45 @@ function App(props) {
     }
   }, [])
   useEffect(() => {
-    console.log(props.isMobile());
-  }, [])
+    if (props.isMobile()) {
+      setMobile(true);
+    } else {
+      setMobile(false);
+    }
+  }, [props, windowSize])
 
 
+  window.addEventListener("resize", handleResize);
+  function handleResize() {
+    setWindowSize({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  }
+
+  useEffect(() => {
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   return (
     <themeContext.Provider value={{ setTheTheme, theme }}  >
       <UserContextProvider>
         <Router>
           <Switch>
-            <Route exact path="/" component={props.isMobile() === false ? Landing : Mobile} />
-            <Route exact path="/home" component={props.isMobile() === false ? Home : Mobile} />
-            <Route exact path="/register" component={props.isMobile() === false ? Register : Mobile} />
+            <Route exact path="/" component={mobile ? Mobile : Landing} />
+            <Route exact path="/home" component={mobile ? Mobile : Home} />
+            <Route exact path="/register" component={mobile ? Mobile : Register} />
             {/* <Route path="/editor/:lang/:id" component={Editor} /> */}
-            <Route exact path="/dash" component={props.isMobile() === false ? dash : Mobile} />
-            <Route exact path="/gists" component={props.isMobile() === false ? PublicGists : Mobile} />
-            <Route exact path="/login" component={props.isMobile() === false ? Login : Mobile} />
-            <Route exact path="/signup" component={props.isMobile() === false ? Signup : Mobile} />
+            <Route exact path="/dash" component={mobile ? Mobile : dash} />
+            <Route exact path="/gists" component={mobile ? Mobile : PublicGists} />
+            <Route exact path="/login" component={mobile ? Mobile : Login} />
+            <Route exact path="/signup" component={mobile ? Mobile : Signup} />
 
             {/* <Route path="/public/editor/:lang/:id" component={NoEditEditor} /> */}
-            <Route exact path="/public/editor/:id" component={props.isMobile() === false ? PublicEditor : Mobile} />
-            <Route exact path="/edit/:id" component={props.isMobile() === false ? TextEditor : Mobile} />
-            <Route exact path="/settings" component={props.isMobile() === false ? Settings : Mobile} />
-            <Route exact path="/editor/collab/:id" component={props.isMobile() === false ? CollabEditor : Mobile} />
-            <Route exact component={props.isMobile() === false ? NotFound : Mobile} />
+            <Route exact path="/public/editor/:id" component={mobile ? Mobile : PublicEditor} />
+            <Route exact path="/edit/:id" component={mobile ? Mobile : TextEditor} />
+            <Route exact path="/settings" component={mobile ? Mobile : Settings} />
+            <Route exact path="/editor/collab/:id" component={mobile ? Mobile : CollabEditor} />
+            <Route exact component={mobile ? Mobile : NotFound} />
 
           </Switch>
         </Router>
