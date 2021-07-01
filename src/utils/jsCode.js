@@ -1,38 +1,15 @@
-export const jsCode = `
-class EventEmmitter {
-     constructor(){
-         this.eventSubbedTo = [];
-         this.functionToRunForEvent=[];
-     }
+export const jsCode = `/// Feel free to play with this editor.
 
+const greeting = "Welcome to live gists"
 
-   subscribe(eventName, callback){
-       if(this.eventSubbedTo.indexOf(eventName) === -1){
-           this.eventSubbedTo.push(eventName);
-           this.functionToRunForEvent.push(callback);
+/// Try this.
 
-       } else {
-           console.log("The event already exists");
-       }
-   }
-   emit(eventName){
-       if(this.eventSubbedTo.indexOf(eventName) !== -1){
-           this.functionToRunForEvent[this.eventSubbedTo.indexOf(eventName)]();
-       } else {
-           console.log("Please subscribe to the event");
-       }
-   }
+const funTask = " Open this editor in another browser to try out collaborative editing."
 
-   unsubscribe(eventName){
-       const indexOfEvent = this.eventSubbedTo.indexOf(eventName);
-      if(indexOfEvent !== -1){
-          this.functionToRunForEvent = this.functionToRunForEvent.filter((_, index) => index !== indexOfEvent);
-          this.eventSubbedTo = this.eventSubbedTo.filter((event, _) => event !== eventName);
-          console.log("unsubscribed from event " + eventName);
-      } else {
-        console.log("You cannot unsubscribe from an event that has not been subscribed to");
-      }
-   }
+/// Running code😏
 
-}
-                    `
+console.log(greeting);
+console.log(funTask);
+
+/// Don't forget to leave suggestions and share🍕.
+`
