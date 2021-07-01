@@ -2,6 +2,21 @@ import { useState, useEffect, useRef, useContext } from "react";
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import { themeContext } from "../App";
 import Code from "../images/code.svg";
+import 'codemirror/mode/xml/xml'
+import 'codemirror/mode/javascript/javascript'
+import 'codemirror/mode/css/css'
+import "codemirror/mode/dart/dart"
+import "codemirror/mode/python/python"
+import "codemirror/mode/cmake/cmake"
+import "codemirror/mode/dockerfile/dockerfile"
+import "codemirror/mode/django/django"
+import "codemirror/mode/vb/vb"
+import "codemirror/mode/julia/julia"
+import "codemirror/mode/go/go"
+import "codemirror/mode/haml/haml"
+import "codemirror/mode/jsx/jsx"
+import "codemirror/mode/pug/pug"
+import "codemirror/mode/yaml/yaml"
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/material-ocean.css';
 import 'codemirror/theme/elegant.css';
