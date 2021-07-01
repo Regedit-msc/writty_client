@@ -3,11 +3,13 @@ import "../css/signup.css";
 import { themeContext } from "../App";
 import { useContext, useState } from "react";
 import { API_ENDPOINT } from "./url";
-
+import InfoBar from "../components/info";
 const Signup = ({ history }) => {
     const { theme } = useContext(themeContext);
-
-    // const { setUserToken } = useContext(userContext);
+    const [info, setInfo] = useState();
+    const [showInfo, setShowInfo] = useState(false);
+    const [err, setErr] = useState();
+    const [showErr, setShowErr] = useState(false);
     const [formState, setFormState] = useState({
         username: '',
         password: '',
@@ -41,25 +43,35 @@ const Signup = ({ history }) => {
             console.log(jsonRes)
             if (jsonRes.success) {
                 console.log(jsonRes)
-                // setUserToken(jsonRes.message);
-                // history.push('/dash');
-                // setInfo("You are all set proceed to login 🥳");
+                setInfo("You are all set proceed to login.");
+                setShowInfo(true);
                 setTimeout(() => {
-                    history.push("/login")
-                }, 3000)
+                    setInfo("");
+                    setShowInfo(false);
+                }, 5000)
+
 
             } else {
-                // setError(jsonRes.message + "😓");
-                // setTimeout(() => {
-                //     setError(null);
-                // }, 2000)
+                setErr(jsonRes.message);
+                setShowErr(true);
+                setTimeout(() => {
+                    setErr("");
+                    setShowErr(false);
+                }, 3000)
             }
         })
     }
 
     return (
         <>
-
+            {showErr ? <InfoBar
+                color="red"
+                text={err}
+            /> : ""}
+            {showInfo ? <InfoBar
+                color="green"
+                text={info}
+            /> : ""}
             <h3 id={theme === "light" ? "form_head_signup_light" : "form_head_signup"}>SIGNUP</h3>
             <div id={theme === "light" ? "form_signup_light" : "form_signup"}>
                 <input type="email" id="Email_signup" name="email" placeholder="Email" onChange={handleChange} ></input>

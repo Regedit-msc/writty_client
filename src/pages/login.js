@@ -4,9 +4,11 @@ import { API_ENDPOINT } from "./url";
 import { themeContext } from "../App";
 import { useContext, useState } from "react";
 import { userContext } from "../contexts/userContext";
+import InfoBar from "../components/info";
 
 const Login = ({ history }) => {
-
+    const [err, setErr] = useState();
+    const [showErr, setShowErr] = useState(false);
     const { theme } = useContext(themeContext);
     const { setUserToken } = useContext(userContext);
     const [formState, setFormState] = useState({
@@ -38,23 +40,26 @@ const Login = ({ history }) => {
             console.log(jsonRes)
             if (jsonRes.success) {
                 setUserToken(jsonRes.message);
+
+
                 history.push('/dash');
-                // setInfo("You are all set proceed to login 🥳");
-                // setTimeout(() => {
-                //     setInfo(null);
-                // }, 5000)
 
             } else {
-                // setError(jsonRes.message + "😓");
-                // setTimeout(() => {
-                //     setError(null);
-                // }, 2000)
+                setErr(jsonRes.message);
+                setShowErr(true);
+                setTimeout(() => {
+                    setErr("");
+                    setShowErr(false);
+                }, 3000)
             }
         })
     }
     return (
         <>
-
+            {showErr ? <InfoBar
+                color="red"
+                text={err}
+            /> : ""}
             <h3 id={theme === "light" ? "form_head_login_light" : "form_head_login"}>LOGIN</h3>
             <div id={theme === "light" ? "form_login_light" : "form_login"}>
                 <input type="text" id="Username" name="username" placeholder="Username" onChange={handleChange} />

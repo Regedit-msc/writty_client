@@ -161,6 +161,7 @@
         color: #4F33F6;
     }
 .background_create_doc{
+     z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -257,7 +258,7 @@ border-radius: 10px;
     border-radius: 50px;
 }
 .create_doc_bg{
-  
+  z-index: 1;
     padding: 20px;
 width: 300px;
 height: 200px;
@@ -268,7 +269,7 @@ border-radius: 12px;
 
 
 .create_doc_bg_light{
-  
+  z-index: 1;
     padding: 20px;
 width: 300px;
 height: 200px;

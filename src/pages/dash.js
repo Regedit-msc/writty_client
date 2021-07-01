@@ -18,6 +18,7 @@ import PrivateCodeLight from "../images/icon-private_code_light.png";
 import "../css/dashboard.css";
 import SideBar from "../components/sidebar";
 import { themeContext } from "../App";
+import InfoBar from "../components/info";
 
 
 
@@ -25,6 +26,10 @@ const Dash = (props) => {
     const { theme } = useContext(themeContext);
     // const [setIsLoading] = useState(true);
     const [isLoadingCreateDoc, setIsLoadingCreateDoc] = useState(false);
+    const [info, setInfo] = useState();
+    const [showInfo, setShowInfo] = useState(false);
+    const [err, setErr] = useState();
+    const [showErr, setShowErr] = useState(false);
     const [newDocName, setNewDocName] = useState({
         name: '',
         _id: '',
@@ -51,7 +56,12 @@ const Dash = (props) => {
                 setDocs(jsonRes.message);
                 // setIsLoading(false);
             } else {
-                /// show error 
+                setErr("Unable to fetch codes✋🏻.");
+                setShowErr(true);
+                setTimeout(() => {
+                    setErr("");
+                    setShowErr(false);
+                }, 3000)
             }
         })
     }, []);
@@ -102,8 +112,19 @@ const Dash = (props) => {
                 setCreatingDoc(false);
                 setDocs([...docs, newDocName]);
                 setIsLoadingCreateDoc(false);
+                setInfo("Successfully created playground✋🏻.");
+                setShowInfo(true);
+                setTimeout(() => {
+                    setInfo("");
+                    setShowInfo(false);
+                }, 3000)
             } else {
-                /// show error 
+                setErr("Unable to create playground✋🏻.");
+                setShowErr(true);
+                setTimeout(() => {
+                    setErr("");
+                    setShowErr(false);
+                }, 3000)
             }
         })
     }
@@ -137,15 +158,19 @@ const Dash = (props) => {
                     }
                 }
                 setDocs(newDocArray);
-                // setInfo(jsonRes.message + "🦑");
-                // setTimeout(() => {
-                //     setInfo(null);
-                // }, 5000)
+                setInfo("Updated code visibility✋🏻.");
+                setShowInfo(true);
+                setTimeout(() => {
+                    setInfo("");
+                    setShowInfo(false);
+                }, 3000)
             } else {
-                // setError(jsonRes.message + "🦥");
-                // setTimeout(() => {
-                //     setError(null);
-                // }, 2000)
+                setErr("Unable to update visibility✋🏻.");
+                setShowErr(true);
+                setTimeout(() => {
+                    setErr("");
+                    setShowErr(false);
+                }, 3000)
             }
         })
     }
@@ -164,15 +189,19 @@ const Dash = (props) => {
             if (jsonRes.success) {
                 const newDocs = docs.filter((doc) => doc._id !== id);
                 setDocs(newDocs);
-                // setInfo(jsonRes.message + "🦑");
-                // setTimeout(() => {
-                //     setInfo(null);
-                // }, 5000)
+                setInfo("Successfully cleared code✋🏻.");
+                setShowInfo(true);
+                setTimeout(() => {
+                    setInfo("");
+                    setShowInfo(false);
+                }, 3000)
             } else {
-                // setError(jsonRes.message + "🦥");
-                // setTimeout(() => {
-                //     setError(null);
-                // }, 2000)
+                setErr("Unable to delete code✋🏻.");
+                setShowErr(true);
+                setTimeout(() => {
+                    setErr("");
+                    setShowErr(false);
+                }, 3000)
             }
         })
     }
@@ -221,15 +250,19 @@ const Dash = (props) => {
                     }
                 }
                 setDocs(newDocArray);
-                // setInfo(jsonRes.message + "🦑");
-                // setTimeout(() => {
-                //     setInfo(null);
-                // }, 5000)
+                setInfo("Collab link copied to clipboard✋🏻.");
+                setShowInfo(true);
+                setTimeout(() => {
+                    setInfo("");
+                    setShowInfo(false);
+                }, 3000)
             } else {
-                // setError(jsonRes.message + "🦥");
-                // setTimeout(() => {
-                //     setError(null);
-                // }, 2000)
+                setErr("Collab link not created to clipboard✋🏻.");
+                setShowErr(true);
+                setTimeout(() => {
+                    setErr("");
+                    setShowErr(false);
+                }, 3000)
             }
         })
 
@@ -247,10 +280,13 @@ const Dash = (props) => {
         input.select();
         document.execCommand('copy');
         input.parentNode.removeChild(input);
-        // setInfo('Share link copied to clipboard✋🏻.\n The link generated will only allow viewing the code and not editing it.');
-        // setTimeout(() => {
-        //     setInfo(null);
-        // }, 5000)
+
+        setInfo("Share link copied to clipboard✋🏻.");
+        setShowInfo(true);
+        setTimeout(() => {
+            setInfo("");
+            setShowInfo(false);
+        }, 3000)
     }
 
     const PrivateOr = theme === "light" ? PrivateCodeLight : PrivateCode;
@@ -258,7 +294,14 @@ const Dash = (props) => {
     return (
         <>
             {creatingDoc ? <div className="background_create_doc"></div> : ""}
-
+            {showErr ? <InfoBar
+                color="red"
+                text={err}
+            /> : ""}
+            {showInfo ? <InfoBar
+                color="blue"
+                text={info}
+            /> : ""}
 
             <SideBar
                 page="gists"
