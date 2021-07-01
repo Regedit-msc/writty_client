@@ -95,6 +95,7 @@ function App(props) {
             <Route exact path="/edit/:id" component={mobile ? Mobile : TextEditor} />
             <Route exact path="/settings" component={mobile ? Mobile : Settings} />
             <Route exact path="/editor/collab/:id" component={mobile ? Mobile : CollabEditor} />
+            <Route exact path="/mobile" component={Mobile} />
             <Route exact component={mobile ? Mobile : NotFound} />
 
           </Switch>
