@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect
 } from "react-router-dom"
 import Landing from "./pages/landing"
 import UserContextProvider from "./contexts/userContext"
@@ -18,11 +19,12 @@ import Settings from "./pages/settings"
 import { useEffect, createContext, useState } from "react"
 import Login from "./pages/login"
 import Signup from "./pages/signup"
-
+import { withGetScreen } from 'react-getscreen'
+import Mobile from "./pages/mobile"
 
 
 export const themeContext = createContext();
-function App() {
+function App(props) {
 
   const [theme, setTheme] = useState('');
 
@@ -51,7 +53,9 @@ function App() {
         break;
     }
   }, [])
-
+  useEffect(() => {
+    console.log(props.isMobile());
+  }, [])
 
 
   return (
@@ -59,21 +63,21 @@ function App() {
       <UserContextProvider>
         <Router>
           <Switch>
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/home" component={Home} />
-            <Route exact path="/register" component={Register} />
+            <Route exact path="/" component={props.isMobile() === false ? Landing : Mobile} />
+            <Route exact path="/home" component={props.isMobile() === false ? Home : Mobile} />
+            <Route exact path="/register" component={props.isMobile() === false ? Register : Mobile} />
             {/* <Route path="/editor/:lang/:id" component={Editor} /> */}
-            <Route exact path="/dash" component={dash} />
-            <Route exact path="/gists" component={PublicGists} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={Signup} />
+            <Route exact path="/dash" component={props.isMobile() === false ? dash : Mobile} />
+            <Route exact path="/gists" component={props.isMobile() === false ? PublicGists : Mobile} />
+            <Route exact path="/login" component={props.isMobile() === false ? Login : Mobile} />
+            <Route exact path="/signup" component={props.isMobile() === false ? Signup : Mobile} />
 
             {/* <Route path="/public/editor/:lang/:id" component={NoEditEditor} /> */}
-            <Route exact path="/public/editor/:id" component={PublicEditor} />
-            <Route exact path="/edit/:id" component={TextEditor} />
-            <Route exact path="/settings" component={Settings} />
-            <Route exact path="/editor/collab/:id" component={CollabEditor} />
-            <Route exact component={NotFound} />
+            <Route exact path="/public/editor/:id" component={props.isMobile() === false ? PublicEditor : Mobile} />
+            <Route exact path="/edit/:id" component={props.isMobile() === false ? TextEditor : Mobile} />
+            <Route exact path="/settings" component={props.isMobile() === false ? Settings : Mobile} />
+            <Route exact path="/editor/collab/:id" component={props.isMobile() === false ? CollabEditor : Mobile} />
+            <Route exact component={props.isMobile() === false ? NotFound : Mobile} />
 
           </Switch>
         </Router>
@@ -85,4 +89,4 @@ function App() {
   )
 }
 
-export default App
+export default withGetScreen(App)

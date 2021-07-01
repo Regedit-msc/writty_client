@@ -1,0 +1,12 @@
+.info_mobile{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info_mobile_text{
+    margin-top: 20px;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+}

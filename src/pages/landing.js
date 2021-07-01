@@ -77,8 +77,9 @@ const Landing = () => {
     }
     return (
         <>
-            <Link to="/gists"><p className={theme === "light" ? "view_light" : "view"}>View public gists</p></Link>
-            <h1 id={theme === "light" ? "big_light" : "big"}>Live<span style={{ color: theme === "light" ? "black" : "#3137DC" }}>-</span>Gists</h1>
+            <Link to="/gists"><p className={theme === "light" ? "view_light" : "view"}>View public gists  <span style={{ color: theme === "light" ? "red" : "#3137DC" }}>BETA</span></p></Link>
+
+            <h1 id={theme === "light" ? "big_light" : "big"}>Live<span style={{ color: theme === "light" ? "black" : "#3137DC" }}>-</span>Gists  </h1>
             <div className="theme_switch" >
                 <input id="toggle1" onChange={handleTheme} className={theme === "light" ? "toggle-round1" : "toggle-round"} name="toggle" type="checkbox" ref={checkBox} />
                 <label htmlFor="toggle1"></label>
