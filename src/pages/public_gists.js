@@ -37,19 +37,17 @@ import 'codemirror/theme/mbo.css';
 import 'codemirror/theme/mdn-like.css';
 import 'codemirror/theme/isotope.css';
 import 'codemirror/theme/liquibyte.css';
-import { CODEMIRROR_THEMES } from "../utils/codeMirror_themes";
 import "../css/not_auth_public_gists.css"
 import { useTitle } from "../utils/title";
+import Search from "../images/search-button.svg";
 
 const { API_ENDPOINT } = require("./url");
-function generateTheme() {
-    return CODEMIRROR_THEMES[Math.floor(Math.random() * CODEMIRROR_THEMES.length)];
-}
 
 const PublicGists = () => {
     const { theme } = useContext(themeContext);
     let init = localStorage.getItem("initPage") ?? 1;
-    useTitle(`Public gists page ${init}.`)
+    useTitle(`Public gists page ${init}.`);
+    const inputRef = useRef()
     const [initialPage, setInitPage] = useState(1);
     const [pagePrev, setPagePrev] = useState();
     const [pageNext, setPageNext] = useState()
@@ -68,17 +66,66 @@ const PublicGists = () => {
 
 
     function previous() {
+        setDocs([])
+        setPageNext(null)
+        setPagePrev(null)
         localStorage.setItem("initPage", pagePrev);
         setInitPage(pagePrev);
     }
 
     function next() {
+        setDocs([])
+        setPageNext(null)
+        setPagePrev(null)
         localStorage.setItem("initPage", pageNext);
         setInitPage(pageNext);
     }
+
+    const debounce = function (fn, d) {
+        let timer;
+        return function () {
+            let context = this, args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                fn.apply(context, args);
+            }, d)
+        }
+    }
+
+    useEffect(() => {
+        inputRef.current = debounce(searchByWordOrLetters, 1000);
+    }, []);
+
+
+    function searchByWordOrLetters(v) {
+        setDocs([])
+        setPageNext(null)
+        setPagePrev(null)
+        fetch(API_ENDPOINT + `/search/docs?wol=${v}`).then(res => res.json()).then((response) => {
+            setDocs(response.message);
+            setPageNext(null);
+            setPagePrev(null);
+
+        });
+    }
+    const handleChange = (event) => {
+        const input = event.target.value;
+        if (event.target.value === "") {
+            setDocs([])
+            setPageNext(null)
+            setPagePrev(null)
+            return setInitPage(localStorage.getItem("initPage"))
+        }
+        inputRef.current(input);
+    };
     const newUI =
         <>
+
             <p className={theme === "light" ? "big2_light" : "big2"}>PUBLIC GISTS.</p>
+            <div className={theme === "light" ? "search_wrapper_light" : "search_wrapper"}>
+                <button> <img className="search-icon" src={Search} alt="search" /> </button>
+                <input className="search" type="search" name="search" placeholder="Search by name" onChange={handleChange} ref={inputRef} />
+            </div>
             <div className="public_editors">
                 {(docs && docs.length > 0) ? docs.map((doc, index, _) =>
                     <div key={doc._id}>
@@ -96,11 +143,9 @@ const PublicGists = () => {
                                     lineWrapping: true,
                                     lint: true,
                                     mode: doc.language === "html" ? "xml" : doc.language,
-                                    theme: generateTheme(),
+                                    theme: doc.theme ?? "mdn-like",
                                     lineNumbers: false,
                                     scrollbarStyle: "null"
-
-
                                 }}
                             />
                         </div>
