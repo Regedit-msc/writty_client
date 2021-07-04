@@ -316,6 +316,42 @@ const Dash = (props) => {
                 <Link id={theme === "light" ? "create_button_light" : "create_button"} to="/dash" onClick={createDoc} className="point" >Create a gist</Link>
 
                 <p id="your_codes">Your Codes</p>
+                {creatingDoc ? (
+                    <div className={theme === "light" ? "create_doc_bg_light" : "create_doc_bg"}>
+
+                        <input type="text" className={theme === "light" ? "create_doc_input_light" : "create_doc_input"} onChange={handleChange} name="name" placeholder="Name" autoComplete="false" />
+                        <br />
+                        <select className={theme === "light" ? "create_doc_dropdown_light" : "create_doc_dropdown"} name="language" placeholder="Language" onChange={handleChange} >
+                            <option value="javascript">JavaScript</option>
+                            <option value="css">CSS</option>
+                            <option value="python">Python</option>
+                            <option value="xml">HTML</option>
+                            <option value="dart">Dart</option>
+                            <option value="java">JAVA</option>
+                            <option value="javascript">JSON</option>
+                            <option value="javascript">JSX</option>
+                        </select>
+                        <br />
+                        <div className="radio_buttons_doc" onChange={handleChange}>
+                            <input type="radio" value={true} name="private" checked />Private
+                            <input type="radio" value={false} name="private" />Public
+
+                        </div>
+                        <div className={theme === "light" ? "create_button_div_light" : "create_button_div"}>
+                            <button onClick={handleSubmit}>Create</button>
+                        </div>
+
+                        <br />
+
+                    </div>
+
+
+                ) :
+                    <div>
+
+                    </div>
+
+                }
 
                 <div id="projects">
 
@@ -348,42 +384,7 @@ const Dash = (props) => {
                         })
                     }
 
-                    {creatingDoc ? (
-                        <div className={theme === "light" ? "create_doc_bg_light" : "create_doc_bg"}>
 
-                            <input type="text" className={theme === "light" ? "create_doc_input_light" : "create_doc_input"} onChange={handleChange} name="name" placeholder="Name" autoComplete="false" />
-                            <br />
-                            <select className={theme === "light" ? "create_doc_dropdown_light" : "create_doc_dropdown"} name="language" placeholder="Language" onChange={handleChange} >
-                                <option value="javascript">JavaScript</option>
-                                <option value="css">CSS</option>
-                                <option value="python">Python</option>
-                                <option value="xml">HTML</option>
-                                <option value="dart">Dart</option>
-                                <option value="java">JAVA</option>
-                                <option value="javascript">JSON</option>
-                                <option value="javascript">JSX</option>
-                            </select>
-                            <br />
-                            <div className="radio_buttons_doc" onChange={handleChange}>
-                                <input type="radio" value={true} name="private" checked />Private
-                                <input type="radio" value={false} name="private" />Public
-
-                            </div>
-                            <div className={theme === "light" ? "create_button_div_light" : "create_button_div"}>
-                                <button onClick={handleSubmit}>Create</button>
-                            </div>
-
-                            <br />
-
-                        </div>
-
-
-                    ) :
-                        <div>
-
-                        </div>
-
-                    }
 
 
                 </div>

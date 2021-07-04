@@ -93,7 +93,7 @@ const PublicGists = () => {
     }
 
     useEffect(() => {
-        inputRef.current = debounce(searchByWordOrLetters, 1000);
+        inputRef.current = debounce(searchByWordOrLetters, 500);
     }, []);
 
 
@@ -101,6 +101,7 @@ const PublicGists = () => {
         setDocs([])
         setPageNext(null)
         setPagePrev(null)
+
         fetch(API_ENDPOINT + `/search/docs?wol=${v}`).then(res => res.json()).then((response) => {
             setDocs(response.message);
             setPageNext(null);
@@ -158,7 +159,7 @@ const PublicGists = () => {
 
 
             </div>
-            {pagePrev ? <button onClick={previous}>Previous</button> : ""} {pageNext ? <button onClick={next}>Next</button> : ""}
+            {pagePrev ? <button className={theme === "light" ? "prev_next_light" : "prev_next"} onClick={previous}>Previous</button> : ""} {pageNext ? <button className={theme === "light" ? "prev_next_light" : "prev_next"} onClick={next}>Next</button> : ""}
         </>
 
 
