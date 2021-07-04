@@ -161,15 +161,15 @@
         color: #4F33F6;
     }
 .background_create_doc{
-     z-index: 1;
+    z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
-   width: 100%;
+    width: 100%;
     height: 100%;
 
-background: rgba(26, 26, 26, 0.9);
+    background: rgba(26, 26, 26, 0.9);
 }
 .create_doc_input {
     width: 265px;
@@ -180,12 +180,12 @@ background: rgba(26, 26, 26, 0.9);
     border: none;
     background: #1A1A1A;
     margin-bottom: 20px;
-border-radius: 10px;
+    border-radius: 10px;
 }
 
 
 .create_doc_dropdown{
- width: 280px;
+    width: 280px;
     font-size: 15px;
     padding:10px 15px 10px 15px; 
     outline: none;
@@ -193,10 +193,10 @@ border-radius: 10px;
     border: none;
     background: #1A1A1A;
     margin-bottom: 20px;
-border-radius: 10px;
+    border-radius: 10px;
 }
 .create_doc_dropdown_light{
-     width: 280px;
+    width: 280px;
     font-size: 15px;
     padding:10px 15px 10px 15px; 
     outline: none;
@@ -204,7 +204,7 @@ border-radius: 10px;
     border: none;
     background: #f0f0f0;
     margin-bottom: 20px;
-border-radius: 10px;
+    border-radius: 10px;
 }
 .create_doc_input_light {
     width: 265px;
@@ -215,7 +215,7 @@ border-radius: 10px;
     border: none;
     background: #f0f0f0;
     margin-bottom: 20px;
-border-radius: 10px;
+    border-radius: 10px;
 }
 
 
@@ -258,13 +258,13 @@ border-radius: 10px;
     border-radius: 50px;
 }
 .create_doc_bg{
-  z-index: 1;
+    z-index: 1;
     padding: 20px;
-width: 300px;
-height: 200px;
-background: #020202;
-box-shadow: 20px 20px 18px rgba(13, 13, 13, 0.6);
-border-radius: 12px;
+    width: 300px;
+    height: 200px;
+    background: #020202;
+    box-shadow: 20px 20px 18px rgba(13, 13, 13, 0.6);
+    border-radius: 12px;
 }
 
 

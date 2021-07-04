@@ -47,19 +47,38 @@ function generateTheme() {
 
 const PublicGists = () => {
     const { theme } = useContext(themeContext);
+    const [initialPage, setInitPage] = useState(1);
+    const [pagePrev, setPagePrev] = useState();
+    const [pageNext, setPageNext] = useState()
+    const [limit] = useState(6);
     const codeEditorRef = useRef();
     const [docs, setDocs] = useState([]);
     useEffect(() => {
-        fetch(API_ENDPOINT + "/public/docs").then(res => res.json()).then((response) => {
-            setDocs(response.message);
-        });
-    }, []);
+        let init = localStorage.getItem("initPage") ?? 1;
 
+        setInitPage(parseInt(init));
+        fetch(API_ENDPOINT + `/public/docs/paginated?page=${initialPage}&limit=${limit}`).then(res => res.json()).then((response) => {
+            setPageNext(response.message.next?.page);
+            setPagePrev(response.message.previous?.page);
+            setDocs(response.message.results);
+        });
+    }, [initialPage, limit]);
+
+
+    function previous() {
+        localStorage.setItem("initPage", pagePrev);
+        setInitPage(pagePrev);
+    }
+
+    function next() {
+        localStorage.setItem("initPage", pageNext);
+        setInitPage(pageNext);
+    }
     const newUI =
         <>
             <p className={theme === "light" ? "big2_light" : "big2"}>PUBLIC GISTS.</p>
             <div className="public_editors">
-                {(docs && docs.length > 0) ? docs.map((doc, index, _) => <>
+                {(docs && docs.length > 0) ? docs.map((doc, index, _) =>
                     <div key={doc._id}>
                         <div className="public_editor" >
                             <div className={theme === "light" ? "mac1_light" : "mac1"}>
@@ -88,8 +107,11 @@ const PublicGists = () => {
 
                     </div>
 
-                </>) : <h1 className={theme === "light" ? "loading1_light" : "loading1"}> Loading...</h1>}
+                ) : <h1 className={theme === "light" ? "loading1_light" : "loading1"}> Loading...</h1>}
+
+
             </div>
+            {pagePrev ? <button onClick={previous}>Previous</button> : ""} {pageNext ? <button onClick={next}>Next</button> : ""}
         </>
 
 
