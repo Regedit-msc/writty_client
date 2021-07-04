@@ -151,6 +151,7 @@
         width: 304px;
         border: none;
         background-color: transparent;
+outline: none;
 
         font-family: iCiel Gotham;
         font-style: normal;
@@ -162,7 +163,7 @@
         width: 304px;
         border: none;
         background-color: transparent;
-
+outline: none;
         font-family: iCiel Gotham;
         font-style: normal;
         font-weight: 500;
