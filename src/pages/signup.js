@@ -4,7 +4,9 @@ import { themeContext } from "../App";
 import { useContext, useState } from "react";
 import { API_ENDPOINT } from "./url";
 import InfoBar from "../components/info";
+import { useTitle } from "../utils/title";
 const Signup = ({ history }) => {
+    useTitle("Sign Up.")
     const { theme } = useContext(themeContext);
     const [info, setInfo] = useState();
     const [showInfo, setShowInfo] = useState(false);

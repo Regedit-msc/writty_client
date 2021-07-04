@@ -1,6 +1,8 @@
 
 import "../css/mobile.css"
+import { useTitle } from "../utils/title";
 const Mobile = () => {
+    useTitle("Mobile in beta.")
     return (
         <>
             <div className="info_mobile">

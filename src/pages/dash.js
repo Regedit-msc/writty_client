@@ -19,12 +19,13 @@ import "../css/dashboard.css";
 import SideBar from "../components/sidebar";
 import { themeContext } from "../App";
 import InfoBar from "../components/info";
+import { useTitle } from "../utils/title";
 
 
 
 const Dash = (props) => {
+    useTitle("Dashboard.")
     const { theme } = useContext(themeContext);
-    // const [setIsLoading] = useState(true);
     const [isLoadingCreateDoc, setIsLoadingCreateDoc] = useState(false);
     const [info, setInfo] = useState();
     const [showInfo, setShowInfo] = useState(false);

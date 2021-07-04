@@ -8,11 +8,13 @@ import "../css/main.css";
 import Jorja from "../images/jorja.png";
 import { makePriv } from "../auth_hoc/checkAuth";
 import { themeContext } from "../App";
+import { useTitle } from "../utils/title";
 
 
 
 
 const Home = () => {
+    useTitle("Public gists.")
     const { theme } = useContext(themeContext);
     const [username, setUsername] = useState();
     const [docs, setDocs] = useState();

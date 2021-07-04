@@ -6,7 +6,9 @@ import { Link } from "react-router-dom"
 import { themeContext } from "../App";
 import { useContext, useRef, useEffect } from "react";
 import { makePriv } from "../auth_hoc/checkAuth";
+import { useTitle } from "../utils/title";
 const Settings = () => {
+    useTitle("Settings.")
     const checkBox1 = useRef();
     const { setTheTheme, theme } = useContext(themeContext)
 

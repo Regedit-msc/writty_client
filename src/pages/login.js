@@ -5,8 +5,10 @@ import { themeContext } from "../App";
 import { useContext, useState } from "react";
 import { userContext } from "../contexts/userContext";
 import InfoBar from "../components/info";
+import { useTitle } from "../utils/title";
 
 const Login = ({ history }) => {
+    useTitle("Login.")
     const [err, setErr] = useState();
     const [showErr, setShowErr] = useState(false);
     const { theme } = useContext(themeContext);

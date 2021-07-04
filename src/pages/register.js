@@ -1,10 +1,11 @@
 import { useContext, useState } from "react"
 import { Link } from "react-router-dom"
 import { userContext } from "../contexts/userContext";
+import { useTitle } from "../utils/title";
 import { API_ENDPOINT } from "./url";
 
 const Register = () => {
-
+    useTitle('Sign Up.')
     const [formState, setFormState] = useState({
         username: '',
         password: '',

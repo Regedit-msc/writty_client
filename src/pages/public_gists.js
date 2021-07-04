@@ -39,6 +39,7 @@ import 'codemirror/theme/isotope.css';
 import 'codemirror/theme/liquibyte.css';
 import { CODEMIRROR_THEMES } from "../utils/codeMirror_themes";
 import "../css/not_auth_public_gists.css"
+import { useTitle } from "../utils/title";
 
 const { API_ENDPOINT } = require("./url");
 function generateTheme() {
@@ -47,6 +48,8 @@ function generateTheme() {
 
 const PublicGists = () => {
     const { theme } = useContext(themeContext);
+    let init = localStorage.getItem("initPage") ?? 1;
+    useTitle(`Public gists page ${init}.`)
     const [initialPage, setInitPage] = useState(1);
     const [pagePrev, setPagePrev] = useState();
     const [pageNext, setPageNext] = useState()
@@ -55,7 +58,6 @@ const PublicGists = () => {
     const [docs, setDocs] = useState([]);
     useEffect(() => {
         let init = localStorage.getItem("initPage") ?? 1;
-
         setInitPage(parseInt(init));
         fetch(API_ENDPOINT + `/public/docs/paginated?page=${initialPage}&limit=${limit}`).then(res => res.json()).then((response) => {
             setPageNext(response.message.next?.page);
