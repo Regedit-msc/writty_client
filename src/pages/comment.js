@@ -115,9 +115,9 @@ const CommentPage = (props) => {
                     <div class="comment_block" style={{ display: comments && comments.length > 0 ? "block" : "none" }} ref={commentContainerRef}>
 
 
-                        {comments && comments.map((c, _) => {
+                        {comments && comments.map((c, index) => {
                             return (
-                                <div key={c._id}>
+                                <div key={index}>
                                     <div className="comment1" >
                                         <div className="comment_wrapper">
                                             <img className="commenter_pic" alt="commenter pic" src={c.user.profileImageUrl} />

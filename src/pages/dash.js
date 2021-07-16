@@ -44,6 +44,36 @@ const Dash = (props) => {
     const [creatingDoc, setCreatingDoc] = useState();
     const [username, setUsername] = useState();
     useEffect(() => {
+        const isSubbed = localStorage.getItem("Subbed");
+        const sub = JSON.parse(localStorage.getItem("SUB"));
+        console.log('Sub', isSubbed);
+        if (isSubbed.toString() === "true") {
+            fetch(`${API_ENDPOINT}/notifications/subscribe`, {
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    "Authorization": `Bearer ${localStorage.getItem("user_token")}`
+                },
+                method: "POST",
+                body: JSON.stringify(sub)
+            }).then(res => res.json()
+            ).then(jsonRes => {
+                if (jsonRes.success) {
+                    localStorage.setItem("SUB_ADDED", true);
+                }
+            })
+        } else {
+            setInfo("You didn't allow notifications. You will ot receive notifications on likes, comments, etc. You can although manually check notifications in the notifications tab.");
+            setShowInfo(true);
+            setTimeout(() => {
+                setInfo("");
+                setShowInfo(false);
+            }, 3000)
+        }
+    }, [])
+
+
+
+    useEffect(() => {
         fetch(`${API_ENDPOINT}/details`, {
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
