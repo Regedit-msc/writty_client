@@ -151,7 +151,7 @@
         width: 304px;
         border: none;
         background-color: transparent;
-outline: none;
+        outline: none;
 
         font-family: iCiel Gotham;
         font-style: normal;
@@ -163,7 +163,7 @@ outline: none;
         width: 304px;
         border: none;
         background-color: transparent;
-outline: none;
+        outline: none;
         font-family: iCiel Gotham;
         font-style: normal;
         font-weight: 500;
@@ -215,14 +215,25 @@ outline: none;
     #socials img {
         width: 14.4px;
     }
+
+    .image_cropper {
+        position: relative;
+        width: 45px;
+        height: 45px;
+        margin-left: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        
+    }
+    
+    .loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 70px;
+    }
 }
 
-.loading {
-    display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 70px;
-}
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
     .view {
         position: absolute;
@@ -265,8 +276,8 @@ outline: none;
 .info_blue{
      transition: background-color 0.5s ;
      transition-timing-function: cubic-bezier(.17,.67,.83,.67);
-     z-index: 1;
-    position: absolute;
+     z-index: 5;
+    position: sticky;
     top: 0px;
     height: 50px;
    width: 100%;
@@ -276,8 +287,8 @@ outline: none;
 .info_red{
      transition: background-color 0.5s ;
      transition-timing-function: cubic-bezier(.17,.67,.83,.67);
-     z-index: 1;
-     position: absolute;
+     z-index: 5;
+     position: sticky;
     top: 0px;
     height: 50px;
    width: 100%;
@@ -288,8 +299,8 @@ outline: none;
 .info_green{
      transition: background-color 0.5s ;
      transition-timing-function: cubic-bezier(.17,.67,.83,.67);
-    z-index: 1;
-    position: absolute;
+    z-index: 5;
+    position: sticky;
     top: 0px;
     height: 50px;
    width: 100%;
@@ -303,4 +314,9 @@ outline: none;
 }
 .info1 span {
     font-weight: bold;
+}
+.live_logo{
+    object-fit: contain;
+    width: 50px;
+    height: 50px;
 }

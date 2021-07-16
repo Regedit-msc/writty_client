@@ -5,7 +5,7 @@ import SideBar from "../components/sidebar";
 import Search from "../images/search-button.svg";
 import "../css/public_gists.css";
 import "../css/main.css";
-import Jorja from "../images/jorja.png";
+// import Jorja from "../images/jorja.png";
 import { makePriv } from "../auth_hoc/checkAuth";
 import { themeContext } from "../App";
 import { useTitle } from "../utils/title";
@@ -14,6 +14,8 @@ import { useTitle } from "../utils/title";
 
 
 const Home = () => {
+    const defaultImage = 'https://cdn3.vectorstock.com/i/thumb-large/76/57/portrait-young-bearded-man-in-eyeglasses-vector-34397657.jpg'
+
     useTitle("Public gists.")
     const { theme } = useContext(themeContext);
     const [username, setUsername] = useState();
@@ -85,7 +87,6 @@ const Home = () => {
                     {
                         docs && docs.map(({
                             name,
-                            _id,
                             language,
                             private: priv,
                             publicLink,
@@ -93,12 +94,12 @@ const Home = () => {
                             user
                         }) => {
                             return (
-                                <div className={theme === "light" ? "language_box_light" : "language_box"} key={_id}>
+                                <div className={theme === "light" ? "language_box_light" : "language_box"} key={publicLink}>
                                     <div className="language_button" id={language[0].toUpperCase() + language.slice(1, language.length)}>{language[0].toUpperCase() + language.slice(1, language.length)}</div>
                                     <div className={theme === "light" ? "big_light" : "big"}><Link className="point" to={`/public/editor/${publicLink}`}>{name.slice(0, 6).toUpperCase() + "..."}</Link></div>
                                     <div className="info">
-                                        <img src={Jorja} alt="user_profile_image" />
-                                        <span>{user.username}</span>
+                                        <img src={user?.profileImageUrl ?? defaultImage} alt="user_profile_image" />
+                                        <Link to={`/@/${user.username}`}><span>{user.username}</span></Link>
                                     </div>
                                 </div>
                             )

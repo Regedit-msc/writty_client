@@ -1,0 +1,154 @@
+.the_user_page {
+    display: grid;
+    grid-template-columns: 19fr 31fr;
+}
+
+.side_info {
+    position: relative;
+    height: 100vh;
+    background-color: #E3E1E1;
+
+}
+.invisible_side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 513px;
+    height: 500px;
+
+    position: absolute;
+    top: 120px;
+}
+
+.profile_pubgists {
+    position: absolute;
+    border-radius: 5px;
+    height: 29.8px;
+    padding: 7px 35px 7px 35px;
+    margin-left: 60px;
+    margin-top: 30px;
+
+    font-family: iCiel Gotham;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 30.5px;
+    text-decoration: none;
+    background-color: rgb(8, 8, 1);
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.big_profile_pic {
+    width: 140px;
+}
+
+.nice_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    box-sizing:border-box;
+    width: 400px;
+    height: 335px;
+    padding-top: 25px;
+    border: 1px solid #000000;
+    background-color: #FFFFFF;
+    border-radius: 16px;
+}
+.nice_box span {
+    font-size: 28px;
+}
+
+.connect {
+    border-radius: 5px;
+    border: none;
+    height: 29.8px;
+    width: 100px;
+
+    font-family: iCiel Gotham;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 30.5px;
+    text-decoration: none;
+    background-color: rgb(8, 8, 1);
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.email_label {
+    width: 400px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 20px;
+
+    text-align: center;
+    background-color: #FFFFFF;
+    color: #4F4E4E;
+    border-radius: 16px;
+    border: 1px solid #000000;
+    box-sizing:border-box;
+
+    font-family: iCiel Gotham;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 30.5px;    
+}
+
+.gists_body {
+    box-sizing: border-box;
+    padding-left: 60px;
+}
+
+.gists_buttons {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 120px;
+    width: 300px;
+}
+.gists_buttons > * {
+    outline: none;
+    border-radius: 12px;
+    border: none;
+    height: 24px;
+    width: 114px;
+    padding: 2px 0px 2px 12px;
+
+    font-family: iCiel Gotham;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    text-align: left;
+    text-decoration: none;
+    background-color: rgb(8, 8, 1);
+    color: #FFFFFF;
+}
+
+.personal_gists {
+    width: 100%;
+   max-height:550px;
+    margin-top: 180px;
+
+    overflow: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.personal_gists::-webkit-scrollbar {
+    display: none;
+}
+
+.code11 {
+    width: 602px;
+    margin-bottom: 30px;
+}
+.email_label img {
+    object-fit: contain;
+    width: 20px;
+    height: 10px;
+}

@@ -6,6 +6,7 @@ import {
 } from "react-router-dom"
 import Landing from "./pages/landing"
 import UserContextProvider from "./contexts/userContext"
+import ImageContextProvider from "./contexts/imageContext"
 import dash from "./pages/dash"
 import Register from "./pages/register"
 import PublicGists from "./pages/public_gists"
@@ -20,6 +21,8 @@ import Login from "./pages/login"
 import Signup from "./pages/signup"
 import { withGetScreen } from 'react-getscreen'
 import Mobile from "./pages/mobile"
+import CommentPage from "./pages/comment"
+import UserProfile from "./pages/user_profile"
 
 
 
@@ -78,30 +81,35 @@ function App(props) {
   }, []);
   return (
     <themeContext.Provider value={{ setTheTheme, theme }}  >
-      <UserContextProvider>
-        <Router>
-          <Switch>
-            <Route exact path="/" component={mobile ? Mobile : Landing} />
-            <Route exact path="/home" component={mobile ? Mobile : Home} />
-            <Route exact path="/register" component={mobile ? Mobile : Register} />
-            {/* <Route path="/editor/:lang/:id" component={Editor} /> */}
-            <Route exact path="/dash" component={mobile ? Mobile : dash} />
-            <Route exact path="/gists" component={mobile ? Mobile : PublicGists} />
-            <Route exact path="/login" component={mobile ? Mobile : Login} />
-            <Route exact path="/signup" component={mobile ? Mobile : Signup} />
+      <ImageContextProvider>
+        <UserContextProvider>
+          <Router>
+            <Switch>
+              <Route exact path="/" component={mobile ? Mobile : Landing} />
+              <Route exact path="/home" component={mobile ? Mobile : Home} />
+              <Route exact path="/register" component={mobile ? Mobile : Register} />
+              {/* <Route path="/editor/:lang/:id" component={Editor} /> */}
+              <Route exact path="/dash" component={mobile ? Mobile : dash} />
+              <Route exact path="/gists" component={mobile ? Mobile : PublicGists} />
+              <Route exact path="/login" component={mobile ? Mobile : Login} />
+              <Route exact path="/signup" component={mobile ? Mobile : Signup} />
 
-            {/* <Route path="/public/editor/:lang/:id" component={NoEditEditor} /> */}
-            <Route exact path="/public/editor/:id" component={mobile ? Mobile : PublicEditor} />
-            <Route exact path="/edit/:id" component={mobile ? Mobile : TextEditor} />
-            <Route exact path="/settings" component={mobile ? Mobile : Settings} />
-            <Route exact path="/editor/collab/:id" component={mobile ? Mobile : CollabEditor} />
-            <Route exact path="/mobile" component={Mobile} />
-            <Route exact component={mobile ? Mobile : NotFound} />
+              {/* <Route path="/public/editor/:lang/:id" component={NoEditEditor} /> */}
+              <Route exact path="/public/editor/:id" component={mobile ? Mobile : PublicEditor} />
+              <Route exact path="/edit/:id" component={mobile ? Mobile : TextEditor} />
+              <Route exact path="/comments/editor/:id" component={mobile ? Mobile : CommentPage} />
+              <Route exact path="/settings" component={mobile ? Mobile : Settings} />
+              <Route exact path="/editor/collab/:id" component={mobile ? Mobile : CollabEditor} />
+              <Route exact path="/@/:name" component={mobile ? Mobile : UserProfile} />
+              <Route exact path="/mobile" component={Mobile} />
+              <Route exact component={mobile ? Mobile : NotFound} />
 
-          </Switch>
-        </Router>
+            </Switch>
+          </Router>
 
-      </UserContextProvider>
+        </UserContextProvider>
+      </ImageContextProvider>
+
     </themeContext.Provider>
 
 

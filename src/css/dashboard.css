@@ -97,7 +97,9 @@
         /* height: 176px; */
         top: 340px;
         left: 320px;
+        height: 408px;
 
+        overflow: scroll;
         -ms-overflow-style: none;  /* IE and Edge */
         scrollbar-width: none;  /* Firefox */
     }

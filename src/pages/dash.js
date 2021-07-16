@@ -1,10 +1,9 @@
 import { makePriv } from "../auth_hoc/checkAuth";
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect, useContext, useRef } from "react"
 import { API_ENDPOINT } from "./url";
 import { Link } from "react-router-dom"
 import { v4 as uuidV4 } from "uuid";
 import PadLock from "../images/padlock.png";
-import Jorja from "../images/jorja.png";
 import DeleteLight from "../images/icon-delete_light.png";
 import Delete from "../images/icon-delete.png";
 import Share from "../images/icon-share.png";
@@ -23,8 +22,11 @@ import { useTitle } from "../utils/title";
 
 
 
+
 const Dash = (props) => {
-    useTitle("Dashboard.")
+    useTitle("Dashboard.");
+    const profileImageRef = useRef();
+    const defaultImage = 'https://cdn3.vectorstock.com/i/thumb-large/76/57/portrait-young-bearded-man-in-eyeglasses-vector-34397657.jpg'
     const { theme } = useContext(themeContext);
     const [isLoadingCreateDoc, setIsLoadingCreateDoc] = useState(false);
     const [info, setInfo] = useState();
@@ -53,9 +55,8 @@ const Dash = (props) => {
             console.log(jsonRes);
             if (jsonRes.success) {
                 setUsername(jsonRes.username);
-                console.log(jsonRes.message, "res");
                 setDocs(jsonRes.message);
-                // setIsLoading(false);
+                profileImageRef.current.src = jsonRes.image;
             } else {
                 setErr("Unable to fetch codes✋🏻.");
                 setShowErr(true);
@@ -66,6 +67,7 @@ const Dash = (props) => {
             }
         })
     }, []);
+
     function createDoc() {
         setCreatingDoc(true);
     }
@@ -310,7 +312,7 @@ const Dash = (props) => {
             {isLoadingCreateDoc ? <div>Creating gist...</div> : <div></div>}
             <div id="main">
                 <img src={PadLock} id="padlock" className="point" alt="padlock" />
-                <img src={Jorja} id="profile_pic" className="point" alt="profile_pic" />
+                <img ref={profileImageRef} src={defaultImage} id="profile_pic" className="point" alt="profile_pic" />
                 <h3 id="greeting">Noob coder {username ?? ""}</h3>
                 <h5 id="welcome">Welcome to your dashboard</h5>
                 <Link id={theme === "light" ? "create_button_light" : "create_button"} to="/dash" onClick={createDoc} className="point" >Create a gist</Link>
