@@ -2,10 +2,10 @@ self.addEventListener('push', event => {
     const { title, body, image } = event.data.json();
     const options = {
         body: body,
-        icon: image ?? "https://images.unsplash.com/photo-1501167786227-4cba60f6d58f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YmFua3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60",
+        icon: image ?? "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairDreads02&accessoriesType=Round&hairColor=SilverGray&facialHairType=MoustacheFancy&facialHairColor=Black&clotheType=ShirtScoopNeck&clotheColor=Gray01&eyeType=EyeRoll&eyebrowType=Default&mouthType=Concerned&skinColor=Tanned",
         vibrate: [200, 100, 200],
         image: image,
-        badge: "https://spyna.it/icons/favicon.ico",
+        badge: "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairDreads02&accessoriesType=Round&hairColor=SilverGray&facialHairType=MoustacheFancy&facialHairColor=Black&clotheType=ShirtScoopNeck&clotheColor=Gray01&eyeType=EyeRoll&eyebrowType=Default&mouthType=Concerned&skinColor=Tanned",
     }
     event.waitUntil(self.registration.showNotification(title, options));
 })
