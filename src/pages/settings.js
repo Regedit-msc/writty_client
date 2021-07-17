@@ -4,16 +4,19 @@ import "../css/account_settings.css";
 import "../css/main.css"
 import { Link } from "react-router-dom"
 import { themeContext } from "../App";
-import { useContext, useRef, useEffect } from "react";
+import { useContext, useRef, useEffect, useState } from "react";
 import { makePriv } from "../auth_hoc/checkAuth";
 import { useTitle } from "../utils/title";
 import { API_ENDPOINT } from "./url";
 import { imageContext } from "../contexts/imageContext";
+import InfoBar from "../components/info";
 
 const Settings = () => {
     const defaultImage = 'https://cdn3.vectorstock.com/i/thumb-large/76/57/portrait-young-bearded-man-in-eyeglasses-vector-34397657.jpg'
     const imageFieldRef = useRef();
     const profileRef = useRef();
+    const [info, setInfo] = useState();
+    const [showInfo, setShowInfo] = useState(false)
     const { setImage, image } = useContext(imageContext);
     useTitle("Settings.")
     const checkBox1 = useRef();
@@ -60,7 +63,12 @@ const Settings = () => {
         handleFiles(e.target.files)
     }
     function handleFiles(files) {
-
+        setInfo("Uploading image please wait on this page.");
+        setShowInfo(true);
+        setTimeout(() => {
+            setInfo("");
+            setShowInfo(false);
+        }, 4000)
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
             const proceed = checkFileSize(file);
@@ -86,6 +94,12 @@ const Settings = () => {
                         if (jsonRes.success) {
                             setImage(jsonRes.message);
                             profileRef.current.src = image ?? '';
+                            setInfo("Upload done.");
+                            setShowInfo(true);
+                            setTimeout(() => {
+                                setInfo("");
+                                setShowInfo(false);
+                            }, 2000)
                         } else {
                             // Show upload error
                         }
@@ -119,6 +133,10 @@ const Settings = () => {
     }
     return (
         <>
+            {showInfo ? <InfoBar
+                color="green"
+                text={info}
+            /> : ""}
             <SideBar
                 page="settings"
             />
