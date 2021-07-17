@@ -225,6 +225,9 @@
         overflow: hidden;
         
     }
+    img{
+        border-radius: 50%;
+    }
     
     .loading {
         display: flex;

@@ -88,7 +88,7 @@ const CommentPage = (props) => {
                 {
                     code ? <h3><span className="language_button" style={{ paddingLeft: "10px", paddingRight: "10px", paddingTop: "2px", paddingBottom: "2px" }} id={code.language[0].toUpperCase() + code.language.slice(1, code.language.length)}>{code.language[0].toUpperCase() + code.language.slice(1, code.language.length)} </span></h3> : <h3>Loading...</h3>
                 }
-                <Link to="/gists" class="back">BACK TO GISTS</Link>
+                <Link to="/gists" className="back">BACK TO GISTS</Link>
             </div>
             <div className="poster">
                 <div className="image_cropper pp"><img className="poster profile_pic" alt="profile pic" src={code !== null ? code.user.profileImageUrl : ''} /></div>
@@ -111,8 +111,8 @@ const CommentPage = (props) => {
 
 
 
-                <div class="big_container" >
-                    <div class="comment_block" style={{ display: comments && comments.length > 0 ? "block" : "none" }} ref={commentContainerRef}>
+                <div className="big_container" >
+                    <div className="comment_block" style={{ display: comments && comments.length > 0 ? "block" : "none" }} ref={commentContainerRef}>
 
 
                         {comments && comments.map((c, index) => {

@@ -4,7 +4,7 @@ self.addEventListener('push', event => {
         body: body,
         icon: image ?? "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairDreads02&accessoriesType=Round&hairColor=SilverGray&facialHairType=MoustacheFancy&facialHairColor=Black&clotheType=ShirtScoopNeck&clotheColor=Gray01&eyeType=EyeRoll&eyebrowType=Default&mouthType=Concerned&skinColor=Tanned",
         vibrate: [200, 100, 200],
-        image: image,
+        image: image ?? "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairDreads02&accessoriesType=Round&hairColor=SilverGray&facialHairType=MoustacheFancy&facialHairColor=Black&clotheType=ShirtScoopNeck&clotheColor=Gray01&eyeType=EyeRoll&eyebrowType=Default&mouthType=Concerned&skinColor=Tanned",
         badge: "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairDreads02&accessoriesType=Round&hairColor=SilverGray&facialHairType=MoustacheFancy&facialHairColor=Black&clotheType=ShirtScoopNeck&clotheColor=Gray01&eyeType=EyeRoll&eyebrowType=Default&mouthType=Concerned&skinColor=Tanned",
     }
     event.waitUntil(self.registration.showNotification(title, options));
