@@ -5,7 +5,9 @@ import SideBar from "../components/sidebar";
 import Search from "../images/search-button.svg";
 import "../css/public_gists.css";
 import "../css/main.css";
-// import Jorja from "../images/jorja.png";
+import injectSheet from "react-jss";
+import { StyleSheet } from "../utils/shimmer";
+import Shimmer from "react-shimmer-effect";
 import { makePriv } from "../auth_hoc/checkAuth";
 import { themeContext } from "../App";
 import { useTitle } from "../utils/title";
@@ -13,7 +15,7 @@ import { useTitle } from "../utils/title";
 
 
 
-const Home = () => {
+const Home = (props) => {
     const defaultImage = 'https://cdn3.vectorstock.com/i/thumb-large/76/57/portrait-young-bearded-man-in-eyeglasses-vector-34397657.jpg'
 
     useTitle("Public gists.")
@@ -73,7 +75,12 @@ const Home = () => {
             />
 
             <div id="main">
-                <h3 id="greeting">Hi, {username ?? "Noob coder."}</h3>
+                <h3 id="greeting">Hi, {username ? username : <>
+
+                    <Shimmer>
+                        <div className={props.classes.line} />
+                    </Shimmer>
+                </>}</h3>
 
                 <div className={theme === "light" ? "search_wrapper_light" : "search_wrapper"}>
                     <button> <img className="search-icon" src={Search} alt="search" /> </button>
@@ -85,7 +92,7 @@ const Home = () => {
 
                 <div id="languages">
                     {
-                        docs && docs.map(({
+                        docs ? docs.map(({
                             name,
                             language,
                             private: priv,
@@ -103,7 +110,31 @@ const Home = () => {
                                     </div>
                                 </div>
                             )
-                        })
+                        }) : <>
+                            <Shimmer>
+                                <div className={props.classes.projectBox} />
+                            </Shimmer>
+                            <Shimmer>
+                                <div className={props.classes.projectBox} />
+                            </Shimmer><Shimmer>
+                                <div className={props.classes.projectBox} />
+                            </Shimmer><Shimmer>
+                                <div className={props.classes.projectBox} />
+                            </Shimmer><Shimmer>
+                                <div className={props.classes.projectBox} />
+                            </Shimmer><Shimmer>
+                                <div className={props.classes.projectBox} />
+                            </Shimmer><Shimmer>
+                                <div className={props.classes.projectBox} />
+                            </Shimmer><Shimmer>
+                                <div className={props.classes.projectBox} />
+                            </Shimmer><Shimmer>
+                                <div className={props.classes.projectBox} />
+                            </Shimmer><Shimmer>
+                                <div className={props.classes.projectBox} />
+                            </Shimmer>
+
+                        </>
                     }
 
                 </div>
@@ -116,4 +147,4 @@ const Home = () => {
     );
 }
 
-export default makePriv(Home);
+export default makePriv(injectSheet(StyleSheet)(Home));

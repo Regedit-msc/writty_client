@@ -46,7 +46,9 @@ import Search from "../images/search-button.svg";
 import { Link, withRouter } from "react-router-dom";
 import InfoBar from "../components/info";
 import moment from "moment"
-
+import injectSheet from "react-jss";
+import { StyleSheet } from "../utils/shimmer";
+import Shimmer from "react-shimmer-effect";
 const { API_ENDPOINT } = require("./url");
 
 const PublicGists = (props) => {
@@ -67,11 +69,13 @@ const PublicGists = (props) => {
     useEffect(() => {
         let init = localStorage.getItem("initPage") ?? 1;
         setInitPage(parseInt(init));
+
         fetch(API_ENDPOINT + `/public/docs/paginated?page=${initialPage}&limit=${limit}`).then(res => res.json()).then((response) => {
             setPageNext(response.message.next?.page);
             setPagePrev(response.message.previous?.page);
             setDocs(response.message.results);
         });
+        console.log(initialPage);
     }, [initialPage, limit]);
     useEffect(() => {
         if (localStorage.getItem("user_token") !== null) {
@@ -246,7 +250,24 @@ const PublicGists = (props) => {
                     </div>
 
 
-                ) : <h1 className={theme === "light" ? "loading1_light" : "loading1"}> Loading...</h1>}
+                ) : <>
+                    <Shimmer>
+                        <div className={props.classes.publicEditor} />
+                    </Shimmer>
+                    <Shimmer>
+                        <div className={props.classes.publicEditor} />
+                    </Shimmer><Shimmer>
+                        <div className={props.classes.publicEditor} />
+                    </Shimmer><Shimmer>
+                        <div className={props.classes.publicEditor} />
+                    </Shimmer><Shimmer>
+                        <div className={props.classes.publicEditor} />
+                    </Shimmer><Shimmer>
+                        <div className={props.classes.publicEditor} />
+                    </Shimmer><Shimmer>
+                        <div className={props.classes.publicEditor} />
+                    </Shimmer>
+                </>}
 
 
             </div>
@@ -260,4 +281,4 @@ const PublicGists = (props) => {
     return newUI;
 }
 
-export default withRouter(PublicGists);
+export default withRouter(injectSheet(StyleSheet)(PublicGists));

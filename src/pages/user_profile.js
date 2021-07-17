@@ -20,6 +20,9 @@ import notLike from "../images/not_like.png"
 import comment from "../images/comments.png";
 import moment from "moment";
 import InfoBar from "../components/info";
+import Shimmer from "react-shimmer-effect";
+import injectSheet from "react-jss";
+import { StyleSheet } from "../utils/shimmer";
 
 const UserProfile = (props) => {
 
@@ -165,13 +168,19 @@ const UserProfile = (props) => {
                     <Link to="/gists" className="profile_pubgists">Public Gists.</Link>
                     <div className="invisible_side">
                         <div className="nice_box">
-                            <img alt="profile" src={userData !== null ? userData.image : LiveLogo} className="big_profile_pic" />
+                            {userData ? <img alt="profile" src={userData.image} className="big_profile_pic" /> :
+                                <Shimmer>
+                                    <div className={props.classes.circleBig} />
+                                </Shimmer>
+                            }
                             <span>{name}</span>
                             <Link onClick={() => handleCopy(userData.email, "Copied email to clipboard.")} className="connect">Connect</Link>
                         </div>
                         <div className="email_label" >
                             <img src={Mail} alt="email" />
-                            {userData !== null ? userData.email : 'senior@livegists.com'}
+                            {userData !== null ? userData.email : <Shimmer>
+                                <div className={props.classes.line} />
+                            </Shimmer>}
                         </div>
                     </div>
 
@@ -204,7 +213,7 @@ const UserProfile = (props) => {
                     <div className="personal_gists">
 
                         {
-                            userData && userData.code.map((doc, index) => {
+                            userData !== null ? userData.code.map((doc, index) => {
                                 return <div key={index}>
                                     <div className={theme === "light" ? "mac1_light" : "mac1"}>
                                         <img src={Code} alt="mac_buttons" />
@@ -238,7 +247,25 @@ const UserProfile = (props) => {
 
 
 
-                            })
+                            }) : <div>
+                                <div >
+
+                                    <Shimmer>
+                                        <div className={props.classes.codeBox} />
+                                    </Shimmer>
+                                </div>
+                                <div>
+                                    <Shimmer>
+                                        <div className={props.classes.codeBox} />
+                                    </Shimmer>
+
+                                </div>
+                                <div>
+
+
+                                </div>
+
+                            </div>
                         }
                     </div>
                 </div>
@@ -248,4 +275,4 @@ const UserProfile = (props) => {
         </>
     )
 }
-export default withRouter(UserProfile);
+export default withRouter(injectSheet(StyleSheet)(UserProfile));
