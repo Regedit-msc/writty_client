@@ -163,20 +163,20 @@ const UserProfile = (props) => {
                 color="red"
                 text={err}
             /> : ""}
-            <div className="the_user_page">
-                <div className="side_info">
-                    <Link to="/gists" className="profile_pubgists">Public Gists.</Link>
+            <div className={theme === "light" ? "the_user_page_light" : "the_user_page"}>
+                <div className={theme === "light" ? "side_info_light" : "side_info"}>
+                    <Link to="/gists" className={theme === "light" ? "profile_pubgists_light" : "profile_pubgists"}>Public Gists.</Link>
                     <div className="invisible_side">
-                        <div className="nice_box">
+                        <div className={theme === "light" ? "nice_box_light" : "nice_box"}>
                             {userData ? <img alt="profile" src={userData.image} className="big_profile_pic" /> :
                                 <Shimmer>
                                     <div className={props.classes.circleBig} />
                                 </Shimmer>
                             }
                             <span>{name}</span>
-                            <Link onClick={() => handleCopy(userData.email, "Copied email to clipboard.")} className="connect">Connect</Link>
+                            <Link onClick={() => handleCopy(userData.email, "Copied email to clipboard.")} className={theme === "light" ? "connect_light" : "connect"}>Connect</Link>
                         </div>
-                        <div className="email_label" >
+                        <div className={theme === "light" ? "email_label_light" : "email_label"}>
                             <img src={Mail} alt="email" />
                             {userData !== null ? userData.email : <Shimmer>
                                 <div className={props.classes.line} />
@@ -202,7 +202,7 @@ const UserProfile = (props) => {
                         <button> <img className="search-icon" src={Search} alt="search" /> </button>
                         <input className="search" type="search" name="search" placeholder="Search by language" onChange={handleChange} />
                     </div>
-                    <div className="gists_buttons">
+                    <div className={theme === "light" ? "gists_buttons_light" : "gists_buttons"}>
                         <button> All gists <span style={{ fontSize: "15px", marginLeft: "20px" }}>{userData !== null ? userData.code.length : 0}</span></button>
                         <select name="sort" placeholder="Sort By" onChange={handleChange} >
                             <option value="date">Date</option>

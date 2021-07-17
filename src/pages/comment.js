@@ -150,15 +150,16 @@ const CommentPage = (props) => {
                         <div className="comment_wrapper">
 
                             <div className="textt">
-
-                                {showEmojiPicker ? <div style={{ position: "absolute", top: "-236px", left: "159px", zIndex: "10" }}> <Picker onEmojiClick={onEmojiClick} /></div> : ''}
                                 {userDeets !== null ?
                                     <img className="commenter_pic" alt="commenter pic" src={userDeets !== null ? userDeets.profileImageUrl : LiveLogo} />
                                     : ''}
+
+                                {showEmojiPicker ? <div style={{ position: "absolute", top: "-236px", left: "159px", zIndex: "10" }}> <Picker onEmojiClick={onEmojiClick} /></div> : ''}
+
                                 <div className="user_header"> <button onClick={handleEmojiClick} > 🐱‍🏍</button> </div>
                                 <div className="user_comment">
 
-                                    <textarea name="comment" cols="112" rows="5" placeholder="Leave a comment" onChange={handleChange} value={commentBody}></textarea>
+                                    <textarea name="comment" cols="100" rows="5" placeholder="Leave a comment" onChange={handleChange} value={commentBody}></textarea>
 
                                     <div><input type="submit" value="Comment" onClick={handleComment} /></div>
 

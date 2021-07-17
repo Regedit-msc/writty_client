@@ -106,10 +106,10 @@
         border-top: 8px solid #1E1E1E;
         border-bottom: 8px solid transparent;
         
-        left: 70px;
+        left: 76px;
         top: 26px;
     }
-    /* .comment1::after {
+    .comment1::after {
         content: "";
         width: 0px;
         height: 0px;
@@ -119,10 +119,10 @@
         border-top: 8px solid transparent;
         border-bottom: 8px solid #1E1E1E;
         
-        left: 70px;
+        left: 76px;
         top: 10px;
 
-    } */
+    }
 
     .commenter_pic {
         height: 36px;
@@ -199,7 +199,8 @@
     #new_comment .textt {
         margin-left: 60px;
         margin-bottom: 28px;
-        width: 1170px;
+        width: 1260px;
+        background-color: none;
     }
     #new_comment .user_header {
         font-weight: 800;
@@ -212,20 +213,22 @@
         border-top-left-radius: 18px;
         border-top-right-radius: 18px;
 
-        width: 1170px;
+        width: 1120px;
         height: 44px;
     }
     #new_comment .user_comment {
         background-color: #353535;
         color: #FFFFFF;
-        padding: 10px 50px 10px 20px;
+        padding: 10px 30px 10px 20px;
         box-sizing: border-box;
         border-bottom-left-radius: 18px;
         border-bottom-right-radius: 18px;
         height: 180px;
+        width: 1120px;
     }
     #new_comment .commenter_pic {
         height: 45px;
+
     }
 
     #new_comment::before {
@@ -269,7 +272,7 @@
         display: flex;
         flex-direction: row;
         justify-content: flex-end;
-        width: 1130px;
+        width: 1000px;
     }
     #new_comment .user_comment textarea {
         box-sizing: border-box;

@@ -1,13 +1,23 @@
 .the_user_page {
     display: grid;
     grid-template-columns: 19fr 31fr;
+    background-color: #1F1F1F;
+}
+.the_user_page_light {
+    display: grid;
+    grid-template-columns: 19fr 31fr;
 }
 
 .side_info {
     position: relative;
     height: 100vh;
+    background-color: #000000;
+    color: #FFFFFF;  
+}
+.side_info_light {
+    position: relative;
+    height: 100vh;
     background-color: #E3E1E1;
-
 }
 .invisible_side {
     display: flex;
@@ -22,6 +32,24 @@
 }
 
 .profile_pubgists {
+    position: absolute;
+    border-radius: 5px;
+    height: 29.8px;
+    padding: 7px 35px 7px 35px;
+    margin-left: 60px;
+    margin-top: 30px;
+
+    font-family: iCiel Gotham;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 30.5px;
+    text-decoration: none;
+    background-color: #3137DC;
+    text-align: center;
+    color: #FFFFFF;
+}
+.profile_pubgists_light {
     position: absolute;
     border-radius: 5px;
     height: 29.8px;
@@ -54,6 +82,20 @@
     width: 400px;
     height: 335px;
     padding-top: 25px;
+    border: 1px solid #FFFFFF;
+    background-color: #1F1F1F;
+    border-radius: 16px;
+}
+.nice_box_light {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    box-sizing:border-box;
+    width: 400px;
+    height: 335px;
+    padding-top: 25px;
     border: 1px solid #000000;
     background-color: #FFFFFF;
     border-radius: 16px;
@@ -63,6 +105,22 @@
 }
 
 .connect {
+    border-radius: 5px;
+    border: none;
+    height: 29.8px;
+    width: 100px;
+
+    font-family: iCiel Gotham;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 30.5px;
+    text-decoration: none;
+    background-color: #3137DC;
+    text-align: center;
+    color: #FFFFFF;
+}
+.connect_light {
     border-radius: 5px;
     border: none;
     height: 29.8px;
@@ -86,6 +144,25 @@
     margin-top: 20px;
 
     text-align: center;
+    background-color: #1F1F1F;
+    color: #939393;
+    border-radius: 16px;
+    border: 1px solid #FFFFFF;
+    box-sizing:border-box;
+
+    font-family: iCiel Gotham;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 30.5px;      
+}
+.email_label_light {
+    width: 400px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 20px;
+
+    text-align: center;
     background-color: #FFFFFF;
     color: #4F4E4E;
     border-radius: 16px;
@@ -96,7 +173,7 @@
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
-    line-height: 30.5px;    
+    line-height: 30.5px;
 }
 
 .gists_body {
@@ -105,6 +182,14 @@
 }
 
 .gists_buttons {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 120px;
+    width: 300px;
+}
+.gists_buttons_light {
     position: absolute;
     display: flex;
     flex-direction: row;
@@ -126,13 +211,30 @@
     font-size: 10px;
     text-align: left;
     text-decoration: none;
+    background-color: #3137DC;
+    color: #FFFFFF;
+}
+.gists_buttons_light > * {
+    outline: none;
+    border-radius: 12px;
+    border: none;
+    height: 24px;
+    width: 114px;
+    padding: 2px 0px 2px 12px;
+
+    font-family: iCiel Gotham;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    text-align: left;
+    text-decoration: none;
     background-color: rgb(8, 8, 1);
     color: #FFFFFF;
 }
 
 .personal_gists {
     width: 100%;
-   max-height:550px;
+    max-height: 499px;
     margin-top: 180px;
 
     overflow: scroll;
@@ -148,6 +250,11 @@
     margin-bottom: 30px;
 }
 .email_label img {
+    object-fit: contain;
+    width: 20px;
+    height: 10px;
+}
+.email_label_light img {
     object-fit: contain;
     width: 20px;
     height: 10px;
