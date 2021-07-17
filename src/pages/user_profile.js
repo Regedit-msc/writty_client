@@ -194,7 +194,7 @@ const UserProfile = (props) => {
                         <input className="search" type="search" name="search" placeholder="Search by language" onChange={handleChange} />
                     </div>
                     <div className="gists_buttons">
-                        <button> All gists {userData !== null ? userData.code.length : 0}</button>
+                        <button> All gists <span style={{ fontSize: "15px", marginLeft: "20px" }}>{userData !== null ? userData.code.length : 0}</span></button>
                         <select name="sort" placeholder="Sort By" onChange={handleChange} >
                             <option value="date">Date</option>
                             <option value="name">Name</option>

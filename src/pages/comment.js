@@ -8,9 +8,11 @@ import "../css/comments.css";
 import LiveLogo from "../images/livegists_logo.png"
 import { useRef } from "react";
 import InfoBar from "../components/info";
+import Picker from 'emoji-picker-react';
 const CommentPage = (props) => {
 
     const [err, setErr] = useState();
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
     const [showErr, setShowErr] = useState(false);
     const { id } = useParams();
     const [comments, setComments] = useState([]);
@@ -47,6 +49,9 @@ const CommentPage = (props) => {
 
     }, [id, props.history]);
 
+    const onEmojiClick = (event, emojiObject) => {
+        setCommentBody(commentBody + emojiObject?.emoji)
+    };
     function handleComment() {
 
         fetch(`${API_ENDPOINT}/create/comment`, {
@@ -78,6 +83,9 @@ const CommentPage = (props) => {
         setCommentBody(e.target.value);
 
     }
+    function handleEmojiClick() {
+        setShowEmojiPicker(!showEmojiPicker);
+    }
     return (
         <>
             {showErr ? <InfoBar
@@ -85,14 +93,16 @@ const CommentPage = (props) => {
                 text={err}
             /> : ""}
             <div className="topp">
+
                 {
                     code ? <h3><span className="language_button" style={{ paddingLeft: "10px", paddingRight: "10px", paddingTop: "2px", paddingBottom: "2px" }} id={code.language[0].toUpperCase() + code.language.slice(1, code.language.length)}>{code.language[0].toUpperCase() + code.language.slice(1, code.language.length)} </span></h3> : <h3>Loading...</h3>
                 }
+                <h3>{code ? code.name.toUpperCase() : ''}</h3>
                 <Link to="/gists" className="back">BACK TO GISTS</Link>
             </div>
             <div className="poster">
                 <div className="image_cropper pp"><img className="poster profile_pic" alt="profile pic" src={code !== null ? code.user.profileImageUrl : ''} /></div>
-                <div id="active_block" style={{ marginLeft: "15px" }}><span className="line1">{code !== null ? code.name.toUpperCase() : ''}</span> <br /> <span
+                <div id="active_block" style={{ marginLeft: "15px" }}><span className="line1"> <Link to={`/@/${code ? code.user.username : ''}`}>{code !== null ? code.user.username : ''}</Link></span> <br /> <span
                     className="line2">{code !== null ? moment(code.createdAt).startOf('hour').fromNow() : ""}</span></div>
             </div>
             <CodeMirror
@@ -141,13 +151,17 @@ const CommentPage = (props) => {
 
                             <div className="textt">
 
+                                {showEmojiPicker ? <div style={{ position: "absolute", top: "-236px", left: "159px", zIndex: "10" }}> <Picker onEmojiClick={onEmojiClick} /></div> : ''}
                                 {userDeets !== null ?
                                     <img className="commenter_pic" alt="commenter pic" src={userDeets !== null ? userDeets.profileImageUrl : LiveLogo} />
                                     : ''}
-                                <div className="user_header"></div>
+                                <div className="user_header"> <button onClick={handleEmojiClick} > 🐱‍🏍</button> </div>
                                 <div className="user_comment">
+
                                     <textarea name="comment" cols="112" rows="5" placeholder="Leave a comment" onChange={handleChange} value={commentBody}></textarea>
+
                                     <div><input type="submit" value="Comment" onClick={handleComment} /></div>
+
                                 </div>
                             </div>
                         </div>

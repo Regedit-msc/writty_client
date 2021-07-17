@@ -66,6 +66,11 @@
         font-weight: 500;
         line-height: 25px;
         color: #000000;
+        
+    }
+    .line1 a{
+        text-decoration: none;
+        color: #000000;
     }
     .line2 {
         font-size: 14px;
@@ -241,6 +246,11 @@
         color: white;
     }
 
+    .user_header > button{
+        border: none;
+        background-color: #1E1E1E;
+        font-size: larger;
+    }
     #new_comment::after {
         content: "";
         width: 0px;
