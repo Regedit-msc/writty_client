@@ -236,6 +236,10 @@
         left: 110px;
         top: 26px;
     }
+    .user_header > *{
+        text-decoration: none;
+        color: white;
+    }
 
     #new_comment::after {
         content: "";

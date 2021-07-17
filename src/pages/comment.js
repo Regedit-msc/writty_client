@@ -122,7 +122,7 @@ const CommentPage = (props) => {
                                         <div className="comment_wrapper">
                                             <img className="commenter_pic" alt="commenter pic" src={c.user.profileImageUrl} />
                                             <div className="textt">
-                                                <div className="user_header">  {c.user.username}</div>
+                                                <div className="user_header"> <Link to={`/@/${c.user.username}`}>{c.user.username} </Link> </div>
                                                 <div className="user_comment">
                                                     <div>
                                                         {c.body}
