@@ -14,7 +14,7 @@ const CommentPage = (props) => {
     const [showErr, setShowErr] = useState(false);
     const { id } = useParams();
     const [comments, setComments] = useState([]);
-    const [userDeets, setUserdeets] = useState({});
+    const [userDeets, setUserdeets] = useState(null);
     const [code, setCode] = useState(null);
     const [commentBody, setCommentBody] = useState('');
     const commentContainerRef = useRef();
@@ -102,7 +102,7 @@ const CommentPage = (props) => {
                     lineWrapping: true,
                     lint: true,
                     mode: code?.language,
-                    theme: "elegant",
+                    theme: code?.theme ?? "elegant",
                     lineNumbers: false,
                     scrollbarStyle: "null"
                 }}
@@ -138,8 +138,12 @@ const CommentPage = (props) => {
                     </div>
                     {comments ? <div id="new_comment">
                         <div className="comment_wrapper">
-                            <img className="commenter_pic" alt="commenter pic" src={userDeets !== null ? userDeets.profileImageUrl : LiveLogo} />
+
                             <div className="textt">
+
+                                {userDeets !== null ?
+                                    <img className="commenter_pic" alt="commenter pic" src={userDeets !== null ? userDeets.profileImageUrl : LiveLogo} />
+                                    : ''}
                                 <div className="user_header"></div>
                                 <div className="user_comment">
                                     <textarea name="comment" cols="112" rows="5" placeholder="Leave a comment" onChange={handleChange} value={commentBody}></textarea>
