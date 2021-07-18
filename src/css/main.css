@@ -12,6 +12,46 @@
     font-family: iCiel Gotham;
     margin: 0px;
 }
+.dark .Shimmer-shimmer-0-1-8 {
+    display: inline-block;
+    animation: shimmerAnim 2s infinite linear;
+    background-size: auto;
+    background-repeat: repeat;
+    background-image: linear-gradient(
+315deg
+, #2d3436 0%, #000000 74%);
+}
+.light .Shimmer-shimmer-0-1-8 {
+    display: inline-block;
+    animation: shimmerAnim 2s infinite linear;
+    background-size: auto;
+    background-repeat: repeat;
+   background-color: #d9d9d9;
+background-image: linear-gradient(315deg, #d9d9d9 0%, #f6f2f2 74%);
+    
+}
+
+
+
+.dark .Shimmer-shimmer-0-1-9 {
+    display: inline-block;
+    animation: shimmerAnim 2s infinite linear;
+    background-size: auto;
+    background-repeat: repeat;
+    background-image: linear-gradient(
+315deg
+, #2d3436 0%, #000000 74%);
+}
+.light .Shimmer-shimmer-0-1-9 {
+    display: inline-block;
+    animation: shimmerAnim 2s infinite linear;
+    background-size: auto;
+    background-repeat: repeat;
+   background-color: #d9d9d9;
+background-image: linear-gradient(315deg, #d9d9d9 0%, #f6f2f2 74%);
+    
+}
+
  .light {
       transition: background-color 0.5s ease-out;
     background-color: #FFFFFF;

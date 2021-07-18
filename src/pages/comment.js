@@ -9,17 +9,23 @@ import LiveLogo from "../images/livegists_logo.png"
 import { useRef } from "react";
 import InfoBar from "../components/info";
 import Picker from 'emoji-picker-react';
+import { themeContext } from "../App";
+import { useContext } from "react";
+import injectSheet from "react-jss";
+import { StyleSheet } from "../utils/shimmer";
+import Shimmer from "react-shimmer-effect";
 const CommentPage = (props) => {
-
+    const { theme } = useContext(themeContext);
     const [err, setErr] = useState();
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
     const [showErr, setShowErr] = useState(false);
     const { id } = useParams();
-    const [comments, setComments] = useState([]);
+    const [comments, setComments] = useState(null);
     const [userDeets, setUserdeets] = useState(null);
     const [code, setCode] = useState(null);
     const [commentBody, setCommentBody] = useState('');
     const commentContainerRef = useRef();
+
     useEffect(() => {
         fetch(API_ENDPOINT + `/get/code?id=${id}`).then(res => res.json()).then((response) => {
             if (response.success === false) return props.history.push("/not_found")
@@ -95,45 +101,68 @@ const CommentPage = (props) => {
             <div className="topp">
 
                 {
-                    code ? <h3><span className="language_button" style={{ paddingLeft: "10px", paddingRight: "10px", paddingTop: "2px", paddingBottom: "2px" }} id={code.language[0].toUpperCase() + code.language.slice(1, code.language.length)}>{code.language[0].toUpperCase() + code.language.slice(1, code.language.length)} </span></h3> : <h3>Loading...</h3>
+                    code ? <h3><span className="language_button" style={{ paddingLeft: "10px", paddingRight: "10px", paddingTop: "2px", paddingBottom: "2px" }} id={code.language[0].toUpperCase() + code.language.slice(1, code.language.length)}>{code.language[0].toUpperCase() + code.language.slice(1, code.language.length)} </span></h3> : <h3><Shimmer>
+                        <div className={props.classes.line} > </div>
+                    </Shimmer></h3>
                 }
+
                 <h3>{code ? code.name.toUpperCase() : ''}</h3>
-                <Link to="/gists" className="back">BACK TO GISTS</Link>
+                <Link to="/gists" className={theme === "light" ? "back" : "back_dark"}>BACK TO GISTS</Link>
             </div>
             <div className="poster">
-                <div className="image_cropper pp"><img className="poster profile_pic" alt="profile pic" src={code !== null ? code.user.profileImageUrl : ''} /></div>
-                <div id="active_block" style={{ marginLeft: "15px" }}><span className="line1"> <Link to={`/@/${code ? code.user.username : ''}`}>{code !== null ? code.user.username : ''}</Link></span> <br /> <span
-                    className="line2">{code !== null ? moment(code.createdAt).startOf('hour').fromNow() : ""}</span></div>
+                {code ? <div className="image_cropper pp"><img className="poster profile_pic" alt="profile pic" src={code !== null ? code.user.profileImageUrl : ''} /></div> : <>
+                    <div className="image_cropper pp">
+                        <Shimmer>
+                            <div className={props.classes.circle}></div>
+                        </Shimmer>
+                    </div>
+
+                </>}
+                <div id="active_block" style={{ marginLeft: "15px" }}><span className={theme === "light" ? "line1" : "line1_dark"}> <Link to={`/@/${code ? code.user.username : ''}`}>{code !== null ? code.user.username : <>
+
+                    <Shimmer>
+                        <div className={props.classes.line}></div>
+                    </Shimmer>
+                </>}</Link></span> <br /> <span
+                    className={theme === "light" ? "line2" : "line2_dark"}>{code !== null ? moment(code.createdAt).startOf('hour').fromNow() : ""}</span></div>
             </div>
-            <CodeMirror
-                className="code"
-                value={code?.data}
-                options={{
-                    lineWrapping: true,
-                    lint: true,
-                    mode: code?.language,
-                    theme: code?.theme ?? "elegant",
-                    lineNumbers: false,
-                    scrollbarStyle: "null"
-                }}
-            />
-            <div>
+            {
+                code ? <CodeMirror
+                    className="code"
+                    value={code?.data}
+                    options={{
+                        lineWrapping: true,
+                        lint: true,
+                        mode: code?.language,
+                        theme: code?.theme ?? "elegant",
+                        lineNumbers: false,
+                        scrollbarStyle: "null"
+                    }}
+                /> : <>
+
+                    <Shimmer>
+                        <div className="code"></div>
+                    </Shimmer>
+
+
+                </>
+            }            <div>
 
 
 
                 <div className="big_container" >
-                    <div className="comment_block" style={{ display: comments && comments.length > 0 ? "block" : "none" }} ref={commentContainerRef}>
+                    <div className="comment_block" ref={commentContainerRef}>
 
 
-                        {comments && comments.map((c, index) => {
+                        {comments ? comments.map((c, index) => {
                             return (
                                 <div key={index}>
-                                    <div className="comment1" >
+                                    <div className={theme === "light" ? "comment1" : "comment1_dark"}>
                                         <div className="comment_wrapper">
                                             <img className="commenter_pic" alt="commenter pic" src={c.user.profileImageUrl} />
                                             <div className="textt">
-                                                <div className="user_header"> <Link to={`/@/${c.user.username}`}>{c.user.username} </Link> </div>
-                                                <div className="user_comment">
+                                                <div className={theme === "light" ? "user_header" : "user_header_dark"}> <Link to={`/@/${c.user.username}`}>{c.user.username} </Link> </div>
+                                                <div className={theme === "light" ? "user_comment" : "user_comment_dark"}>
                                                     <div>
                                                         {c.body}
                                                     </div>
@@ -144,9 +173,31 @@ const CommentPage = (props) => {
                                     </div>
                                 </div>
                             )
-                        })}
+                        }) : <>
+
+                            <div>
+                                <Shimmer>
+                                    <div className={props.classes.comment}></div>
+                                </Shimmer>
+                                <Shimmer>
+                                    <div className={props.classes.comment}></div>
+                                </Shimmer> <Shimmer>
+                                    <div className={props.classes.comment}></div>
+                                </Shimmer> <Shimmer>
+                                    <div className={props.classes.comment}></div>
+                                </Shimmer> <Shimmer>
+                                    <div className={props.classes.comment}></div>
+                                </Shimmer> <Shimmer>
+                                    <div className={props.classes.comment}></div>
+                                </Shimmer> <Shimmer>
+                                    <div className={props.classes.comment}></div>
+                                </Shimmer>
+                            </div>
+
+
+                        </>}
                     </div>
-                    {comments ? <div id="new_comment">
+                    {comments ? <div id={theme === "light" ? "new_comment" : "new_comment_dark"}>
                         <div className="comment_wrapper">
 
                             <div className="textt">
@@ -156,10 +207,10 @@ const CommentPage = (props) => {
 
                                 {showEmojiPicker ? <div style={{ position: "absolute", top: "-236px", left: "159px", zIndex: "10" }}> <Picker onEmojiClick={onEmojiClick} /></div> : ''}
 
-                                <div className="user_header"> <button onClick={handleEmojiClick} > 🐱‍🏍</button> </div>
-                                <div className="user_comment">
+                                <div className={theme === "light" ? "user_header" : "user_header_dark"}> <button onClick={handleEmojiClick} > 🐱‍🏍</button> </div>
+                                <div className={theme === "light" ? "user_comment" : "user_comment_dark"}>
 
-                                    <textarea name="comment" cols="100" rows="5" placeholder="Leave a comment" onChange={handleChange} value={commentBody}></textarea>
+                                    <textarea name={theme === "light" ? "comment" : "comment_dark"} cols="100" rows="5" placeholder="Leave a comment" onChange={handleChange} value={commentBody}></textarea>
 
                                     <div><input type="submit" value="Comment" onClick={handleComment} /></div>
 
@@ -173,4 +224,4 @@ const CommentPage = (props) => {
         </>
     )
 };
-export default withRouter(CommentPage);
+export default withRouter(injectSheet(StyleSheet)(CommentPage));

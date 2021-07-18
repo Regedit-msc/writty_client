@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { io } from "socket.io-client"
 import { API_ENDPOINT } from "./pages/url"
 import { useParams } from "react-router-dom"
+import InfoBar from "./components/info";
 
 const CollabEditor = (props) => {
     const { id } = useParams()
@@ -13,26 +14,26 @@ const CollabEditor = (props) => {
     const [language, setLanguage] = useState("javascript");
     const [username, setUsername] = useState();
     const [loading, setLoading] = useState(true);
-    const [monaco, setMonaco] = useState()
-
-    const SAVE_INTERVAL_MS = 2000;
+    const [monaco, setMonaco] = useState();
+    const [info, setInfo] = useState();
+    const [showInfo, setShowInfo] = useState(false);
 
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
         }, 5000);
     }, [])
-    useEffect(() => {
-        const interval = setInterval(() => {
-            socket.emit("save-code", code);
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         socket.emit("save-code", { code, userID });
 
-        }, SAVE_INTERVAL_MS)
+    //     }, SAVE_INTERVAL_MS)
 
-        return () => {
-            clearInterval(interval)
+    //     return () => {
+    //         clearInterval(interval)
 
-        }
-    }, [code, socket])
+    //     }
+    // }, [code, socket])
 
     useEffect(() => {
         if (socket == null || theEditor == null || username == null) return
@@ -40,6 +41,16 @@ const CollabEditor = (props) => {
             if (sender_id !== username) {
                 setCode(value);
             }
+        })
+        socket.on('userLeft', (name) => {
+            console.log(name);
+            const textToShow = name === "Admin" ? "The admin has left. Subsequent changes will not be saved." : `${name} has left.`
+            setInfo(textToShow);
+            setShowInfo(true);
+            setTimeout(() => {
+                setInfo("");
+                setShowInfo(false);
+            }, 5000)
         })
     }, [socket, theEditor, username])
 
@@ -58,6 +69,7 @@ const CollabEditor = (props) => {
             console.log(jsonRes, "jsonRes");
             if (jsonRes.success) {
                 setUsername(jsonRes.username);
+                // setUserID(jsonRes.uid)
             } else {
                 props.history.push("/not_allowed_register_to_collab");
             }
@@ -97,6 +109,8 @@ const CollabEditor = (props) => {
             s.disconnect()
         }
     }, []);
+
+
     function handleEditorDidMount(editor, monaco) {
         setTheEditor(editor);
         setMonaco(monaco);
@@ -112,6 +126,10 @@ const CollabEditor = (props) => {
     } else {
         return (
             <>
+                {showInfo ? <InfoBar
+                    color="blue"
+                    text={info}
+                /> : ""}
                 <Editor
                     value={code}
                     height="100vh"

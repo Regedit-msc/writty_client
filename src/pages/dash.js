@@ -422,7 +422,7 @@ const Dash = (props) => {
                             )
                         }) : <>
                             <Shimmer>
-                                <div className={props.classes.projectBox} />
+                                    <div className={props.classes.projectBox} />
                             </Shimmer>
                             <Shimmer>
                                 <div className={props.classes.projectBox} />

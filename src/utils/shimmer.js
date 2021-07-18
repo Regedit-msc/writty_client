@@ -48,5 +48,13 @@ export const StyleSheet = {
         height: "400px",
         borderRadius: "8px",
 
+    },
+    comment: {
+        width: "1028px",
+        height: "100px",
+        borderRadius: "18px",
+        boxSizing: "border-box",
+        marginBottom: "10px",
+
     }
 };
