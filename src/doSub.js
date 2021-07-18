@@ -35,7 +35,7 @@ const pushNotificationSuported = isPushNotificationSupported();
 
 
 
-const convertedVapidKey = urlBase64ToUint8Array("BI5gO7qheWqGnIhgtRXKOljicEmFCx7oH2K9ZimvjSv18e0vowZSNJstkqW0emAPr3fle__NjThmiH8ErjBvo50")
+const convertedVapidKey = urlBase64ToUint8Array("BHTYNVdgpNpQWcKTaas27uQFTBy2UiuaiBXmeu2sKeMeZXq4d01dKDDXlsFadM2PbBNHskiOeCNuzTn2kWxcc5M")
 
 function urlBase64ToUint8Array(base64String) {
     const padding = "=".repeat((4 - base64String.length % 4) % 4)
