@@ -1,1 +1,1 @@
-export const API_ENDPOINT = process.env.NODE_ENV === "development" ? "http://localhost:3001" : "http://localhost:3001"
+export const API_ENDPOINT = process.env.NODE_ENV === "development" ? "http://localhost:3001" : "https://live-gists.herokuapp.com"
