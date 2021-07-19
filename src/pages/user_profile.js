@@ -20,9 +20,9 @@ import notLike from "../images/not_like.png"
 import comment from "../images/comments.png";
 import moment from "moment";
 import InfoBar from "../components/info";
-import Shimmer from "react-shimmer-effect";
 import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
+import CustomShimmer from "../components/shimmerComp";
 
 const UserProfile = (props) => {
 
@@ -169,18 +169,18 @@ const UserProfile = (props) => {
                     <div className="invisible_side">
                         <div className={theme === "light" ? "nice_box_light" : "nice_box"}>
                             {userData ? <img alt="profile" src={userData.image} className="big_profile_pic" /> :
-                                <Shimmer>
+                                <CustomShimmer>
                                     <div className={props.classes.circleBig} />
-                                </Shimmer>
+                                </CustomShimmer>
                             }
                             <span>{name}</span>
                             <Link onClick={() => handleCopy(userData.email, "Copied email to clipboard.")} className={theme === "light" ? "connect_light" : "connect"}>Connect</Link>
                         </div>
                         <div className={theme === "light" ? "email_label_light" : "email_label"}>
                             <img src={Mail} alt="email" />
-                            {userData !== null ? userData.email : <Shimmer>
+                            {userData !== null ? userData.email : <CustomShimmer>
                                 <div className={props.classes.line} />
-                            </Shimmer>}
+                            </CustomShimmer>}
                         </div>
                     </div>
 
@@ -250,16 +250,16 @@ const UserProfile = (props) => {
                             }) : <div>
                                 <div >
 
-                                    <Shimmer>
+                                        <CustomShimmer>
                                         <div className={props.classes.codeBox} />
-                                    </Shimmer>
+                                        </CustomShimmer>
                                 </div>
-                                <div>
-                                    <Shimmer>
-                                        <div className={props.classes.codeBox} />
-                                    </Shimmer>
+                                    <div >
 
-                                </div>
+                                        <CustomShimmer>
+                                            <div className={props.classes.codeBox} />
+                                        </CustomShimmer>
+                                    </div>
                                 <div>
 
 

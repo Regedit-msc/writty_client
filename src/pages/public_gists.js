@@ -48,7 +48,7 @@ import InfoBar from "../components/info";
 import moment from "moment"
 import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
-import Shimmer from "react-shimmer-effect";
+import CustomShimmer from "../components/shimmerComp";
 const { API_ENDPOINT } = require("./url");
 
 const PublicGists = (props) => {
@@ -251,20 +251,20 @@ const PublicGists = (props) => {
 
 
                 ) : <>
-                    <Shimmer>
+                        <CustomShimmer>
                         <div className={props.classes.publicEditor} />
-                    </Shimmer>
-                    <Shimmer>
-                        <div className={props.classes.publicEditor} />
-                    </Shimmer><Shimmer>
-                        <div className={props.classes.publicEditor} />
-                    </Shimmer><Shimmer>
-                        <div className={props.classes.publicEditor} />
-                    </Shimmer><Shimmer>
-                        <div className={props.classes.publicEditor} />
-                    </Shimmer><Shimmer>
+                        </CustomShimmer>
+                        <CustomShimmer>
                             <div className={props.classes.publicEditor} />
-                    </Shimmer>
+                        </CustomShimmer> <CustomShimmer>
+                            <div className={props.classes.publicEditor} />
+                        </CustomShimmer> <CustomShimmer>
+                            <div className={props.classes.publicEditor} />
+                        </CustomShimmer> <CustomShimmer>
+                            <div className={props.classes.publicEditor} />
+                        </CustomShimmer> <CustomShimmer>
+                            <div className={props.classes.publicEditor} />
+                        </CustomShimmer>
                 </>}
 
 

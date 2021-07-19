@@ -7,10 +7,10 @@ import "../css/public_gists.css";
 import "../css/main.css";
 import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
-import Shimmer from "react-shimmer-effect";
 import { makePriv } from "../auth_hoc/checkAuth";
 import { themeContext } from "../App";
 import { useTitle } from "../utils/title";
+import CustomShimmer from "../components/shimmerComp";
 
 
 
@@ -77,9 +77,9 @@ const Home = (props) => {
             <div id="main">
                 <h3 id="greeting">Hi, {username ? username : <>
 
-                    <Shimmer>
+                    <CustomShimmer>
                         <div className={props.classes.line} />
-                    </Shimmer>
+                    </CustomShimmer>
                 </>}</h3>
 
                 <div className={theme === "light" ? "search_wrapper_light" : "search_wrapper"}>
@@ -111,29 +111,28 @@ const Home = (props) => {
                                 </div>
                             )
                         }) : <>
-                            <Shimmer>
+                                <CustomShimmer>
                                 <div className={props.classes.projectBox} />
-                            </Shimmer>
-                            <Shimmer>
-                                <div className={props.classes.projectBox} />
-                            </Shimmer><Shimmer>
-                                <div className={props.classes.projectBox} />
-                            </Shimmer><Shimmer>
-                                <div className={props.classes.projectBox} />
-                            </Shimmer><Shimmer>
-                                <div className={props.classes.projectBox} />
-                            </Shimmer><Shimmer>
-                                <div className={props.classes.projectBox} />
-                            </Shimmer><Shimmer>
-                                <div className={props.classes.projectBox} />
-                            </Shimmer><Shimmer>
-                                <div className={props.classes.projectBox} />
-                            </Shimmer><Shimmer>
-                                <div className={props.classes.projectBox} />
-                            </Shimmer><Shimmer>
-                                <div className={props.classes.projectBox} />
-                            </Shimmer>
-
+                                </CustomShimmer>
+                                <CustomShimmer>
+                                    <div className={props.classes.projectBox} />
+                                </CustomShimmer><CustomShimmer>
+                                    <div className={props.classes.projectBox} />
+                                </CustomShimmer><CustomShimmer>
+                                    <div className={props.classes.projectBox} />
+                                </CustomShimmer><CustomShimmer>
+                                    <div className={props.classes.projectBox} />
+                                </CustomShimmer><CustomShimmer>
+                                    <div className={props.classes.projectBox} />
+                                </CustomShimmer><CustomShimmer>
+                                    <div className={props.classes.projectBox} />
+                                </CustomShimmer><CustomShimmer>
+                                    <div className={props.classes.projectBox} />
+                                </CustomShimmer><CustomShimmer>
+                                    <div className={props.classes.projectBox} />
+                                </CustomShimmer><CustomShimmer>
+                                    <div className={props.classes.projectBox} />
+                                </CustomShimmer>
                         </>
                     }
 

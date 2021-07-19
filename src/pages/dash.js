@@ -4,7 +4,6 @@ import { API_ENDPOINT } from "./url";
 import { Link } from "react-router-dom"
 import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
-import Shimmer from "react-shimmer-effect";
 import { v4 as uuidV4 } from "uuid";
 import PadLock from "../images/padlock.png";
 import DeleteLight from "../images/icon-delete_light.png";
@@ -22,6 +21,7 @@ import SideBar from "../components/sidebar";
 import { themeContext } from "../App";
 import InfoBar from "../components/info";
 import { useTitle } from "../utils/title";
+import CustomShimmer from "../components/shimmerComp";
 
 
 
@@ -345,12 +345,12 @@ const Dash = (props) => {
             {isLoadingCreateDoc ? <div>Creating gist...</div> : <div></div>}
             <div id="main">
                 <img src={PadLock} id="padlock" className="point" alt="padlock" />
-                {docs ? <img ref={profileImageRef} src={defaultImage} id="profile_pic" className="point" alt="profile_pic" /> : <> <Shimmer>
+                {docs ? <img ref={profileImageRef} src={defaultImage} id="profile_pic" className="point" alt="profile_pic" /> : <> <CustomShimmer>
                     <div className={props.classes.circle} />
-                </Shimmer> </>}
-                <h3 id="greeting">Dev {username ? username : <> <Shimmer>
+                </CustomShimmer> </>}
+                <h3 id="greeting">Dev {username ? username : <> <CustomShimmer>
                     <div className={props.classes.line} />
-                </Shimmer> </>}</h3>
+                </CustomShimmer> </>}</h3>
                 <h5 id="welcome">Welcome to your dashboard</h5>
                 <Link id={theme === "light" ? "create_button_light" : "create_button"} to="/dash" onClick={createDoc} className="point" >Create a gist</Link>
 
@@ -421,28 +421,28 @@ const Dash = (props) => {
                                 </div>
                             )
                         }) : <>
-                            <Shimmer>
+                                <CustomShimmer>
                                     <div className={props.classes.projectBox} />
-                            </Shimmer>
-                            <Shimmer>
-                                <div className={props.classes.projectBox} />
-                            </Shimmer><Shimmer>
-                                <div className={props.classes.projectBox} />
-                            </Shimmer><Shimmer>
-                                <div className={props.classes.projectBox} />
-                            </Shimmer><Shimmer>
-                                <div className={props.classes.projectBox} />
-                            </Shimmer><Shimmer>
-                                <div className={props.classes.projectBox} />
-                            </Shimmer><Shimmer>
-                                <div className={props.classes.projectBox} />
-                            </Shimmer><Shimmer>
-                                <div className={props.classes.projectBox} />
-                            </Shimmer><Shimmer>
-                                <div className={props.classes.projectBox} />
-                            </Shimmer><Shimmer>
-                                <div className={props.classes.projectBox} />
-                            </Shimmer>
+                                </CustomShimmer>
+                                <CustomShimmer>
+                                    <div className={props.classes.projectBox} />
+                                </CustomShimmer> <CustomShimmer>
+                                    <div className={props.classes.projectBox} />
+                                </CustomShimmer> <CustomShimmer>
+                                    <div className={props.classes.projectBox} />
+                                </CustomShimmer> <CustomShimmer>
+                                    <div className={props.classes.projectBox} />
+                                </CustomShimmer> <CustomShimmer>
+                                    <div className={props.classes.projectBox} />
+                                </CustomShimmer> <CustomShimmer>
+                                    <div className={props.classes.projectBox} />
+                                </CustomShimmer> <CustomShimmer>
+                                    <div className={props.classes.projectBox} />
+                                </CustomShimmer> <CustomShimmer>
+                                    <div className={props.classes.projectBox} />
+                                </CustomShimmer> <CustomShimmer>
+                                    <div className={props.classes.projectBox} />
+                                </CustomShimmer>
                         </>
                     }
 

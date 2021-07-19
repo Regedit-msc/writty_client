@@ -14,6 +14,7 @@ import { useContext } from "react";
 import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
 import Shimmer from "react-shimmer-effect";
+import CustomShimmer from "../components/shimmerComp";
 const CommentPage = (props) => {
     const { theme } = useContext(themeContext);
     const [err, setErr] = useState();
@@ -101,9 +102,9 @@ const CommentPage = (props) => {
             <div className="topp">
 
                 {
-                    code ? <h3><span className="language_button" style={{ paddingLeft: "10px", paddingRight: "10px", paddingTop: "2px", paddingBottom: "2px" }} id={code.language[0].toUpperCase() + code.language.slice(1, code.language.length)}>{code.language[0].toUpperCase() + code.language.slice(1, code.language.length)} </span></h3> : <h3><Shimmer>
+                    code ? <h3><span className="language_button" style={{ paddingLeft: "10px", paddingRight: "10px", paddingTop: "2px", paddingBottom: "2px" }} id={code.language[0].toUpperCase() + code.language.slice(1, code.language.length)}>{code.language[0].toUpperCase() + code.language.slice(1, code.language.length)} </span></h3> : <h3><CustomShimmer>
                         <div className={props.classes.line} > </div>
-                    </Shimmer></h3>
+                    </CustomShimmer></h3>
                 }
 
                 <h3>{code ? code.name.toUpperCase() : ''}</h3>
@@ -112,17 +113,17 @@ const CommentPage = (props) => {
             <div className="poster">
                 {code ? <div className="image_cropper pp"><img className="poster profile_pic" alt="profile pic" src={code !== null ? code.user.profileImageUrl : ''} /></div> : <>
                     <div className="image_cropper pp">
-                        <Shimmer>
+                        <CustomShimmer>
                             <div className={props.classes.circle}></div>
-                        </Shimmer>
+                        </CustomShimmer>
                     </div>
 
                 </>}
                 <div id="active_block" style={{ marginLeft: "15px" }}><span className={theme === "light" ? "line1" : "line1_dark"}> <Link to={`/@/${code ? code.user.username : ''}`}>{code !== null ? code.user.username : <>
 
-                    <Shimmer>
+                    <CustomShimmer>
                         <div className={props.classes.line}></div>
-                    </Shimmer>
+                    </CustomShimmer>
                 </>}</Link></span> <br /> <span
                     className={theme === "light" ? "line2" : "line2_dark"}>{code !== null ? moment(code.createdAt).startOf('hour').fromNow() : ""}</span></div>
             </div>
@@ -140,9 +141,9 @@ const CommentPage = (props) => {
                     }}
                 /> : <>
 
-                    <Shimmer>
+                        <CustomShimmer>
                         <div className="code"></div>
-                    </Shimmer>
+                        </CustomShimmer>
 
 
                 </>
@@ -176,22 +177,28 @@ const CommentPage = (props) => {
                         }) : <>
 
                             <div>
-                                <Shimmer>
+                                    <CustomShimmer>
                                     <div className={props.classes.comment}></div>
-                                </Shimmer>
-                                <Shimmer>
-                                    <div className={props.classes.comment}></div>
-                                </Shimmer> <Shimmer>
-                                    <div className={props.classes.comment}></div>
-                                </Shimmer> <Shimmer>
-                                    <div className={props.classes.comment}></div>
-                                </Shimmer> <Shimmer>
-                                    <div className={props.classes.comment}></div>
-                                </Shimmer> <Shimmer>
-                                    <div className={props.classes.comment}></div>
-                                </Shimmer> <Shimmer>
-                                    <div className={props.classes.comment}></div>
-                                </Shimmer>
+                                    </CustomShimmer>
+                                    <CustomShimmer>
+                                        <div className={props.classes.comment}></div>
+                                    </CustomShimmer> <CustomShimmer>
+                                        <div className={props.classes.comment}></div>
+                                    </CustomShimmer> <CustomShimmer>
+                                        <div className={props.classes.comment}></div>
+                                    </CustomShimmer> <CustomShimmer>
+                                        <div className={props.classes.comment}></div>
+                                    </CustomShimmer> <CustomShimmer>
+                                        <div className={props.classes.comment}></div>
+                                    </CustomShimmer> <CustomShimmer>
+                                        <div className={props.classes.comment}></div>
+                                    </CustomShimmer> <CustomShimmer>
+                                        <div className={props.classes.comment}></div>
+                                    </CustomShimmer> <CustomShimmer>
+                                        <div className={props.classes.comment}></div>
+                                    </CustomShimmer> <CustomShimmer>
+                                        <div className={props.classes.comment}></div>
+                                    </CustomShimmer>
                             </div>
 
 

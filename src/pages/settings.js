@@ -12,7 +12,7 @@ import { imageContext } from "../contexts/imageContext";
 import InfoBar from "../components/info";
 import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
-import Shimmer from "react-shimmer-effect";
+import CustomShimmer from "../components/shimmerComp";
 
 const Settings = (props) => {
     const defaultImage = 'https://cdn3.vectorstock.com/i/thumb-large/76/57/portrait-young-bearded-man-in-eyeglasses-vector-34397657.jpg'
@@ -148,9 +148,9 @@ const Settings = (props) => {
                 <div>
                     {image ? <img ref={profileRef} src={defaultImage} id="profile_pic1" alt="user_image" /> : <>
 
-                        <Shimmer>
+                        <CustomShimmer>
                             <div className={props.classes.circleBig} />
-                        </Shimmer>
+                        </CustomShimmer>
                     </>}
                     <Link onClick={handleUploadClick} id={theme === "light" ? "change_button_light" : "change_button"}>Change</Link>
                     <input ref={imageFieldRef} type="file" class="image" accept="image/*" style={{ display: "none" }} onChange={handleImageFieldChange} />
