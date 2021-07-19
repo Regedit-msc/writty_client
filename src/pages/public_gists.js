@@ -263,9 +263,7 @@ const PublicGists = (props) => {
                     </Shimmer><Shimmer>
                         <div className={props.classes.publicEditor} />
                     </Shimmer><Shimmer>
-                        <div className={props.classes.publicEditor} />
-                    </Shimmer><Shimmer>
-                        <div className={props.classes.publicEditor} />
+                            <div className={props.classes.publicEditor} />
                     </Shimmer>
                 </>}
 
