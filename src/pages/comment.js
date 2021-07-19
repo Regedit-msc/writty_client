@@ -13,7 +13,6 @@ import { themeContext } from "../App";
 import { useContext } from "react";
 import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
-import Shimmer from "react-shimmer-effect";
 import CustomShimmer from "../components/shimmerComp";
 const CommentPage = (props) => {
     const { theme } = useContext(themeContext);
