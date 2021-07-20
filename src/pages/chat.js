@@ -30,6 +30,7 @@ const Chat = (props) => {
     // const [setTyping] = useState("")
     const [nameUserProfileImage, setNameUserProfileImage] = useState();
     // const [setIdUserProfileImage] = useState();
+    const [notYouID, setNotYouID] = useState('')
     // const [setLastSeen] = useState();
     const [socket, setSocket] = useState();
     // const [setSent] = useState();
@@ -68,6 +69,8 @@ const Chat = (props) => {
                 setMessages(data.messages);
                 setUserID(data.userID);
                 setNameUserProfileImage(data.profileImage);
+                setNotYouID(data.notYouID);
+
                 // setIdUserProfileImage(data.profileImageYou)
                 console.log(data);
             } else {
@@ -89,11 +92,17 @@ const Chat = (props) => {
                 props.history.push("/" + e.split(" ").join("_"))
             }
         })
+
+
+
+    }, [socket, name, props.history]);
+
+    useEffect(() => {
+        if (!socket) return;
         socket.on("message", data => {
             console.log(data);
             if (data.username === name) {
-                setMessages([...messages, {
-                    room: room,
+                setMessages(messages => [...messages, {
                     body: data.text,
                     user: { _id: data.id },
                     type: "message",
@@ -103,17 +112,19 @@ const Chat = (props) => {
             // setTyping("");
         });
 
+    }, [socket, name])
+
+    useEffect(() => {
+        if (!socket) return;
         socket.on("onlineUsers", data => {
             console.log(data);
-            if (data.users.length > 1) {
+            if (data.users.findIndex(u => u.id === notYouID) !== -1) {
                 setYouOnline(true);
             } else {
                 setYouOnline(false);
             }
         });
-
-    }, [socket, name, props.history, messages, room]);
-
+    }, [socket, notYouID])
 
     useEffect(() => {
         if (!socket) return;
