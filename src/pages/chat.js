@@ -123,6 +123,7 @@ const Chat = (props) => {
             } else {
                 setYouOnline(false);
             }
+            socket.emit("onlineUsers")
         });
     }, [socket, notYouID])
 
