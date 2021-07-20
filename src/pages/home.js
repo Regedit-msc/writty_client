@@ -99,9 +99,9 @@ const Home = (props) => {
                             publicLink,
                             collabLink,
                             user
-                        }) => {
+                        }, index) => {
                             return (
-                                <div className={theme === "light" ? "language_box_light" : "language_box"} key={publicLink}>
+                                <div className={theme === "light" ? "language_box_light" : "language_box"} key={index}>
                                     <div className="language_button" id={language[0].toUpperCase() + language.slice(1, language.length)}>{language[0].toUpperCase() + language.slice(1, language.length)}</div>
                                     <div className={theme === "light" ? "big_light" : "big"}><Link className="point" to={`/public/editor/${publicLink}`}>{name.slice(0, 6).toUpperCase() + "..."}</Link></div>
                                     <div className="info">

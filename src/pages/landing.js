@@ -2,7 +2,6 @@ import { useContext, useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import { API_ENDPOINT } from "./url";
 import { Controlled as CodeMirror } from 'react-codemirror2'
-import { io } from "socket.io-client"
 import Code from "../images/code.svg";
 import "../css/main.css";
 import "../css/landing.css";
@@ -13,6 +12,7 @@ import 'codemirror/theme/elegant.css';
 import { v4 as uuidV4 } from "uuid"
 import { jsCode } from "../utils/jsCode";
 import { themeContext } from "../App";
+import { IO } from "../utils/socket_stuff";
 
 const Landing = () => {
     const checkBox = useRef();
@@ -42,7 +42,7 @@ const Landing = () => {
     }
 
     useEffect(() => {
-        const s = io(`${API_ENDPOINT}/public`)
+        const s = IO(`${API_ENDPOINT}/public`)
         setSocket(s)
 
         return () => {

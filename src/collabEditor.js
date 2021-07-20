@@ -1,10 +1,10 @@
 
 import Editor from "@monaco-editor/react";
 import { useEffect, useState } from "react"
-import { io } from "socket.io-client"
 import { API_ENDPOINT } from "./pages/url"
 import { useParams } from "react-router-dom"
 import InfoBar from "./components/info";
+import { IO } from "./utils/socket_stuff";
 
 const CollabEditor = (props) => {
     const { id } = useParams()
@@ -102,7 +102,7 @@ const CollabEditor = (props) => {
     }, [socket, theEditor, id, username, props.history, monaco]);
 
     useEffect(() => {
-        const s = io(`${API_ENDPOINT}/editor1`)
+        const s = IO(`${API_ENDPOINT}/editor1`)
         setSocket(s)
 
         return () => {

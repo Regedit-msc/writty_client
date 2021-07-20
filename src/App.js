@@ -23,6 +23,7 @@ import { withGetScreen } from 'react-getscreen'
 import Mobile from "./pages/mobile"
 import CommentPage from "./pages/comment"
 import UserProfile from "./pages/user_profile"
+import Chat from "./pages/chat"
 
 
 
@@ -101,6 +102,7 @@ function App(props) {
               <Route exact path="/settings" component={mobile ? Mobile : Settings} />
               <Route exact path="/editor/collab/:id" component={mobile ? Mobile : CollabEditor} />
               <Route exact path="/@/:name" component={mobile ? Mobile : UserProfile} />
+              <Route exact path="/@/:name/chat" component={mobile ? Mobile : Chat} />
               <Route exact path="/mobile" component={Mobile} />
               <Route exact component={mobile ? Mobile : NotFound} />
 

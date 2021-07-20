@@ -32,6 +32,24 @@ export const StyleSheet = {
         marginLeft: "16px",
         borderRadius: "8px"
     },
+    messageMine: {
+        padding: "16px 20px 16px 20px",
+        marginBottom: "20px",
+        width: "300px",
+        maxWidth: "500px",
+        borderRadius: "8px",
+        flex: "50%"
+
+
+    },
+    messageYours: {
+        padding: "16px 20px 16px 20px",
+        marginBottom: "20px",
+        width: "300px",
+        maxWidth: "500px",
+        borderRadius: "8px",
+        flex: "50%"
+    },
     projectBox: {
         display: "flex",
         flexDirection: "column",

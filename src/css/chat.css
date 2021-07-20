@@ -1,0 +1,165 @@
+ .messages_head {
+        position: sticky;
+        top: 0;
+        height: 5.125rem;
+        width: 100%;
+        background-color: #FFFFFF;
+        border: 1px solid #FFFFFF;
+        box-sizing: border-box;
+        z-index: 3;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .back_button {
+        width: 44px;
+        margin-left: 33.5px;
+    }
+
+    .your_info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        position:absolute;
+        left: 120px;
+        
+    }
+    .your_profile_image {
+        width: 52px;
+        padding-right: 32px;
+    }
+
+    #your_name {
+        font-size: 21px;
+    }
+    #active_status {
+        font-size: 18.5px;
+        color: #686868;
+    }
+
+    .menu_button {
+        width: 44px;
+        margin-right: 33.5px;
+        
+    }
+
+    .messages_body {
+        margin: 32px 40px 32px 40px;
+        padding: 20px;
+        /* height: 100vh; */
+
+        overflow: scroll;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;
+    }
+   
+    .messages_body::-webkit-scrollbar {
+        display: none;
+    }
+
+    .messages_body >* {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    .message_box {
+        padding: 16px 20px 16px 20px;
+        margin-bottom: 20px;
+        width: fit-content;
+        max-width: 500px;
+        border-radius: 8px;
+    }
+
+    .messages_body .mine {
+        position: relative;
+        background-color: #FFFFFF;
+        color: #000000;
+        margin-left: auto;  
+    }
+    .mine::after {
+        content: "";
+        width: 0px;
+        height: 0px;
+        position: absolute;
+
+        border-left: 12px solid #FFFFFF;
+        border-right: 12px solid transparent;
+        border-top: 8px solid #FFFFFF;
+        border-bottom: 8px solid transparent;
+        
+        top: 2px;
+        margin-left: 16px;
+    }
+
+    .messages_body .yours {
+        position: relative;
+        background-color: #1F1F1F;
+        color: #FFFFFF;
+    }
+    .yours::before {
+        content: "";
+        width: 0px;
+        height: 0px;
+        position: absolute;
+        border-left: 12px solid transparent;
+        border-right: 12px solid #1F1F1F;
+        border-top: 8px solid #1F1F1F;
+        border-bottom: 8px solid transparent;
+
+        left: -20px;
+        top: 2px;
+    }
+
+    .messages_tools {
+        position: fixed;
+        bottom: 0;
+
+        height: 5.125rem;
+        width: 100%;
+        background-color: #FFFFFF;
+        border: 1px solid #FFFFFF;
+        padding-right: 32px;
+        padding-left: 32px;
+        box-sizing: border-box;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+    }
+    .messages_tools div {
+        width: 140px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        
+    }
+    .messages_tools img {
+        width: 32px;
+    }
+    .messages_tools input {
+        outline: none;
+        border: none;
+        width: 62rem;
+        font-family: iCiel Gotham;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        box-sizing: border-box;
+
+        background-color: #FFFFFF;
+        color: #000000;
+
+        border-style: none;
+        border: 3.5px solid #000000;
+        border-radius: 80px;
+        padding: 15px 20px 15px 20px;
+
+    }
