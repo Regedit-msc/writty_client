@@ -91,10 +91,20 @@ const Chat = (props) => {
         })
         socket.on("message", data => {
             console.log(data);
+            if (data.username === name) {
+                setMessages([...messages, {
+                    room: room,
+                    body: data.text,
+                    user: { _id: data.id },
+                    type: "message",
+                    _id: uuidV4()
+                }]);
+            }
             // setTyping("");
         });
 
         socket.on("onlineUsers", data => {
+            console.log(data);
             if (data.users.length > 1) {
                 setYouOnline(true);
             } else {
@@ -102,7 +112,7 @@ const Chat = (props) => {
             }
         });
 
-    }, [socket, name, props.history]);
+    }, [socket, name, props.history, messages, room]);
 
 
     useEffect(() => {
