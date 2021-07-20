@@ -70,7 +70,7 @@ const Chat = (props) => {
                 setUserID(data.userID);
                 setNameUserProfileImage(data.profileImage);
                 setNotYouID(data.notYouID);
-
+                socket.emit("onlineUsers");
                 // setIdUserProfileImage(data.profileImageYou)
                 console.log(data);
             } else {
@@ -123,7 +123,7 @@ const Chat = (props) => {
             } else {
                 setYouOnline(false);
             }
-            socket.emit("onlineUsers")
+
         });
     }, [socket, notYouID])
 
