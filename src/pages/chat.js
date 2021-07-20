@@ -14,7 +14,7 @@ import BackLight from "../images/back_light.png"
 import InfoBar from "../components/info";
 import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
-import ProfilePlaceholder from "../images/profile_placeholder.jpg"
+// import ProfilePlaceholder from "../images/profile_placeholder.jpg"
 // import { themeContext } from "../App";
 import { useTitle } from "../utils/title";
 import CustomShimmer from "../components/shimmerComp";
@@ -27,12 +27,12 @@ const Chat = (props) => {
     const [userID, setUserID] = useState();
     const [info, setInfo] = useState();
     const [showInfo, setShowInfo] = useState(false);
-    const [typing, setTyping] = useState("")
+    // const [setTyping] = useState("")
     const [nameUserProfileImage, setNameUserProfileImage] = useState();
-    const [idUserProfileImage, setIdUserProfileImage] = useState();
-    const [lastSeen, setLastSeen] = useState();
+    // const [setIdUserProfileImage] = useState();
+    // const [setLastSeen] = useState();
     const [socket, setSocket] = useState();
-    const [sent, setSent] = useState();
+    // const [setSent] = useState();
     const [youOnline, setYouOnline] = useState(false);
     const [inputVal, setInputVal] = useState('');
 
@@ -55,9 +55,8 @@ const Chat = (props) => {
                 you.push(message);
             }
         });
-        const lastSeen = you[you.length - 1].createdAt
-        setLastSeen(lastSeen);
-        console.log(lastSeen);
+        // const lastSeen = you[you.length - 1].createdAt
+        // setLastSeen(lastSeen);
     }, [messages, userID])
     useEffect(() => {
         if (socket == null) return;
@@ -69,7 +68,7 @@ const Chat = (props) => {
                 setMessages(data.messages);
                 setUserID(data.userID);
                 setNameUserProfileImage(data.profileImage);
-                setIdUserProfileImage(data.profileImageYou)
+                // setIdUserProfileImage(data.profileImageYou)
                 console.log(data);
             } else {
                 // TODO: Handle no messages.
@@ -92,7 +91,7 @@ const Chat = (props) => {
         })
         socket.on("message", data => {
             console.log(data);
-            setTyping("");
+            // setTyping("");
         });
 
         socket.on("onlineUsers", data => {
@@ -102,15 +101,21 @@ const Chat = (props) => {
                 setYouOnline(false);
             }
         });
+
+    }, [socket, name, props.history]);
+
+
+    useEffect(() => {
+        if (!socket) return;
         socket.on("typing", data => {
-            setTyping(data);
+            console.log("Typing")
+            // setTyping(data);
         });
-    }, [socket, name]);
-
-
+    }, [socket])
     function handleChange(e) {
         e.preventDefault();
         setInputVal(e.target.value);
+        socket.emit("typing");
     }
     function sendMessage() {
         socket.emit("message", { msg: inputVal });
