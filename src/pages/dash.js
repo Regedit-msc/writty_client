@@ -286,14 +286,14 @@ const Dash = (props) => {
                     }
                 }
                 setDocs(newDocArray);
-                setInfo("Collab link copied to clipboard✋🏻.");
+                setInfo("Collab link copied to clipboard✋🏻. To collaborate create the link and then click on the code name to edit.");
                 setShowInfo(true);
                 setTimeout(() => {
                     setInfo("");
                     setShowInfo(false);
                 }, 3000)
             } else {
-                setErr("Collab link not created to clipboard✋🏻.");
+                setErr("Collab link not created.");
                 setShowErr(true);
                 setTimeout(() => {
                     setErr("");
@@ -306,7 +306,16 @@ const Dash = (props) => {
 
 
     }
-    function share(id) {
+    function share(id, priv) {
+        if (priv) {
+            setInfo("You cannot share a public link to a private code.");
+            setShowInfo(true);
+            setTimeout(() => {
+                setInfo("");
+                setShowInfo(false);
+            }, 3000)
+            return;
+        }
         const scheme = process.env.NODE_ENV === "development" ? "http://" : "https://"
         const url = scheme + window.location.host + "/public/editor/" + id
         const copyText = url.replace(/\s+/g, '');
@@ -411,7 +420,7 @@ const Dash = (props) => {
 
                                     <div className="options">
                                         <img src={theme === "light" ? DeleteLight : Delete} alt="Delete code" className="point" onClick={() => handleDelete(_id)} />
-                                        <img src={theme === "light" ? ShareLight : Share} alt="Share code" className="point" onClick={() => share(publicLink)} />
+                                        <img src={theme === "light" ? ShareLight : Share} alt="Share code" className="point" onClick={() => share(publicLink, priv)} />
                                         {/* <img src={ViewCode} alt="View code" className="point" /> */}
                                         <img src={priv ? PrivateOr : ViewOr} alt="Private code" className="point" onClick={() => handleVisibility(_id)}
                                         />
