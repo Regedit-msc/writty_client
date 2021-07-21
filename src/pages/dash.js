@@ -194,7 +194,7 @@ const Dash = (props) => {
                     }
                 }
                 setDocs(newDocArray);
-                setInfo("Updated code visibility✋🏻.");
+                setInfo("Updated code visibility✋🏻. If public the code will be available as a public gist.");
                 setShowInfo(true);
                 setTimeout(() => {
                     setInfo("");
@@ -307,15 +307,6 @@ const Dash = (props) => {
 
     }
     function share(id, priv) {
-        if (priv) {
-            setInfo("You cannot share a public link to a private code.");
-            setShowInfo(true);
-            setTimeout(() => {
-                setInfo("");
-                setShowInfo(false);
-            }, 3000)
-            return;
-        }
         const scheme = process.env.NODE_ENV === "development" ? "http://" : "https://"
         const url = scheme + window.location.host + "/public/editor/" + id
         const copyText = url.replace(/\s+/g, '');
@@ -326,7 +317,7 @@ const Dash = (props) => {
         document.execCommand('copy');
         input.parentNode.removeChild(input);
 
-        setInfo("Share link copied to clipboard✋🏻.");
+        setInfo("Public link copied to clipboard✋🏻.");
         setShowInfo(true);
         setTimeout(() => {
             setInfo("");
