@@ -286,12 +286,12 @@ const Dash = (props) => {
                     }
                 }
                 setDocs(newDocArray);
-                setInfo("Collab link copied to clipboard✋🏻. To collaborate create the link and then click on the code name to edit.");
+                setInfo("Collab link copied to clipboard✋🏻.To collaborate create the link and then click on the code name to edit.");
                 setShowInfo(true);
                 setTimeout(() => {
                     setInfo("");
                     setShowInfo(false);
-                }, 3000)
+                }, 5000)
             } else {
                 setErr("Collab link not created.");
                 setShowErr(true);
