@@ -58,7 +58,7 @@ const CollabEditor = (props) => {
     useEffect(() => {
 
         const userToken = localStorage.getItem("user_token");
-        fetch(`${API_ENDPOINT}/details`, {
+        fetch(`${API_ENDPOINT}/user/name`, {
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
                 "Authorization": `Bearer ${userToken}`
@@ -68,7 +68,7 @@ const CollabEditor = (props) => {
         ).then(jsonRes => {
             console.log(jsonRes, "jsonRes");
             if (jsonRes.success) {
-                setUsername(jsonRes.username);
+                setUsername(jsonRes.message.username);
                 // setUserID(jsonRes.uid)
             } else {
                 props.history.push("/not_allowed_register_to_collab");
