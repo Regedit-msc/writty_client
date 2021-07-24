@@ -36,15 +36,16 @@ const ChatSideBar = ({ profileImage, name, messages, history }) => {
             }, d)
         }
     }
-    const d = debounce(updateSideBar, 1000);
+
     useEffect(() => {
+        const d = debounce(updateSideBar, 1000);
         if (first) {
             updateSideBar();
             setFirst(first => !first);
         } else {
             d();
         }
-    }, [name, messages, profileImage, history, d, first]);
+    }, [name, messages, profileImage, history, first]);
 
 
 
