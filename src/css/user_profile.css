@@ -104,23 +104,14 @@
     font-size: 28px;
 }
 
-.connect {
-    border-radius: 5px;
-    border: none;
-    height: 29.8px;
-    width: 100px;
-
-    font-family: iCiel Gotham;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 30.5px;
-    text-decoration: none;
-    background-color: #3137DC;
-    text-align: center;
-    color: #FFFFFF;
+.connect_boxes_light {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 250px;
 }
-.connect_light {
+
+.connect_boxes_light >* {
     border-radius: 5px;
     border: none;
     height: 29.8px;
@@ -136,6 +127,31 @@
     text-align: center;
     color: #FFFFFF;
 }
+
+.connect_boxes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 250px;
+}
+
+.connect_boxes >* {
+    border-radius: 5px;
+    border: none;
+    height: 29.8px;
+    width: 100px;
+
+    font-family: iCiel Gotham;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 30.5px;
+    text-decoration: none;
+    background-color: #3137DC;
+    text-align: center;
+    color: #FFFFFF;
+}
+
 
 .email_label {
     width: 400px;

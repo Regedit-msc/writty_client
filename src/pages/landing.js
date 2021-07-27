@@ -13,7 +13,6 @@ import { v4 as uuidV4 } from "uuid"
 import { jsCode } from "../utils/jsCode";
 import { themeContext } from "../App";
 import { IO } from "../utils/socket_stuff";
-
 const Landing = () => {
     const checkBox = useRef();
     const { setTheTheme, theme } = useContext(themeContext);
@@ -22,11 +21,27 @@ const Landing = () => {
     const randID = uuidV4();
     const [socket, setSocket] = useState()
     const [code, setCode] = useState(jsCode);
-
+    const [image, setImage] = useState(null);
     useEffect(() => {
         checkBox.current.checked = theme === "light" ? true : false
     }, [theme])
 
+    useEffect(() => {
+
+        fetch(`${API_ENDPOINT}/user/name`, {
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                "Authorization": `Bearer ${localStorage.getItem("user_token")}`
+            },
+            method: "GET",
+        }).then(res => res.json()
+        ).then(jsonRes => {
+            if (jsonRes.success) {
+                setImage(jsonRes.message.profileImageUrl);
+            } else {
+            }
+        })
+    }, [])
     function handleTheme(e) {
         if (e.target.checked) {
 
@@ -81,8 +96,12 @@ const Landing = () => {
 
             <h1 id={theme === "light" ? "big_light" : "big"}>Live<span style={{ color: theme === "light" ? "black" : "#3137DC" }}>-</span>Gists  </h1>
             <div className="theme_switch" >
-                <input id="toggle1" onChange={handleTheme} className={theme === "light" ? "toggle-round1" : "toggle-round"} name="toggle" type="checkbox" ref={checkBox} />
-                <label htmlFor="toggle1"></label>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                    {image ? <img alt="" className="round_p_img" src={image} /> : ""}
+                    <input id="toggle1" onChange={handleTheme} className={theme === "light" ? "toggle-round1" : "toggle-round"} name="toggle" type="checkbox" ref={checkBox} />
+                    <label htmlFor="toggle1"></label>
+                </div>
+
             </div>
             <div className="code-img">
                 <div className={theme === "light" ? "mac_light" : "mac"}>

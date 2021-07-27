@@ -1,22 +1,28 @@
 import { Link, withRouter } from "react-router-dom"
 import "../css/signup.css";
 import { themeContext } from "../App";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { API_ENDPOINT } from "./url";
-import InfoBar from "../components/info";
 import { useTitle } from "../utils/title";
+import { useSnackbar } from 'notistack';
 const Signup = ({ history }) => {
+    const { enqueueSnackbar } = useSnackbar();
     useTitle("Sign Up.")
     const { theme } = useContext(themeContext);
-    const [info, setInfo] = useState();
-    const [showInfo, setShowInfo] = useState(false);
-    const [err, setErr] = useState();
-    const [showErr, setShowErr] = useState(false);
     const [formState, setFormState] = useState({
         username: '',
         password: '',
         email: ""
     });
+
+    useEffect(() => {
+
+        const token = localStorage.getItem("user_token");
+        if (token) {
+            enqueueSnackbar("Auto login.", { variant: "success" })
+            history.replace('/dash')
+        }
+    }, [enqueueSnackbar, history])
     function handleChange(e) {
         switch (e.target.name) {
             case "username":
@@ -45,35 +51,18 @@ const Signup = ({ history }) => {
             console.log(jsonRes)
             if (jsonRes.success) {
                 console.log(jsonRes)
-                setInfo("You are all set proceed to login.");
-                setShowInfo(true);
-                setTimeout(() => {
-                    setInfo("");
-                    setShowInfo(false);
-                }, 5000)
+                enqueueSnackbar("You are all set proceed to login.");
+
 
 
             } else {
-                setErr(jsonRes.message);
-                setShowErr(true);
-                setTimeout(() => {
-                    setErr("");
-                    setShowErr(false);
-                }, 3000)
+                enqueueSnackbar(jsonRes.message);
             }
         })
     }
 
     return (
         <>
-            {showErr ? <InfoBar
-                color="red"
-                text={err}
-            /> : ""}
-            {showInfo ? <InfoBar
-                color="green"
-                text={info}
-            /> : ""}
             <h3 id={theme === "light" ? "form_head_signup_light" : "form_head_signup"}>SIGNUP</h3>
             <div id={theme === "light" ? "form_signup_light" : "form_signup"}>
                 <input type="email" id="Email_signup" name="email" placeholder="Email" onChange={handleChange} ></input>

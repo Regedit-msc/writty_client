@@ -37,7 +37,7 @@ const UserProfile = (props) => {
     const [userData, setUserData] = useState(null);
     const [userID, setUserID] = useState('');
     useEffect(() => {
-        fetch(API_ENDPOINT + `/details/public?name=${name}`).then(res => res.json()).then((response) => {
+        fetch(API_ENDPOINT + `/details/public?name=${name.trim()}`).then(res => res.json()).then((response) => {
             if (response.success) {
                 setUserData(response.message);
                 setDocsB(response.message.code);
@@ -174,7 +174,12 @@ const UserProfile = (props) => {
                                 </CustomShimmer>
                             }
                             <span>{name}</span>
-                            <Link onClick={() => handleCopy(userData.email, "Copied email to clipboard.")} className={theme === "light" ? "connect_light" : "connect"}>Connect</Link>
+
+                            <div className={theme === "light" ? "connect_boxes_light" : "connect_boxes"}>
+                                <Link onClick={() => handleCopy(userData.email, "Copied email to clipboard.")}  >Connect</Link>
+                                <Link to={`/@/${name}/chat`} >Chat</Link>
+                            </div>
+                            {/* className={theme === "light" ? "connect_light" : "connect"} */}
                         </div>
                         <div className={theme === "light" ? "email_label_light" : "email_label"}>
                             <img src={Mail} alt="email" />

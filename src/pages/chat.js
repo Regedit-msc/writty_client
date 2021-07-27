@@ -5,21 +5,28 @@ import { useParams, withRouter } from "react-router-dom"
 import { API_ENDPOINT } from "./url";
 import { v4 as uuidV4 } from "uuid";
 import { useRef } from "react";
+import MenuDark from "../images/menu.png";
 import MenuLight from "../images/menu_light.png";
-import ImageUploadLight from "../images/image-upload.png"
-import SendMessageLight from "../images/send-message.png"
-import EmojiLight from "../images/emoji.png"
-import VoiceLight from "../images/voice.png"
-import BackLight from "../images/back.png"
-import Delete from "../images/icon-delete.png";
-import InfoBar from "../components/info";
+import ImageUploadDark from "../images/image-upload.png";
+import ImageUploadLight from "../images/image-upload_light.png";
+import SendMessageDark from "../images/send-message.png";
+import SendMessageLight from "../images/send-message_light.png";
+import EmojiDark from "../images/emoji.png";
+import EmojiLight from "../images/emoji_light.png";
+import VoiceDark from "../images/voice.png";
+import VoiceLight from "../images/voice_light.png";
+import BackDark from "../images/back.png";
+import BackLight from "../images/back_light.png";
+import DeleteDark from "../images/delete-blue.png";
+import DeleteLight from "../images/delete-black.png";
 import DoubleTicks from "../images/double-tick-blue.png"
 import injectSheet from "react-jss";
 import PlayBlue from "../images/play-blue.png";
 import PauseBlue from "../images/pause-blue.png";
+import PlayBlack from "../images/play-black.png";
+import PauseBlack from "../images/pause-black.png";
 import { StyleSheet } from "../utils/shimmer";
-// import ProfilePlaceholder from "../images/profile_placeholder.jpg"
-// import { themeContext } from "../App";
+import { themeContext } from "../App";
 import { useTitle } from "../utils/title";
 import CustomShimmer from "../components/shimmerComp";
 import moment from "moment";
@@ -28,7 +35,11 @@ import CustomAudio from "../components/customAudio";
 import ChatSideBar from "../components/chatSidebar";
 import ImagePreview from "../components/imagePreview";
 import CustomImage from "../components/customImage";
+import { useContext } from "react";
+import { useSnackbar } from 'notistack';
+
 const Chat = (props) => {
+    const { enqueueSnackbar } = useSnackbar();
     const imageFieldRef = useRef();
     const messagesRef = useRef();
     let [audioURL, isRecording, startRecording, stopRecording, setAudioURLEmpty, audioBlob] = useRecorder()
@@ -40,21 +51,18 @@ const Chat = (props) => {
     const [room, setRoom] = useState();
     const [messages, setMessages] = useState();
     let [userID, setUserID] = useState();
-    const [info, setInfo] = useState();
-    const [showInfo, setShowInfo] = useState(false);
     const [imageShow, setImageShow] = useState(false);
     const [imageType, setImageType] = useState('');
     const [imageb64, setImageB64] = useState('');
     const [nameUserProfileImage, setNameUserProfileImage] = useState();
     const [idUserProfileImage, setIdUserProfileImage] = useState();
-    const [notYouID, setNotYouID] = useState('')
-    // const [setLastSeen] = useState();
+    const [notYouID, setNotYouID] = useState('');
     const [socket, setSocket] = useState();
     const [audiob64, setAudioB64] = useState();
     const [youOnline, setYouOnline] = useState(false);
     const [inputVal, setInputVal] = useState('');
     const [currentAudio, setCurrentAudio] = useState();
-
+    const { theme } = useContext(themeContext);
 
 
     useEffect(() => {
@@ -108,12 +116,10 @@ const Chat = (props) => {
         socket.on("error_happened", (e) => {
             console.log(e);
             if (e === "Your session has expired please login.") {
-                setInfo("Session timeout. Yoursession has timed out please login.");
-                setShowInfo(true);
-                setTimeout(() => {
-                    setInfo("");
-                    setShowInfo(false);
-                }, 3000)
+                enqueueSnackbar("Session timeout. Yoursession has timed out please login.", {
+                    variant: "error"
+                });
+
             } else {
                 props.history.push("/" + e.split(" ").join("_"))
             }
@@ -121,7 +127,7 @@ const Chat = (props) => {
 
 
 
-    }, [socket, name, props.history]);
+    }, [socket, name, props.history, enqueueSnackbar]);
 
     useEffect(() => {
         if (!socket) return;
@@ -173,7 +179,8 @@ const Chat = (props) => {
                 body: vnData.body,
                 user: { _id: vnData.user._id, profileImageUrl: vnData.user.profileImageUrl },
                 type: "vn",
-            }])
+            }]);
+            messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
         })
     }, [socket, userID]);
 
@@ -191,7 +198,8 @@ const Chat = (props) => {
                 body: imageData.body,
                 user: { _id: imageData.user._id },
                 type: "image",
-            }])
+            }]);
+            messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
         })
     }, [socket, userID])
 
@@ -251,13 +259,12 @@ const Chat = (props) => {
 
             case "image":
                 return <>
-
-
                     {message.user._id === userID ? <CustomImage
                         imageUrl={message.body}
                         time={moment(message.createdAt).fromNow()
 
                         }
+                        type={message.format}
                         caption={message.caption}
                         mineOrYours="mine"
                     /> : <CustomImage
@@ -265,6 +272,7 @@ const Chat = (props) => {
                         time={moment(message.createdAt).fromNow()
 
                         }
+                            type={message.format}
                         mineOrYours="yours"
                         caption={message.caption}
                     />}
@@ -278,6 +286,7 @@ const Chat = (props) => {
                         time={message.createdAt}
                         caption={message.caption}
                         mineOrYours="mine"
+                        type={message.format}
                     />
                 </>
             case "vnfornow":
@@ -365,15 +374,15 @@ const Chat = (props) => {
     }
     function toShow() {
         if (audioURL === "") {
-            return <>  <img alt="" src={EmojiLight} />
-                <img alt="" src={ImageUploadLight} onClick={handleUploadClick} />
+            return <>  <img alt="" src={theme === "light" ? EmojiLight : EmojiDark} />
+                <img alt="" src={theme === "light" ? ImageUploadLight : ImageUploadDark} onClick={handleUploadClick} />
 
                 <input ref={imageFieldRef} type="file" class="image" accept="image/*" style={{ display: "none" }} onChange={handleImageFieldChange} />
             </>
         } else {
             return <>
-                <img alt="" src={Delete} onClick={handleClear} />
-                {isPlaying ? <img alt="" src={PauseBlue} onClick={handlePlayORPause} /> : <img alt="" src={PlayBlue} onClick={handlePlayORPause} />}
+                <img alt="" src={theme === "light" ? DeleteLight : DeleteDark} onClick={handleClear} />
+                {isPlaying ? <img alt="" src={theme === "light" ? PauseBlack : PauseBlue} onClick={handlePlayORPause} /> : <img alt="" src={theme === "light" ? PlayBlack : PlayBlue} onClick={handlePlayORPause} />}
 
             </>
         }
@@ -402,9 +411,9 @@ const Chat = (props) => {
     function sendAudioMessage() {
         if (!socket) return;
         setCurrentAudio(null);
+        setIsPlaying(false);
         let id = uuidV4();
         socket.emit("vn", { audiob64, room, idUserProfileImage, id, userID });
-        messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
         console.log("ran send audio");
         setMessages(messages => [...messages, {
             createdAt: moment().format('LT'),
@@ -416,7 +425,7 @@ const Chat = (props) => {
             isPlaying: false,
             _id: id
         }]);
-
+        messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     }
 
     function handleBackClick() {
@@ -424,10 +433,7 @@ const Chat = (props) => {
     }
     return (
         <>
-            {showInfo ? <InfoBar
-                color="blue"
-                text={info}
-            /> : ""}
+
             {imageShow ?
 
                 <ImagePreview
@@ -438,6 +444,7 @@ const Chat = (props) => {
                     setMessages={setMessages}
                     userID={userID}
                     room={room}
+                    messagesRef={messagesRef}
                 />
 
                 : ""}
@@ -447,9 +454,9 @@ const Chat = (props) => {
                 profileImage={idUserProfileImage ?? ''}
             />
 
-            <div class="main">
-                <div className="messages_head">
-                    <img alt="" src={BackLight} className="back_button" onClick={handleBackClick} />
+            <div class={theme === "light" ? "main_light" : "main"}>
+                <div className={theme === "light" ? "messages_head_light" : "messages_head"}>
+                    <img alt="" src={theme === "light" ? BackLight : BackDark} className="back_button" onClick={handleBackClick} />
                     <div className="your_info">
                         {messages ? <img alt="" src={nameUserProfileImage} className="your_profile_image" /> : <>
                             <CustomShimmer>
@@ -458,11 +465,11 @@ const Chat = (props) => {
 
                         </>}
                         <div>
-                            <span id="your_name">  Dev {name}</span><br />
-                            <span id="active_status">  {youOnline ? "Active Now" : "Offline"}</span>
+                            <span id={theme === "light" ? "your_name_light" : "your_name"}>  Dev {name}</span><br />
+                            <span id={theme === "light" ? "active_status_light" : "active_status"}>  {youOnline ? "Active Now" : "Offline"}</span>
                         </div>
                     </div>
-                    <img alt="" src={MenuLight} className="menu_button" />
+                    <img alt="" src={theme === "light" ? MenuLight : MenuDark} className="menu_button" />
                 </div>
                 <div className="messages_body" ref={messagesRef}>
 
@@ -480,29 +487,11 @@ const Chat = (props) => {
                             )
 
                         }) : <>
-                            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "row" }}>
                                 <div style={{ display: "flex", flexDirection: "column" }}>
 
                                         <CustomShimmer>
-                                            <div className={props.classes.messageMine} ></div>
-                                        </CustomShimmer>
-                                        <CustomShimmer>
-                                            <div className={props.classes.messageYours} ></div>
-                                        </CustomShimmer><CustomShimmer>
-                                            <div className={`${props.classes.messageMine}`} ></div>
-                                        </CustomShimmer><CustomShimmer>
-                                            <div className={props.classes.messageYours} ></div>
-                                        </CustomShimmer>
-                                        <CustomShimmer>
-                                            <div className={props.classes.messageYours} ></div>
-                                        </CustomShimmer><CustomShimmer>
-                                            <div className={props.classes.messageMine} ></div>
-                                        </CustomShimmer><CustomShimmer>
-                                            <div className={props.classes.messageMine} ></div>
-                                        </CustomShimmer><CustomShimmer>
-                                            <div className={props.classes.messageMine} ></div>
-                                        </CustomShimmer><CustomShimmer>
-                                            <div className={props.classes.messageMine} ></div>
+                                            <div className={props.classes.container} ></div>
                                         </CustomShimmer>
                                     </div>
                                     <div style={{ display: "flex", flexDirection: "column", marginTop: "100px" }}>
@@ -510,24 +499,7 @@ const Chat = (props) => {
                                         <CustomShimmer>
                                             <div className={props.classes.messageMine} ></div>
                                         </CustomShimmer>
-                                        <CustomShimmer>
-                                            <div className={props.classes.messageYours} ></div>
-                                        </CustomShimmer><CustomShimmer>
-                                            <div className={`${props.classes.messageMine}`} ></div>
-                                        </CustomShimmer><CustomShimmer>
-                                            <div className={props.classes.messageYours} ></div>
-                                        </CustomShimmer>
-                                        <CustomShimmer>
-                                            <div className={props.classes.messageYours} ></div>
-                                        </CustomShimmer><CustomShimmer>
-                                            <div className={props.classes.messageMine} ></div>
-                                        </CustomShimmer><CustomShimmer>
-                                            <div className={props.classes.messageMine} ></div>
-                                        </CustomShimmer><CustomShimmer>
-                                            <div className={props.classes.messageMine} ></div>
-                                        </CustomShimmer><CustomShimmer>
-                                            <div className={props.classes.messageMine} ></div>
-                                        </CustomShimmer>
+
                                     </div>
                                 </div>
 
@@ -536,14 +508,14 @@ const Chat = (props) => {
 
                     }
                 </div>
-                <div className="messages_tools">
+                <div className={theme === "light" ? "messages_tools_light" : "messages_tools"}>
                     <div>
                         {isRecording ? <><p style={{ color: "black" }}>{noOfRecording} secs</p> </> : toShow()}
-                        <img alt="" src={VoiceLight} onClick={handleRecord} />
+                        <img alt="" src={theme === "light" ? VoiceLight : VoiceDark} onClick={handleRecord} />
 
                     </div>
                     <input type="text" id="new_message" name="new_message" onChange={handleChange} value={inputVal} size="80" />
-                    {audioURL === "" ? <>   <img alt="" src={SendMessageLight} onClick={sendMessage} /></> : <> <img alt="" src={SendMessageLight} onClick={sendAudioMessage} /></>}
+                    {audioURL === "" ? <>   <img alt="" src={theme === "light" ? SendMessageLight : SendMessageDark} onClick={sendMessage} /></> : <> <img alt="" src={theme === "light" ? SendMessageLight : SendMessageDark} onClick={sendAudioMessage} /></>}
 
                 </div>
             </div>

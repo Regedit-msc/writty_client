@@ -167,10 +167,7 @@
     border-radius: 5.6px;
     background-color: #4F33F6;
 
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+   
 
     font-size: 14px;
     font-style: normal;
@@ -178,7 +175,6 @@
     line-height: 18px;
     color: #FFFFFF;
     text-decoration: none;
-    margin-left: 620px;
     margin-bottom: 20px !important;
     outline: none;
     border: none;
@@ -189,19 +185,12 @@
     height: 45px;
     border-radius: 5.6px;
     background-color: #1F1F1F;
-
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center; 
-
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: 18px;
     color: #FFFFFF;
     text-decoration: none;
-    margin-left: 620px;
     margin-bottom: 20px !important;
     outline: none;
     border: none;

@@ -1,7 +1,7 @@
 import { makePriv } from "../auth_hoc/checkAuth";
 import { useState, useEffect, useContext, useRef } from "react"
 import { API_ENDPOINT } from "./url";
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
 import { v4 as uuidV4 } from "uuid";
@@ -22,11 +22,12 @@ import { themeContext } from "../App";
 import InfoBar from "../components/info";
 import { useTitle } from "../utils/title";
 import CustomShimmer from "../components/shimmerComp";
-
-
+import { useSnackbar } from 'notistack';
 
 
 const Dash = (props) => {
+    const history = useHistory();
+    const { enqueueSnackbar } = useSnackbar();
     useTitle("Dashboard.");
     const profileImageRef = useRef();
     const defaultImage = 'https://cdn3.vectorstock.com/i/thumb-large/76/57/portrait-young-bearded-man-in-eyeglasses-vector-34397657.jpg'
@@ -50,7 +51,7 @@ const Dash = (props) => {
         const isSubbed = localStorage.getItem("Subbed");
         const sub = JSON.parse(localStorage.getItem("SUB"));
         console.log('Sub', isSubbed);
-        if (isSubbed.toString() === "true") {
+        if (isSubbed?.toString() === "true") {
             fetch(`${API_ENDPOINT}/notifications/subscribe`, {
                 headers: {
                     'Content-Type': 'application/json; charset=UTF-8',
@@ -65,14 +66,21 @@ const Dash = (props) => {
                 }
             })
         } else {
-            setInfo("You didn't allow notifications. You will ot receive notifications on likes, comments, etc. You can although manually check notifications in the notifications tab.");
-            setShowInfo(true);
-            setTimeout(() => {
-                setInfo("");
-                setShowInfo(false);
-            }, 3000)
+            // setInfo();
+            // setShowInfo(true);
+            // setTimeout(() => {
+            //     setInfo("");
+            //     setShowInfo(false);
+            // }, 3000)
+            enqueueSnackbar("You didn't allow notifications. You will not receive notifications on likes, comments, etc. You can although manually check notifications in the notifications tab.",
+
+                {
+                    variant: "info",
+
+                }
+            )
         }
-    }, [])
+    }, [enqueueSnackbar])
 
 
 
@@ -91,15 +99,12 @@ const Dash = (props) => {
                 setDocs(jsonRes.message);
                 profileImageRef.current.src = jsonRes.image;
             } else {
-                setErr("Unable to fetch codes✋🏻.");
-                setShowErr(true);
-                setTimeout(() => {
-                    setErr("");
-                    setShowErr(false);
-                }, 3000)
+                enqueueSnackbar("Your session has expired.", { variant: "error" });
+                localStorage.removeItem("user_token");
+                history.replace("/")
             }
         })
-    }, []);
+    }, [enqueueSnackbar, history]);
 
     function createDoc() {
         setCreatingDoc(true);

@@ -1,12 +1,18 @@
 import { useEffect } from "react";
 import { useRef } from "react";
-import { useState } from "react"
-import DoubleTicks from "../images/double-tick-blue.png"
+import { useState } from "react";
+import DoubleTicks from "../images/double-tick-blue.png";
 import PlayBlue from "../images/play-blue.png";
 import PauseBlue from "../images/pause-blue.png";
 import PlayWhite from "../images/play-white.png";
-import PauseWhite from "../images/pause-white.png"
+import PauseWhite from "../images/pause-white.png";
+import PlayBlack from "../images/play-black.png";
+import PauseBlack from "../images/pause-black.png";
+import { themeContext } from "../App"
+import { useContext } from "react";
+import { useCallback } from "react";
 const CustomAudio = ({ image, src, createdAt, mineOrYours }) => {
+    const { theme } = useContext(themeContext);
     const progressRef = useRef();
     const [currentAudio, setCurrentAudio] = useState();
     const [isPlaying, setIsPlaying] = useState(false);
@@ -17,18 +23,25 @@ const CustomAudio = ({ image, src, createdAt, mineOrYours }) => {
         setCurrentAudio(audio);
     }, [src]);
 
+
+    const updateProgress = useCallback((e) => {
+        if (!currentAudio) return;
+        if (currentAudio.currentTime === currentAudio.duration) {
+            setIsPlaying(false);
+        }
+        const progressPercent = (currentAudio.currentTime / currentAudio.duration) * 100;
+        progressRef.current.style.width = `${progressPercent}%`;
+    }, [currentAudio])
+
+
     useEffect(() => {
         if (!currentAudio) return;
-        function updateProgress(e) {
-            if (!currentAudio) return;
-            const progressPercent = (currentAudio.currentTime / currentAudio.duration) * 100;
-            progressRef.current.style.width = `${progressPercent}%`;
-        }
+
         currentAudio.addEventListener("timeupdate", updateProgress);
         return () => {
             currentAudio.removeEventListener("timeupdate", updateProgress)
         }
-    }, [currentAudio]);
+    }, [currentAudio, updateProgress]);
 
 
     function setProgress(event) {
@@ -71,10 +84,10 @@ const CustomAudio = ({ image, src, createdAt, mineOrYours }) => {
             <div className="audio_container">
                 <img alt="" src={image} className="your_profile_image" />
                 <button onClick={() => handlePlayORPause()} id="play_pause_button">
-                    <img alt="" src={isPlaying ? mineOrYours === "yours" ? PauseWhite : PauseBlue : mineOrYours === "yours" ? PlayWhite : PlayBlue} className="play_or_pause" />
+                    <img alt="" src={theme === "light" ? isPlaying ? mineOrYours === "yours" ? PauseWhite : PauseBlack : mineOrYours === "yours" ? PlayWhite : PlayBlack : isPlaying ? mineOrYours === "yours" ? PauseWhite : PauseBlue : mineOrYours === "yours" ? PlayWhite : PlayBlue} className="play_or_pause" />
                 </button>
-                <div className="progress_container" onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} ref={progressConRef} >
-                    <div className={`progress ${mineOrYours === "mine" ? "me" : "you"}`} ref={progressRef}></div>
+                <div className={theme === "light" ? "progress_container_light" : "progress_container"} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} ref={progressConRef} >
+                    <div className={theme === "light" ? "progress_light" : "progress"} ref={progressRef}></div>
                 </div>
 
             </div>

@@ -105,7 +105,7 @@ const Home = (props) => {
                                     <div className="language_button" id={language[0].toUpperCase() + language.slice(1, language.length)}>{language[0].toUpperCase() + language.slice(1, language.length)}</div>
                                     <div className={theme === "light" ? "big_light" : "big"}><Link className="point" to={`/public/editor/${publicLink}`}>{name.slice(0, 6).toUpperCase() + "..."}</Link></div>
                                     <div className="info">
-                                        <img src={user?.profileImageUrl ?? defaultImage} alt="user_profile_image" />
+                                        <img loading="lazy" src={user?.profileImageUrl ?? defaultImage} alt="user_profile_image" />
                                         <Link to={`/@/${user.username}`}><span>{user.username}</span></Link>
                                     </div>
                                 </div>

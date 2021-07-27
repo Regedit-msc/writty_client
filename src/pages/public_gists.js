@@ -269,7 +269,10 @@ const PublicGists = (props) => {
 
 
             </div>
-            {pagePrev ? <button className={theme === "light" ? "prev_next_light" : "prev_next"} onClick={previous}>Previous</button> : ""} {pageNext ? <button className={theme === "light" ? "prev_next_light" : "prev_next"} onClick={next}>Next</button> : ""}
+            <div style={{ display: "flex", justifyContent: "space-evenly" }} >
+                {pagePrev ? <button className={theme === "light" ? "prev_next_light" : "prev_next"} onClick={previous}>Previous</button> : ""} {pageNext ? <button className={theme === "light" ? "prev_next_light" : "prev_next"} onClick={next}>Next</button> : ""}
+
+            </div>
             {/* {showComment ? <Comment
                 code_id={codeID}
             /> : <div></div>} */}

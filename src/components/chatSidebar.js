@@ -4,7 +4,13 @@ import { Link, withRouter } from "react-router-dom";
 import { API_ENDPOINT } from "../pages/url";
 import "../css/chat.css";
 import Search from "../images/search-button.svg"
-const ChatSideBar = ({ profileImage, name, messages, history }) => {
+import CustomShimmer from "./shimmerComp";
+import injectSheet from "react-jss";
+import { StyleSheet } from "../utils/shimmer";
+import { themeContext } from "../App"
+import { useContext } from "react";
+const ChatSideBar = ({ profileImage, name, messages, history, ...props }) => {
+    const { theme } = useContext(themeContext);
     const [rooms, setRooms] = useState();
     const [first, setFirst] = useState(true);
     function updateSideBar() {
@@ -74,15 +80,15 @@ const ChatSideBar = ({ profileImage, name, messages, history }) => {
     }
     return (
 
-        <div className="side_popup">
+        <div className={theme === "light" ? "side_popup_light" : "side_popup"}>
             <div className="clear_top">
                 <div className="circle_crop">
                     <img alt="" src={profileImage} className="my_profile_pic" />
                 </div>
-                <div className="messages">Messages</div>
+                <div className={theme === "light" ? "messages_light" : "messages"}>Messages</div>
             </div>
             <div className="search_messages">
-                <div className="messages_search_wrapper">
+                <div className={theme === "light" ? "messages_search_wrapper_light" : "messages_search_wrapper"}>
                     <button> <img alt="" className="messages-search-icon" src={Search} /> </button>
                     <input className="messages-search" type="search" placeholder="Search or start a new chat" />
                 </div>
@@ -98,18 +104,61 @@ const ChatSideBar = ({ profileImage, name, messages, history }) => {
                                             <img alt="" src={room?.userTOChat?.user?.profileImageUrl} className="" />
                                         </div>
                                         <div className="message_text">
-                                            <span className="their_name">{room?.userTOChat?.user?.username}</span>
-                                            <span className="their_display_text">{room?.lastMessage?.user?.username}: {toRender(room?.lastMessage?.type, room?.lastMessage?.body)}</span>
+                                            <span className={theme === "light" ? "their_name_light" : "their_name"}>{room?.userTOChat?.user?.username}</span>
+                                            <span className={theme === "light" ? "their_display_text_light" : "their_display_text"}>{room?.lastMessage?.user?.username}: {toRender(room?.lastMessage?.type, room?.lastMessage?.body)}</span>
                                         </div>
-                                        <div className="unread_data">
+                                        <div className={theme === "light" ? "unread_data_light" : "unread_data"}>
                                             <div className="their_time_stamp">{moment(room?.lastMessage?.createdAt).format("LT")}</div>
-                                            <div className="unread_count"> </div>
+                                            <div className={theme === "light" ? "unread_count_light" : "unread_count"}> </div>
                                         </div>
                                     </div>
                                 </Link>
                             </div>
                         )
-                    }) : ''
+                    }) : <>
+                        <br />
+                        <div className={props.classes.container}>
+                            <CustomShimmer>
+                                <div className={props.classes.circle} ></div>
+
+                            </CustomShimmer>
+                            <CustomShimmer>
+                                <div className={props.classes.line} ></div>
+                            </CustomShimmer>
+                        </div>
+                        <br />
+                        <div className={props.classes.container}>
+                            <CustomShimmer>
+                                <div className={props.classes.circle} ></div>
+
+                            </CustomShimmer>
+                            <CustomShimmer>
+                                <div className={props.classes.line} ></div>
+                            </CustomShimmer>
+                        </div>
+                        <br />
+                        <div className={props.classes.container}>
+                            <CustomShimmer>
+                                <div className={props.classes.circle} ></div>
+
+                            </CustomShimmer>
+                            <CustomShimmer>
+                                <div className={props.classes.line} ></div>
+                            </CustomShimmer>
+                        </div>
+                        <br />
+                        <div className={props.classes.container}>
+                            <CustomShimmer>
+                                <div className={props.classes.circle} ></div>
+
+                            </CustomShimmer>
+                            <CustomShimmer>
+                                <div className={props.classes.line} ></div>
+                            </CustomShimmer>
+                        </div>
+
+
+                    </>
                 }
             </div>
         </div>
@@ -117,4 +166,4 @@ const ChatSideBar = ({ profileImage, name, messages, history }) => {
     )
 }
 
-export default withRouter(ChatSideBar);
+export default withRouter(injectSheet(StyleSheet)(ChatSideBar));

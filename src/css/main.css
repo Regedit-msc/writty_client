@@ -226,10 +226,10 @@
         overflow: hidden;
         
     }
-    img{
+    /* img{
         border-radius: 50%;
         object-fit: contain;
-    }
+    } */
     
     .loading {
         display: flex;

@@ -6,7 +6,8 @@ export const StyleSheet = {
         backgroundColor: "white",
         display: "flex",
         padding: "16px",
-        width: "200px"
+        width: "300px",
+        marginLeft: "5px"
     },
     codeBox: {
         width: "602px",
@@ -38,9 +39,6 @@ export const StyleSheet = {
         width: "300px",
         maxWidth: "500px",
         borderRadius: "8px",
-        flex: "50%"
-
-
     },
     messageYours: {
         padding: "16px 20px 16px 20px",
