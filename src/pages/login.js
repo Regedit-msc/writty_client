@@ -182,7 +182,8 @@ const Login = ({ history }) => {
 
                             <div className="login_options github">
                                 <img src={GitHub} alt="GitHub Logo" />
-                                <LoginGithub clientId={process.env.REACT_APP_GH_CLIENT_ID}
+                                <LoginGithub
+                                    clientId={process.env.REACT_APP_GH_CLIENT_ID}
                                     onSuccess={onSuccess}
                                     onFailure={onFailure}
                                 />
@@ -200,8 +201,6 @@ const Login = ({ history }) => {
 
 
                 <div id="submit_box">
-
-
                 </div>
 
             </div>

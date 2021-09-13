@@ -215,4 +215,22 @@ input, .login_options {
 }
 .grid-col-3 img {
     width: 300px;
+    /* animation:linear infinite alternate ;
+    animation-name:run ;
+    animation-duration:5s; */
+}
+
+
+    
+@keyframes run {
+  0%   { width: 50px;}
+  25%  {width: 55px;}
+  50%  { width: 60px;}
+  75%  {  width: 65px;}
+  100% {  width: 70px;}
+}
+.login-main_light > img {
+     animation:linear infinite alternate ;
+    animation-name:run ;
+    animation-duration:2s;
 }
