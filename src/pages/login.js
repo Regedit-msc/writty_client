@@ -144,17 +144,17 @@ const Login = ({ history }) => {
                 <img src={LogoPlaceholder} className="logo" alt="Logo Placeholder" />
 
                 <div>
-                    <div id="login_form_box">
+                    <div id={theme === "light" ? "login_form_box_light" : "login_form_box"}>
                         <header>
                             <h3 id={theme === "light" ? "login_form_head_light" : "login_form_head"}>Login</h3>
                             <hr />
                         </header>
-                        <div id="login_form">
+                        <div id={theme === "light" ? "login_form_light" : "login_form"}>
                             <input type="text" name="Username" placeholder="Username" />
                             <input type="password" name="Password" placeholder="Password" />
                             <input type="submit" value="Login" onClick={handleSubmit} />
                             <div>
-                                <hr className="or" data-content="OR" />
+                                <hr className={theme === "light" ? "or_light" : "or"} data-content="OR" />
                             </div>
                                 <div className="login_options">
                                 <img src={Google} alt="Google Logo" />

@@ -35,6 +35,19 @@ a {
     box-sizing: border-box;
     border-radius: var(--brd_rad_small);
 
+    background-color: #1F1F1F;
+    border: 1px solid #1F1F1F;
+    text-align: center;
+
+    box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, .25);
+}
+#login_form_box_light {
+    width: auto;
+    height: 600px;
+    margin-top: 50px;
+    box-sizing: border-box;
+    border-radius: var(--brd_rad_small);
+
     background-color: #FFFFFF;
     border: 1px solid #FFFFFF;
     text-align: center;
@@ -56,7 +69,7 @@ hr {
     
 }
 
-#login_form {
+#login_form, #login_form_light {
     margin-top: 50px;
     height: 400px;
     padding: 0 40px;
@@ -81,20 +94,34 @@ input, .login_options {
     font-style: normal;
 }
 
-input {
+#login_form input {
+    background-color: #1A1A1A;
+    color: #FFFFFF;
+}
+#login_form input[type=submit] {
     background-color: #EEEEEE;
     color: #000000;
 }
-input[type=submit] {
+#login_form input:focus {
+    border: 2px solid #1F1F1F;
+    outline: none;
+}
+
+#login_form_light input {
+    background-color: #EEEEEE;
+    color: #000000;
+}
+#login_form_light input[type=submit] {
     background-color: #000000;
     color: #FFFFFF;
 }
-input:focus {
+#login_form_light input:focus {
     border: 2px solid #EEEEEE;
     outline: none;
 }
 
-.or {
+
+.or, .or_light {
     line-height: 1em;
     outline: 0;
     border: 0;
@@ -106,6 +133,16 @@ input:focus {
 }
 .or::before {
     content: "";
+    background-color: #d8d4d4;
+
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+}
+.or_light::before {
+    content: "";
     background-color: #BBBBBB;
 
     position: absolute;
@@ -114,7 +151,18 @@ input:focus {
     width: 100%;
     height: 1px;
 }
+
 .or::after {
+    content: "OR";
+    display: inline-block;
+
+    position: relative;
+    padding: 0 0.5em;
+    color: #BBBBBB;
+    background-color: #1F1F1F;
+    line-height: 1.5em;
+}
+.or_light::after {
     content: "OR";
     display: inline-block;
 
