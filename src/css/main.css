@@ -3,6 +3,12 @@
     src: url(fonts/medium.ttf);
 }
 
+:root {
+    --brd_rad_small: 22px;
+    --brd_rad_big: 36px;
+	
+	font-size: 14px;
+}
 
 .dark { 
     transition: background-color 0.5s ;
@@ -50,6 +56,11 @@
         background-color: #0EAA3A;
     }
 
+    .logo {
+        width: 52px;
+        margin-top: 25px;
+        margin-left: 32px;
+    }
 
     .view {
         position: absolute;
