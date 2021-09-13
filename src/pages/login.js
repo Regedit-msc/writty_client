@@ -143,7 +143,9 @@ const Login = ({ history }) => {
             /> : ""}
 
             <div className={theme === "light" ? "login-main_light" : "login-main"}>
-                <img src={LogoPlaceholder} className="logo" alt="Logo Placeholder" />
+                <div>
+                    <Link to="/home"><img src={LogoPlaceholder} className="logo" alt="Logo Placeholder" /></Link>
+                </div>
 
                 <div>
                     <div id={theme === "light" ? "login_form_box_light" : "login_form_box"}>
@@ -158,27 +160,29 @@ const Login = ({ history }) => {
                             <div>
                                 <hr className={theme === "light" ? "or_light" : "or"} data-content="OR" />
                             </div>
-                                <div className="login_options">
-                                <img src={Google} alt="Google Logo" />
-                                <GoogleLogin
-                                    clientId={process.env.REACT_APP_G_CLIENT_ID}
-                                    render={(renderProps) => (
-                                        <p
-                                            onClick={() => {
-                                                renderProps.onClick();
-                                            }}
-                                            style={{ cursor: "pointer" }}
-                                        >
+
+                            <GoogleLogin
+                                clientId={process.env.REACT_APP_G_CLIENT_ID}
+                                render={(renderProps) => (
+                                    <div className="login_options"
+                                        onClick={() => {
+                                            renderProps.onClick();
+                                        }}
+                                        style={{ cursor: "pointer" }}
+                                    >
+                                        <img src={Google} alt="Google Logo" />
+                                        <p>
                                             Sign in with Google
                                         </p>
-                                    )}
-                                    buttonText='Login'
-                                    onSuccess={responseGoogle}
-                                    onFailure={responseGoogle}
-                                    isSignedIn={false}
-                                    cookiePolicy={'single_host_origin'}
-                                />
-                                </div>
+                                    </div>
+                                )}
+                                buttonText='Login'
+                                onSuccess={responseGoogle}
+                                onFailure={responseGoogle}
+                                isSignedIn={false}
+                                cookiePolicy={'single_host_origin'}
+                            />
+
 
                             <div className="login_options github">
                                 <img src={GitHub} alt="GitHub Logo" />
@@ -197,10 +201,6 @@ const Login = ({ history }) => {
                 </div>
                 <div className="grid-col-3">
                     <img src={LoginBackgroundImage} alt="Login Background" />
-                </div>
-
-
-                <div id="submit_box">
                 </div>
 
             </div>

@@ -192,6 +192,10 @@ input, .login_options {
     justify-content: center;
     align-items: center ;
 }
+.login_options:hover {
+    background-color: #EEEEEE;
+}
+
 .login_options img {
     width: 42px;
     padding-right: 10px;

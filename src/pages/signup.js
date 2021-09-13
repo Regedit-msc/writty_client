@@ -5,6 +5,10 @@ import { useContext, useState, useEffect } from "react";
 import { API_ENDPOINT } from "./url";
 import { useTitle } from "../utils/title";
 import { useSnackbar } from 'notistack';
+import LogoPlaceholder from "../images/logo.png"
+import Google from "../images/google-icon.png"
+import GitHub from "../images/github-icon.png"
+import SignupBackgroundImage from "../images/login-background.png"
 const Signup = ({ history }) => {
     const { enqueueSnackbar } = useSnackbar();
     useTitle("Sign Up.")
@@ -63,15 +67,62 @@ const Signup = ({ history }) => {
 
     return (
         <>
-            <h3 id={theme === "light" ? "form_head_signup_light" : "form_head_signup"}>SIGNUP</h3>
-            <div id={theme === "light" ? "form_signup_light" : "form_signup"}>
-                <input type="email" id="Email_signup" name="email" placeholder="Email" onChange={handleChange} ></input>
-                <input type="text" id="Username_signup" name="username" placeholder="Username" onChange={handleChange} />
-                <input type="password" id="Password_signup" name="password" placeholder="Password" onChange={handleChange} />
-            </div>
-            <div id="submit_box">
-                <input id={theme === "light" ? "submit_signup_light" : "submit_signup"} type="button" value="Submit" onClick={handleSubmit} />
-                <Link to="/login" id={theme === "light" ? "login_link_light" : "login_link"}>Have an Account?</Link>
+            <div className={theme === "light" ? "signup-main_light" : "signup-main"}>
+                <div>
+                    <Link to="/home"><img src={LogoPlaceholder} className="logo" alt="Logo Placeholder" /></Link>
+                </div>
+
+                <div>
+                    <div id={theme === "light" ? "signup_form_box_light" : "signup_form_box"}>
+                        <header>
+                            <h3 id={theme === "light" ? "signup_form_head_light" : "signup_form_head"}>Join Live-Gists</h3>
+                            <hr />
+                        </header>
+                        <div id={theme === "light" ? "signup_form_light" : "signup_form"}>
+                            <div>
+                                Username
+                                <input type="text" name="Username" placeholder="Username" />
+                            </div>
+                            <div>
+                                Email Address
+                                <input type="email" name="Email Address" placeholder="Email Address" />
+                            </div>
+                            <div>
+                                Password
+                                <input type="password" name="Password" placeholder="Password" />
+                            </div>
+                            <div>
+                                Password Confirmation
+                                <input type="password" name="Password Confirmation" placeholder="Confirm Password" />
+                            </div>
+                            <input type="submit" value="Join Live-Gists" onClick={handleSubmit} />
+                            <div>
+                                <hr className={theme === "light" ? "or_light" : "or"} data-content="OR" />
+                            </div>
+                                <div className="signup_options">
+                                <img src={Google} alt="Google Logo" />
+                                        <span>
+                                            Sign Up with Google
+                                        </span>
+                                </div>
+
+                                <div className="signup_options">
+                                <img src={GitHub} alt="GitHub Logo" />
+                                        <span>
+                                            Sign Up with GitHub
+                                        </span>
+                                </div>
+                        </div>
+                        <div id="signup_footer">
+                            <div id="signup_policy"><span>By signing up, you agree to our </span><Link to="#">Terms </Link><span>and </span><Link to="#">Privacy Policy</Link>.</div>
+                            <div><span>Already have an account?</span> <Link to="/login">Login</Link></div>
+                        </div>
+                    </div>
+                </div>
+                <div className="grid-col-3">
+                    <img src={SignupBackgroundImage} alt="Signup Background" />
+                </div>
+
             </div>
         </>
     )
