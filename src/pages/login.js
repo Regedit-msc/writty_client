@@ -73,13 +73,12 @@ const Login = ({ history }) => {
         })
     }
 
-
+    function PopupBlocked() {
+        var PUtest = window.open(null, "", "width=1,height=1");
+        try { PUtest.close(); return false; }
+        catch (e) { return true; }
+    }
     const responseGoogle = (d) => {
-        function PopupBlocked() {
-            var PUtest = window.open(null, "", "width=1,height=1");
-            try { PUtest.close(); return false; }
-            catch (e) { return true; }
-        }
 
         if (PopupBlocked()) {
             setErr("You have to enable popups to use this feature.");
@@ -132,7 +131,10 @@ const Login = ({ history }) => {
     const onSuccess = ({ code }) => {
         saveToken(code, "github")
     };
-    const onFailure = response => enqueueSnackbar("Github auth failed.", { variant: "error" });
+    const onFailure = response => {
+        console.log(response);
+        enqueueSnackbar("Github auth failed.", { variant: "error" })
+    };
     return (
         <>
             {showErr ? <InfoBar
@@ -150,8 +152,8 @@ const Login = ({ history }) => {
                             <hr />
                         </header>
                         <div id={theme === "light" ? "login_form_light" : "login_form"}>
-                            <input type="text" name="Username" placeholder="Username" />
-                            <input type="password" name="Password" placeholder="Password" />
+                            <input type="text" name="username" placeholder="Username" onChange={handleChange} />
+                            <input type="password" name="password" placeholder="Password" onChange={handleChange} />
                             <input type="submit" value="Login" onClick={handleSubmit} />
                             <div>
                                 <hr className={theme === "light" ? "or_light" : "or"} data-content="OR" />
@@ -161,13 +163,14 @@ const Login = ({ history }) => {
                                 <GoogleLogin
                                     clientId={process.env.REACT_APP_G_CLIENT_ID}
                                     render={(renderProps) => (
-                                        <button
+                                        <p
                                             onClick={() => {
                                                 renderProps.onClick();
                                             }}
+                                            style={{ cursor: "pointer" }}
                                         >
                                             Sign in with Google
-                                        </button>
+                                        </p>
                                     )}
                                     buttonText='Login'
                                     onSuccess={responseGoogle}
@@ -177,22 +180,13 @@ const Login = ({ history }) => {
                                 />
                                 </div>
 
-                                <div className="login_options">
+                            <div className="login_options github">
                                 <img src={GitHub} alt="GitHub Logo" />
                                 <LoginGithub clientId={process.env.REACT_APP_GH_CLIENT_ID}
-                                    render={(renderProps) => (
-                                        <button
-                                            onClick={() => {
-                                                renderProps.onClick();
-                                            }}
-                                        >
-                                            Sign in with GitHub
-                                        </button>
-                                    )}
                                     onSuccess={onSuccess}
                                     onFailure={onFailure}
                                 />
-                                </div>
+                            </div>
                         </div>
                         <div id="login_footer">
                             <div><Link to="#">Forgot Password?</Link></div>

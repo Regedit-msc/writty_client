@@ -80,7 +80,7 @@ hr {
 
 input, .login_options {
     display: block;
-
+    
     box-sizing: border-box;
     height: 60px;
     width: 450px;
@@ -92,6 +92,17 @@ input, .login_options {
     font-size: inherit;
     font-weight: 500;
     font-style: normal;
+}
+
+
+ .github >  button{
+    outline: none !important;
+    border: none !important;
+     font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    font-style: normal;
+    background: none !important;
 }
 
 #login_form input {
