@@ -73,7 +73,7 @@ const ChatSideBar = ({ profileImage, name, messages, history, ...props }) => {
             case "imagefornow":
                 return "🎤";
             default:
-                return messageBody.length > 0 ? messageBody : "Start a conversation."
+                return messageBody?.length > 0 ? messageBody : "Start a conversation."
 
         }
 
