@@ -105,7 +105,7 @@ const ChatSideBar = ({ profileImage, name, messages, history, ...props }) => {
                                         </div>
                                         <div className="message_text">
                                             <span className={theme === "light" ? "their_name_light" : "their_name"}>{room?.userTOChat?.user?.username}</span>
-                                            <span className={theme === "light" ? "their_display_text_light" : "their_display_text"}>{room?.lastMessage?.user?.username}: {toRender(room?.lastMessage?.type, room?.lastMessage?.body)}</span>
+                                            <span className={theme === "light" ? "their_display_text_light" : "their_display_text"}>{room?.lastMessage?.user?.username} {room?.lastMessage?.body ? ":" : ""} {toRender(room?.lastMessage?.type, room?.lastMessage?.body)}</span>
                                         </div>
                                         <div className={theme === "light" ? "unread_data_light" : "unread_data"}>
                                             <div className="their_time_stamp">{moment(room?.lastMessage?.createdAt).format("LT")}</div>
