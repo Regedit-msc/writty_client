@@ -73,7 +73,7 @@ const ChatSideBar = ({ profileImage, name, messages, history, ...props }) => {
             case "imagefornow":
                 return "🎤";
             default:
-                return messageBody
+                return messageBody.length > 0 ? messageBody : "Start a conversation."
 
         }
 
@@ -98,7 +98,7 @@ const ChatSideBar = ({ profileImage, name, messages, history, ...props }) => {
                     rooms ? rooms.map((room, index) => {
                         return (
                             <div key={index}>
-                                <Link to={`/@/${room?.userTOChat?.user?.username}/chat`} className="link--message-one">
+                                <Link to={`/@/${room?.userTOChat?.user?.username}/chat`} replace className="link--message-one">
                                     <div className="message-one">
                                         <div className="circle_crop">
                                             <img alt="" src={room?.userTOChat?.user?.profileImageUrl} className="" />
