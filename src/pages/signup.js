@@ -81,15 +81,15 @@ const Signup = ({ history }) => {
                         <div id={theme === "light" ? "signup_form_light" : "signup_form"}>
                             <div>
                                 Username
-                                <input type="text" name="username" placeholder="Username" onChange={handleChange} />
+                                <input type="text" name="username" placeholder="Username" onChange={handleChange} autoComplete="off" />
                             </div>
                             <div>
                                 Email Address
-                                <input type="email" name="email" placeholder="Email Address" onChange={handleChange} />
+                                <input type="email" name="email" placeholder="Email Address" onChange={handleChange} autoComplete="off" />
                             </div>
                             <div>
                                 Password
-                                <input type="password" name="password" placeholder="Password" onChange={handleChange} />
+                                <input type="password" name="password" placeholder="Password" onChange={handleChange} autoComplete="off" />
                             </div>
                             <div>
                                 Password Confirmation

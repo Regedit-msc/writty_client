@@ -154,8 +154,8 @@ const Login = ({ history }) => {
                             <hr />
                         </header>
                         <div id={theme === "light" ? "login_form_light" : "login_form"}>
-                            <input type="text" name="username" placeholder="Username" onChange={handleChange} />
-                            <input type="password" name="password" placeholder="Password" onChange={handleChange} />
+                            <input type="text" name="username" placeholder="Username" onChange={handleChange} autoComplete="off" />
+                            <input type="password" name="password" placeholder="Password" onChange={handleChange} autoComplete="off" />
                             <input type="submit" value="Login" onClick={handleSubmit} />
                             <div>
                                 <hr className={theme === "light" ? "or_light" : "or"} data-content="OR" />
