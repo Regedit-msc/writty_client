@@ -115,7 +115,7 @@ const Signup = ({ history }) => {
                         </div>
                         <div id="signup_footer">
                             <div id="signup_policy"><span>By signing up, you agree to our </span><Link to="#">Terms </Link><span>and </span><Link to="#">Privacy Policy</Link>.</div>
-                            <div><span>Already have an account?</span> <Link to="/login">Login</Link></div>
+                            <div><span>Already have an account?</span> <Link to="/login" class="login_link">Login</Link></div>
                         </div>
                     </div>
                 </div>
