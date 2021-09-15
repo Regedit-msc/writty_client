@@ -164,7 +164,7 @@ const Login = ({ history }) => {
                             <GoogleLogin
                                 clientId={process.env.REACT_APP_G_CLIENT_ID}
                                 render={(renderProps) => (
-                                    <div className="login_options"
+                                    <div className={theme === "light" ? "login_options" : "login_options_dark"}
                                         onClick={() => {
                                             renderProps.onClick();
                                         }}
@@ -184,7 +184,7 @@ const Login = ({ history }) => {
                             />
 
 
-                            <div className="login_options github">
+                            <div className={theme === "light" ? "login_options github" : "login_options_dark github_dark"}>
                                 <img src={GitHub} alt="GitHub Logo" />
                                 <LoginGithub
                                     clientId={process.env.REACT_APP_GH_CLIENT_ID}
