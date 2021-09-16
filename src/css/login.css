@@ -79,7 +79,7 @@ a {
     justify-content: space-evenly;
 }
 
-input, .login_options {
+.login-main input, .login-main_light input, .login_options {
     display: block;
     
     box-sizing: border-box;

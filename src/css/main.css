@@ -248,6 +248,10 @@
         justify-content: center;
         margin-top: 70px;
     }
+
+    /* input:active {
+        outline: none;
+    } */
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
