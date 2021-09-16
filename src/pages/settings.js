@@ -1,4 +1,4 @@
-import SideBar from "../components/sidebar";
+
 
 import "../css/account_settings.css";
 import "../css/main.css"
@@ -140,11 +140,11 @@ const Settings = (props) => {
                 color="green"
                 text={info}
             /> : ""}
-            <SideBar
+            {/* <SideBar
                 page="settings"
-            />
+            /> */}
             <div id="main">
-                <h4 id="settings">Account Settings</h4>
+                {/* <h4 id="settings">Account Settings</h4> */}
                 <div>
                     {image ? <img ref={profileRef} src={defaultImage} id="profile_pic1" alt="user_image" /> : <>
 

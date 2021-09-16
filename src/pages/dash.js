@@ -1,11 +1,11 @@
 import { makePriv } from "../auth_hoc/checkAuth";
-import { useState, useEffect, useContext, useRef } from "react"
+import { useState, useEffect, useContext } from "react"
 import { API_ENDPOINT } from "./url";
 import { Link, useHistory } from "react-router-dom"
 import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
 import { v4 as uuidV4 } from "uuid";
-import PadLock from "../images/padlock.png";
+// import PadLock from "../images/padlock.png";
 import DeleteLight from "../images/icon-delete_light.png";
 import Delete from "../images/icon-delete.png";
 import Share from "../images/icon-share.png";
@@ -17,20 +17,21 @@ import CollabCodeLight from "../images/icon-collab_light.png";
 import PrivateCode from "../images/icon-private_code.png";
 import PrivateCodeLight from "../images/icon-private_code_light.png";
 import "../css/dashboard.css";
-import SideBar from "../components/sidebar";
+// import SideBar from "../components/sidebar";
 import { themeContext } from "../App";
 import InfoBar from "../components/info";
 import { useTitle } from "../utils/title";
 import CustomShimmer from "../components/shimmerComp";
 import { useSnackbar } from 'notistack';
+// import NavBar from "../components/navbar";
 
 
 const Dash = (props) => {
     const history = useHistory();
     const { enqueueSnackbar } = useSnackbar();
     useTitle("Dashboard.");
-    const profileImageRef = useRef();
-    const defaultImage = 'https://cdn3.vectorstock.com/i/thumb-large/76/57/portrait-young-bearded-man-in-eyeglasses-vector-34397657.jpg'
+    // const profileImageRef = useRef();
+    // const defaultImage = 'https://cdn3.vectorstock.com/i/thumb-large/76/57/portrait-young-bearded-man-in-eyeglasses-vector-34397657.jpg'
     const { theme } = useContext(themeContext);
     const [isLoadingCreateDoc, setIsLoadingCreateDoc] = useState(false);
     const [info, setInfo] = useState();
@@ -46,7 +47,7 @@ const Dash = (props) => {
     });
     const [docs, setDocs] = useState();
     const [creatingDoc, setCreatingDoc] = useState();
-    const [username, setUsername] = useState();
+    // const [username, setUsername] = useState();
     useEffect(() => {
         const isSubbed = localStorage.getItem("Subbed");
         const sub = JSON.parse(localStorage.getItem("SUB"));
@@ -95,9 +96,9 @@ const Dash = (props) => {
         ).then(jsonRes => {
             console.log(jsonRes);
             if (jsonRes.success) {
-                setUsername(jsonRes.username);
+                // setUsername(jsonRes.username);
                 setDocs(jsonRes.message);
-                profileImageRef.current.src = jsonRes.image;
+                // profileImageRef.current.src = jsonRes.image;
             } else {
                 enqueueSnackbar("Your session has expired.", { variant: "error" });
                 localStorage.removeItem("user_token");
@@ -106,9 +107,9 @@ const Dash = (props) => {
         })
     }, [enqueueSnackbar, history]);
 
-    function createDoc() {
-        setCreatingDoc(true);
-    }
+    // function createDoc() {
+    //     setCreatingDoc(true);
+    // }
     function handleChange(e) {
 
         switch (e.target.name) {
@@ -344,20 +345,20 @@ const Dash = (props) => {
                 text={info}
             /> : ""}
 
-            <SideBar
+            {/* <SideBar
                 page="gists"
-            />
+            /> */}
             {isLoadingCreateDoc ? <div>Creating gist...</div> : <div></div>}
             <div id="main">
-                <img src={PadLock} id="padlock" className="point" alt="padlock" />
-                {docs ? <img ref={profileImageRef} src={defaultImage} id="profile_pic" className="point" alt="profile_pic" /> : <> <CustomShimmer>
+                {/* <img src={PadLock} id="padlock" className="point" alt="padlock" /> */}
+                {/* {docs ? <img ref={profileImageRef} src={defaultImage} id="profile_pic" className="point" alt="profile_pic" /> : <> <CustomShimmer>
                     <div className={props.classes.circle} />
                 </CustomShimmer> </>}
                 <h3 id="greeting">Dev {username ? username : <> <CustomShimmer>
                     <div className={props.classes.line} />
                 </CustomShimmer> </>}</h3>
                 <h5 id="welcome">Welcome to your dashboard</h5>
-                <Link id={theme === "light" ? "create_button_light" : "create_button"} to="/dash" onClick={createDoc} className="point" >Create a gist</Link>
+                <Link id={theme === "light" ? "create_button_light" : "create_button"} to="/dash" onClick={createDoc} className="point" >Create a gist</Link> */}
 
                 <p id="your_codes">Your Codes</p>
                 {creatingDoc ? (
