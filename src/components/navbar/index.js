@@ -8,6 +8,7 @@ import { useSnackbar } from "notistack";
 import { API_ENDPOINT } from "../../pages/url";
 import { useCallback } from "react";
 import { themeContext } from "../../App";
+import { useMemo } from "react";
 
 
 const NavBar = () => {
@@ -33,6 +34,7 @@ const NavBar = () => {
         }
         ).then(jsonRes => {
             setProfileImage(jsonRes.message.profileImageUrl);
+            localStorage.setItem("profile_user_pic", jsonRes.message.profileImageUrl);
             localStorage.setItem("profile_user_name", jsonRes.message.username);
         }).catch(() => {
             enqueueSnackbar("Unable to sync.", {
@@ -41,7 +43,15 @@ const NavBar = () => {
         });
     }, [enqueueSnackbar])
 
+    const dontInclude = useMemo(() => ["/", '/login', '/register'], [])
+    useEffect(() => {
+        if (dontInclude.includes(window.location.pathname)) {
+            return;
+        } else {
+            localStorage.setItem("lastVisited", window.location.pathname);
+        }
 
+    }, [location, dontInclude]);
     useEffect(() => {
         if (!token) return;
         getProfileImage(token);
@@ -72,7 +82,7 @@ const NavBar = () => {
                     {
                         token ? <ul>
                             <li className="create-g"><Link to="#">Create Gist</Link></li>
-                            <li><i className="far fa-envelope"></i></li>
+                            <li > <Link to="/chat"><i class="fas fa-comment-dots"></i></Link></li>
                             <li><i className="far fa-bell"></i></li>
                             <li><Link to="/dash" ><img src={profileImage ?? Jorja} class="profile-img" alt="profile" /></Link></li>
                             <li><i className="fas fa-chevron-circle-down dropdown" onMouseOver={() => {

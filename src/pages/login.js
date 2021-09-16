@@ -32,7 +32,7 @@ const Login = ({ history }) => {
         const token = localStorage.getItem("user_token");
         if (token) {
             enqueueSnackbar("Auto login.", { variant: "success" })
-            history.replace('/dash')
+            history.replace(localStorage.getItem("lastVisited") ? localStorage.getItem("lastVisited") : '/dash')
         }
     }, [enqueueSnackbar, history])
 
@@ -63,7 +63,7 @@ const Login = ({ history }) => {
                 setUserToken(jsonRes.message);
 
 
-                history.replace('/dash');
+                history.replace(localStorage.getItem("lastVisited") ? localStorage.getItem("lastVisited") : '/dash')
 
             } else {
                 enqueueSnackbar(jsonRes.message, {
@@ -116,7 +116,7 @@ const Login = ({ history }) => {
                 setUserToken(jsonRes.message);
                 console.log("Success", jsonRes)
 
-                history.replace('/dash');
+                history.replace(localStorage.getItem("lastVisited") ? localStorage.getItem("lastVisited") : '/dash')
 
             } else {
                 setErr(jsonRes.message);

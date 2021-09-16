@@ -9,7 +9,7 @@ import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
 import { themeContext } from "../App"
 import { useContext } from "react";
-const ChatSideBar = ({ profileImage, name, messages, history, ...props }) => {
+const ChatSideBar = ({ profileImage, name, messages = null, history, ...props }) => {
     const { theme } = useContext(themeContext);
     const [rooms, setRooms] = useState();
     const [first, setFirst] = useState(true);
@@ -85,7 +85,7 @@ const ChatSideBar = ({ profileImage, name, messages, history, ...props }) => {
                 <div className="circle_crop">
                     <img alt="" src={profileImage} className="my_profile_pic" />
                 </div>
-                <div className={theme === "light" ? "messages_light" : "messages"}>Messages</div>
+                <div className={theme === "light" ? "messages_light" : "messages"}>Chats</div>
             </div>
             <div className="search_messages">
                 <div className={theme === "light" ? "messages_search_wrapper_light" : "messages_search_wrapper"}>

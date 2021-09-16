@@ -7,6 +7,16 @@
         color: #FFFFFF;
         font-family: iCiel Gotham;
     }
+
+    .chat_waiting{
+    
+        background-color: #1F1F1F;
+        background-image: url("../images/doodle1.jpg");
+        background-size: cover;
+        background-attachment: fixed;
+        color: #FFFFFF;
+        font-family: iCiel Gotham;
+    }
     
      .side_popup {
         background-color: #000000;

@@ -32,6 +32,7 @@ import Setup_03 from "./pages/setup_03"
 import Setup_04 from "./pages/setup_04"
 import Setup_05 from "./pages/setup_05"
 import Setup_06 from "./pages/setup_06"
+import ChatWaitingRoom from "./pages/chat_waiting_room"
 
 
 
@@ -94,6 +95,7 @@ function App(props) {
   useEffect(() => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+  const notAllowedR = ["/", "/register", "/login"];
   return (
 
     <>
@@ -107,7 +109,9 @@ function App(props) {
           <ImageContextProvider>
             <UserContextProvider>
               <Router>
-                <NavBar />
+                {
+                  notAllowedR.includes(window.location.pathname) || window.location.pathname.includes("chat") ? '' : <NavBar />
+                }
                 <Switch>
                   <Route exact path="/" component={mobile ? Mobile : Landing} />
                   {/* <Route exact path="/home" component={mobile ? Mobile : Home} /> */}
@@ -123,6 +127,7 @@ function App(props) {
                   <Route exact path="/Setup_04" component={mobile ? Mobile : Setup_04} />
                   <Route exact path="/Setup_05" component={mobile ? Mobile : Setup_05} />
                   <Route exact path="/Setup_06" component={mobile ? Mobile : Setup_06} />
+                  <Route exact path="/chat" component={mobile ? Mobile : ChatWaitingRoom} />
                   {/* <Route path="/public/editor/:lang/:id" component={NoEditEditor} /> */}
                   <Route exact path="/public/editor/:id" component={mobile ? Mobile : PublicEditor} />
                   <Route exact path="/edit/:id" component={mobile ? Mobile : TextEditor} />
