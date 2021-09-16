@@ -154,8 +154,8 @@ const Login = ({ history }) => {
                             <hr />
                         </header>
                         <div id={theme === "light" ? "login_form_light" : "login_form"}>
-                            <input type="text" name="username" placeholder="Username" onChange={handleChange} />
-                            <input type="password" name="password" placeholder="Password" onChange={handleChange} />
+                            <input type="text" name="username" placeholder="Username" onChange={handleChange} autoComplete="off" />
+                            <input type="password" name="password" placeholder="Password" onChange={handleChange} autoComplete="off" />
                             <input type="submit" value="Login" onClick={handleSubmit} />
                             <div>
                                 <hr className={theme === "light" ? "or_light" : "or"} data-content="OR" />
@@ -164,7 +164,7 @@ const Login = ({ history }) => {
                             <GoogleLogin
                                 clientId={process.env.REACT_APP_G_CLIENT_ID}
                                 render={(renderProps) => (
-                                    <div className="login_options"
+                                    <div className={theme === "light" ? "login_options" : "login_options_dark"}
                                         onClick={() => {
                                             renderProps.onClick();
                                         }}
@@ -184,7 +184,7 @@ const Login = ({ history }) => {
                             />
 
 
-                            <div className="login_options github">
+                            <div className={theme === "light" ? "login_options github" : "login_options_dark github_dark"}>
                                 <img src={GitHub} alt="GitHub Logo" />
                                 <LoginGithub
                                     clientId={process.env.REACT_APP_GH_CLIENT_ID}

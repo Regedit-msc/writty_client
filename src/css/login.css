@@ -35,6 +35,8 @@ a {
 }
 
 #login_form_box {
+    transition: 100ms;
+    transform: scale(1);
     width: auto;
     height: 600px;
     margin-top: 50px;
@@ -48,6 +50,9 @@ a {
     box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, .25);
 }
 #login_form_box_light {
+
+    transition: 100ms;
+    transform: scale(1);
     width: auto;
     height: 600px;
     margin-top: 50px;
@@ -60,6 +65,12 @@ a {
 
     box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, .25);
 }
+
+
+    #login_form_box_light:hover, #login_form_box:hover,#login_form_box:focus, #login_form_box_light:focus{
+    transform: scale(1.1);
+}
+
 
 #login_form_head {
     font-size: 21px;
@@ -95,6 +106,22 @@ a {
     font-style: normal;
 }
 
+input, .login_options_dark {
+    display: block;
+    
+    box-sizing: border-box;
+    height: 60px;
+    width: 450px;
+    padding: 20px 36px;
+    border: none;
+    border-radius: var(--brd_rad_big);
+
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    font-style: normal;
+}
+
 
  .github >  button{
     outline: none !important;
@@ -105,6 +132,20 @@ a {
     font-style: normal;
     background: none !important;
 }
+
+
+.github_dark>  button{
+    color: white;
+    outline: none !important;
+    border: none !important;
+     font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    font-style: normal;
+    background: none !important;
+}
+
+
 
 #login_form input {
     background-color: #373737;
@@ -221,6 +262,23 @@ a {
 }
 #login_form_light .login_options button {
     color: #000000;
+}
+.login_options_dark {
+    border: 2.5px solid #000000;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center ;
+}
+.login_options_dark:hover {
+    background-color: #272636;
+}
+
+.login_options_dark img {
+    width: 42px;
+    padding-right: 10px;
+
 }
 
 
