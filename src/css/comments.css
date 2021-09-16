@@ -321,7 +321,7 @@
         width: 147.2px;
         height: 45.7px;
         border-radius: 5.6px;
-        background-color: #3137DC;
+        background-color: #000000;
         font-size: 14px;
         font-style: normal;
         font-weight: 500;
@@ -347,8 +347,8 @@
         height: 0px;
         position: absolute;
         border-left: 12px solid transparent;
-        border-right: 12px solid #3137DC;
-        border-top: 8px solid #3137DC;
+        border-right: 12px solid #000000;
+        border-top: 8px solid #000000;
         border-bottom: 8px solid transparent;
         
         left: 80px;
@@ -360,9 +360,9 @@
         height: 0px;
         position: absolute;
         border-left: 12px solid transparent;
-        border-right: 12px solid #3137DC;
+        border-right: 12px solid #000000;
         border-top: 8px solid transparent;
-        border-bottom: 8px solid #3137DC;
+        border-bottom: 8px solid #000000;
         
         left: 80px;
         top: 10px;
@@ -373,7 +373,7 @@
         font-weight: 800;
         font-size: 20px;
         font-family: iCiel Gotham;
-        background-color: #3137DC;
+        background-color: #000000;
         color: #FFFFFF;
         padding: 10px 50px 10px 20px;
         box-sizing: border-box;
@@ -430,7 +430,7 @@
         font-weight: 800;
         font-size: 20px;
         font-family: iCiel Gotham;
-        background-color: #3137DC;
+        background-color: #000000;
         color: #FFFFFF;
         padding: 10px 50px 10px 20px;
         box-sizing: border-box;
@@ -459,8 +459,8 @@
         height: 0px;
         position: absolute;
         border-left: 12px solid transparent;
-        border-right: 12px solid #3137DC;
-        border-top: 8px solid #3137DC;
+        border-right: 12px solid #000000;
+        border-top: 8px solid #000000;
         border-bottom: 8px solid transparent;
         
         left: 85px;
@@ -473,9 +473,9 @@
         height: 0px;
         position: absolute;
         border-left: 12px solid transparent;
-        border-right: 12px solid #3137DC;
+        border-right: 12px solid #000000;
         border-top: 8px solid transparent;
-        border-bottom: 8px solid #3137DC;
+        border-bottom: 8px solid #000000;
         
         left: 85px;
         top: 10px;
@@ -512,7 +512,7 @@
         width: 147.2px;
         height: 42px;
         border-radius: 5.6px;
-        background-color: #3137DC;
+        background-color: #000000;
         border: none;
 
         font-family: iCiel Gotham;
@@ -546,7 +546,7 @@
 
     .user_header_dark > button{
         border: none;
-        background-color: #3137DC;
+        background-color: #000000;
         font-size: larger;
     }
     
