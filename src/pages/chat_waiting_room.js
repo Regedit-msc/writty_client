@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { API_ENDPOINT } from "./url";
 import { useSnackbar } from "notistack";
+import { makePriv } from "../auth_hoc/checkAuth";
 const ChatWaitingRoom = () => {
     const [image, setImage] = useState('');
     const [name, setName] = useState('');
@@ -53,4 +54,4 @@ const ChatWaitingRoom = () => {
         />
     </>
 }
-export default ChatWaitingRoom;
+export default makePriv(ChatWaitingRoom);
