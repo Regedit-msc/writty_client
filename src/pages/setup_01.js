@@ -1,10 +1,10 @@
 import { Link, withRouter } from "react-router-dom"
 import "../css/setup.css";
-import { API_ENDPOINT } from "./url";
-import { themeContext } from "../App";
-import { useContext, useState, useEffect } from "react";
-import { userContext } from "../contexts/userContext";
-import InfoBar from "../components/info";
+// import { API_ENDPOINT } from "./url";
+// import { themeContext } from "../App";
+// import { useContext, useState, useEffect } from "react";
+// import { userContext } from "../contexts/userContext";
+// import InfoBar from "../components/info";
 import { useTitle } from "../utils/title";
 import backgroundAccountCreation from "../images/background-account-creation.png";
 import LogoPlaceholder from "../images/logo.png"
@@ -36,7 +36,7 @@ const Setup_01 = ({ history }) => {
                                 <h5>Upload Photo</h5>
                                 Get your face easily regognized by your network
                             </div>
-                            <img src={PlaceholderProfileImage} class="placeholder-profile-image" />
+                            <img src={PlaceholderProfileImage} class="placeholder-profile-image" alt="background_account_creation" />
                             <div id="image-upload_form">
                                 <div className="upload_photo" >Upload Photo</div>
                                 <input type="submit" value="Continue" />
@@ -45,7 +45,7 @@ const Setup_01 = ({ history }) => {
                     </div>
                 </div>
                 <div class="grid-col-3">
-                    <img src={backgroundAccountCreation} />
+                    <img src={backgroundAccountCreation} alt="background_account_creation" />
                 </div>
             </div>
         </>

@@ -13,7 +13,7 @@ import TextEditor from "./monacoEditor"
 import PublicEditor from "./publicEditor"
 import CollabEditor from "./collabEditor"
 import NotFound from "./pages/404"
-import Home from "./pages/home"
+// import Home from "./pages/home"
 import Settings from "./pages/settings"
 import { useEffect, createContext, useState } from "react"
 import Login from "./pages/login"
@@ -24,8 +24,14 @@ import CommentPage from "./pages/comment"
 import UserProfile from "./pages/user_profile"
 import Chat from "./pages/chat"
 import { SnackbarProvider } from 'notistack';
+import OTP from "./pages/otp"
 import NavBar from "./components/navbar"
-
+import Setup_01 from "./pages/setup_01"
+import Setup_02 from "./pages/setup_02"
+import Setup_03 from "./pages/setup_03"
+import Setup_04 from "./pages/setup_04"
+import Setup_05 from "./pages/setup_05"
+import Setup_06 from "./pages/setup_06"
 
 
 
@@ -104,13 +110,19 @@ function App(props) {
                 <NavBar />
                 <Switch>
                   <Route exact path="/" component={mobile ? Mobile : Landing} />
-                  <Route exact path="/home" component={mobile ? Mobile : Home} />
+                  {/* <Route exact path="/home" component={mobile ? Mobile : Home} /> */}
                   {/* <Route path="/editor/:lang/:id" component={Editor} /> */}
                   <Route exact path="/dash" component={mobile ? Mobile : dash} />
                   <Route exact path="/gists" component={mobile ? Mobile : PublicGists} />
                   <Route exact path="/login" component={mobile ? Mobile : Login} />
                   <Route exact path="/signup" component={mobile ? Mobile : Signup} />
-
+                  <Route exact path="/otp" component={mobile ? Mobile : OTP} />
+                  <Route exact path="/Setup_01" component={mobile ? Mobile : Setup_01} />
+                  <Route exact path="/Setup_02" component={mobile ? Mobile : Setup_02} />
+                  <Route exact path="/Setup_03" component={mobile ? Mobile : Setup_03} />
+                  <Route exact path="/Setup_04" component={mobile ? Mobile : Setup_04} />
+                  <Route exact path="/Setup_05" component={mobile ? Mobile : Setup_05} />
+                  <Route exact path="/Setup_06" component={mobile ? Mobile : Setup_06} />
                   {/* <Route path="/public/editor/:lang/:id" component={NoEditEditor} /> */}
                   <Route exact path="/public/editor/:id" component={mobile ? Mobile : PublicEditor} />
                   <Route exact path="/edit/:id" component={mobile ? Mobile : TextEditor} />

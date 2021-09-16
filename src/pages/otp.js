@@ -1,10 +1,10 @@
 import { Link, withRouter } from "react-router-dom"
 import "../css/otp.css";
-import { API_ENDPOINT } from "./url";
-import { themeContext } from "../App";
-import { useContext, useState, useEffect } from "react";
-import { userContext } from "../contexts/userContext";
-import InfoBar from "../components/info";
+// import { API_ENDPOINT } from "./url";
+// import { themeContext } from "../App";
+// import { useContext, useState, useEffect } from "react";
+// import { userContext } from "../contexts/userContext";
+// import InfoBar from "../components/info";
 import { useTitle } from "../utils/title";
 import backgroundAccountCreation from "../images/background-account-creation.png";
 import LogoPlaceholder from "../images/logo.png"
@@ -38,7 +38,7 @@ const OTP = ({ history }) => {
                     </div>
                 </div>
                 <div className="grid-col-3">
-                    <img src={backgroundAccountCreation} />
+                    <img src={backgroundAccountCreation} alt="background_account_creation" />
                 </div>
             </div>
         </>
