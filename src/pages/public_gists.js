@@ -241,7 +241,8 @@ const PublicGists = (props) => {
 
                             <div className={theme === "light" ? "mac2_light" : "mac2"}>
 
-                                <p className="user_info"><img className="profile_pic" src={doc.user?.profileImageUrl ?? defaultImage} alt="profile ." /><Link to={`/@/${doc.user.username}`}>{doc.user.username}</Link></p>
+                                <p className="user_info">
+                                    <img className="profile_pic" src={doc.user?.profileImageUrl ?? defaultImage} alt="profile ." /><Link to={`/@/${doc.user.username}`}>{doc.user.username}</Link></p>
 
                                 <div className="like_comment">
                                     <div id="likes"><img src={doc?.likes?.findIndex(e => e.user === userID) === -1 ? notLike : like} alt="like button" onClick={() => handleLikeClick(doc.publicLink)} /> <span>{doc?.likes?.length ?? 0}</span></div>
