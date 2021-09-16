@@ -49,6 +49,7 @@ import moment from "moment"
 import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
 import CustomShimmer from "../components/shimmerComp";
+// import NavBar from "../components/navbar";
 const { API_ENDPOINT } = require("./url");
 
 const PublicGists = (props) => {
@@ -201,12 +202,13 @@ const PublicGists = (props) => {
     };
     const newUI =
         <>
+
             {showErr ? <InfoBar
                 color="red"
                 text={err}
             /> : ""}
 
-            <p className={theme === "light" ? "big2_light" : "big2"}>PUBLIC GISTS.</p>
+            {/* <p className={theme === "light" ? "big2_light" : "big2"}>PUBLIC GISTS.</p> */}
             <div className={theme === "light" ? "search_wrapper_light" : "search_wrapper"}>
                 <button> <img className="search-icon" src={Search} alt="search" /> </button>
                 <input className="search" type="search" name="search" placeholder="Search by name" onChange={handleChange} ref={inputRef} />

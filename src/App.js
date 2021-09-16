@@ -24,6 +24,7 @@ import CommentPage from "./pages/comment"
 import UserProfile from "./pages/user_profile"
 import Chat from "./pages/chat"
 import { SnackbarProvider } from 'notistack';
+import NavBar from "./components/navbar"
 
 
 
@@ -88,45 +89,50 @@ function App(props) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   return (
-    <themeContext.Provider value={{ setTheTheme, theme }}  >
-      <SnackbarProvider anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'left',
-      }}
-      >
-        <ImageContextProvider>
-          <UserContextProvider>
-            <Router>
-              <Switch>
-                <Route exact path="/" component={mobile ? Mobile : Landing} />
-                <Route exact path="/home" component={mobile ? Mobile : Home} />
-                {/* <Route path="/editor/:lang/:id" component={Editor} /> */}
-                <Route exact path="/dash" component={mobile ? Mobile : dash} />
-                <Route exact path="/gists" component={mobile ? Mobile : PublicGists} />
-                <Route exact path="/login" component={mobile ? Mobile : Login} />
-                <Route exact path="/signup" component={mobile ? Mobile : Signup} />
 
-                {/* <Route path="/public/editor/:lang/:id" component={NoEditEditor} /> */}
-                <Route exact path="/public/editor/:id" component={mobile ? Mobile : PublicEditor} />
-                <Route exact path="/edit/:id" component={mobile ? Mobile : TextEditor} />
-                <Route exact path="/comments/editor/:id" component={mobile ? Mobile : CommentPage} />
-                <Route exact path="/settings" component={mobile ? Mobile : Settings} />
-                <Route exact path="/editor/collab/:id" component={mobile ? Mobile : CollabEditor} />
-                <Route exact path="/@/:name" component={mobile ? Mobile : UserProfile} />
-                <Route exact path="/@/:name/chat" component={mobile ? Mobile : Chat} />
-                <Route exact path="/mobile" component={Mobile} />
-                <Route exact component={mobile ? Mobile : NotFound} />
+    <>
 
-              </Switch>
-            </Router>
+      <themeContext.Provider value={{ setTheTheme, theme }}  >
+        <SnackbarProvider anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        >
+          <ImageContextProvider>
+            <UserContextProvider>
+              <Router>
+                <NavBar />
+                <Switch>
+                  <Route exact path="/" component={mobile ? Mobile : Landing} />
+                  <Route exact path="/home" component={mobile ? Mobile : Home} />
+                  {/* <Route path="/editor/:lang/:id" component={Editor} /> */}
+                  <Route exact path="/dash" component={mobile ? Mobile : dash} />
+                  <Route exact path="/gists" component={mobile ? Mobile : PublicGists} />
+                  <Route exact path="/login" component={mobile ? Mobile : Login} />
+                  <Route exact path="/signup" component={mobile ? Mobile : Signup} />
 
-          </UserContextProvider>
-        </ImageContextProvider>
+                  {/* <Route path="/public/editor/:lang/:id" component={NoEditEditor} /> */}
+                  <Route exact path="/public/editor/:id" component={mobile ? Mobile : PublicEditor} />
+                  <Route exact path="/edit/:id" component={mobile ? Mobile : TextEditor} />
+                  <Route exact path="/comments/editor/:id" component={mobile ? Mobile : CommentPage} />
+                  <Route exact path="/settings" component={mobile ? Mobile : Settings} />
+                  <Route exact path="/editor/collab/:id" component={mobile ? Mobile : CollabEditor} />
+                  <Route exact path="/@/:name" component={mobile ? Mobile : UserProfile} />
+                  <Route exact path="/@/:name/chat" component={mobile ? Mobile : Chat} />
+                  <Route exact path="/mobile" component={Mobile} />
+                  <Route exact component={mobile ? Mobile : NotFound} />
 
-      </SnackbarProvider>
-    </themeContext.Provider>
+                </Switch>
+              </Router>
+
+            </UserContextProvider>
+          </ImageContextProvider>
+
+        </SnackbarProvider>
+      </themeContext.Provider>
 
 
+    </>
   )
 }
 
