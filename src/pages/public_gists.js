@@ -49,10 +49,12 @@ import moment from "moment"
 import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
 import CustomShimmer from "../components/shimmerComp";
+import { useScroll } from "../utils/scroll";
 // import NavBar from "../components/navbar";
 const { API_ENDPOINT } = require("./url");
 
 const PublicGists = (props) => {
+    useScroll();
     const defaultImage = 'https://cdn3.vectorstock.com/i/thumb-large/76/57/portrait-young-bearded-man-in-eyeglasses-vector-34397657.jpg'
     const { theme } = useContext(themeContext);
     let init = localStorage.getItem("initPage") ?? 1;

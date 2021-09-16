@@ -14,7 +14,9 @@ import { useContext } from "react";
 import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
 import CustomShimmer from "../components/shimmerComp";
+import { useScroll } from "../utils/scroll";
 const CommentPage = (props) => {
+    useScroll();
     const { theme } = useContext(themeContext);
     const [err, setErr] = useState();
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);

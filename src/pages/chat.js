@@ -180,7 +180,7 @@ const Chat = (props) => {
                 user: { _id: vnData.user._id, profileImageUrl: vnData.user.profileImageUrl },
                 type: "vn",
             }]);
-            messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+            messagesRef.current.scrollTo(0, messagesRef.current.scrollHeight);
         })
     }, [socket, userID]);
 
@@ -199,7 +199,7 @@ const Chat = (props) => {
                 user: { _id: imageData.user._id },
                 type: "image",
             }]);
-            messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+            messagesRef.current.scrollTo(0, messagesRef.current.scrollHeight);
         })
     }, [socket, userID])
 
@@ -217,7 +217,7 @@ const Chat = (props) => {
             type: "message",
             _id: uuidV4()
         }]);
-        messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+        messagesRef.current.scrollTo(0, messagesRef.current.scrollHeight);
         console.log(messagesRef.current.scrollHeight);
         setInputVal('');
     }
@@ -425,7 +425,7 @@ const Chat = (props) => {
             isPlaying: false,
             _id: id
         }]);
-        messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+        messagesRef.current.scrollTo(0, messagesRef.current.scrollHeight);
     }
 
     function handleBackClick() {
