@@ -37,6 +37,7 @@ import ImagePreview from "../components/imagePreview";
 import CustomImage from "../components/customImage";
 import { useContext } from "react";
 import { useSnackbar } from 'notistack';
+import { makePriv } from "../auth_hoc/checkAuth";
 
 const Chat = (props) => {
     const { enqueueSnackbar } = useSnackbar();
@@ -523,4 +524,4 @@ const Chat = (props) => {
         </>
     )
 }
-export default withRouter(injectSheet(StyleSheet)(Chat));
+export default withRouter(makePriv(injectSheet(StyleSheet)(Chat)));

@@ -65,7 +65,7 @@ const NavBar = () => {
 
     return <>
         {
-            notAllowed.includes(location.pathname) || location.pathname.includes("chat") ? '' :
+            notAllowed.includes(location.pathname) || location.pathname.includes("chat") || location.pathname.includes("setup") ? '' :
                 <nav className={theme === "light" ? "navbar" : "navbar_dark"}>
                     <ul>
                         <li>
