@@ -95,7 +95,7 @@ function App(props) {
   useEffect(() => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  const notAllowedR = ["/", "/register", "/login"];
+  const notAllowedR = ["/", "/register", "/login", "/signup", "/otp"];
   return (
 
     <>

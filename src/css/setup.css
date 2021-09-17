@@ -179,7 +179,7 @@ hr {
 
 .upload_photo {
     display: block;
-
+cursor: pointer;
     box-sizing: border-box;
     height: 40px;
     width: 200px;
@@ -203,6 +203,7 @@ hr {
     color: #FFFFFF;
     width: 400px;
     height: 60px;
+    cursor: pointer;
 }
 
 .grid-col-3 {

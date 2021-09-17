@@ -19,7 +19,11 @@ background-blend-mode: darken;
 background-repeat: no-repeat;
 background-size: cover;
 }
-
+/* .profile-container :hover{
+    background-color: rgba(165, 95, 95, 0.5);
+    transition: background ease 1s;
+}
+ */
 
 .profile-container div:nth-child(1) {
   display: flex;
@@ -59,6 +63,9 @@ margin-top: 5rem;
   margin-top: 0;
   opacity: 0.89;
 }
+
+
+
 .profile-container div:nth-child(2), 
 .profile-container div:nth-child(3){
   display: grid;

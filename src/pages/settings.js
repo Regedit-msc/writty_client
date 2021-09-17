@@ -96,6 +96,7 @@ const Settings = (props) => {
                     ).then(jsonRes => {
                         if (jsonRes.success) {
                             setImage(jsonRes.message);
+                            localStorage.setItem("profile_user_pic", jsonRes.message);
                             profileRef.current.src = image ?? '';
                             setInfo("Upload done.");
                             setShowInfo(true);
