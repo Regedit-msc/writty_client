@@ -50,7 +50,6 @@ import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
 import CustomShimmer from "../components/shimmerComp";
 import { useScroll } from "../utils/scroll";
-import { debounce } from "../utils/debounce";
 // import NavBar from "../components/navbar";
 const { API_ENDPOINT } = require("./url");
 
@@ -123,7 +122,16 @@ const PublicGists = (props) => {
         props.history.push(`/comments/editor/${id}`)
 
     }
-
+    const debounce = function (fn, d) {
+        let timer;
+        return function () {
+            let context = this, args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                fn.apply(context, args);
+            }, d)
+        }
+    }
 
     useEffect(() => {
         inputRef.current = debounce(searchByWordOrLetters, 500);
@@ -234,7 +242,7 @@ const PublicGists = (props) => {
                             <div className={theme === "light" ? "mac2_light" : "mac2"}>
 
                                 <p className="user_info">
-                                    <img className="profile_pic" src={doc?.user?.profileImageUrl ?? defaultImage} alt="profile ." /><Link to={`/@/${doc?.user?.username}`}>{doc?.user?.username}</Link></p>
+                                    <img className="profile_pic" src={doc.user?.profileImageUrl ?? defaultImage} alt="profile ." /><Link to={`/@/${doc.user.username}`}>{doc.user.username}</Link></p>
 
                                 <div className="like_comment">
                                     <div id="likes"><img src={doc?.likes?.findIndex(e => e.user === userID) === -1 ? notLike : like} alt="like button" onClick={() => handleLikeClick(doc.publicLink)} /> <span>{doc?.likes?.length ?? 0}</span></div>

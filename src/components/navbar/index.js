@@ -1,6 +1,6 @@
 import "./navbar.css"
 import LogoPlaceholder from "../../images/logo.png";
-// import Jorja from "../../images/jorja.png"
+import Jorja from "../../images/jorja.png"
 import { Link, useLocation, useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import { useState, useContext } from "react";
@@ -9,22 +9,15 @@ import { API_ENDPOINT } from "../../pages/url";
 import { useCallback } from "react";
 import { themeContext } from "../../App";
 import { useMemo } from "react";
-import { useRef } from "react";
-import { debounce } from "@material-ui/core";
-import { defaultImage } from "../../utils/defaultProfileImage";
 
 
 const NavBar = () => {
-
     const { theme } = useContext(themeContext);
     const location = useLocation();
     const history = useHistory();
-    const [users, setUsers] = useState(null);
     const { enqueueSnackbar } = useSnackbar();
-    const dontInclude = useMemo(() => ["/", '/login', '/register'], [])
     const [token, setToken] = useState(null);
     const [profileImage, setProfileImage] = useState(null);
-    const inputRef = useRef();
     useEffect(() => {
         setToken(localStorage.getItem("user_token"));
     }, []);
@@ -50,23 +43,7 @@ const NavBar = () => {
         });
     }, [enqueueSnackbar])
 
-    // const searchUsers = useCallback(() => searchByWordOrLetters, [searchByWordOrLetters])
-    useEffect(() => {
-        inputRef.current = debounce(searchByWordOrLetters, 700);
-    }, []);
-    function searchByWordOrLetters(v) {
-        fetch(API_ENDPOINT + `/search/users?wol=${v}`, {
-            headers: {
-                'Content-Type': 'application/json; charset=UTF-8',
-                'Authorization': `Bearer ${localStorage.getItem("user_token")}`
-            },
-            method: "GET",
-        }).then(res => res.json()).then((response) => {
-            setUsers(response.message);
-            console.log(response.message);
-        });
-    }
-
+    const dontInclude = useMemo(() => ["/", '/login', '/register'], [])
     useEffect(() => {
         if (dontInclude.includes(window.location.pathname)) {
             return;
@@ -77,13 +54,7 @@ const NavBar = () => {
     }, [location, dontInclude]);
     useEffect(() => {
         if (!token) return;
-        if (!localStorage.getItem("profile_user_pic") ||
-            !localStorage.getItem("profile_user_name")) {
-            getProfileImage(token);
-        } else {
-            setProfileImage(localStorage.getItem("profile_user_pic"));
-        }
-
+        getProfileImage(token);
     }, [token, getProfileImage]);
     const notAllowed = ["/", "/register", "/login"];
 
@@ -91,14 +62,6 @@ const NavBar = () => {
         localStorage.removeItem("user_token");
         history.push('/');
     }
-    const handleChange = (event) => {
-        const input = event.target.value;
-        if (event.target.value === "" || input.length < 4) {
-            return;
-        }
-        document.querySelector(".search_suggestions").style.display = "flex";
-        inputRef.current(input);
-    };
 
     return <>
         {
@@ -113,31 +76,7 @@ const NavBar = () => {
                     </ul>
                     {
                         token ? <ul className="search-tab">
-                            <li><input type="search" name="search" id="search-nav" class="search-c" placeholder="Search" autoComplete="off" onClick={() => {
-                                document.querySelector(".search_suggestions").style.display = "flex";
-                            }} onChange={handleChange} onFocus={
-                                () => {
-                                    document.querySelector(".search_suggestions").style.display = "flex";
-                                }
-                            } /></li>
-
-                            <div className="search_suggestions" onMouseLeave={() => {
-                                document.querySelector(".search_suggestions").style.display = "none";
-                            }}>
-                                {
-                                    users ? users.map((user, index) => {
-                                        return <div key={index}>
-
-
-                                            <div className="search_suggestion" onClick={() => {
-                                                history.replace(`/@/${user?.username}`);
-                                                document.querySelector(".search_suggestions").style.display = "none";
-                                            }}> <img alt="search_user" className="profile-img" src={user?.profileImageUrl ?? defaultImage} /> <span>{user?.username}</span></div>
-                                        </div>
-                                    }) : ''
-                                }
-
-                            </div>
+                            <li><input type="search" name="search" id="search-nav" class="search-c" placeholder="Search" autoComplete="off" /></li>
                         </ul> : <></>
                     }
                     {
@@ -145,7 +84,7 @@ const NavBar = () => {
                             <li className="create-g"><Link to="#">Create Gist</Link></li>
                             <li > <Link to="/chat"><i class="fas fa-comment-dots"></i></Link></li>
                             <li><i className="far fa-bell"></i></li>
-                            <li><Link to="/dash" ><img src={profileImage ?? defaultImage} className="profile-img" alt="profile" /></Link></li>
+                            <li><Link to="/dash" ><img src={profileImage ?? Jorja} class="profile-img" alt="profile" /></Link></li>
                             <li><i className="fas fa-chevron-circle-down dropdown" onMouseOver={() => {
 
                                 document.querySelector(theme === "light" ? ".dropdown-content" : ".dropdown-content_dark").style.display = "block"
