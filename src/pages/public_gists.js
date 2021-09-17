@@ -50,7 +50,10 @@ import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
 import CustomShimmer from "../components/shimmerComp";
 import { useScroll } from "../utils/scroll";
+import ProfileImage from "../components/profileImage/index";
 // import NavBar from "../components/navbar";
+
+
 const { API_ENDPOINT } = require("./url");
 
 const PublicGists = (props) => {
@@ -202,6 +205,7 @@ const PublicGists = (props) => {
         }
         inputRef.current(input);
     };
+
     const newUI =
         <>
 
@@ -241,13 +245,22 @@ const PublicGists = (props) => {
 
                             <div className={theme === "light" ? "mac2_light" : "mac2"}>
 
-                                <p className="user_info"><img className="profile_pic" src={doc.user?.profileImageUrl ?? defaultImage} alt="profile ." /><Link to={`/@/${doc.user.username}`}>{doc.user.username}</Link></p>
+                                <p className="user_info"
+                                    
+                                ><img className="profile_pic" src={doc.user?.profileImageUrl ?? defaultImage} alt="profile ." /><Link to={`/@/${doc.user.username}`}>{doc.user.username}</Link></p>
+                                <ProfileImage
+                                    image = {doc.user?.profileImageUrl ?? defaultImage}
+                                    name = {doc.user.username}
+                                    title="React JS Developer"
+                                    about = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et."
+                                />
 
                                 <div className="like_comment">
                                     <div id="likes"><img src={doc?.likes?.findIndex(e => e.user === userID) === -1 ? notLike : like} alt="like button" onClick={() => handleLikeClick(doc.publicLink)} /> <span>{doc?.likes?.length ?? 0}</span></div>
 
                                     <div id="comments"><img src={comment} alt="comment button" onClick={() => handleCommentClick(doc.publicLink)} /> <span>{doc?.comments?.length ?? 0}</span></div>
                                 </div>
+                                
                             </div>
                         </div>
 

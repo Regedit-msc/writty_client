@@ -1,0 +1,45 @@
+.profile-card {
+    width: 360px;
+    height: 200px;
+    border-radius: var(--brd_rad_small);
+    background-color: #151515;
+    box-shadow: 0px 0px 320px 0px rgba(0, 0, 0, .25);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+
+    z-index: 15;
+
+    position: relative;
+    transition: all .5s ease-in-out;
+}
+
+.profile-card-image {
+    width: 70px;
+}
+
+.profile-card-crux {
+    width: 200px;
+    height: 200px;
+}
+
+.card-name {
+    font-size: 24px;
+    font-weight: 500;
+    width: 200px;
+}
+.card-user-title {
+    font-size: 16px;
+    font-weight: 50;
+    color: #3137DC;
+    width: 200px;
+    
+}
+.card-about {
+    height: 70px;
+    overflow: none;
+    font-size: 12px;
+    font-weight: 100;
+}
