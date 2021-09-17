@@ -76,7 +76,7 @@ const NavBar = () => {
                     </ul>
                     {
                         token ? <ul className="search-tab">
-                            <li><input type="search" name="search" id="search-nav" class="search-c" placeholder="Search" autoComplete="off" /></li>
+                            <li><input type="search" name="search" id="search-nav" className="search-c" placeholder="Search" autoComplete="off" /></li>
                         </ul> : <></>
                     }
                     {

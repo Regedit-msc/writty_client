@@ -51,6 +51,7 @@ import { StyleSheet } from "../utils/shimmer";
 import CustomShimmer from "../components/shimmerComp";
 import { useScroll } from "../utils/scroll";
 import ProfileImage from "../components/profileImage/index";
+import { createRef } from "react";
 // import NavBar from "../components/navbar";
 
 
@@ -58,7 +59,6 @@ const { API_ENDPOINT } = require("./url");
 
 const PublicGists = (props) => {
     useScroll();
-    const profileImageRef = useRef();
     const defaultImage = 'https://cdn3.vectorstock.com/i/thumb-large/76/57/portrait-young-bearded-man-in-eyeglasses-vector-34397657.jpg'
     const { theme } = useContext(themeContext);
     let init = localStorage.getItem("initPage") ?? 1;
@@ -73,7 +73,9 @@ const PublicGists = (props) => {
     const [limit] = useState(6);
     const codeEditorRef = useRef();
     const [docs, setDocs] = useState([]);
+    const ref = useRef([1, 2, 3, 4, 5, 6].map(() => createRef()))
     useEffect(() => {
+        console.log(ref, 'ref');
         let init = localStorage.getItem("initPage") ?? 1;
         setInitPage(parseInt(init));
 
@@ -250,15 +252,26 @@ const PublicGists = (props) => {
                                 <p className="user_info"
                                     
                                 ><img className="profile_pic" src={doc.user?.profileImageUrl ?? defaultImage} alt="profile ." onMouseOver={(e)=>{
-                                    profileImageRef.current.style.display = "flex";
+                                        ref.current[index].current.style.display = "flex";
+                                        ref.current[index].current.classList.add("fade_in_c");
+                                        setTimeout(() => {
+                                            ref.current[index].current.classList.remove("fade_in_c");
+                                        }, 500)
                                     console.log("Event fired")
-                                }}/><Link to={`/@/${doc.user.username}`} >{doc.user.username}</Link></p>
+                                    }} onMouseLeave={() => {
+                                        ref.current[index].current.classList.add("fade_out_c");
+                                        setTimeout(() => {
+                                            ref.current[index].current.classList.remove("fade_out_c");
+                                            ref.current[index].current.style.display = "none";
+                                        }, 500)
+
+                                    }} /><Link to={`/@/${doc.user.username}`} >{doc.user.username}</Link></p>
                                 <ProfileImage
                                     image = {doc.user?.profileImageUrl ?? defaultImage}
                                     name = {doc.user.username}
                                     title="React JS Developer"
                                     about = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et."
-                                    ref={profileImageRef}
+                                    ref={ref.current[index]}
                                 />
 
                                 <div className="like_comment">
