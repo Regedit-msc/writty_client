@@ -58,6 +58,7 @@ const { API_ENDPOINT } = require("./url");
 
 const PublicGists = (props) => {
     useScroll();
+    const profileImageRef = useRef();
     const defaultImage = 'https://cdn3.vectorstock.com/i/thumb-large/76/57/portrait-young-bearded-man-in-eyeglasses-vector-34397657.jpg'
     const { theme } = useContext(themeContext);
     let init = localStorage.getItem("initPage") ?? 1;
@@ -206,6 +207,7 @@ const PublicGists = (props) => {
         inputRef.current(input);
     };
 
+  
     const newUI =
         <>
 
@@ -247,12 +249,16 @@ const PublicGists = (props) => {
 
                                 <p className="user_info"
                                     
-                                ><img className="profile_pic" src={doc.user?.profileImageUrl ?? defaultImage} alt="profile ." /><Link to={`/@/${doc.user.username}`}>{doc.user.username}</Link></p>
+                                ><img className="profile_pic" src={doc.user?.profileImageUrl ?? defaultImage} alt="profile ." onMouseOver={(e)=>{
+                                    profileImageRef.current.style.display = "flex";
+                                    console.log("Event fired")
+                                }}/><Link to={`/@/${doc.user.username}`} >{doc.user.username}</Link></p>
                                 <ProfileImage
                                     image = {doc.user?.profileImageUrl ?? defaultImage}
                                     name = {doc.user.username}
                                     title="React JS Developer"
                                     about = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et."
+                                    ref={profileImageRef}
                                 />
 
                                 <div className="like_comment">
