@@ -10,6 +10,8 @@ import doneImage from "../../images/image-done.png"
 import { useRef } from "react";
 import { useSnackbar } from "notistack";
 import Fade from "../transitions/fade";
+import { LANGUAGES } from "../../utils/programmingLanguages";
+import { generateRandomColorHex } from "../../utils/randomColor";
 // import { useEffect } from "react";
 // import { useEffect } from "react";
 
@@ -43,7 +45,7 @@ const StepBar = ({ currentStep, totalSteps, setStep, setFade, fade, showNext, se
         <header>
             <div>
                 {currentStep > 1 ? <h5 style={{ cursor: "pointer" }} className="lnk-prev_next" onClick={goBack} >PREVIOUS</h5> : ''}
-                <h5 id="setup-step">STEP {currentStep} OF {totalSteps}</h5>
+                <h5 id="setup-step">STEP {currentStep} OF {totalSteps - 1}</h5>
                 {currentStep < totalSteps && showNext ? <h5 style={{ cursor: "pointer" }} className="lnk-prev_next" onClick={goForward}>NEXT</h5> : ''}
             </div>
             <hr />
@@ -55,7 +57,7 @@ const StepBar = ({ currentStep, totalSteps, setStep, setFade, fade, showNext, se
 const BaseForm = () => {
     const { enqueueSnackbar: snack } = useSnackbar();
     const [step, setStep] = useState(1);
-    const totalSteps = 5;
+    const totalSteps = 6;
     const [fade, setFade] = useState(true);
     const [stepsState, setStepsState] = useState();
     const [showNext, setShowNext] = useState(false);
@@ -97,6 +99,16 @@ const BaseForm = () => {
             setStepsState={setStepsState}
         />,
         <Step5
+            snack={snack}
+            currentStep={step}
+            setShowNext={setShowNext}
+            setStep={setStep}
+            stepsState={stepsState}
+            lastStep={totalSteps}
+            setStepsState={setStepsState}
+        />,
+        <Step6
+            snack={snack}
             currentStep={step}
             setShowNext={setShowNext}
             setStep={setStep}
@@ -261,7 +273,7 @@ const Step2 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
 
     </>
 }
-const Step3 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack }) => {
+const Step3 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack, setShowNext }) => {
     const [experienceAndWorks, setExperienceAndWork] = useState([{
         company: '',
         role: "",
@@ -292,6 +304,7 @@ const Step3 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
             snack("You didn't provide any experience, there will be none on your profile.");
         }
         console.log(stepsState);
+        setShowNext(false);
         setStep(currentStep + 1);
     }
 
@@ -361,11 +374,11 @@ const Step3 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
     </>
 }
 
-const Step4 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack }) => {
+const Step4 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack, setShowNext }) => {
     const [value, setValue] = useState('');
     const [userSkills, setUserSkills] = useState([]);
     const [searchSuggestions, setSearchSuggestions] = useState();
-    const skillsList = ["ML Expert", "Flutter Developer", "Blogger", "React developer", "Site Admin", "Django dev", "Python Lord", "Node Guy"];
+    const skillsList = ["UI/UX", "ML Expert", "Flutter Developer", "Blogger", "React developer", "Site Admin", "Django dev", "Python Lord", "Node Guy"];
 
     function handleChange(e) {
         if (e.target.value === '') return;
@@ -385,6 +398,13 @@ const Step4 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
             setStepsState({ ...stepsState, userSkills: [...new Set([...userSkills])] })
         }
     }
+
+    function handleSubmit() {
+        if (stepsState?.userSkills?.length < 2) return snack("You need to provision at least 2 skills.");
+        setStep(currentStep + 1);
+    }
+
+
     return <>
         <div className="setup_body">
             <div className="setup_message">
@@ -423,18 +443,93 @@ const Step4 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
 
                 <div className="skills-list">
                     {
-                        userSkills.length > 0 ? userSkills.map((val, index) => <span key={index}>{val}</span>) : ""
+                        stepsState?.userSkills ? stepsState?.userSkills.length > 0 ? stepsState?.userSkills.map((val, index) => <span key={index}>{val}</span>) : "" : userSkills.length > 0 ? userSkills.map((val, index) => <span key={index}>{val}</span>) : ""
                     }
                 </div>
             </div>
-            <input type="submit" value="Done" />
+            <input type="submit" value="Proceed" onClick={handleSubmit} />
+        </div>
+
+
+    </>
+}
+const Step5 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack }) => {
+    const [value, setValue] = useState('');
+    const [userLanguages, setUserLanguages] = useState([]);
+    const [searchSuggestions, setSearchSuggestions] = useState();
+    const languagesList = LANGUAGES;
+
+    function handleChange(e) {
+        if (e.target.value === '') return;
+        setValue(e.target.value);
+        document.querySelector(".search_suggestions").style.display = "flex";
+        search(value);
+    }
+    function search(value) {
+        let filteredSearchResults = languagesList.filter(str => str.toLowerCase().match(value.trim().toLowerCase()));
+        setSearchSuggestions(filteredSearchResults);
+    }
+    function handleKeyDown(e) {
+        if (e.key === "Enter") {
+            document.querySelector(".search_suggestions").style.display = "none";
+            if (userLanguages.length > 7) return snack("You too sabiii!!!.")
+            setUserLanguages([...new Set([...userLanguages, value])]);
+            setStepsState({ ...stepsState, userLanguages: [...new Set([...userLanguages])] })
+        }
+    }
+
+    function handleSubmit() {
+        if (stepsState?.userLanguages?.length < 2) return snack("You need to choose at least two languages.");
+        console.log(stepsState, "Final step state");
+    }
+    return <>
+        <div className="setup_body">
+            <div className="setup_message">
+                <h5>Languages</h5>
+                Your cooking utensils !!!
+                Let's have your favourites here.
+            </div>
+            <div className="setup_crux">
+                <div className="skill-instruction">Add a language. To add current, click enter or select a suggestion.</div>
+                <input type="text" placeholder="e.g. Java..." className="skill-input" onChange={handleChange} onKeyDown={handleKeyDown} />
+
+
+                <div className="search_suggestions" onMouseLeave={() => {
+                    document.querySelector(".search_suggestions").style.display = "none";
+                }}>
+                    {
+                        searchSuggestions ? searchSuggestions.map((suggestion, index) => {
+                            return <div key={index}>
+                                <div className="search_suggestion" onClick={() => {
+                                    document.querySelector(".search_suggestions").style.display = "none";
+                                    if (userLanguages.length > 7) return snack("You too sabiii!!!.")
+                                    setUserLanguages([...new Set([...userLanguages, suggestion])]);
+                                    setStepsState({ ...stepsState, userLanguages: [...new Set([...userLanguages])] })
+                                }}>
+                                    <span  >
+                                        {suggestion}
+                                    </span>
+                                </div>
+                            </div>
+                        }) : ''
+                    }
+
+                </div>
+
+                <div className="skills-list">
+                    {
+                        stepsState?.userLanguages ? stepsState?.userLanguages.length > 0 ? stepsState?.userLanguages.map((val, index) => <span style={{ cursor: "pointer", color: generateRandomColorHex() }} key={index}>{val}</span>) : "" : userLanguages.length > 0 ? userLanguages.map((val, index) => <span style={{ color: generateRandomColorHex(), cursor: "pointer" }} key={index}>{val}</span>) : ""
+                    }
+                </div>
+            </div>
+            <input type="submit" value="Finish" onClick={handleSubmit} />
         </div>
 
 
     </>
 }
 
-const Step5 = ({ currentStep, lastStep, setStep, setStepsState, stepsState }) => {
+const Step6 = ({ currentStep, lastStep, setStep, setStepsState, stepsState }) => {
     return (
         <>
             <div className="grid-col-2">

@@ -9,7 +9,7 @@ import { useTitle } from "../utils/title";
 // import backgroundAccountCreation from "../images/background-account-creation.png";
 // import LogoPlaceholder from "../images/logo.png"
 
-import BaseForm from "../components/step_forms/Form";
+import BaseForm from "../components/step_forms/form";
 
 
 const Setup_01 = ({ history }) => {
