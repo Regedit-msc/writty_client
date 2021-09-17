@@ -30,17 +30,7 @@ const Setup_02 = ({ history }) => {
                             </div>
                             <hr />
                         </header>
-                        <div className="setup_body">
-                            <div className="setup_message">
-                                <h5>Introduce Yourself</h5>
-                                Let us know a little about you.
-                            </div>
-                            <div className="setup_crux">
-                                <div>About</div>
-                                <textarea></textarea>
-                            </div>
-                            <input type="submit" value="Done" />
-                        </div>
+
                     </div>
                 </div>
                 <div className="grid-col-3">
