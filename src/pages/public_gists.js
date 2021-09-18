@@ -265,7 +265,7 @@ const PublicGists = (props) => {
                                             ref.current[index].current.style.display = "none";
                                         }, 500)
 
-                                        }} /></Link></p>
+                                        }} /></Link><span>{doc?.user?.username}</span> </p>
                                 <ProfileImage
                                     image={doc?.user?.profileImageUrl ?? defaultImage}
                                     name={doc?.user?.username}
