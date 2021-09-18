@@ -27,7 +27,9 @@ const Landing = () => {
     }, [theme])
 
     useEffect(() => {
-
+        if (!localStorage.getItem("new_user")) {
+            localStorage.setItem("new_user", "notreg")
+        }
         fetch(`${API_ENDPOINT}/user/name`, {
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',

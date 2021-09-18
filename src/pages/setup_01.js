@@ -17,7 +17,7 @@ import { useEffect } from "react";
 const Setup_01 = ({ history }) => {
 
     useEffect(() => {
-        if (localStorage.getItem("new_user")) {
+        if (localStorage.getItem("new_user") === "notreg") {
             return;
         } else {
             history.replace(localStorage.getItem("last_visited") ?? "/dash");

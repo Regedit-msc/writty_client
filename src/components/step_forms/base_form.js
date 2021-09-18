@@ -501,6 +501,7 @@ const Step5 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
             console.log(jsonRes)
             if (jsonRes.success) {
                 snack("Successfully created account.");
+                localStorage.setItem("new_user", "reg")
                 localStorage.removeItem("profile_user_pic")
                 setStep(currentStep + 1)
             } else {

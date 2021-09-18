@@ -10,6 +10,7 @@ import backgroundAccountCreation from "../images/background-account-creation.png
 import LogoPlaceholder from "../images/logo.png"
 import { useState } from "react";
 import { useSnackbar } from "notistack";
+import { useEffect } from "react";
 
 
 
@@ -47,7 +48,7 @@ const OTP = ({ history }) => {
 
 
     useEffect(() => {
-        if (localStorage.getItem("new_user")) {
+        if (localStorage.getItem("new_user") === "notreg") {
             return;
         } else {
             history.replace(localStorage.getItem("last_visited") ?? "/dash");
