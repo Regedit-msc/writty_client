@@ -13,6 +13,7 @@ import { useSnackbar } from "notistack";
 
 
 
+
 const OTP = ({ history }) => {
     const { enqueueSnackbar } = useSnackbar();
     useTitle("OTP Verification.");
@@ -43,6 +44,15 @@ const OTP = ({ history }) => {
     function handleChange(e) {
         setOtpState(e.target.value);
     }
+
+
+    useEffect(() => {
+        if (localStorage.getItem("new_user")) {
+            return;
+        } else {
+            history.replace(localStorage.getItem("last_visited") ?? "/dash");
+        };
+    }, []);
     return (
         <>
             <div className="otp-main">

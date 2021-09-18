@@ -5,16 +5,24 @@ import "../css/setup.css";
 // import { useContext, useState, useEffect } from "react";
 // import { userContext } from "../contexts/userContext";
 // import InfoBar from "../components/info";
-import { useTitle } from "../utils/title";
 // import backgroundAccountCreation from "../images/background-account-creation.png";
 // import LogoPlaceholder from "../images/logo.png"
 
 import BaseForm from "../components/step_forms/base_form";
+import { useEffect } from "react";
+
+
 
 
 const Setup_01 = ({ history }) => {
-    useTitle("Upload Photo");
 
+    useEffect(() => {
+        if (localStorage.getItem("new_user")) {
+            return;
+        } else {
+            history.replace(localStorage.getItem("last_visited") ?? "/dash");
+        };
+    }, [history]);
     return (
         <>
             <BaseForm />

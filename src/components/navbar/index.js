@@ -27,7 +27,7 @@ const NavBar = () => {
     const inputRef = useRef();
     useEffect(() => {
         setToken(localStorage.getItem("user_token"));
-    }, []);
+    }, [location]);
 
 
     // const searchUsers = useCallback(() => searchByWordOrLetters, [searchByWordOrLetters])

@@ -251,7 +251,7 @@ const PublicGists = (props) => {
 
                                 <p className="user_info"
                                     
-                                > <Link to={`/@/${doc.user.username}`} ><img className="profile_pic" src={doc.user?.profileImageUrl ?? defaultImage} alt="profile ." onMouseOver={(e) => {
+                                > <Link to={`/@/${doc?.user?.username}`} ><img className="profile_pic" src={doc.user?.profileImageUrl ?? defaultImage} alt="profile ." onMouseOver={(e) => {
                                         ref.current[index].current.style.display = "flex";
                                         ref.current[index].current.classList.add("fade_in_c");
                                         setTimeout(() => {
@@ -267,8 +267,8 @@ const PublicGists = (props) => {
 
                                         }} /></Link></p>
                                 <ProfileImage
-                                    image = {doc.user?.profileImageUrl ?? defaultImage}
-                                    name = {doc.user.username}
+                                    image={doc?.user?.profileImageUrl ?? defaultImage}
+                                    name={doc?.user?.username}
                                     title="React JS Developer"
                                     about = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et."
                                     ref={ref.current[index]}

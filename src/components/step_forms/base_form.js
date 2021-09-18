@@ -14,6 +14,7 @@ import Fade from "../transitions/fade";
 import { LANGUAGES } from "../../utils/programmingLanguages";
 import { generateRandomColorHex } from "../../utils/randomColor";
 import { API_ENDPOINT } from "../../pages/url";
+import { useTitle } from "../../utils/title";
 // import { useEffect } from "react";
 // import { useEffect } from "react";
 
@@ -193,6 +194,7 @@ const Steps = ({ currentStep, lastStep, stepsList, fade }) => {
 }
 
 const Step1 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack, setShowNext }) => {
+    useTitle("Upload a profile picture.")
     const [image, setImage] = useState();
     const fileInput = useRef();
     const openFilePicker = () => {
@@ -248,7 +250,7 @@ const Step1 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
 }
 const Step2 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack, setShowNext }) => {
     const [formState, setFormState] = useState('');
-
+    useTitle("Tell us about you.")
     function handleChange(e) {
         setFormState(e.target.value);
         setStepsState({ ...stepsState, about: formState });
@@ -276,6 +278,7 @@ const Step2 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
     </>
 }
 const Step3 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack, setShowNext }) => {
+    useTitle("Work experience.")
     const [experienceAndWorks, setExperienceAndWork] = useState([{
         company: '',
         role: "",
@@ -377,6 +380,7 @@ const Step3 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
 }
 
 const Step4 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack, setShowNext }) => {
+    useTitle("Skills, Hobbies.")
     const [value, setValue] = useState('');
     const [userSkills, setUserSkills] = useState([]);
     const [searchSuggestions, setSearchSuggestions] = useState();
@@ -456,7 +460,7 @@ const Step4 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
     </>
 }
 const Step5 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack }) => {
-
+    useTitle("Languages.")
     const [value, setValue] = useState('');
     const [userLanguages, setUserLanguages] = useState([]);
     const [searchSuggestions, setSearchSuggestions] = useState();
