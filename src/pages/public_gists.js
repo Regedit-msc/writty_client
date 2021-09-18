@@ -79,7 +79,7 @@ const PublicGists = (props) => {
         let init = localStorage.getItem("initPage") ?? 1;
         setInitPage(parseInt(init));
 
-        fetch(API_ENDPOINT + `/public/docs/paginated?page=${initialPage}&limit=${limit}`).then(res => res.json()).then((response) => {
+        fetch(API_ENDPOINT + `/public/docs/paginated?page=${init ?? initialPage}&limit=${limit}`).then(res => res.json()).then((response) => {
             setPageNext(response.message.next?.page);
             setPagePrev(response.message.previous?.page);
             setDocs(response.message.results);
