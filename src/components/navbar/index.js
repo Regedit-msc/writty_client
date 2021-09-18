@@ -57,8 +57,6 @@ const NavBar = () => {
     }, [location, dontInclude]);
     useEffect(() => {
         if (!token) return;
-        if (!localStorage.getItem("profile_user_pic") ||
-            !localStorage.getItem("profile_user_name")) {
             fetch(`${API_ENDPOINT}/user/name`, {
                 headers: {
                     'Content-Type': 'application/json; charset=UTF-8',
@@ -78,10 +76,6 @@ const NavBar = () => {
                     variant: "error"
                 });
             });
-        } else {
-            setProfileImage(localStorage.getItem("profile_user_pic"));
-        }
-
     }, [token, enqueueSnackbar]);
     const notAllowed = ["/", "/register", "/login", "/otp", "/onboard", "/chat"];
 
