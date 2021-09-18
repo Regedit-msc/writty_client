@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useState, useContext } from "react";
 import { useSnackbar } from "notistack";
 import { API_ENDPOINT } from "../../pages/url";
-import { useCallback } from "react";
+// import { useCallback } from "react";
 import { themeContext } from "../../App";
 import { useMemo } from "react";
 import { useRef } from "react";
@@ -28,27 +28,7 @@ const NavBar = () => {
     useEffect(() => {
         setToken(localStorage.getItem("user_token"));
     }, []);
-    const getProfileImage = useCallback((tokenKey) => {
-        fetch(`${API_ENDPOINT}/user/name`, {
-            headers: {
-                'Content-Type': 'application/json; charset=UTF-8',
-                'Authorization': `Bearer ${tokenKey}`
-            },
-            method: "GET",
-        }).then(res => {
-            if (res.ok) return res.json();
-            return res.json().then(json => Promise.reject(json));
-        }
-        ).then(jsonRes => {
-            setProfileImage(jsonRes.message.profileImageUrl);
-            localStorage.setItem("profile_user_pic", jsonRes.message.profileImageUrl);
-            localStorage.setItem("profile_user_name", jsonRes.message.username);
-        }).catch(() => {
-            enqueueSnackbar("Unable to sync.", {
-                variant: "error"
-            });
-        });
-    }, [enqueueSnackbar])
+
 
     // const searchUsers = useCallback(() => searchByWordOrLetters, [searchByWordOrLetters])
     useEffect(() => {
@@ -79,12 +59,30 @@ const NavBar = () => {
         if (!token) return;
         if (!localStorage.getItem("profile_user_pic") ||
             !localStorage.getItem("profile_user_name")) {
-            getProfileImage(token);
+            fetch(`${API_ENDPOINT}/user/name`, {
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    'Authorization': `Bearer ${localStorage.getItem("user_token")}`
+                },
+                method: "GET",
+            }).then(res => {
+                if (res.ok) return res.json();
+                return res.json().then(json => Promise.reject(json));
+            }
+            ).then(jsonRes => {
+                setProfileImage(jsonRes.message.profileImageUrl);
+                localStorage.setItem("profile_user_pic", jsonRes.message.profileImageUrl);
+                localStorage.setItem("profile_user_name", jsonRes.message.username);
+            }).catch(() => {
+                enqueueSnackbar("Unable to sync.", {
+                    variant: "error"
+                });
+            });
         } else {
             setProfileImage(localStorage.getItem("profile_user_pic"));
         }
 
-    }, [token, getProfileImage]);
+    }, [token, enqueueSnackbar]);
     const notAllowed = ["/", "/register", "/login", "/otp", "/onboard", "/chat"];
 
     function logOut() {
