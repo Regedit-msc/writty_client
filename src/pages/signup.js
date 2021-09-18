@@ -1,4 +1,4 @@
-import { Link, withRouter } from "react-router-dom"
+import { Link, withRouter, useHistory } from "react-router-dom"
 import "../css/signup.css";
 import { themeContext } from "../App";
 import { useContext, useState, useEffect } from "react";
@@ -9,13 +9,15 @@ import LogoPlaceholder from "../images/logo.png"
 import Google from "../images/google-icon.png"
 import GitHub from "../images/github-icon.png"
 import SignupBackgroundImage from "../images/login-background.png"
-const Signup = ({ history }) => {
+const Signup = () => {
+    const history = useHistory();
     const { enqueueSnackbar } = useSnackbar();
     useTitle("Sign Up.")
     const { theme } = useContext(themeContext);
     const [formState, setFormState] = useState({
         username: '',
         password: '',
+        passwordCrosscheck: '',
         email: ""
     });
 
@@ -35,6 +37,10 @@ const Signup = ({ history }) => {
             case "password":
                 setFormState({ ...formState, password: e.target.value })
                 break;
+            case "password_crosscheck":
+                setFormState({ ...formState, passwordCrosscheck: e.target.value })
+                break;
+
             case "email":
                 setFormState({ ...formState, email: e.target.value });
                 break;
@@ -43,6 +49,7 @@ const Signup = ({ history }) => {
         }
     }
     function handleSubmit() {
+        if (!validate(formState)) return;
         console.log(formState);
         fetch(`${API_ENDPOINT}/register`, {
             headers: {
@@ -54,15 +61,33 @@ const Signup = ({ history }) => {
         ).then(jsonRes => {
             console.log(jsonRes)
             if (jsonRes.success) {
-                console.log(jsonRes)
-                enqueueSnackbar("You are all set proceed to login.");
-
-
-
+                console.log(jsonRes);
+                localStorage.setItem("user_token", jsonRes.message);
+                enqueueSnackbar("A mail containing a one time password\n has been sent to your registered email address.");
+                history.replace("/otp");
             } else {
                 enqueueSnackbar(jsonRes.message);
             }
         })
+    }
+
+    function validate(formState) {
+        if (formState.username.length < 7) {
+            enqueueSnackbar("Username is too short.");
+            return false;
+        } else if (!(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(formState.email))) {
+            enqueueSnackbar("Invalid email address.");
+            return false;
+        } else if (formState.password !== formState.passwordCrosscheck) {
+            enqueueSnackbar("Passwords do not match.");
+            return false;
+        } else if (formState.username === "" || formState.passwordCrosscheck === '' ||
+            formState.email === "" || formState.password === "") {
+            enqueueSnackbar("All fields are required.");
+            return false;
+        }
+        return true;
+
     }
 
     return (
@@ -81,19 +106,19 @@ const Signup = ({ history }) => {
                         <div id={theme === "light" ? "signup_form_light" : "signup_form"}>
                             <div>
                                 Username
-                                <input type="text" name="username" placeholder="Username" onChange={handleChange} autoComplete="off" />
+                                <input type="text" name="username" placeholder="Username" onChange={handleChange} autoComplete="off" required />
                             </div>
                             <div>
                                 Email Address
-                                <input type="email" name="email" placeholder="Email Address" onChange={handleChange} autoComplete="off" />
+                                <input type="email" name="email" placeholder="Email Address" onChange={handleChange} autoComplete="off" required />
                             </div>
                             <div>
                                 Password
-                                <input type="password" name="password" placeholder="Password" onChange={handleChange} autoComplete="off" />
+                                <input type="password" name="password" placeholder="Password" onChange={handleChange} autoComplete="off" required />
                             </div>
                             <div>
                                 Password Confirmation
-                                <input type="password" name="Password Confirmation" placeholder="Confirm Password" />
+                                <input type="password" name="password_crosscheck" placeholder="Confirm Password" onChange={handleChange} required />
                             </div>
                             <input type="submit" value="Join Live-Gists" onClick={handleSubmit} />
                             <div>

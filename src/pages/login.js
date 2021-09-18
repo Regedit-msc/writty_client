@@ -195,7 +195,7 @@ const Login = ({ history }) => {
                         </div>
                         <div id="login_footer">
                             <div><Link to="#">Forgot Password?</Link></div>
-                            <div><span>Don't have an account?</span> <Link to="/signup" class="signup_link">Sign up</Link></div>
+                            <div><span>Don't have an account?</span> <Link to="/signup" className="signup_link">Sign up</Link></div>
                         </div>
                     </div>
                 </div>

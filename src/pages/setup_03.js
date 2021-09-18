@@ -8,7 +8,7 @@ import "../css/setup.css";
 import { useTitle } from "../utils/title";
 import backgroundAccountCreation from "../images/background-account-creation.png";
 import LogoPlaceholder from "../images/logo.png"
-import addMore from "../images/add-black.png"
+// import addMore from "../images/add-black.png"
 
 
 const Setup_03 = ({ history }) => {
@@ -31,28 +31,8 @@ const Setup_03 = ({ history }) => {
                             </div>
                             <hr />
                         </header>
-                        <div className="setup_body">
-                            <div className="setup_message">
-                                <h5>Experience</h5>
-                                You can add your work experience here.
-                            </div>
-                            <div style={{height: 320 + "px"}}>
-                                <div className="experience-body">
-                                    <label>Where you've worked
-                                        <input type="text" className="workplace" />
-                                    </label>
 
-                                    <label>Role
-                                        <input type="text" className="role" />
-                                    </label>
 
-                                    <div className="add-more">
-                                        <img src={addMore} alt="background_account_creation" /> Add more
-                                    </div>
-                                </div>
-                            </div>
-                            <input type="submit" value="Done" />
-                        </div>
                     </div>
                 </div>
                 <div className="grid-col-3">

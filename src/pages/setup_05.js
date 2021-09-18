@@ -30,24 +30,8 @@ const Setup_05 = ({ history }) => {
                             </div>
                             <hr />
                         </header>
-                        <div className="setup_body">
-                            <div className="setup_message">
-                                <h5>Skills</h5>
-                                Let others know your abilities and areas of expertise.
-                            </div>
-                            <div className="setup_crux">
-                                <div className="skill-instruction">Add a skill. To add multiple, click enter.</div>
-                                <input type="text" placeholder="e.g. user interface..." className="skill-input" />
-                                <div className="skills-list">
-                                    <span>ML Expert</span>
-                                    <span>Flutter Developer</span>
-                                    <span>Backend</span>
-                                    <span>Graphics, UI/UX designer</span>
-                                    <span>React Developer</span>
-                                </div>
-                            </div>
-                            <input type="submit" value="Done" />
-                        </div>
+
+
                     </div>
                 </div>
                 <div className="grid-col-3">

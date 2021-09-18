@@ -95,7 +95,7 @@ function App(props) {
   useEffect(() => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  const notAllowedR = ["/", "/register", "/login"];
+  const notAllowedR = ["/", "/register", "/login", "/signup", "/otp"];
   return (
 
     <>
@@ -121,7 +121,7 @@ function App(props) {
                   <Route exact path="/login" component={mobile ? Mobile : Login} />
                   <Route exact path="/signup" component={mobile ? Mobile : Signup} />
                   <Route exact path="/otp" component={mobile ? Mobile : OTP} />
-                  <Route exact path="/Setup_01" component={mobile ? Mobile : Setup_01} />
+                  <Route exact path="/onboard" component={mobile ? Mobile : Setup_01} />
                   <Route exact path="/Setup_02" component={mobile ? Mobile : Setup_02} />
                   <Route exact path="/Setup_03" component={mobile ? Mobile : Setup_03} />
                   <Route exact path="/Setup_04" component={mobile ? Mobile : Setup_04} />

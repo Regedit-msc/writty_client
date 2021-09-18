@@ -4,15 +4,13 @@
     border-radius: var(--brd_rad_small);
     background-color: #151515;
     box-shadow: 0px 0px 320px 0px rgba(0, 0, 0, .25);
-
     display: none;
+    left: 100px;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-
     z-index: 15;
-
-    position: relative;
+    position: absolute;
     transition: all .5s ease-in-out;
 }
 
@@ -42,4 +40,142 @@
     overflow: none;
     font-size: 12px;
     font-weight: 100;
+}
+
+.fade_out_c
+   { 
+   -webkit-animation: fadeOut 0.5s ease-out;
+    -moz-animation: fadeOut 0.5s ease-out;
+    -o-animation: fadeOut 0.5s ease-out;
+    animation: fadeOut 0.5s ease-out;
+}
+
+@-webkit-keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    1% {
+        opacity: 0.9;
+    }
+
+    100% {
+     
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes fadeOut {
+     0% {
+        opacity: 1;
+    }
+
+    1% {
+        opacity: 0.9;
+    }
+
+    100% {
+     
+        opacity: 0;
+    }
+}
+
+@-o-keyframes fadeOut {
+   0% {
+        opacity: 1;
+    }
+
+    1% {
+        opacity: 0.9;
+    }
+
+    100% {
+     
+        opacity: 0;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    1% {
+        opacity: 0.9;
+    }
+
+    100% {
+     
+        opacity: 0;
+    }
+}
+
+
+
+.fade_in_c
+   { 
+   -webkit-animation: fadeIn 0.5s ease-in;
+    -moz-animation: fadeIn 0.5s ease-in;
+    -o-animation: fadeIn 0.5s ease-in;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+        opacity: 0;
+    }
+
+    1% {
+        opacity: 0.9;
+    }
+
+    100% {
+     
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadeIn {
+   0% {
+        opacity: 0;
+    }
+
+    1% {
+        opacity: 0.9;
+    }
+
+    100% {
+     
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadeIn {
+   0% {
+        opacity: 0;
+    }
+
+    1% {
+        opacity: 0.9;
+    }
+
+    100% {
+     
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    1% {
+        opacity: 0.9;
+    }
+
+    100% {
+     
+        opacity: 1;
+    }
 }
