@@ -147,9 +147,10 @@
         justify-content: flex-start;
         height: 28.8px;
         width: 328px;
-        padding: 5px;
+        padding: 10px;
         margin: 20px;
         border-radius: 50px;
+         border: 1px solid black;
         background-color: #D7D7D7;
     }
 
@@ -168,7 +169,7 @@
 
         font-family: iCiel Gotham;
         font-style: normal;
-        font-weight: 600;
+        /* font-weight: 600; */
         /* font-size: 16px; */
         line-height: 19.2px;
     }
@@ -179,7 +180,7 @@
         outline: none;
         font-family: iCiel Gotham;
         font-style: normal;
-        font-weight: 600;
+        /* font-weight: 600; */
 
         /* font-size: 16px; */
         line-height: 19.2px;

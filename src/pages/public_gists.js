@@ -52,8 +52,9 @@ import CustomShimmer from "../components/shimmerComp";
 import { useScroll } from "../utils/scroll";
 import ProfileImage from "../components/profileImage/index";
 import { createRef } from "react";
+import InfoBox from "../components/info_box";
 // import NavBar from "../components/navbar";
-
+import PublicGistsInfo from "../images/public_gists.svg";
 
 const { API_ENDPOINT } = require("./url");
 
@@ -73,6 +74,7 @@ const PublicGists = (props) => {
     const [limit] = useState(6);
     const codeEditorRef = useRef();
     const [docs, setDocs] = useState([]);
+    const infoBoxRef = useRef();
     const ref = useRef([1, 2, 3, 4, 5, 6].map(() => createRef()))
     useEffect(() => {
         console.log(ref, 'ref');
@@ -217,7 +219,17 @@ const PublicGists = (props) => {
                 color="red"
                 text={err}
             /> : ""}
-
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <InfoBox
+                    color="rgb(17, 107, 75)"
+                    header="WELCOME TO PUBLIC GISTS"
+                    about="See code other programmers have made public. Search quickly for solutions and find variety of answers in one place."
+                    image={PublicGistsInfo}
+                    ref={infoBoxRef}
+                    width="60%"
+                    height="450px"
+                />
+            </div>
             {/* <p className={theme === "light" ? "big2_light" : "big2"}>PUBLIC GISTS.</p> */}
             <div className={theme === "light" ? "search_wrapper_light" : "search_wrapper"}>
                 <button> <img className="search-icon" src={Search} alt="search" /> </button>
