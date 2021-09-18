@@ -53,7 +53,7 @@ const OTP = ({ history }) => {
         } else {
             history.replace(localStorage.getItem("last_visited") ?? "/dash");
         };
-    }, []);
+    }, [history]);
     return (
         <>
             <div className="otp-main">
