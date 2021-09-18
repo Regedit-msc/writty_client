@@ -8,10 +8,12 @@ import PlaceholderProfileImage from "../../images/placeholder-profile-image.png"
 import addMore from "../../images/add-black.png";
 import doneImage from "../../images/image-done.png"
 import { useRef } from "react";
+
 import { useSnackbar } from "notistack";
 import Fade from "../transitions/fade";
 import { LANGUAGES } from "../../utils/programmingLanguages";
 import { generateRandomColorHex } from "../../utils/randomColor";
+import { API_ENDPOINT } from "../../pages/url";
 // import { useEffect } from "react";
 // import { useEffect } from "react";
 
@@ -454,6 +456,7 @@ const Step4 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
     </>
 }
 const Step5 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack }) => {
+
     const [value, setValue] = useState('');
     const [userLanguages, setUserLanguages] = useState([]);
     const [searchSuggestions, setSearchSuggestions] = useState();
@@ -481,12 +484,33 @@ const Step5 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
     function handleSubmit() {
         if (stepsState?.userLanguages?.length < 2) return snack("You need to choose at least two languages.");
         console.log(stepsState, "Final step state");
+        snack("Processing profile...");
+        fetch(`${API_ENDPOINT}/onboard/user`, {
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                "Authorization": `Bearer ${localStorage.getItem("user_token")}`
+            },
+            method: "POST",
+            body: JSON.stringify({ details: stepsState })
+        }).then(res => res.json()
+        ).then(jsonRes => {
+            console.log(jsonRes)
+            if (jsonRes.success) {
+                snack("Successfully created account.");
+                localStorage.removeItem("profile_user_pic")
+                setStep(currentStep + 1)
+            } else {
+                snack(jsonRes.message, {
+                    variant: "error"
+                });
+            }
+        })
     }
     return <>
         <div className="setup_body">
             <div className="setup_message">
                 <h5>Languages</h5>
-                Your cooking utensils !!!
+                Your cooking utensils !!!<br />
                 Let's have your favourites here.
             </div>
             <div className="setup_crux">

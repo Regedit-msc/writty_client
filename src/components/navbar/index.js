@@ -21,7 +21,7 @@ const NavBar = () => {
     const history = useHistory();
     const [users, setUsers] = useState(null);
     const { enqueueSnackbar } = useSnackbar();
-    const dontInclude = useMemo(() => ["/", '/login', '/register'], [])
+    const dontInclude = useMemo(() => ["/", '/login', '/register', "/otp", "/setup_01", "/onboard", "/signup"], [])
     const [token, setToken] = useState(null);
     const [profileImage, setProfileImage] = useState(null);
     const inputRef = useRef();
@@ -85,10 +85,11 @@ const NavBar = () => {
         }
 
     }, [token, getProfileImage]);
-    const notAllowed = ["/", "/register", "/login"];
+    const notAllowed = ["/", "/register", "/login", "/otp", "/onboard", "/chat"];
 
     function logOut() {
         localStorage.removeItem("user_token");
+        localStorage.removeItem("profile_user_image");
         history.push('/');
     }
     const handleChange = (event) => {

@@ -1,4 +1,4 @@
-import { Link, withRouter } from "react-router-dom"
+import { Link, withRouter, useHistory } from "react-router-dom"
 import "../css/signup.css";
 import { themeContext } from "../App";
 import { useContext, useState, useEffect } from "react";
@@ -9,7 +9,8 @@ import LogoPlaceholder from "../images/logo.png"
 import Google from "../images/google-icon.png"
 import GitHub from "../images/github-icon.png"
 import SignupBackgroundImage from "../images/login-background.png"
-const Signup = ({ history }) => {
+const Signup = () => {
+    const history = useHistory();
     const { enqueueSnackbar } = useSnackbar();
     useTitle("Sign Up.")
     const { theme } = useContext(themeContext);
@@ -63,6 +64,7 @@ const Signup = ({ history }) => {
                 console.log(jsonRes);
                 localStorage.setItem("user_token", jsonRes.message);
                 enqueueSnackbar("A mail containing a one time password\n has been sent to your registered email address.");
+                history.replace("/otp");
             } else {
                 enqueueSnackbar(jsonRes.message);
             }
