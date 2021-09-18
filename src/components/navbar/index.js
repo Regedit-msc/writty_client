@@ -98,6 +98,7 @@ const NavBar = () => {
     function handleKeyPress(e) {
         if (e.key === "Enter") {
             document.querySelector(".search_suggestions").style.display = "none";
+            setValue('');
             history.push(`/search?user=${value}`);
         }
     }
