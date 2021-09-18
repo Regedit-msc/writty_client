@@ -7,6 +7,7 @@ import { useMemo } from "react";
 import PlaceholderProfileImage from "../images/placeholder-profile-image.png"
 import { useRef } from "react";
 import { useHistory } from "react-router";
+import { makePriv } from "../auth_hoc/checkAuth";
 // import { createRef } from "react";
 // import ProfileImage from "../components/profileImage";
 // import { useCallback } from "react";
@@ -174,4 +175,4 @@ const Search = () => {
     </>
 }
 
-export default Search;
+export default makePriv(Search);
