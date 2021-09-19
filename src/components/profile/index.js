@@ -32,6 +32,7 @@ const Profile = (props) => {
     useEffect(() => {
         fetch(API_ENDPOINT + `/details/public?name=${name.trim()}`).then(res => res.json()).then((response) => {
             if (response.success) {
+                console.log(response.message);
                 setUserData(response.message);
                 setDocsB(response.message.code);
                 setUserID(response.message.userID);
@@ -88,6 +89,21 @@ const Profile = (props) => {
     //     }
 
     // }
+
+
+
+    // {
+    //     "languages": [],
+    //         "skills": [],
+    //             "about": "",
+    //                 "image": "https://ik.imagekit.io/tcu4tmaa6/profile_image_from_live_gists_AAuiCha8iKi.webp",
+    //                     "code": [],
+    //                         "email": "efusanyaee@gmail.com",
+    //                             "userID": "60fad0273a1f37386054079d"
+    // }
+
+
+
     function handleCopy(val, text) {
         navigator.clipboard.writeText(val);
         setInfo(text);
@@ -166,7 +182,7 @@ const Profile = (props) => {
                     }
 
                     <p>{name}</p>
-                    <p className="graphics">Graphics, UI/UX Designer</p>
+                    <p className="graphics">{userData?.skills?.length > 0 ? userData.skills[0] : ''}</p>
                 </div>
                 <div>
                     <p>
@@ -195,24 +211,23 @@ const Profile = (props) => {
                                 <Link to={`/@/${name}/chat`}>Message</Link>
                             </p>
                             <p>
-                                <Link onClick={() => handleCopy(userData.email, "Copied email to clipboard.")} >Connect</Link>
+                                <Link to="" onClick={() => handleCopy(userData.email, "Copied email to clipboard.")} >Connect</Link>
                             </p></>
                     }
                 </div>
             </section>
             <section className="profile-overview">
                 <aside className="profile-summary">
-                    <div className="about">
-                        <h2>
-                            <span className="style">About</span>
-                        </h2>
-                        <p>
-                            The best bios are often concise (around 200–300 words), so you don't
-                            have a lot of room to play around. But a single sentence that tees
-                            your reader up. Recruiters feature only 3-5 of your absolute best
-                            projects.
-                        </p>
-                    </div>
+                    {
+                        userData?.about === '' ? '' : <div className="about">
+                            <h2>
+                                <span className="style">About</span>
+                            </h2>
+                            <p>
+                                {userData?.about}
+                            </p>
+                        </div>
+                    }
                     <div className="experience">
                         <div>
                             <h2>

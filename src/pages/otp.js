@@ -33,7 +33,9 @@ const OTP = ({ history }) => {
         ).then(jsonRes => {
             console.log(jsonRes)
             if (jsonRes.success) {
-
+                enqueueSnackbar(jsonRes.message, {
+                    variant: "success"
+                });
                 history.replace("/onboard");
             } else {
                 enqueueSnackbar(jsonRes.message, {
@@ -48,7 +50,7 @@ const OTP = ({ history }) => {
 
 
     useEffect(() => {
-        if (localStorage.getItem("new_user") === "notreg") {
+        if (localStorage.getItem("new_user") === "notreg" || !localStorage.getItem("new_user")) {
             return;
         } else {
             history.replace(localStorage.getItem("last_visited") ?? "/dash");

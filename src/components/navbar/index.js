@@ -74,11 +74,13 @@ const NavBar = () => {
                 localStorage.setItem("profile_user_pic", jsonRes.message.profileImageUrl);
                 localStorage.setItem("profile_user_name", jsonRes.message.username);
             }).catch(() => {
+                localStorage.removeItem("user_token");
+                history.replace("/login")
                 enqueueSnackbar("Unable to sync.", {
                     variant: "error"
                 });
             });
-    }, [token, enqueueSnackbar]);
+    }, [token, enqueueSnackbar, history]);
     const notAllowed = ["/", "/register", "/login", "/otp", "/onboard", "/chat"];
 
     function logOut() {
@@ -148,7 +150,7 @@ const NavBar = () => {
                             <li className="create-g"><Link to="#">Create Gist</Link></li>
                             <li > <Link to="/chat"><i className="fas fa-comment-dots"></i></Link></li>
                             <li><i className="far fa-bell"></i></li>
-                            <li><Link to="/dash" ><img src={profileImage ?? defaultImage} className="profile-img" alt="profile" /></Link></li>
+                            <li><Link to={localStorage.getItem("profile_user_name") ? `/@/${localStorage.getItem("profile_user_name")}` : "/dash"} ><img src={profileImage ?? defaultImage} className="profile-img" alt="profile" /></Link></li>
                             <li><i className="fas fa-chevron-circle-down dropdown" onMouseOver={() => {
 
                                 document.querySelector(theme === "light" ? ".dropdown-content" : ".dropdown-content_dark").style.display = "block"

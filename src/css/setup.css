@@ -151,7 +151,7 @@ hr {
 .skills-list span {
     height: 30px;
     padding: 3px 12px;
-    margin-right: 0px;
+    margin: 4px;
 
     background-color: #FFFFFF;
     color: #000000;

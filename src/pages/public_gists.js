@@ -265,15 +265,15 @@ const PublicGists = (props) => {
                                     
                                 > <Link to={`/@/${doc?.user?.username}`} ><img className="profile_pic" src={doc.user?.profileImageUrl ?? defaultImage} alt="profile ." onMouseOver={(e) => {
                                         ref.current[index].current.style.display = "flex";
-                                        ref.current[index].current.classList.add("fade_in_c");
+                                        ref.current[index].current?.classList?.add("fade_in_c");
                                         setTimeout(() => {
-                                            ref.current[index].current.classList.remove("fade_in_c");
+                                            ref.current[index].current?.classList?.remove("fade_in_c");
                                         }, 500)
                                     console.log("Event fired")
                                     }} onMouseLeave={() => {
-                                        ref.current[index].current.classList.add("fade_out_c");
+                                        ref.current[index].current?.classList.add("fade_out_c");
                                         setTimeout(() => {
-                                            ref.current[index].current.classList.remove("fade_out_c");
+                                            ref.current[index].current?.classList.remove("fade_out_c");
                                             ref.current[index].current.style.display = "none";
                                         }, 500)
 
