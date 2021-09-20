@@ -85,6 +85,7 @@ const NavBar = () => {
 
     function logOut() {
         localStorage.removeItem("user_token");
+        localStorage.setItem("new_user", "notreg");
         localStorage.removeItem("profile_user_image");
         history.push('/');
     }

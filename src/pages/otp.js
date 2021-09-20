@@ -11,6 +11,7 @@ import LogoPlaceholder from "../images/logo.png"
 import { useState } from "react";
 import { useSnackbar } from "notistack";
 import { useEffect } from "react";
+import { makePriv } from "../auth_hoc/checkAuth";
 
 
 
@@ -33,10 +34,11 @@ const OTP = ({ history }) => {
         ).then(jsonRes => {
             console.log(jsonRes)
             if (jsonRes.success) {
+                history.replace("/onboard");
                 enqueueSnackbar(jsonRes.message, {
                     variant: "success"
                 });
-                history.replace("/onboard");
+
             } else {
                 enqueueSnackbar(jsonRes.message, {
                     variant: "error"
@@ -74,7 +76,7 @@ const OTP = ({ history }) => {
                                 Enter the 6-digit OTP code sent to your registered email.
                             </div>
                             <div id="otp_form">
-                                <input name="otp" pattern="[a-zA-Z0-9]{9}" maxlength="9" placeholder="******" onChange={handleChange} value={otpState} />
+                                <input name="otp" pattern="[a-zA-Z0-9]{6}" maxLength="6" placeholder="******" onChange={handleChange} value={otpState} />
                                 <input type="submit" value="Continue" onClick={handleClick} />
                             </div>
                         </div>
@@ -88,4 +90,4 @@ const OTP = ({ history }) => {
     )
 }
 
-export default withRouter(OTP);
+export default makePriv(withRouter(OTP));

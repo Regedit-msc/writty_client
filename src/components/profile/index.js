@@ -229,62 +229,52 @@ const Profile = (props) => {
                         </div>
                     }
                     <div className="experience">
-                        <div>
-                            <h2>
-                                <span className="style">Exper</span>ience
-                            </h2>
-                            <h3>LIVE-GISTS TECH</h3>
-                            <h4>Senior UI/UX Designer</h4>
-                            <p>
-                                When reviewing candidates, recruiters and design leads check their
-                                portfolios first. So, all UX designers – juniors and seniors alike –
-                                need a UX portfolio.{" "}
-                            </p>
-                        </div>
-                        <div>
-                            <h3>SANNI MUIZ TECHNOLOGIES</h3>
-                            <h4>Project Manager</h4>
-                            <p>
-                                So, all UX designers – juniors and seniors alike – need a UX
-                                portfolio. Though putting one together might seem like a huge task,
-                                once you get an idea of what makes a great portfolio it’ll come
-                                easy. And the fastest way to get that idea is to look up
-                                inspiration.
-                            </p>
-                        </div>
-                        <div>
-                            <h3>SCHOLARS UNITED</h3>
-                            <h4>Graphics and Web Designer</h4>
-                            <p>
-                                So, all UX designers – juniors and seniors alike – need a UX
-                                portfolio. Though putting one together might seem like a huge task,
-                                once you get an idea of what makes a great portfolio it’ll come
-                                easy. And the fastest way to get that idea is to look up
-                                inspiration.{" "}
-                            </p>
-                        </div>
+
+                        {
+                            userData?.experience?.length > 0 ? <>
+
+                                <div>
+                                    <h2>
+                                        <span className="style">Exper</span>ience
+                                    </h2>
+                                    {
+                                        userData.experience.map((experience, index) => {
+                                            return <div key={index}>
+
+                                                <h3>{experience?.company?.toUpperCase()}</h3>
+                                                <h4>{experience?.role}</h4>
+                                                <p>
+                                                    {experience?.task}
+                                                </p>
+                                            </div>
+                                        })
+                                    }
+                                </div>
+
+                            </> : ''
+                        }
                         <div className="skill">
-                            <h3>
-                                <span className="style">Skills </span>
-                            </h3>
-                            <p>
-                                <i className="fas fa-star" />
-                                User Interface
-                            </p>
-                            <p>
-                                <i className="fas fa-star" />
-                                Mobile Design
-                            </p>
-                            <p>
-                                <i className="fas fa-star" />
-                                User Experience
-                            </p>
-                            <p>
-                                <i className="fas fa-star" />
-                                Brand Design
-                            </p>
+                            {
+                                userData?.skills?.length > 0 ? <>
+
+
+                                    <h3>
+                                        <span className="style">Skills </span>
+                                    </h3>
+                                    {
+                                        userData.skills.map((skill, index) => {
+                                            return <p key={index}>
+                                                <i className="fas fa-star" />
+                                                {skill}
+                                            </p>
+                                        })
+                                    }
+
+                                </> : ''
+                            }
                         </div>
                     </div>
+
                     <div className="social-media">
                         <h3>
                             <span className="style">Social</span> Media Links
@@ -310,18 +300,21 @@ const Profile = (props) => {
                             </a>
                         </p>
                     </div>
-                    <div className="languages">
-                        <h3>
-                            <span className="style">Lang</span>uages
-                        </h3>
-                        <div>
-                            <p>Python</p>
-                            <p>Javascript</p>
-                            <p>Java</p>
-                            <p>HTML</p>
-                            <p>Dart</p>
-                        </div>
-                    </div>
+                    {
+                        userData?.languages?.length > 0 ? <>
+                            <div className="languages">
+                                <h3>
+                                    <span className="style">Lang</span>uages
+                                </h3>
+                                <div>
+                                    {userData.languages.map((language, index) => {
+                                        return <p key={index}>{language}</p>
+
+                                    })}
+                                </div>
+                            </div>
+                        </> : ''
+                    }
                     <div className="badges">
                         <h3>
                             <span className="style">Badge</span>s

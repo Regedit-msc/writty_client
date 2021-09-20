@@ -10,6 +10,7 @@ import "../css/setup.css";
 
 import BaseForm from "../components/step_forms/base_form";
 import { useEffect } from "react";
+import { makePriv } from "../auth_hoc/checkAuth";
 
 
 
@@ -31,4 +32,4 @@ const Setup_01 = ({ history }) => {
     )
 }
 
-export default withRouter(Setup_01);
+export default withRouter(makePriv(Setup_01));
