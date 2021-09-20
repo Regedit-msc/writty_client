@@ -138,7 +138,8 @@ function App(props) {
                   <Route exact path="/Forgot_02" component={mobile ? Mobile : Forgot_02} />
                   <Route exact path="/Forgot_03" component={mobile ? Mobile : Forgot_03} />
                   <Route exact path="/Forgot_04" component={mobile ? Mobile : Forgot_04} />
-                  <Route exact path="/Languages" component={mobile ? Mobile : Languages} />
+                  <Route exact path="/languages" component={mobile ? Mobile : Languages} />
+                  <Route exact path="/languages/:language" component={mobile ? Mobile : Languages} />
                   {/* <Route path="/public/editor/:lang/:id" component={NoEditEditor} /> */}
                   <Route exact path="/public/editor/:id" component={mobile ? Mobile : PublicEditor} />
                   <Route exact path="/edit/:id" component={mobile ? Mobile : TextEditor} />
