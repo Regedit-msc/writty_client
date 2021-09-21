@@ -17,17 +17,18 @@ import JavaScriptLogo from "../images/javascript-logo.png";
 import JSONLogo from "../images/json-logo.png";
 import JSXLogo from "../images/jsx-logo.png";
 import PythonLogo from "../images/python-logo.png";
+import { useTitle } from "../utils/title";
 
 
-const Languages = () => {
+const Languages = ({history}) => {
     const { theme } = useContext(themeContext);
     const { language } = useParams();
-
+ useTitle(`Language-${language}`);
 
     switch (language) {
         case "css":
             let sideColorCSS = { "--bar-clr": "#1693D1" };
-            document.title = "CSS - Overview";
+           
             return (
                 <>
                     <div className={theme === "light" ? "lang-wrapper_light" : "lang-wrapper"} style={sideColorCSS}>
@@ -40,7 +41,7 @@ const Languages = () => {
                         </div>
                         <div className="lang-main-col">
                             <div className="lang-back-div">
-                                <Link to="/home" className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
+                                <Link to="#" onClick={()=> history.goBack}  className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
                             </div>
                             <h3 className="lang-head"><span>What is C</span>SS?</h3>
                             <div>
@@ -70,7 +71,7 @@ const Languages = () => {
 
         case "dart":
             let sideColorDart = { "--bar-clr": "#2BB6F6" };
-            document.title = "Dart - Overview";
+          
             return (
                 <>
                     <div className={theme === "light" ? "lang-wrapper_light" : "lang-wrapper"} style={sideColorDart}>
@@ -83,7 +84,7 @@ const Languages = () => {
                         </div>
                         <div className="lang-main-col">
                             <div className="lang-back-div">
-                                <Link to="/home" className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
+                                <Link to="#" onClick={()=> history.goBack} className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
                             </div>
                             <h3 className="lang-head"><span>What is D</span>art?</h3>
                             <div>
@@ -116,7 +117,7 @@ const Languages = () => {
 
         case "html":
             let sideColorHTML = { "--bar-clr": "#F3642C" };
-            document.title = "HTML - Overview";
+           
             return (
                 <>
                     <div className={theme === "light" ? "lang-wrapper_light" : "lang-wrapper"} style={sideColorHTML}>
@@ -129,7 +130,7 @@ const Languages = () => {
                         </div>
                         <div className="lang-main-col">
                             <div className="lang-back-div">
-                                <Link to="/home" className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
+                                <Link to="#" onClick={()=> history.goBack} className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
                             </div>
                             <h3 className="lang-head"><span>What is H</span>TML?</h3>
                             <div>
@@ -175,7 +176,7 @@ const Languages = () => {
 
         case "java":
             let sideColorJava = { "--bar-clr": "#FF0C0E" };
-            document.title = "Java - Overview";
+        
             return (
                 <>
                     <div className={theme === "light" ? "lang-wrapper_light" : "lang-wrapper"} style={sideColorJava}>
@@ -188,7 +189,7 @@ const Languages = () => {
                         </div>
                         <div className="lang-main-col">
                             <div className="lang-back-div">
-                                <Link to="/home" className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
+                                <Link to="#" onClick={()=> history.goBack} className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
                             </div>
                             <h3 className="lang-head"><span>What is J</span>ava?</h3>
                             <div>
@@ -240,7 +241,7 @@ const Languages = () => {
 
         case "javascript":
             let sideColorJavaScript = { "--bar-clr": "#FED73C" };
-            document.title = "JavaScript - Overview";
+          
             return (
                 <>
                     <div className={theme === "light" ? "lang-wrapper_light" : "lang-wrapper"} style={sideColorJavaScript}>
@@ -253,7 +254,7 @@ const Languages = () => {
                         </div>
                         <div className="lang-main-col">
                             <div className="lang-back-div">
-                                <Link to="/home" className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
+                                <Link to="#" onClick={()=> history.goBack} className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
                             </div>
                             <h3 className="lang-head"><span>What is J</span>avaScript?</h3>
                             <div>
@@ -293,7 +294,7 @@ const Languages = () => {
 
         case "json":
             let sideColorJSON = { "--bar-clr": "#3A3A3A" };
-            document.title = "JSON - Overview";
+          
             return (
                 <>
                     <div className={theme === "light" ? "lang-wrapper_light" : "lang-wrapper"} style={sideColorJSON}>
@@ -306,7 +307,7 @@ const Languages = () => {
                         </div>
                         <div className="lang-main-col">
                             <div className="lang-back-div">
-                                <Link to="/home" className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
+                                <Link to="#" onClick={()=> history.goBack} className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
                             </div>
                             <h3 className="lang-head"><span>What is J</span>SON?</h3>
                             <div>
@@ -341,7 +342,7 @@ const Languages = () => {
 
         case "jsx":
             let sideColorJSX = { "--bar-clr": "#8A53A6" };
-            document.title = "JSX - Overview";
+          
             return (
                 <>
                     <div className={theme === "light" ? "lang-wrapper_light" : "lang-wrapper"} style={sideColorJSX}>
@@ -354,7 +355,7 @@ const Languages = () => {
                         </div>
                         <div className="lang-main-col">
                             <div className="lang-back-div">
-                                <Link to="/home" className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
+                                <Link to="#" onClick={()=> history.goBack}className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
                             </div>
                             <h3 className="lang-head"><span>What is J</span>SX?</h3>
                             <div>
@@ -403,7 +404,7 @@ const Languages = () => {
 
         case "python":
             let sideColorPython = { "--bar-clr": "#002750" };
-            document.title = "Python - Overview";
+          
             return (
                 <>
                     <div className={theme === "light" ? "lang-wrapper_light" : "lang-wrapper"} style={sideColorPython}>
@@ -416,7 +417,7 @@ const Languages = () => {
                         </div>
                         <div className="lang-main-col">
                             <div className="lang-back-div">
-                                <Link to="/home" className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
+                                <Link to="#" onClick={()=> history.goBack} className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
                             </div>
                             <h3 className="lang-head"><span>What is P</span>ython?</h3>
                             <div>
@@ -446,39 +447,39 @@ const Languages = () => {
             )
         
         case undefined:
-            document.title = "Languages";
+            
             return (
                 <>
                     <div className="languages-wrapper">
-                        <Link to="languages/css" style={{ "background-color": "#1693D1", "color": "#000000" }}>
+                        <Link to="languages/css" style={{ backgroundColor: "#1693D1", "color": "#000000" }}>
                             <img src={CSSLogo} alt="css logo" />
                             <span>CSS</span>
                         </Link>
-                        <Link to="languages/jsx" style={{ "background-color": "#8A53A6", "color": "#FFFFFF" }}>
+                        <Link to="languages/jsx" style={{ backgroundColor: "#8A53A6", "color": "#FFFFFF" }}>
                             <img src={JSXLogo} alt="jsx logo" />
                             <span>JSX</span>
                         </Link>
-                        <Link to="languages/html" style={{ "background-color": "#F3642C", "color": "#000000"  }}>
+                        <Link to="languages/html" style={{ backgroundColor: "#F3642C", "color": "#000000"  }}>
                             <img src={HTMLLogo} alt="html logo" />
                             <span>HTML</span>
                         </Link>
-                        <Link to="languages/java" style={{ "background-color": "#FF0C0E", "color": "#FFFFFF" }}>
+                        <Link to="languages/java" style={{ backgroundColor: "#FF0C0E", "color": "#FFFFFF" }}>
                             <img src={JavaLogo} alt="java logo" />
                             <span>Java</span>
                         </Link>
-                        <Link to="languages/javascript" style={{ "background-color": "#FED73C", "color": "#000000"  }}>
+                        <Link to="languages/javascript" style={{ backgroundColor: "#FED73C", "color": "#000000"  }}>
                             <img src={JavaScriptLogo} alt="javascript logo" />
                             <span>JavaScript</span>
                         </Link>
-                        <Link to="languages/json" style={{ "background-color": "#3A3A3A", "color": "#FFFFFF" }}>
+                        <Link to="languages/json" style={{ backgroundColor: "#3A3A3A", "color": "#FFFFFF" }}>
                             <img src={JSONLogo} alt="json logo" />
                             <span>JSON</span>
                         </Link>
-                        <Link to="languages/dart" style={{ "background-color": "#2BB6F6", "color": "#000000"  }}>
+                        <Link to="languages/dart" style={{ backgroundColor: "#2BB6F6", "color": "#000000"  }}>
                             <img src={DartLogo} alt="dart logo" />
                             <span>Dart</span>
                         </Link>
-                        <Link to="languages/python" style={{ "background-color": "#002750", "color": "#FFFFFF" }}>
+                        <Link to="languages/python" style={{ backgroundColor: "#002750", "color": "#FFFFFF" }}>
                             <img src={PythonLogo} alt="python logo" />
                             <span>Python</span>
                         </Link>
@@ -487,39 +488,39 @@ const Languages = () => {
             )
 
         default:
-            document.title = "Languages";
+          
             return (
                 <>
                     <div className="languages-wrapper">
-                        <Link to="./css" style={{ "background-color": "#1693D1", "color": "#000000" }}>
+                        <Link to="./css" style={{ backgroundColor: "#1693D1", "color": "#000000" }}>
                             <img src={CSSLogo} alt="css logo" />
                             <span>CSS</span>
                         </Link>
-                        <Link to="./jsx" style={{ "background-color": "#8A53A6", "color": "#FFFFFF" }}>
+                        <Link to="./jsx" style={{ backgroundColor: "#8A53A6", "color": "#FFFFFF" }}>
                             <img src={JSXLogo} alt="jsx logo" />
                             <span>JSX</span>
                         </Link>
-                        <Link to="./html" style={{ "background-color": "#F3642C", "color": "#000000"  }}>
+                        <Link to="./html" style={{ backgroundColor: "#F3642C", "color": "#000000"  }}>
                             <img src={HTMLLogo} alt="html logo" />
                             <span>HTML</span>
                         </Link>
-                        <Link to="./java" style={{ "background-color": "#FF0C0E", "color": "#FFFFFF" }}>
+                        <Link to="./java" style={{ backgroundColor: "#FF0C0E", "color": "#FFFFFF" }}>
                             <img src={JavaLogo} alt="java logo" />
                             <span>Java</span>
                         </Link>
-                        <Link to="./javascript" style={{ "background-color": "#FED73C", "color": "#000000"  }}>
+                        <Link to="./javascript" style={{ backgroundColor: "#FED73C", "color": "#000000"  }}>
                             <img src={JavaScriptLogo} alt="javascript logo" />
                             <span>JavaScript</span>
                         </Link>
-                        <Link to="./json" style={{ "background-color": "#3A3A3A", "color": "#FFFFFF" }}>
+                        <Link to="./json" style={{ backgroundColor: "#3A3A3A", "color": "#FFFFFF" }}>
                             <img src={JSONLogo} alt="json logo" />
                             <span>JSON</span>
                         </Link>
-                        <Link to="./dart" style={{ "background-color": "#2BB6F6", "color": "#000000"  }}>
+                        <Link to="./dart" style={{ backgroundColor: "#2BB6F6", "color": "#000000"  }}>
                             <img src={DartLogo} alt="dart logo" />
                             <span>Dart</span>
                         </Link>
-                        <Link to="./python" style={{ "background-color": "#002750", "color": "#FFFFFF" }}>
+                        <Link to="./python" style={{ backgroundColor: "#002750", "color": "#FFFFFF" }}>
                             <img src={PythonLogo} alt="python logo" />
                             <span>Python</span>
                         </Link>
