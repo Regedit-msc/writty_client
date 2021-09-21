@@ -41,7 +41,7 @@ const Languages = ({history}) => {
                         </div>
                         <div className="lang-main-col">
                             <div className="lang-back-div">
-                                <Link to="#" onClick={()=> history.goBack}  className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
+                                <Link to="#" onClick={()=> history.goBack()}  className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
                             </div>
                             <h3 className="lang-head"><span>What is C</span>SS?</h3>
                             <div>
@@ -84,7 +84,7 @@ const Languages = ({history}) => {
                         </div>
                         <div className="lang-main-col">
                             <div className="lang-back-div">
-                                <Link to="#" onClick={()=> history.goBack} className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
+                                <Link to="#" onClick={()=> history.goBack()} className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
                             </div>
                             <h3 className="lang-head"><span>What is D</span>art?</h3>
                             <div>
@@ -130,7 +130,7 @@ const Languages = ({history}) => {
                         </div>
                         <div className="lang-main-col">
                             <div className="lang-back-div">
-                                <Link to="#" onClick={()=> history.goBack} className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
+                                <Link to="#" onClick={()=> history.goBack()} className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
                             </div>
                             <h3 className="lang-head"><span>What is H</span>TML?</h3>
                             <div>
@@ -189,7 +189,7 @@ const Languages = ({history}) => {
                         </div>
                         <div className="lang-main-col">
                             <div className="lang-back-div">
-                                <Link to="#" onClick={()=> history.goBack} className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
+                                <Link to="#" onClick={()=> history.goBack()} className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
                             </div>
                             <h3 className="lang-head"><span>What is J</span>ava?</h3>
                             <div>
@@ -254,7 +254,7 @@ const Languages = ({history}) => {
                         </div>
                         <div className="lang-main-col">
                             <div className="lang-back-div">
-                                <Link to="#" onClick={()=> history.goBack} className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
+                                <Link to="#" onClick={()=> history.goBack()} className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
                             </div>
                             <h3 className="lang-head"><span>What is J</span>avaScript?</h3>
                             <div>
@@ -307,7 +307,7 @@ const Languages = ({history}) => {
                         </div>
                         <div className="lang-main-col">
                             <div className="lang-back-div">
-                                <Link to="#" onClick={()=> history.goBack} className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
+                                <Link to="#" onClick={()=> history.goBack()} className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
                             </div>
                             <h3 className="lang-head"><span>What is J</span>SON?</h3>
                             <div>
@@ -355,7 +355,7 @@ const Languages = ({history}) => {
                         </div>
                         <div className="lang-main-col">
                             <div className="lang-back-div">
-                                <Link to="#" onClick={()=> history.goBack}className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
+                                <Link to="#" onClick={()=> history.goBack()}className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
                             </div>
                             <h3 className="lang-head"><span>What is J</span>SX?</h3>
                             <div>
@@ -417,7 +417,7 @@ const Languages = ({history}) => {
                         </div>
                         <div className="lang-main-col">
                             <div className="lang-back-div">
-                                <Link to="#" onClick={()=> history.goBack} className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
+                                <Link to="#" onClick={()=> history.goBack()} className={theme === "light" ? "lang-back_light" : "lang-back"}>BACK</Link>
                             </div>
                             <h3 className="lang-head"><span>What is P</span>ython?</h3>
                             <div>
