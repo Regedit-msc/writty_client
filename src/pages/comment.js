@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-undef */
 import { useEffect, useState } from "react"
 import { API_ENDPOINT } from "./url"
 import { useParams, withRouter, Link } from "react-router-dom"
@@ -5,6 +7,7 @@ import { Controlled as CodeMirror } from 'react-codemirror2';
 import moment from "moment"
 import { v4 as uuidV4 } from "uuid";
 import "../css/comments.css";
+import React from "react";
 import LiveLogo from "../images/livegists_logo.png"
 import { useRef } from "react";
 import InfoBar from "../components/info";
@@ -48,8 +51,6 @@ const CommentPage = (props) => {
                 if (jsonRes.success) {
                     setUserdeets(jsonRes.message);
                     console.log(jsonRes)
-                } else {
-
                 }
             })
         });

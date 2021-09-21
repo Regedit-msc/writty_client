@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-undef */
 import { useEffect, useState, useContext } from "react";
 import { API_ENDPOINT } from "./url";
 import { Link } from "react-router-dom"
@@ -11,7 +13,7 @@ import { makePriv } from "../auth_hoc/checkAuth";
 import { themeContext } from "../App";
 import { useTitle } from "../utils/title";
 import CustomShimmer from "../components/shimmerComp";
-
+import React from "react";
 
 
 
@@ -95,9 +97,9 @@ const Home = (props) => {
                         docs ? docs.map(({
                             name,
                             language,
-                            private: priv,
+                            // private: priv,
                             publicLink,
-                            collabLink,
+                            // collabLink,
                             user
                         }, index) => {
                             return (

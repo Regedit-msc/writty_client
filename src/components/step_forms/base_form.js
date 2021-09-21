@@ -1,6 +1,10 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/jsx-key */
+/* eslint-disable react/prop-types */
 
 import { useState } from "react";
 import "../../css/setup.css";
+import React from "react";
 import LogoPlaceholder from "../../images/logo.png";
 // import backgroundAccountCreation from "../../images/background-account-creation.png";
 import { Link } from "react-router-dom";
@@ -18,7 +22,7 @@ import { useTitle } from "../../utils/title";
 // import { useEffect } from "react";
 // import { useEffect } from "react";
 
-const StepBar = ({ currentStep, totalSteps, setStep, setFade, fade, showNext, setShowNext }) => {
+const StepBar = ({ currentStep, totalSteps, setStep, showNext }) => {
 
     function goBack() {
         setStep(currentStep - 1);
@@ -169,7 +173,7 @@ const BaseForm = () => {
 
 
 
-const Steps = ({ currentStep, lastStep, stepsList, fade }) => {
+const Steps = ({ currentStep, lastStep, stepsList }) => {
 
     if (currentStep === lastStep) {
         console.log("equal", currentStep)
@@ -192,7 +196,7 @@ const Steps = ({ currentStep, lastStep, stepsList, fade }) => {
 
 }
 
-const Step1 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack, setShowNext }) => {
+const Step1 = ({ currentStep, setStep, setStepsState, stepsState, snack }) => {
     useTitle("Upload a profile picture.")
     const [image, setImage] = useState();
     const fileInput = useRef();
@@ -220,8 +224,6 @@ const Step1 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
                 setStepsState({ ...stepsState, image: imageV });
             }
             reader.readAsDataURL(file);
-        } else {
-
         }
     }
 
@@ -247,7 +249,7 @@ const Step1 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
         </div>
     </>
 }
-const Step2 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack, setShowNext }) => {
+const Step2 = ({ currentStep, setStep, setStepsState, stepsState, snack, setShowNext }) => {
     const [formState, setFormState] = useState('');
     useTitle("Tell us about you.")
     function handleChange(e) {
@@ -276,7 +278,7 @@ const Step2 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
 
     </>
 }
-const Step3 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack, setShowNext }) => {
+const Step3 = ({ currentStep, setStep, setStepsState, stepsState, snack, setShowNext }) => {
     useTitle("Work experience.")
     const [experienceAndWorks, setExperienceAndWork] = useState([{
         company: '',
@@ -321,10 +323,8 @@ const Step3 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
             <div style={{ maxHeight: "1000px", overflow: "scroll" }}>
                 {
                     stepsState?.experienceAndWorks ? stepsState?.experienceAndWorks.map((experienceAndWork, index) => {
-                        return <>
-
-                            <div className="experience-body" style={{ marginBottom: "20px", marginTop: "20px" }} key={index}>
-                                <label>Where you've worked
+                        return <div className="experience-body" style={{ marginBottom: "20px", marginTop: "20px" }} key={index}>
+                            <label>Where you&apos;ve worked
                                     <input type="text" className="workplace" name="company" value={experienceAndWork?.company} onChange={(e) => handleChange(e, index)} />
                                 </label>
 
@@ -341,11 +341,11 @@ const Step3 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
                             </div>
 
 
-                        </>
+
                     }) :
                         experienceAndWorks.map((experienceAndWork, index) => {
                             return <div className="experience-body" style={{ marginBottom: "20px", marginTop: "20px" }} key={index}>
-                                    <label>Where you've worked
+                                <label>Where you&apos;ve worked
                                         <input type="text" className="workplace" name="company" value={experienceAndWork?.company} onChange={(e) => handleChange(e, index)} />
                                     </label>
 
@@ -376,7 +376,7 @@ const Step3 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
     </>
 }
 
-const Step4 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack, setShowNext }) => {
+const Step4 = ({ currentStep, setStep, setStepsState, stepsState, snack }) => {
     useTitle("Skills, Hobbies.")
     const [value, setValue] = useState('');
     const [userSkills, setUserSkills] = useState([]);
@@ -460,7 +460,7 @@ const Step4 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
 
     </>
 }
-const Step5 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack }) => {
+const Step5 = ({ currentStep, setStep, setStepsState, stepsState, snack }) => {
     useTitle("Languages.")
     const [value, setValue] = useState('');
     const [userLanguages, setUserLanguages] = useState([]);
@@ -518,7 +518,7 @@ const Step5 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
             <div className="setup_message">
                 <h5>Languages</h5>
                 Your cooking utensils !!!<br />
-                Let's have your favourites here.
+                Let&apos;s have your favourites here.
             </div>
             <div className="setup_crux">
                 <div className="skill-instruction">Add a language. To add current, click enter or select a suggestion.</div>
@@ -561,14 +561,14 @@ const Step5 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
     </>
 }
 
-const Step6 = ({ currentStep, lastStep, setStep, setStepsState, stepsState }) => {
+const Step6 = () => {
     return (
         <>
             <div className="grid-col-2">
                 <div id="done_box">
                     <div className="done_body">
                         <div id="done_message">
-                            You're all set up! You can proceed to your dashboard.
+                            You&apos;re all set up! You can proceed to your dashboard.
                         </div>
                         <div id="done_img">
                             <img src={doneImage} alt="done" />

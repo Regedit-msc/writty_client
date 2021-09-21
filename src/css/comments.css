@@ -1,7 +1,10 @@
 
 
 /* viewport >= 1024px */
-
+@font-face {
+    font-family: Gilroy;
+    src: url(fonts/gl.otf);
+}
 
     
     .topp {
@@ -147,7 +150,7 @@
     .user_header {
         font-weight: 800;
         font-size: 20px;
-        font-family: iCiel Gotham;
+        font-family: Gilroy;
         background-color: #1E1E1E;
         color: #FFFFFF;
         padding: 10px 50px 10px 20px;
@@ -205,7 +208,7 @@
     #new_comment .user_header {
         font-weight: 800;
         font-size: 20px;
-        font-family: iCiel Gotham;
+        font-family: Gilroy;
         background-color: #1E1E1E;
         color: #FFFFFF;
         padding: 10px 50px 10px 20px;
@@ -282,7 +285,7 @@
         color: #FFFFFF;
         resize: none;
 
-        font-family: iCiel Gotham;
+        font-family: Gilroy;
         font-size: 16px;
         font-style: normal;
         font-weight: 500;
@@ -302,7 +305,7 @@
         background-color: #1F1F1F;
         border: none;
 
-        font-family: iCiel Gotham;
+        font-family: Gilroy;
         font-size: 14px;
         font-style: normal;
         font-weight: 500;
@@ -372,7 +375,7 @@
     .user_header_dark {
         font-weight: 800;
         font-size: 20px;
-        font-family: iCiel Gotham;
+        font-family: Gilroy;
         background-color: #000000;
         color: #FFFFFF;
         padding: 10px 50px 10px 20px;
@@ -429,7 +432,7 @@
     #new_comment_dark .user_header_dark {
         font-weight: 800;
         font-size: 20px;
-        font-family: iCiel Gotham;
+        font-family: Gilroy;
         background-color: #000000;
         color: #FFFFFF;
         padding: 10px 50px 10px 20px;
@@ -495,7 +498,7 @@
     background-color: #f7f7f7;
     color: #000000;
     resize: none;
-    font-family: iCiel Gotham;
+    font-family: Gilroy;
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
@@ -515,7 +518,7 @@
         background-color: #000000;
         border: none;
 
-        font-family: iCiel Gotham;
+        font-family: Gilroy;
         font-size: 14px;
         font-style: normal;
         font-weight: 500;

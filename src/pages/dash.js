@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { makePriv } from "../auth_hoc/checkAuth";
 import { useState, useEffect, useContext } from "react"
 import { API_ENDPOINT } from "./url";
@@ -5,6 +6,8 @@ import { Link, useHistory } from "react-router-dom"
 import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
 import { v4 as uuidV4 } from "uuid";
+import React from "react";
+import PropTypes from "prop-types"
 // import PadLock from "../images/padlock.png";
 import DeleteLight from "../images/icon-delete_light.png";
 import Delete from "../images/icon-delete.png";
@@ -312,7 +315,7 @@ const Dash = (props) => {
 
 
     }
-    function share(id, priv) {
+    function share(id) {
         const scheme = process.env.NODE_ENV === "development" ? "http://" : "https://"
         const url = scheme + window.location.host + "/public/editor/" + id
         const copyText = url.replace(/\s+/g, '');
@@ -408,7 +411,6 @@ const Dash = (props) => {
                             language,
                             private: priv,
                             publicLink,
-                            collabLink,
                         }) => {
                             return (
                                 <div className={theme === "light" ? "project_box_light" : "project_box"} key={_id}>
@@ -466,7 +468,9 @@ const Dash = (props) => {
 
 
 }
-
+Dash.propTypes = {
+    classes: PropTypes.object
+}
 export default makePriv(injectSheet(StyleSheet)(Dash));
 
 

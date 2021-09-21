@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 self.addEventListener('push', event => {
     const { title, body, image } = event.data.json();
     const options = {

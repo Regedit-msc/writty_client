@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import "../css/chat.css";
 import ChatSideBar from "../components/chatSidebar";
 import { useEffect } from "react";
@@ -5,6 +6,7 @@ import { useState } from "react";
 import { API_ENDPOINT } from "./url";
 import { useSnackbar } from "notistack";
 import { makePriv } from "../auth_hoc/checkAuth";
+import React from "react";
 const ChatWaitingRoom = () => {
     const [image, setImage] = useState('');
     const [name, setName] = useState('');

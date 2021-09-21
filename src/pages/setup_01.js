@@ -1,5 +1,7 @@
+/* eslint-disable no-undef */
 import { withRouter } from "react-router-dom"
 import "../css/setup.css";
+import PropTypes from "prop-types"
 // import { API_ENDPOINT } from "./url";
 // import { themeContext } from "../App";
 // import { useContext, useState, useEffect } from "react";
@@ -11,7 +13,7 @@ import "../css/setup.css";
 import BaseForm from "../components/step_forms/base_form";
 import { useEffect } from "react";
 import { makePriv } from "../auth_hoc/checkAuth";
-
+import React from "react";
 
 
 
@@ -22,7 +24,7 @@ const Setup_01 = ({ history }) => {
             return;
         } else {
             history.replace(localStorage.getItem("last_visited") ?? "/dash");
-        };
+        }
     }, [history]);
     return (
         <>
@@ -30,6 +32,9 @@ const Setup_01 = ({ history }) => {
 
         </>
     )
+}
+Setup_01.propTypes = {
+    history: PropTypes.any,
 }
 
 export default withRouter(makePriv(Setup_01));

@@ -1,3 +1,5 @@
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable no-undef */
 
 import Editor from "@monaco-editor/react";
 import { useEffect, useState } from "react"
@@ -37,7 +39,7 @@ const CollabEditor = (props) => {
 
     useEffect(() => {
         if (socket == null || theEditor == null || username == null) return
-        socket.on("receive-changes", ({ data, value, sender_id }) => {
+        socket.on("receive-changes", ({ value, sender_id }) => {
             if (sender_id !== username) {
                 setCode(value);
             }

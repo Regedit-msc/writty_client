@@ -1,5 +1,8 @@
+/* eslint-disable no-undef */
 import "./profile.css"
-import "../../css/user_profile.css"
+import "../../css/user_profile.css";
+import React from "react";
+import PropTypes from "prop-types"
 // import Jorja from "../../images/jorja.png";
 import like from "../../images/like.png";
 // import Mail from "../images/mail.png";
@@ -211,7 +214,7 @@ const Profile = (props) => {
                                 <Link to={`/@/${name}/chat`}>Message</Link>
                             </p>
                             <p>
-                                <Link to="" onClick={() => handleCopy(userData.email, "Copied email to clipboard.")} >Connect</Link>
+                                <Link to="#" onClick={() => handleCopy(userData.email, "Copied email to clipboard.")} >Connect</Link>
                             </p></>
                     }
                 </div>
@@ -403,5 +406,9 @@ const Profile = (props) => {
         </main>
 
     </>
+}
+Profile.propTypes = {
+    classes: PropTypes.object,
+    history: PropTypes.any
 }
 export default withRouter(injectSheet(StyleSheet)(Profile));

@@ -1,8 +1,10 @@
+/* eslint-disable no-undef */
 import { useQuery } from "../utils/search_query"
 import "../css/search.css"
 import { useState } from "react";
 import { useEffect } from "react";
 import { API_ENDPOINT } from "./url";
+import React from "react";
 import { useMemo } from "react";
 import PlaceholderProfileImage from "../images/placeholder-profile-image.png"
 import { useRef } from "react";
@@ -56,6 +58,7 @@ const Search = () => {
         fetch(API_ENDPOINT + `/search/` + dochecks() + `?wol=` + searchString, {
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
+                // eslint-disable-next-line no-undef
                 'Authorization': `Bearer ${localStorage.getItem("user_token")}`
             },
             method: "GET",

@@ -1,6 +1,9 @@
+/* eslint-disable no-undef */
 import { Link, withRouter } from "react-router-dom"
 import "../css/otp.css";
 import { API_ENDPOINT } from "./url";
+import React from "react";
+import PropTypes from "prop-types"
 // import { themeContext } from "../App";
 // import { useContext, useState, useEffect } from "react";
 // import { userContext } from "../contexts/userContext";
@@ -56,7 +59,7 @@ const OTP = ({ history }) => {
             return;
         } else {
             history.replace(localStorage.getItem("last_visited") ?? "/dash");
-        };
+        }
     }, [history]);
     return (
         <>
@@ -90,4 +93,7 @@ const OTP = ({ history }) => {
     )
 }
 
+OTP.propTypes = {
+    history: PropTypes.any
+}
 export default makePriv(withRouter(OTP));

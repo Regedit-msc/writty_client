@@ -1,5 +1,7 @@
+/* eslint-disable no-undef */
 import "./navbar.css"
 import LogoPlaceholder from "../../images/logo.png";
+import React from "react";
 // import Jorja from "../../images/jorja.png"
 import { Link, useLocation, useHistory } from "react-router-dom";
 import { useEffect } from "react";
@@ -21,7 +23,7 @@ const NavBar = () => {
     const history = useHistory();
     const [users, setUsers] = useState(null);
     const { enqueueSnackbar } = useSnackbar();
-    const onlyInclude = useMemo(() => ["/gists", '/dash', '/settings', "/chat"], [])
+    const onlyInclude = useMemo(() => ["/gists", '/dash', '/settings', "/chat", "/new/gist", "/notification"], [])
     const [token, setToken] = useState(null);
     const [profileImage, setProfileImage] = useState(null);
     const inputRef = useRef();
@@ -102,7 +104,7 @@ const NavBar = () => {
         if (e.key === "Enter") {
             document.querySelector(".search_suggestions").style.display = "none";
             setValue('');
-            history.push(`/search?user=${value}`);
+            history.replace(`/search?user=${value}`);
         }
     }
     return <>
@@ -148,7 +150,7 @@ const NavBar = () => {
                     }
                     {
                         token ? <ul>
-                            <li className="create-g"><Link to="#">Create Gist</Link></li>
+                            <li className="create-g"><Link to="/new/gist">Create Gist</Link></li>
                             <li > <Link to="/chat"><i className="fas fa-comment-dots"></i></Link></li>
                             <li><i className="far fa-bell"></i></li>
                             <li><Link to={localStorage.getItem("profile_user_name") ? `/@/${localStorage.getItem("profile_user_name")}` : "/dash"} ><img src={profileImage ?? defaultImage} className="profile-img" alt="profile" /></Link></li>

@@ -1,4 +1,7 @@
-
+@font-face {
+    font-family: Gilroy;
+    src: url(fonts/gl.otf);
+}
     #padlock {
         position: absolute;
         width: 40px;

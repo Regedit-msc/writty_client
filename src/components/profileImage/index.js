@@ -1,11 +1,15 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/display-name */
 import "./profileImage.css";
 import "../../css/main.css";
+import React from "react";
 import { forwardRef } from "react";
 
 const ProfileImage = forwardRef((props, ref) => {
     return <>
         <div className="profile-card" ref={ref} onMouseLeave={() => {
             ref.current?.classList?.add("fade_out_c");
+            // eslint-disable-next-line no-undef
             setTimeout(() => {
                 ref.current?.classList?.remove("fade_out_c");
                 ref.current.style.display = "none";
