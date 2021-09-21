@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-restricted-globals */
 self.addEventListener('push', event => {
     const { title, body, image } = event.data.json();
     const options = {

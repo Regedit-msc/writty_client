@@ -1,5 +1,7 @@
 
 import moment from "moment";
+import React from "react";
+import PropTypes from "prop-types"
 import { useState } from "react";
 import { themeContext } from "../App"
 import { useContext } from "react";
@@ -7,7 +9,9 @@ import CancelDark from "../images/cancel-white.png";
 import CancelLight from "../images/cancel-black.png";
 import SendMessageDark from "../images/send-message.png";
 import SendMessageLight from "../images/send-message_light.png";
-const ImagePreview = ({ imageb64: b64, imageType: type, setImageShow, socket, setMessages, userID, room, messagesRef }) => {
+import { forwardRef } from "react";
+// eslint-disable-next-line react/display-name
+const ImagePreview = forwardRef(({ imageb64: b64, imageType: type, setImageShow, socket, setMessages, userID, room }, ref) => {
     const { theme } = useContext(themeContext);
     const [captionVal, setCaptionValue] = useState('');
     function sendImage() {
@@ -22,7 +26,7 @@ const ImagePreview = ({ imageb64: b64, imageType: type, setImageShow, socket, se
             _id: userID
         }]);
         setImageShow(false);
-        messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+       ref.current.scrollTo(0, ref?.current?.scrollHeight);
         socket.emit("image", { b64, type, userID, room, caption: captionVal })
     }
 
@@ -48,6 +52,7 @@ const ImagePreview = ({ imageb64: b64, imageType: type, setImageShow, socket, se
         </div>
 
     </>
-}
+})
 
+ImagePreview.propTypes = { imageb64: PropTypes.string, imageType: PropTypes.string, setImageShow: PropTypes.func, socket: PropTypes.any, setMessages: PropTypes.func, userID: PropTypes.string, room: PropTypes.string }
 export default ImagePreview;

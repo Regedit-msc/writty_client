@@ -1,5 +1,8 @@
+/* eslint-disable no-undef */
 import "./profile.css"
-import "../../css/user_profile.css"
+import "../../css/user_profile.css";
+import React from "react";
+import PropTypes from "prop-types"
 // import Jorja from "../../images/jorja.png";
 import like from "../../images/like.png";
 // import Mail from "../images/mail.png";
@@ -32,6 +35,7 @@ const Profile = (props) => {
     useEffect(() => {
         fetch(API_ENDPOINT + `/details/public?name=${name.trim()}`).then(res => res.json()).then((response) => {
             if (response.success) {
+                console.log(response.message);
                 setUserData(response.message);
                 setDocsB(response.message.code);
                 setUserID(response.message.userID);
@@ -88,6 +92,21 @@ const Profile = (props) => {
     //     }
 
     // }
+
+
+
+    // {
+    //     "languages": [],
+    //         "skills": [],
+    //             "about": "",
+    //                 "image": "https://ik.imagekit.io/tcu4tmaa6/profile_image_from_live_gists_AAuiCha8iKi.webp",
+    //                     "code": [],
+    //                         "email": "efusanyaee@gmail.com",
+    //                             "userID": "60fad0273a1f37386054079d"
+    // }
+
+
+
     function handleCopy(val, text) {
         navigator.clipboard.writeText(val);
         setInfo(text);
@@ -166,7 +185,7 @@ const Profile = (props) => {
                     }
 
                     <p>{name}</p>
-                    <p className="graphics">Graphics, UI/UX Designer</p>
+                    <p className="graphics">{userData?.skills?.length > 0 ? userData.skills[0] : ''}</p>
                 </div>
                 <div>
                     <p>
@@ -195,81 +214,70 @@ const Profile = (props) => {
                                 <Link to={`/@/${name}/chat`}>Message</Link>
                             </p>
                             <p>
-                                <Link onClick={() => handleCopy(userData.email, "Copied email to clipboard.")} >Connect</Link>
+                                <Link to="#" onClick={() => handleCopy(userData.email, "Copied email to clipboard.")} >Connect</Link>
                             </p></>
                     }
                 </div>
             </section>
             <section className="profile-overview">
                 <aside className="profile-summary">
-                    <div className="about">
-                        <h2>
-                            <span className="style">About</span>
-                        </h2>
-                        <p>
-                            The best bios are often concise (around 200–300 words), so you don't
-                            have a lot of room to play around. But a single sentence that tees
-                            your reader up. Recruiters feature only 3-5 of your absolute best
-                            projects.
-                        </p>
-                    </div>
-                    <div className="experience">
-                        <div>
+                    {
+                        userData?.about === '' ? '' : <div className="about">
                             <h2>
-                                <span className="style">Exper</span>ience
+                                <span className="style">About</span>
                             </h2>
-                            <h3>LIVE-GISTS TECH</h3>
-                            <h4>Senior UI/UX Designer</h4>
                             <p>
-                                When reviewing candidates, recruiters and design leads check their
-                                portfolios first. So, all UX designers – juniors and seniors alike –
-                                need a UX portfolio.{" "}
+                                {userData?.about}
                             </p>
                         </div>
-                        <div>
-                            <h3>SANNI MUIZ TECHNOLOGIES</h3>
-                            <h4>Project Manager</h4>
-                            <p>
-                                So, all UX designers – juniors and seniors alike – need a UX
-                                portfolio. Though putting one together might seem like a huge task,
-                                once you get an idea of what makes a great portfolio it’ll come
-                                easy. And the fastest way to get that idea is to look up
-                                inspiration.
-                            </p>
-                        </div>
-                        <div>
-                            <h3>SCHOLARS UNITED</h3>
-                            <h4>Graphics and Web Designer</h4>
-                            <p>
-                                So, all UX designers – juniors and seniors alike – need a UX
-                                portfolio. Though putting one together might seem like a huge task,
-                                once you get an idea of what makes a great portfolio it’ll come
-                                easy. And the fastest way to get that idea is to look up
-                                inspiration.{" "}
-                            </p>
-                        </div>
+                    }
+                    <div className="experience">
+
+                        {
+                            userData?.experience?.length > 0 ? <>
+
+                                <div>
+                                    <h2>
+                                        <span className="style">Exper</span>ience
+                                    </h2>
+                                    {
+                                        userData.experience.map((experience, index) => {
+                                            return <div key={index}>
+
+                                                <h3>{experience?.company?.toUpperCase()}</h3>
+                                                <h4>{experience?.role}</h4>
+                                                <p>
+                                                    {experience?.task}
+                                                </p>
+                                            </div>
+                                        })
+                                    }
+                                </div>
+
+                            </> : ''
+                        }
                         <div className="skill">
-                            <h3>
-                                <span className="style">Skills </span>
-                            </h3>
-                            <p>
-                                <i className="fas fa-star" />
-                                User Interface
-                            </p>
-                            <p>
-                                <i className="fas fa-star" />
-                                Mobile Design
-                            </p>
-                            <p>
-                                <i className="fas fa-star" />
-                                User Experience
-                            </p>
-                            <p>
-                                <i className="fas fa-star" />
-                                Brand Design
-                            </p>
+                            {
+                                userData?.skills?.length > 0 ? <>
+
+
+                                    <h3>
+                                        <span className="style">Skills </span>
+                                    </h3>
+                                    {
+                                        userData.skills.map((skill, index) => {
+                                            return <p key={index}>
+                                                <i className="fas fa-star" />
+                                                {skill}
+                                            </p>
+                                        })
+                                    }
+
+                                </> : ''
+                            }
                         </div>
                     </div>
+
                     <div className="social-media">
                         <h3>
                             <span className="style">Social</span> Media Links
@@ -295,18 +303,21 @@ const Profile = (props) => {
                             </a>
                         </p>
                     </div>
-                    <div className="languages">
-                        <h3>
-                            <span className="style">Lang</span>uages
-                        </h3>
-                        <div>
-                            <p>Python</p>
-                            <p>Javascript</p>
-                            <p>Java</p>
-                            <p>HTML</p>
-                            <p>Dart</p>
-                        </div>
-                    </div>
+                    {
+                        userData?.languages?.length > 0 ? <>
+                            <div className="languages">
+                                <h3>
+                                    <span className="style">Lang</span>uages
+                                </h3>
+                                <div>
+                                    {userData.languages.map((language, index) => {
+                                        return <p key={index}>{language}</p>
+
+                                    })}
+                                </div>
+                            </div>
+                        </> : ''
+                    }
                     <div className="badges">
                         <h3>
                             <span className="style">Badge</span>s
@@ -395,5 +406,9 @@ const Profile = (props) => {
         </main>
 
     </>
+}
+Profile.propTypes = {
+    classes: PropTypes.object,
+    history: PropTypes.any
 }
 export default withRouter(injectSheet(StyleSheet)(Profile));

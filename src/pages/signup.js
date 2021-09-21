@@ -1,6 +1,8 @@
+/* eslint-disable no-undef */
 import { Link, withRouter, useHistory } from "react-router-dom"
 import "../css/signup.css";
 import { themeContext } from "../App";
+import React from "react";
 import { useContext, useState, useEffect } from "react";
 import { API_ENDPOINT } from "./url";
 import { useTitle } from "../utils/title";

@@ -1,5 +1,5 @@
 @font-face {
-    font-family: iCiel Gotham;
+    font-family: Gilroy;
     src: url(../../css/fonts/medium.ttf);
 }
   .main:before,.main:after {
@@ -124,25 +124,25 @@ justify-items: center;
  
 }
 .about p{
-  font-size: 0.7rem;
+  font-size: 1rem;
   line-height: 18px;
-  font-weight: 600;
+  font-weight: 100;
 }
 .experience div h3 {
-  font-weight: 700;
-  font-size: 0.9rem;
+  font-weight: 100;
+  font-size: 1rem;
   margin-bottom: 0.5rem;
 }
 .experience div h4 {
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: rgba(10, 68, 182, 1);
   margin-bottom: 0.5rem;
 
 }
 .experience div p {
-  font-size: 0.7rem;
+  font-size: 1rem;
   line-height: 18px;
-  font-weight: 600;
+  font-weight: 100;
   margin-bottom: 1rem;
 }
 
@@ -159,6 +159,13 @@ justify-items: center;
   padding: 1rem 2rem;
   border-radius: 2rem;
 }
+
+.skill p:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: ease 300ms;
+}
+
 .skill p .fas.fa-star {
   border:  1px solid white;
   color: black;
@@ -167,6 +174,11 @@ justify-items: center;
   border-radius: 50%;
   margin-right: 1rem;
 }
+/* .skill p .fas.fa-star{
+    cursor: pointer;
+  transform:rotate(3);
+  transition: ease 300ms;
+} */
 
 .social-media p {
   margin-top: 1.2rem;
@@ -174,24 +186,30 @@ justify-items: center;
   padding-right: 2rem;
 }
 .social-media p a {
-  font-size: 1rem;
+  font-size: 2rem;
 }
 .social-media p:hover {
-  transform: scale(0.5) translateY(-15px);
+  transition: ease 200ms;
+  transform: scale(1.5) ;
 }
 .languages div{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 0.8rem;
 }
+.languages div > p:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: ease 300ms;
+}
 .languages div > p {
-  margin-top: 1.5rem;
-  border-radius: 15px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: white;
-  padding: 0.5rem 1rem;
-  text-align: center;
+    margin-top: 1.5rem;
+    border-radius: 33px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    padding: 1rem 1rem;
+    text-align: center;
 }
 .languages p:nth-of-type(1) {
   background: rgba(0, 39, 80, 1);
@@ -214,10 +232,15 @@ justify-items: center;
   margin-top: 1.5rem;
   background: rgba(0, 178, 255, 0.2);
   padding: 0.9rem;
-  font-size: 0.7rem;
+  font-size: 1rem;
   border-radius: 20px;
-  font-weight: 700;
+  font-weight: 100;
 
+}
+.badges p:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: ease 300ms;
 }
 .gists, .filter {
   font-size: 0.7rem;

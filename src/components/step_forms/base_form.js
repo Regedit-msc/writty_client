@@ -1,6 +1,10 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/jsx-key */
+/* eslint-disable react/prop-types */
 
 import { useState } from "react";
 import "../../css/setup.css";
+import React from "react";
 import LogoPlaceholder from "../../images/logo.png";
 // import backgroundAccountCreation from "../../images/background-account-creation.png";
 import { Link } from "react-router-dom";
@@ -10,37 +14,38 @@ import doneImage from "../../images/image-done.png"
 import { useRef } from "react";
 
 import { useSnackbar } from "notistack";
-import Fade from "../transitions/fade";
+// import Fade from "../transitions/fade";
 import { LANGUAGES } from "../../utils/programmingLanguages";
 import { generateRandomColorHex } from "../../utils/randomColor";
 import { API_ENDPOINT } from "../../pages/url";
+import { useTitle } from "../../utils/title";
 // import { useEffect } from "react";
 // import { useEffect } from "react";
 
-const StepBar = ({ currentStep, totalSteps, setStep, setFade, fade, showNext, setShowNext }) => {
+const StepBar = ({ currentStep, totalSteps, setStep, showNext }) => {
 
     function goBack() {
         setStep(currentStep - 1);
-        if (!fade) {
-            setFade(fade);
-        } else {
-            setFade(false);
-            setTimeout(() => {
-                setFade(true);
-            }, 300)
-        }
+        // if (!fade) {
+        //     setFade(fade);
+        // } else {
+        //     setFade(false);
+        //     setTimeout(() => {
+        //         setFade(true);
+        //     }, 300)
+        // }
 
     }
     function goForward() {
         setStep(currentStep + 1);
-        if (!fade) {
-            setFade(fade);
-        } else {
-            setFade(false);
-            setTimeout(() => {
-                setFade(true);
-            }, 300)
-        }
+        // if (!fade) {
+        //     setFade(fade);
+        // } else {
+        //     setFade(false);
+        //     setTimeout(() => {
+        //         setFade(true);
+        //     }, 300)
+        // }
     }
 
     return <>
@@ -48,7 +53,7 @@ const StepBar = ({ currentStep, totalSteps, setStep, setFade, fade, showNext, se
             <div>
                 {currentStep > 1 ? <h5 style={{ cursor: "pointer" }} className="lnk-prev_next" onClick={goBack} >PREVIOUS</h5> : ''}
                 <h5 id="setup-step">STEP {currentStep} OF {totalSteps - 1}</h5>
-                {currentStep < totalSteps && showNext ? <h5 style={{ cursor: "pointer" }} className="lnk-prev_next" onClick={goForward}>NEXT</h5> : ''}
+                {currentStep < totalSteps - 1 && showNext ? <h5 style={{ cursor: "pointer" }} className="lnk-prev_next" onClick={goForward}>NEXT</h5> : ''}
             </div>
             <hr />
         </header>
@@ -168,31 +173,31 @@ const BaseForm = () => {
 
 
 
-const Steps = ({ currentStep, lastStep, stepsList, fade }) => {
+const Steps = ({ currentStep, lastStep, stepsList }) => {
 
     if (currentStep === lastStep) {
         console.log("equal", currentStep)
 
         return <>
-            <Fade
-                in={fade}
-            >
+
                 {stepsList[lastStep - 1]}
-            </Fade>
+
 
         </>
 
     } else {
-        return <Fade
-            in={fade}
-        >
+        return <>
             {stepsList[currentStep - 1]}
-        </Fade >
+        </>
+
+
+
     }
 
 }
 
-const Step1 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack, setShowNext }) => {
+const Step1 = ({ currentStep, setStep, setStepsState, stepsState, snack }) => {
+    useTitle("Upload a profile picture.")
     const [image, setImage] = useState();
     const fileInput = useRef();
     const openFilePicker = () => {
@@ -219,8 +224,6 @@ const Step1 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
                 setStepsState({ ...stepsState, image: imageV });
             }
             reader.readAsDataURL(file);
-        } else {
-
         }
     }
 
@@ -237,7 +240,7 @@ const Step1 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
                 <h5>Upload Photo</h5>
                 Get your face easily regognized by your network
             </div>
-            <img src={image ?? (stepsState?.image?.image ?? PlaceholderProfileImage)} class="placeholder-profile-image" alt="background_account_creation" />
+            <img src={image ?? (stepsState?.image?.image ?? PlaceholderProfileImage)} className="placeholder-profile-image" alt="background_account_creation" />
             <div id="image-upload_form">
                 <div className="upload_photo" onClick={openFilePicker}  >Upload Photo</div>
                 <input type="submit" value="Continue" onClick={handleClick} />
@@ -246,9 +249,9 @@ const Step1 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
         </div>
     </>
 }
-const Step2 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack, setShowNext }) => {
+const Step2 = ({ currentStep, setStep, setStepsState, stepsState, snack, setShowNext }) => {
     const [formState, setFormState] = useState('');
-
+    useTitle("Tell us about you.")
     function handleChange(e) {
         setFormState(e.target.value);
         setStepsState({ ...stepsState, about: formState });
@@ -275,7 +278,8 @@ const Step2 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
 
     </>
 }
-const Step3 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack, setShowNext }) => {
+const Step3 = ({ currentStep, setStep, setStepsState, stepsState, snack, setShowNext }) => {
+    useTitle("Work experience.")
     const [experienceAndWorks, setExperienceAndWork] = useState([{
         company: '',
         role: "",
@@ -319,10 +323,8 @@ const Step3 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
             <div style={{ maxHeight: "1000px", overflow: "scroll" }}>
                 {
                     stepsState?.experienceAndWorks ? stepsState?.experienceAndWorks.map((experienceAndWork, index) => {
-                        return <>
-
-                            <div className="experience-body" style={{ marginBottom: "20px", marginTop: "20px" }} key={index}>
-                                <label>Where you've worked
+                        return <div className="experience-body" style={{ marginBottom: "20px", marginTop: "20px" }} key={index}>
+                            <label>Where you&apos;ve worked
                                     <input type="text" className="workplace" name="company" value={experienceAndWork?.company} onChange={(e) => handleChange(e, index)} />
                                 </label>
 
@@ -339,13 +341,11 @@ const Step3 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
                             </div>
 
 
-                        </>
+
                     }) :
                         experienceAndWorks.map((experienceAndWork, index) => {
-                            return <>
-
-                                <div className="experience-body" style={{ marginBottom: "20px", marginTop: "20px" }} key={index}>
-                                    <label>Where you've worked
+                            return <div className="experience-body" style={{ marginBottom: "20px", marginTop: "20px" }} key={index}>
+                                <label>Where you&apos;ve worked
                                         <input type="text" className="workplace" name="company" value={experienceAndWork?.company} onChange={(e) => handleChange(e, index)} />
                                     </label>
 
@@ -362,7 +362,7 @@ const Step3 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
                                 </div>
 
 
-                            </>
+
                         })
                 }
 
@@ -376,7 +376,8 @@ const Step3 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
     </>
 }
 
-const Step4 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack, setShowNext }) => {
+const Step4 = ({ currentStep, setStep, setStepsState, stepsState, snack }) => {
+    useTitle("Skills, Hobbies.")
     const [value, setValue] = useState('');
     const [userSkills, setUserSkills] = useState([]);
     const [searchSuggestions, setSearchSuggestions] = useState();
@@ -395,9 +396,11 @@ const Step4 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
     function handleKeyDown(e) {
         if (e.key === "Enter") {
             document.querySelector(".search_suggestions").style.display = "none";
-            if (userSkills.length > 7) return snack("You are too skillful.")
-            setUserSkills([...new Set([...userSkills, value])]);
-            setStepsState({ ...stepsState, userSkills: [...new Set([...userSkills])] })
+            if (userSkills.length > 7) return snack("You are too skillful.");
+            if (userSkills.includes(value)) return snack(`You have added ${value} already.`)
+            setUserSkills([...userSkills, value]);
+            setStepsState({ ...stepsState, userSkills: [...userSkills, value] });
+            // setStepsState({ ...stepsState, userSkills: [...stepsState.userSkills, value] });
         }
     }
 
@@ -429,9 +432,11 @@ const Step4 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
 
                                     document.querySelector(".search_suggestions").style.display = "none";
                                     if (userSkills.length > 7) return snack("You are too skillful.")
+                                    if (userSkills.includes(suggestion)) return snack(`You have added ${suggestion} already.`)
 
-                                    setUserSkills([...new Set([...userSkills, suggestion])]);
-                                    setStepsState({ ...stepsState, userSkills: [...new Set([...userSkills])] })
+                                    setUserSkills([...userSkills, suggestion]);
+                                    setStepsState({ ...stepsState, userSkills: [...userSkills, suggestion] });
+
                                 }}>
                                     <span>
                                         {suggestion}
@@ -445,7 +450,7 @@ const Step4 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
 
                 <div className="skills-list">
                     {
-                        stepsState?.userSkills ? stepsState?.userSkills.length > 0 ? stepsState?.userSkills.map((val, index) => <span key={index}>{val}</span>) : "" : userSkills.length > 0 ? userSkills.map((val, index) => <span key={index}>{val}</span>) : ""
+                        stepsState?.userSkills?.length > 0 ? stepsState.userSkills.map((val, index) => <span key={index}>{val}</span>) : userSkills.map((val, index) => <span key={index}>{val}</span>)
                     }
                 </div>
             </div>
@@ -455,8 +460,8 @@ const Step4 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
 
     </>
 }
-const Step5 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snack }) => {
-
+const Step5 = ({ currentStep, setStep, setStepsState, stepsState, snack }) => {
+    useTitle("Languages.")
     const [value, setValue] = useState('');
     const [userLanguages, setUserLanguages] = useState([]);
     const [searchSuggestions, setSearchSuggestions] = useState();
@@ -475,9 +480,10 @@ const Step5 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
     function handleKeyDown(e) {
         if (e.key === "Enter") {
             document.querySelector(".search_suggestions").style.display = "none";
-            if (userLanguages.length > 7) return snack("You too sabiii!!!.")
-            setUserLanguages([...new Set([...userLanguages, value])]);
-            setStepsState({ ...stepsState, userLanguages: [...new Set([...userLanguages])] })
+            if (userLanguages.length > 7) return snack("You too sabiii!!!.");
+            if (userLanguages.includes(value)) return snack(`You have added ${value} already.`)
+            setUserLanguages([...userLanguages, value]);
+            setStepsState({ ...stepsState, userLanguages: [...userLanguages, value] });
         }
     }
 
@@ -497,6 +503,7 @@ const Step5 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
             console.log(jsonRes)
             if (jsonRes.success) {
                 snack("Successfully created account.");
+                localStorage.setItem("new_user", "reg")
                 localStorage.removeItem("profile_user_pic")
                 setStep(currentStep + 1)
             } else {
@@ -511,7 +518,7 @@ const Step5 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
             <div className="setup_message">
                 <h5>Languages</h5>
                 Your cooking utensils !!!<br />
-                Let's have your favourites here.
+                Let&apos;s have your favourites here.
             </div>
             <div className="setup_crux">
                 <div className="skill-instruction">Add a language. To add current, click enter or select a suggestion.</div>
@@ -526,9 +533,10 @@ const Step5 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
                             return <div key={index}>
                                 <div className="search_suggestion" onClick={() => {
                                     document.querySelector(".search_suggestions").style.display = "none";
-                                    if (userLanguages.length > 7) return snack("You too sabiii!!!.")
-                                    setUserLanguages([...new Set([...userLanguages, suggestion])]);
-                                    setStepsState({ ...stepsState, userLanguages: [...new Set([...userLanguages])] })
+                                    if (userLanguages.length > 7) return snack("You too sabiii!!!.");
+                                    if (userLanguages.includes(suggestion)) return snack(`You have added ${suggestion} already.`)
+                                    setUserLanguages([...userLanguages, suggestion]);
+                                    setStepsState({ ...stepsState, userLanguages: [...userLanguages, suggestion] });
                                 }}>
                                     <span  >
                                         {suggestion}
@@ -542,7 +550,7 @@ const Step5 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
 
                 <div className="skills-list">
                     {
-                        stepsState?.userLanguages ? stepsState?.userLanguages.length > 0 ? stepsState?.userLanguages.map((val, index) => <span style={{ cursor: "pointer", color: generateRandomColorHex() }} key={index}>{val}</span>) : "" : userLanguages.length > 0 ? userLanguages.map((val, index) => <span style={{ color: generateRandomColorHex(), cursor: "pointer" }} key={index}>{val}</span>) : ""
+                        stepsState?.userLanguages?.length > 0 ? stepsState?.userLanguages.map((val, index) => <span style={{ cursor: "pointer", color: generateRandomColorHex() }} key={index}>{val}</span>) : userLanguages.map((val, index) => <span style={{ color: generateRandomColorHex(), cursor: "pointer" }} key={index}>{val}</span>)
                     }
                 </div>
             </div>
@@ -553,19 +561,19 @@ const Step5 = ({ currentStep, lastStep, setStep, setStepsState, stepsState, snac
     </>
 }
 
-const Step6 = ({ currentStep, lastStep, setStep, setStepsState, stepsState }) => {
+const Step6 = () => {
     return (
         <>
             <div className="grid-col-2">
                 <div id="done_box">
                     <div className="done_body">
                         <div id="done_message">
-                            You're all set up! You can log in now.
+                            You&apos;re all set up! You can proceed to your dashboard.
                         </div>
                         <div id="done_img">
                             <img src={doneImage} alt="done" />
                         </div>
-                        <Link to="/login" id="done_login">Login Page</Link>
+                        <Link to="/dash" id="done_login">Continue</Link>
                     </div>
                 </div>
             </div>

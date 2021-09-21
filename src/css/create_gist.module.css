@@ -1,0 +1,125 @@
+@font-face {
+  font-family: Gilroy;
+  src: url(fonts/gl.otf);
+}
+.create_gist_container {
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.create_gist_form_container {
+  display: flex;
+  width: 600px;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.create_gist_form_container_light {
+  display: flex;
+  width: 600px;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.create_gist_form_container input {
+  margin-bottom: 2rem;
+  width: 100%;
+  border-radius: 10px 10px;
+  background-color: #0f111a;
+  caret-color: orange;
+
+  color: white;
+}
+.create_gist_form_container_light input {
+  border: 1px solid black;
+  margin-bottom: 2rem;
+  width: 100%;
+  border-radius: 10px 10px;
+}
+.create_gist_editor {
+  margin-bottom: 2rem;
+  width: auto;
+  /* height: 60%; */
+  /* box-shadow: none; */
+  /* border-radius: 50%; */
+}
+.create_gist_editor > * {
+  /* margin-bottom: 2rem;
+    width: auto; */
+  /* height: 60%; */
+  box-shadow: none;
+  border: 1px solid black;
+  border-radius: 10px 10px;
+}
+.create_gists_button {
+  cursor: pointer;
+
+  margin: 10px;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  /* box-shadow: 0 0 20px #eee; */
+  border-radius: 10px;
+  display: block;
+  background-image: linear-gradient(
+    to right,
+    #606c88 0%,
+    #3f4c6b 51%,
+    #606c88 100%
+  );
+}
+.create_gists_button_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.create_gists_button:hover {
+  background-position: right center;
+  color: #fff;
+  text-decoration: none;
+}
+.active_create_gists_button {
+  cursor: pointer;
+
+  margin: 10px;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  /* box-shadow: 0 0 20px #eee; */
+  border-radius: 10px;
+  display: block;
+  background-image: linear-gradient(
+    to right,
+    #606c88 0%,
+    #3f4c6b 51%,
+    #606c88 100%
+  );
+  transform: scale(1.1);
+  transition: ease-out 100ms;
+}
+.create_gists_submit {
+  cursor: pointer;
+  margin-bottom: 5rem;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 10px;
+  display: block;
+  background-image: linear-gradient(
+    to right,
+    #1fa2ff 0%,
+    #12d8fa 51%,
+    #1fa2ff 100%
+  );
+}

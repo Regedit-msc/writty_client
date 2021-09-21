@@ -1,0 +1,6 @@
+.renderer {
+  width: 100%;
+  height: "auto";
+  margin-top:1rem;
+  transition:all ease 200ms;
+}

@@ -1,5 +1,8 @@
+/* eslint-disable no-undef */
 import { useContext, useState, useEffect, useRef } from "react"
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import React from "react";
+// import PropTypes from "prop-types"
 import { API_ENDPOINT } from "./url";
 import { Controlled as CodeMirror } from 'react-codemirror2'
 import Code from "../images/code.svg";
@@ -27,7 +30,9 @@ const Landing = () => {
     }, [theme])
 
     useEffect(() => {
-
+        if (!localStorage.getItem("new_user")) {
+            localStorage.setItem("new_user", "notreg")
+        }
         fetch(`${API_ENDPOINT}/user/name`, {
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
@@ -38,7 +43,6 @@ const Landing = () => {
         ).then(jsonRes => {
             if (jsonRes.success) {
                 setImage(jsonRes.message.profileImageUrl);
-            } else {
             }
         })
     }, [])
@@ -69,7 +73,7 @@ const Landing = () => {
 
     useEffect(() => {
         if (socket == null || theEditor == null) return
-        socket.on("receive-changes", ({ data, value, sender_id }) => {
+        socket.on("receive-changes", ({ data, }) => {
             theEditor.replaceRange(data.text.length > 0 ? data.text : data.origin !== "+delete" && data.origin !== "undo" && data.origin !== "redo" ? "\n" : "", data.from, data.to, "api")
         })
     }, [socket, theEditor])
@@ -87,7 +91,7 @@ const Landing = () => {
             socket.emit("send-changes", { data, value, randID });
         }
     }
-    function handleMount(editor, _) {
+    function handleMount(editor) {
         setTheEditor(editor);
     }
     return (

@@ -1,5 +1,8 @@
+/* eslint-disable no-undef */
 import moment from "moment";
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types"
+import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { API_ENDPOINT } from "../pages/url";
 import "../css/chat.css";
@@ -9,6 +12,10 @@ import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
 import { themeContext } from "../App"
 import { useContext } from "react";
+
+
+
+
 const ChatSideBar = ({ profileImage, name, messages = null, history, ...props }) => {
     const { theme } = useContext(themeContext);
     const [rooms, setRooms] = useState();
@@ -26,8 +33,6 @@ const ChatSideBar = ({ profileImage, name, messages = null, history, ...props })
             if (jsonRes.success) {
                 setRooms(jsonRes.message);
                 console.log(jsonRes)
-            } else {
-
             }
         })
     }
@@ -165,5 +170,13 @@ const ChatSideBar = ({ profileImage, name, messages = null, history, ...props })
 
     )
 }
+ChatSideBar.propTypes = {
+    profileImage: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    messages: PropTypes.string,
+    history: PropTypes.any,
+    classes: PropTypes.object,
 
+
+}
 export default withRouter(injectSheet(StyleSheet)(ChatSideBar));

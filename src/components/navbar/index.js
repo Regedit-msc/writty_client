@@ -1,5 +1,7 @@
+/* eslint-disable no-undef */
 import "./navbar.css"
 import LogoPlaceholder from "../../images/logo.png";
+import React from "react";
 // import Jorja from "../../images/jorja.png"
 import { Link, useLocation, useHistory } from "react-router-dom";
 import { useEffect } from "react";
@@ -21,13 +23,14 @@ const NavBar = () => {
     const history = useHistory();
     const [users, setUsers] = useState(null);
     const { enqueueSnackbar } = useSnackbar();
-    const dontInclude = useMemo(() => ["/", '/login', '/register', "/otp", "/setup_01", "/onboard", "/signup"], [])
+    const onlyInclude = useMemo(() => ["/gists", '/dash', '/settings', "/chat", "/new/gist", "/notification"], [])
     const [token, setToken] = useState(null);
     const [profileImage, setProfileImage] = useState(null);
     const inputRef = useRef();
+    const [value, setValue] = useState('')
     useEffect(() => {
         setToken(localStorage.getItem("user_token"));
-    }, []);
+    }, [location]);
 
 
     // const searchUsers = useCallback(() => searchByWordOrLetters, [searchByWordOrLetters])
@@ -48,13 +51,14 @@ const NavBar = () => {
     }
 
     useEffect(() => {
-        if (dontInclude.includes(window.location.pathname)) {
-            return;
-        } else {
+        if (onlyInclude.includes(window.location.pathname)) {
             localStorage.setItem("lastVisited", window.location.pathname);
+
+        } else {
+            return;
         }
 
-    }, [location, dontInclude]);
+    }, [location, onlyInclude]);
     useEffect(() => {
         if (!token) return;
             fetch(`${API_ENDPOINT}/user/name`, {
@@ -72,19 +76,23 @@ const NavBar = () => {
                 localStorage.setItem("profile_user_pic", jsonRes.message.profileImageUrl);
                 localStorage.setItem("profile_user_name", jsonRes.message.username);
             }).catch(() => {
+                localStorage.removeItem("user_token");
+                history.replace("/login")
                 enqueueSnackbar("Unable to sync.", {
                     variant: "error"
                 });
             });
-    }, [token, enqueueSnackbar]);
+    }, [token, enqueueSnackbar, history]);
     const notAllowed = ["/", "/register", "/login", "/otp", "/onboard", "/chat"];
 
     function logOut() {
         localStorage.removeItem("user_token");
+        localStorage.setItem("new_user", "notreg");
         localStorage.removeItem("profile_user_image");
         history.push('/');
     }
     const handleChange = (event) => {
+        setValue(event.target.value);
         const input = event.target.value;
         if (event.target.value === "" || input.length < 4) {
             return;
@@ -92,7 +100,13 @@ const NavBar = () => {
         document.querySelector(".search_suggestions").style.display = "flex";
         inputRef.current(input);
     };
-
+    function handleKeyPress(e) {
+        if (e.key === "Enter") {
+            document.querySelector(".search_suggestions").style.display = "none";
+            setValue('');
+            history.replace(`/search?user=${value}`);
+        }
+    }
     return <>
         {
             notAllowed.includes(location.pathname) || location.pathname.includes("chat") || location.pathname.includes("setup") ? '' :
@@ -106,13 +120,13 @@ const NavBar = () => {
                     </ul>
                     {
                         token ? <ul className="search-tab">
-                            <li><input type="search" name="search" id="search-nav" class="search-c" placeholder="Search" autoComplete="off" onClick={() => {
+                            <li><input type="search" name="search" id="search-nav" className="search-c" placeholder="Search" autoComplete="off" onClick={() => {
                                 document.querySelector(".search_suggestions").style.display = "flex";
                             }} onChange={handleChange} onFocus={
                                 () => {
                                     document.querySelector(".search_suggestions").style.display = "flex";
                                 }
-                            } /></li>
+                            } value={value} onKeyPress={handleKeyPress} /></li>
 
                             <div className="search_suggestions" onMouseLeave={() => {
                                 document.querySelector(".search_suggestions").style.display = "none";
@@ -123,6 +137,7 @@ const NavBar = () => {
 
 
                                             <div className="search_suggestion" onClick={() => {
+                                                setValue('');
                                                 history.replace(`/@/${user?.username}`);
                                                 document.querySelector(".search_suggestions").style.display = "none";
                                             }}> <img alt="search_user" className="profile-img" src={user?.profileImageUrl ?? defaultImage} /> <span>{user?.username}</span></div>
@@ -135,10 +150,10 @@ const NavBar = () => {
                     }
                     {
                         token ? <ul>
-                            <li className="create-g"><Link to="#">Create Gist</Link></li>
-                            <li > <Link to="/chat"><i class="fas fa-comment-dots"></i></Link></li>
+                            <li className="create-g"><Link to="/new/gist">Create Gist</Link></li>
+                            <li > <Link to="/chat"><i className="fas fa-comment-dots"></i></Link></li>
                             <li><i className="far fa-bell"></i></li>
-                            <li><Link to="/dash" ><img src={profileImage ?? defaultImage} className="profile-img" alt="profile" /></Link></li>
+                            <li><Link to={localStorage.getItem("profile_user_name") ? `/@/${localStorage.getItem("profile_user_name")}` : "/dash"} ><img src={profileImage ?? defaultImage} className="profile-img" alt="profile" /></Link></li>
                             <li><i className="fas fa-chevron-circle-down dropdown" onMouseOver={() => {
 
                                 document.querySelector(theme === "light" ? ".dropdown-content" : ".dropdown-content_dark").style.display = "block"
@@ -157,7 +172,7 @@ const NavBar = () => {
                                         document.querySelector(theme === "light" ? ".dropdown-content" : ".dropdown-content_dark").style.display = "none";
                                     }}
 
-                                ><i class="fas fa-sliders-h"></i>  <span>Settings</span></p>
+                                ><i className="fas fa-sliders-h"></i>  <span>Settings</span></p>
                                 <p onClick={logOut} ><i className="fas fa-sign-out-alt"></i>  <span>Sign Out</span></p>
                             </div>
                         </ul> :

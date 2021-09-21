@@ -445,7 +445,7 @@ const Chat = (props) => {
                     setMessages={setMessages}
                     userID={userID}
                     room={room}
-                    messagesRef={messagesRef}
+                    ref={messagesRef}
                 />
 
                 : ""}

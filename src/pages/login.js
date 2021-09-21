@@ -1,5 +1,8 @@
+/* eslint-disable no-undef */
 import { Link, withRouter } from "react-router-dom"
 import "../css/login.css";
+import PropTypes from "prop-types"
+import React from "react";
 import { API_ENDPOINT } from "./url";
 import { themeContext } from "../App";
 import { useContext, useState, useEffect } from "react";
@@ -115,7 +118,7 @@ const Login = ({ history }) => {
             if (jsonRes.success) {
                 setUserToken(jsonRes.message);
                 console.log("Success", jsonRes)
-
+                localStorage.setItem("new_user", "reg")
                 history.replace(localStorage.getItem("lastVisited") ? localStorage.getItem("lastVisited") : '/dash')
 
             } else {
@@ -195,7 +198,7 @@ const Login = ({ history }) => {
                         </div>
                         <div id="login_footer">
                             <div><Link to="#">Forgot Password?</Link></div>
-                            <div><span>Don't have an account?</span> <Link to="/signup" className="signup_link">Sign up</Link></div>
+                            <div><span>Don&apos;t have an account?</span> <Link to="/signup" className="signup_link">Sign up</Link></div>
                         </div>
                     </div>
                 </div>
@@ -207,5 +210,7 @@ const Login = ({ history }) => {
         </>
     )
 }
-
+Login.propTypes = {
+    history: PropTypes.any
+}
 export default withRouter(Login);

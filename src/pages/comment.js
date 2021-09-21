@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-undef */
 import { useEffect, useState } from "react"
 import { API_ENDPOINT } from "./url"
 import { useParams, withRouter, Link } from "react-router-dom"
@@ -5,6 +7,7 @@ import { Controlled as CodeMirror } from 'react-codemirror2';
 import moment from "moment"
 import { v4 as uuidV4 } from "uuid";
 import "../css/comments.css";
+import React from "react";
 import LiveLogo from "../images/livegists_logo.png"
 import { useRef } from "react";
 import InfoBar from "../components/info";
@@ -48,8 +51,6 @@ const CommentPage = (props) => {
                 if (jsonRes.success) {
                     setUserdeets(jsonRes.message);
                     console.log(jsonRes)
-                } else {
-
                 }
             })
         });
@@ -74,7 +75,7 @@ const CommentPage = (props) => {
             console.log(jsonRes)
             if (jsonRes.success) {
                 setCommentBody('');
-                setComments([...comments, { user: { username: userDeets.username, profileImageUrl: userDeets.profileImageUrl, _id: uuidV4() }, publicLink: code !== null ? code.publicLink : '', body: commentBody, }])
+                setComments([...comments, { user: { username: userDeets?.username, profileImageUrl: userDeets?.profileImageUrl, _id: uuidV4() }, publicLink: code !== null ? code.publicLink : '', body: commentBody, }])
                 commentContainerRef.current.scrollTop = commentContainerRef.current.scrollHeight
 
             } else {
@@ -112,7 +113,7 @@ const CommentPage = (props) => {
                 <Link to="/gists" className={theme === "light" ? "back" : "back_dark"}>BACK TO GISTS</Link>
             </div>
             <div className="poster">
-                {code ? <div className="image_cropper pp"><img className="poster profile_pic" alt="profile pic" src={code !== null ? code.user.profileImageUrl : ''} /></div> : <>
+                {code ? <div className="image_cropper pp"><img className="poster profile_pic" alt="profile pic" src={code !== null ? code?.user?.profileImageUrl : ''} /></div> : <>
                     <div className="image_cropper pp">
                         <CustomShimmer>
                             <div className={props.classes.circle}></div>
@@ -120,7 +121,7 @@ const CommentPage = (props) => {
                     </div>
 
                 </>}
-                <div id="active_block" style={{ marginLeft: "15px" }}><span className={theme === "light" ? "line1" : "line1_dark"}> <Link to={`/@/${code ? code.user.username : ''}`}>{code !== null ? code.user.username : <>
+                <div id="active_block" style={{ marginLeft: "15px" }}><span className={theme === "light" ? "line1" : "line1_dark"}> <Link to={`/@/${code ? code?.user?.username : ''}`}>{code !== null ? code?.user?.username : <>
 
                     <CustomShimmer>
                         <div className={props.classes.line}></div>
@@ -161,9 +162,9 @@ const CommentPage = (props) => {
                                 <div key={index}>
                                     <div className={theme === "light" ? "comment1" : "comment1_dark"}>
                                         <div className="comment_wrapper">
-                                            <img className="commenter_pic" alt="commenter pic" src={c.user.profileImageUrl} />
+                                            <img className="commenter_pic" alt="commenter pic" src={c?.user?.profileImageUrl} />
                                             <div className="textt">
-                                                <div className={theme === "light" ? "user_header" : "user_header_dark"}> <Link to={`/@/${c.user.username}`}>{c.user.username} </Link> </div>
+                                                <div className={theme === "light" ? "user_header" : "user_header_dark"}> <Link to={`/@/${c?.user?.username}`}>{c?.user?.username} </Link> </div>
                                                 <div className={theme === "light" ? "user_comment" : "user_comment_dark"}>
                                                     <div>
                                                         {c.body}
@@ -210,7 +211,7 @@ const CommentPage = (props) => {
 
                             <div className="textt">
                                 {userDeets !== null ?
-                                    <img className="commenter_pic" alt="commenter pic" src={userDeets !== null ? userDeets.profileImageUrl : LiveLogo} />
+                                    <img className="commenter_pic" alt="commenter pic" src={userDeets !== null ? userDeets?.profileImageUrl : LiveLogo} />
                                     : ''}
 
                                 {showEmojiPicker ? <div style={{ position: "absolute", top: "-236px", left: "159px", zIndex: "10" }}> <Picker onEmojiClick={onEmojiClick} /></div> : ''}

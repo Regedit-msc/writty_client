@@ -1,17 +1,19 @@
-import { Link, withRouter } from "react-router-dom";
-import "../css/otp.css";
-import { API_ENDPOINT } from "./url";
+/* eslint-disable no-undef */
 import { useState } from "react";
 import { themeContext } from "../App";
 import { useContext } from "react";
-// import { themeContext } from "../App";
-// import { useContext, useState, useEffect } from "react";
-// import { userContext } from "../contexts/userContext";
-// import InfoBar from "../components/info";
+import { Link, withRouter } from "react-router-dom"
+import "../css/otp.css";
+import { API_ENDPOINT } from "./url";
+import React from "react";
+import PropTypes from "prop-types"
 import { useTitle } from "../utils/title";
 import backgroundAccountCreation from "../images/background-account-creation.png";
 import LogoPlaceholder from "../images/logo.png";
 import { useSnackbar } from "notistack";
+import { useEffect } from "react";
+import { makePriv } from "../auth_hoc/checkAuth";
+
 
 
 
@@ -34,8 +36,11 @@ const OTP = ({ history }) => {
         ).then(jsonRes => {
             console.log(jsonRes)
             if (jsonRes.success) {
-
                 history.replace("/onboard");
+                enqueueSnackbar(jsonRes.message, {
+                    variant: "success"
+                });
+
             } else {
                 enqueueSnackbar(jsonRes.message, {
                     variant: "error"
@@ -46,6 +51,15 @@ const OTP = ({ history }) => {
     function handleChange(e) {
         setOtpState(e.target.value);
     }
+
+
+    useEffect(() => {
+        if (localStorage.getItem("new_user") === "notreg" || !localStorage.getItem("new_user")) {
+            return;
+        } else {
+            history.replace(localStorage.getItem("last_visited") ?? "/dash");
+        }
+    }, [history]);
     return (
         <>
         
@@ -64,8 +78,9 @@ const OTP = ({ history }) => {
                             <div id="otp_message">
                                 Enter the 6-digit OTP code sent to your registered email.
                             </div>
+
                             <div id={theme === "light" ? "otp_form_light" : "otp_form"}>
-                                <input name="otp" pattern="[a-zA-Z0-9]{9}" maxlength="9" placeholder="******" onChange={handleChange} value={otpState} />
+                                <input name="otp" pattern="[a-zA-Z0-9]{6}" maxLength="6" placeholder="******" onChange={handleChange} value={otpState} />
                                 <input type="submit" value="Continue" onClick={handleClick} />
                             </div>
                         </div>
@@ -79,4 +94,7 @@ const OTP = ({ history }) => {
     )
 }
 
-export default withRouter(OTP);
+OTP.propTypes = {
+    history: PropTypes.any
+}
+export default makePriv(withRouter(OTP));

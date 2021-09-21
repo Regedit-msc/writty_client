@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { useState, useEffect, useRef, useContext } from "react";
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import { themeContext } from "../App";
@@ -5,6 +6,7 @@ import Code from "../images/code.svg";
 import like from "../images/like.png";
 import notLike from "../images/not_like.png"
 import comment from "../images/comments.png";
+import React from "react";
 import 'codemirror/mode/xml/xml'
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/mode/css/css'
@@ -52,8 +54,9 @@ import CustomShimmer from "../components/shimmerComp";
 import { useScroll } from "../utils/scroll";
 import ProfileImage from "../components/profileImage/index";
 import { createRef } from "react";
+import InfoBox from "../components/info_box";
 // import NavBar from "../components/navbar";
-
+import PublicGistsInfo from "../images/public_gists.svg";
 
 const { API_ENDPOINT } = require("./url");
 
@@ -73,13 +76,15 @@ const PublicGists = (props) => {
     const [limit] = useState(6);
     const codeEditorRef = useRef();
     const [docs, setDocs] = useState([]);
+    const infoBoxRef = useRef();
     const ref = useRef([1, 2, 3, 4, 5, 6].map(() => createRef()))
     useEffect(() => {
+        // eslint-disable-next-line no-undef
         console.log(ref, 'ref');
         let init = localStorage.getItem("initPage") ?? 1;
         setInitPage(parseInt(init));
 
-        fetch(API_ENDPOINT + `/public/docs/paginated?page=${initialPage}&limit=${limit}`).then(res => res.json()).then((response) => {
+        fetch(API_ENDPOINT + `/public/docs/paginated?page=${init ?? initialPage}&limit=${limit}`).then(res => res.json()).then((response) => {
             setPageNext(response.message.next?.page);
             setPagePrev(response.message.previous?.page);
             setDocs(response.message.results);
@@ -100,9 +105,10 @@ const PublicGists = (props) => {
                 if (jsonRes.success) {
                     setUserID(jsonRes.message._id);
                     console.log(jsonRes.message._id)
-                } else {
-
                 }
+                // else {
+
+                // }
             })
         }
 
@@ -217,78 +223,89 @@ const PublicGists = (props) => {
                 color="red"
                 text={err}
             /> : ""}
-
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <InfoBox
+                    color="rgb(67 17 107)"
+                    header="WELCOME TO PUBLIC GISTS"
+                    about="See code other programmers have made public. Search quickly for solutions and find variety of answers in one place."
+                    image={PublicGistsInfo}
+                    ref={infoBoxRef}
+                    width="60%"
+                    height="450px"
+                />
+            </div>
             {/* <p className={theme === "light" ? "big2_light" : "big2"}>PUBLIC GISTS.</p> */}
             <div className={theme === "light" ? "search_wrapper_light" : "search_wrapper"}>
                 <button> <img className="search-icon" src={Search} alt="search" /> </button>
                 <input className="search" type="search" name="search" placeholder="Search by name" onChange={handleChange} ref={inputRef} />
             </div>
-            <div className="public_editors">
-                {(docs && docs.length > 0) ? docs.map((doc, index, _) =>
-                    <div key={index}>
-                        <div className="public_editor" >
-                            <div className={theme === "light" ? "mac1_light" : "mac1"}>
-                                <img src={Code} alt="mac_buttons" />
-                                <p>{moment(doc.createdAt).startOf('hour').fromNow()}</p>
-                                <p>{doc.name.toUpperCase()} / <span className="language_button" style={{ paddingLeft: "10px", paddingRight: "10px", paddingTop: "2px", paddingBottom: "2px" }} id={doc.language[0].toUpperCase() + doc.language.slice(1, doc.language.length)}>{doc.language[0].toUpperCase() + doc.language.slice(1, doc.language.length)} </span>   </p>
+            <div className="public_editors_container">
+                <div className="public_editors">
+                    {(docs && docs.length > 0) ? docs.map((doc, index) =>
+                        <div key={index}>
+                            <div className="public_editor" >
+                                <div className={theme === "light" ? "mac1_light" : "mac1"}>
+                                    <img src={Code} alt="mac_buttons" />
+                                    <p>{moment(doc.createdAt).startOf('hour').fromNow()}</p>
+                                    <p>{doc.name.toUpperCase()} / <span className="language_button" style={{ paddingLeft: "10px", paddingRight: "10px", paddingTop: "2px", paddingBottom: "2px" }} id={doc.language[0].toUpperCase() + doc.language.slice(1, doc.language.length)}>{doc.language[0].toUpperCase() + doc.language.slice(1, doc.language.length)} </span>   </p>
 
-                            </div>
-                            <CodeMirror
-                                ref={codeEditorRef}
-                                className="home-code-editor1"
-                                value={doc.data}
-                                options={{
-                                    lineWrapping: true,
-                                    lint: true,
-                                    mode: doc.language === "html" ? "xml" : doc.language,
-                                    theme: doc.theme ?? "mdn-like",
-                                    lineNumbers: false,
-                                    scrollbarStyle: "null"
-                                }}
-                            />
+                                </div>
+                                <CodeMirror
+                                    ref={codeEditorRef}
+                                    className="home-code-editor1"
+                                    value={doc.data}
+                                    options={{
+                                        lineWrapping: true,
+                                        lint: true,
+                                        mode: doc.language === "html" ? "xml" : doc.language,
+                                        theme: doc.theme ?? "mdn-like",
+                                        lineNumbers: false,
+                                        scrollbarStyle: "null"
+                                    }}
+                                />
 
-                            <div className={theme === "light" ? "mac2_light" : "mac2"}>
+                                <div className={theme === "light" ? "mac2_light" : "mac2"}>
 
-                                <p className="user_info"
-                                    
-                                > <Link to={`/@/${doc.user.username}`} ><img className="profile_pic" src={doc.user?.profileImageUrl ?? defaultImage} alt="profile ." onMouseOver={(e) => {
+                                    <p className="user_info"
+
+                                    > <Link to={`/@/${doc?.user?.username}`} ><img className="profile_pic" src={doc.user?.profileImageUrl ?? defaultImage} alt="profile ." onMouseOver={() => {
                                         ref.current[index].current.style.display = "flex";
-                                        ref.current[index].current.classList.add("fade_in_c");
+                                        ref.current[index].current?.classList?.add("fade_in_c");
                                         setTimeout(() => {
-                                            ref.current[index].current.classList.remove("fade_in_c");
+                                            ref.current[index].current?.classList?.remove("fade_in_c");
                                         }, 500)
-                                    console.log("Event fired")
+                                            console.log("Event fired")
                                     }} onMouseLeave={() => {
-                                        ref.current[index].current.classList.add("fade_out_c");
+                                        ref.current[index].current?.classList.add("fade_out_c");
                                         setTimeout(() => {
-                                            ref.current[index].current.classList.remove("fade_out_c");
+                                            ref.current[index].current?.classList.remove("fade_out_c");
                                             ref.current[index].current.style.display = "none";
                                         }, 500)
 
-                                        }} /></Link></p>
-                                <ProfileImage
-                                    image = {doc.user?.profileImageUrl ?? defaultImage}
-                                    name = {doc.user.username}
-                                    title="React JS Developer"
-                                    about = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et."
-                                    ref={ref.current[index]}
-                                />
+                                            }} /></Link><span>{doc?.user?.username}</span> </p>
+                                    <ProfileImage
+                                        image={doc?.user?.profileImageUrl ?? defaultImage}
+                                        name={doc?.user?.username}
+                                        title={doc?.user?.userSkills?.length > 0 ? doc.user.userSkills[0] : ''}
+                                        about={doc?.user?.about}
+                                        ref={ref.current[index]}
+                                    />
 
-                                <div className="like_comment">
-                                    <div id="likes"><img src={doc?.likes?.findIndex(e => e.user === userID) === -1 ? notLike : like} alt="like button" onClick={() => handleLikeClick(doc.publicLink)} /> <span>{doc?.likes?.length ?? 0}</span></div>
+                                    <div className="like_comment">
+                                        <div id="likes"><img src={doc?.likes?.findIndex(e => e.user === userID) === -1 ? notLike : like} alt="like button" onClick={() => handleLikeClick(doc.publicLink)} /> <span>{doc?.likes?.length ?? 0}</span></div>
 
-                                    <div id="comments"><img src={comment} alt="comment button" onClick={() => handleCommentClick(doc.publicLink)} /> <span>{doc?.comments?.length ?? 0}</span></div>
+                                        <div id="comments"><img src={comment} alt="comment button" onClick={() => handleCommentClick(doc.publicLink)} /> <span>{doc?.comments?.length ?? 0}</span></div>
+                                    </div>
+
                                 </div>
-                                
                             </div>
+
                         </div>
 
-                    </div>
 
-
-                ) : <>
+                    ) : <>
                         <CustomShimmer>
-                        <div className={props.classes.publicEditor} />
+                                <div className={props.classes.publicEditor} />
                         </CustomShimmer>
                         <CustomShimmer>
                             <div className={props.classes.publicEditor} />
@@ -301,8 +318,10 @@ const PublicGists = (props) => {
                         </CustomShimmer> <CustomShimmer>
                             <div className={props.classes.publicEditor} />
                         </CustomShimmer>
-                </>}
+                    </>}
 
+
+                </div>
 
             </div>
             <div style={{ display: "flex", justifyContent: "space-evenly" }} >

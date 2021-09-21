@@ -8,6 +8,7 @@ ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
+  // eslint-disable-next-line no-undef
   document.getElementById("root")
 )
 serviceWorker.register();

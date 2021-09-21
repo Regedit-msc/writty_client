@@ -1,3 +1,7 @@
+@font-face {
+    font-family: Gilroy;
+    src: url(fonts/gl.otf);
+}
 .forgot-password-main {
     display: grid;
     grid-template-columns: 1fr 480px 1fr;

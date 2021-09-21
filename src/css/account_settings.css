@@ -1,3 +1,7 @@
+ @font-face {
+    font-family: Gilroy;
+    src: url(fonts/gl.otf);
+}
  #profile_pic1 {
         position: absolute;
         width: 198.7px;
@@ -78,7 +82,7 @@
 
         background-color: #1F1F1F;
         color: #585858;
-        font-family: iCiel Gotham;
+        font-family: Gilroy;
         font-style: normal;
         font-size: 18px;
         font-weight: 500;
@@ -118,7 +122,7 @@
         background-color: #4F33F6;
         border: none;
 
-        font-family: iCiel Gotham;
+        font-family: Gilroy;
         font-size: 14px;
         font-style: normal;
         font-weight: 500;
@@ -181,7 +185,7 @@
         background-color: #1F1F1F;
         border: none;
 
-        font-family: iCiel Gotham;
+        font-family: Gilroy;
         font-size: 14px;
         font-style: normal;
         font-weight: 500;
@@ -194,9 +198,9 @@
 
         background-color: #FFFFFF;
         color: #1F1F1F;
-        font-family: iCiel Gotham;
+        font-family: Gilroy;
         font-style: normal;
-        font-size: 18px;
+        font-size: 5rem;
         font-weight: 500;
         line-height: 30.5px;
         text-align: left;

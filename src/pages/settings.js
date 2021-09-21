@@ -1,6 +1,8 @@
+/* eslint-disable no-undef */
 
-
+import React from "react";
 import "../css/account_settings.css";
+import PropTypes from "prop-types"
 import "../css/main.css"
 import { Link } from "react-router-dom"
 import { themeContext } from "../App";
@@ -29,6 +31,7 @@ const Settings = (props) => {
         checkBox1.current.checked = theme === "light" ? true : false
     }, [theme])
     useEffect(() => {
+        // eslint-disable-next-line no-undef
         fetch(`${API_ENDPOINT}/user/name`, {
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
@@ -154,7 +157,7 @@ const Settings = (props) => {
                         </CustomShimmer>
                     </>}
                     <Link onClick={handleUploadClick} id={theme === "light" ? "change_button_light" : "change_button"}>Change</Link>
-                    <input ref={imageFieldRef} type="file" class="image" accept="image/*" style={{ display: "none" }} onChange={handleImageFieldChange} />
+                    <input ref={imageFieldRef} type="file" className="image" accept="image/*" style={{ display: "none" }} onChange={handleImageFieldChange} />
                 </div>
                 <div>
                     <div id={theme === "light" ? "form1_light" : "form1"}>
@@ -163,9 +166,9 @@ const Settings = (props) => {
                         <input type="password" id={theme === "light" ? "Password_light" : "Password"} name="Password" placeholder="PASSWORD" />
                         <div id={theme === "light" ? "dark_mode_light" : "dark_mode"}>
                             <span>Dark Mode</span>
-                            <div class="switch">
+                            <div className="switch">
                                 <input id="toggle1" onChange={handleTheme} className={theme === "light" ? "toggle-round1" : "toggle-round"} name="toggle" type="checkbox" ref={checkBox1} />
-                                <label for="toggle1"></label>
+                                <label htmlFor="toggle1"></label>
                             </div>
                         </div>
                         <input type="submit" value="SAVE CHANGES" />
@@ -175,5 +178,9 @@ const Settings = (props) => {
             </div>
         </>
     )
+}
+
+Settings.propTypes = {
+    classes: PropTypes.object
 }
 export default makePriv(injectSheet(StyleSheet)(Settings))

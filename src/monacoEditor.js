@@ -5,6 +5,9 @@ import { useEffect, useState } from "react"
 import { API_ENDPOINT } from "./pages/url"
 import { useParams } from "react-router-dom"
 import { IO } from "./utils/socket_stuff";
+import Renderer from "./components/renderer";
+import { debounce } from "@material-ui/core";
+import { useRef } from "react";
 
 function TextEditor(props) {
   const { id } = useParams()
@@ -15,7 +18,7 @@ function TextEditor(props) {
   const [username, setUsername] = useState();
   const [loading, setLoading] = useState(true);
   const [monaco, setMonaco] = useState()
-
+  const codeRef = useRef();
   const SAVE_INTERVAL_MS = 2000;
 
   useEffect(() => {
@@ -66,6 +69,10 @@ function TextEditor(props) {
 
   }, [props.history])
 
+   useEffect(() => {
+     codeRef.current = debounce(sendCode, 700);
+      // eslint-disable-next-line
+   }, []);
   useEffect(() => {
 
     if (socket == null || theEditor == null || username == null || monaco == null) return
@@ -103,6 +110,10 @@ function TextEditor(props) {
     setMonaco(monaco);
   }
   function handleChange(value, event) {
+    codeRef.current(value, event,socket);
+  }
+   
+  function sendCode(value,event,socket) {
     setCode(value);
     socket.emit("send-changes", { data: event, value: value, randID: username });
   }
@@ -113,9 +124,14 @@ function TextEditor(props) {
   } else {
     return (
       <>
-        <Editor
+        
+        <div style={{marginTop:"1rem", height: "100%",overflow: "hidden",  display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
+         
+          <div style={{marginTop:"1rem" , width:   language === "xml" || language === "html"? "50%":"100%" }} >
+            <Editor
           value={code}
-          height="100vh"
+            height="100vh"
+            
           defaultLanguage={language}
           options={{
             minimap: {
@@ -129,6 +145,12 @@ function TextEditor(props) {
           theme="vs-dark"
           loading="Preparing your code... 🥳"
         />
+           </div>
+         {
+          language === "xml" || language === "html" ? <Renderer code={ code}/>:''
+         }
+
+       </div>
       </>
 
     );

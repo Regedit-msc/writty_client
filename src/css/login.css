@@ -1,3 +1,7 @@
+@font-face {
+    font-family: Gilroy;
+    src: url(fonts/gl.otf);
+}
 .login-main {
     display: grid;
     grid-template-columns: 1fr 530px 1fr;
