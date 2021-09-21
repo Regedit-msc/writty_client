@@ -446,6 +446,45 @@ const Languages = () => {
             )
         
         case undefined:
+            document.title = "Languages";
+            return (
+                <>
+                    <div className="languages-wrapper">
+                        <Link to="languages/css" style={{ "background-color": "#1693D1", "color": "#000000" }}>
+                            <img src={CSSLogo} alt="css logo" />
+                            <span>CSS</span>
+                        </Link>
+                        <Link to="languages/jsx" style={{ "background-color": "#8A53A6", "color": "#FFFFFF" }}>
+                            <img src={JSXLogo} alt="jsx logo" />
+                            <span>JSX</span>
+                        </Link>
+                        <Link to="languages/html" style={{ "background-color": "#F3642C", "color": "#000000"  }}>
+                            <img src={HTMLLogo} alt="html logo" />
+                            <span>HTML</span>
+                        </Link>
+                        <Link to="languages/java" style={{ "background-color": "#FF0C0E", "color": "#FFFFFF" }}>
+                            <img src={JavaLogo} alt="java logo" />
+                            <span>Java</span>
+                        </Link>
+                        <Link to="languages/javascript" style={{ "background-color": "#FED73C", "color": "#000000"  }}>
+                            <img src={JavaScriptLogo} alt="javascript logo" />
+                            <span>JavaScript</span>
+                        </Link>
+                        <Link to="languages/json" style={{ "background-color": "#3A3A3A", "color": "#FFFFFF" }}>
+                            <img src={JSONLogo} alt="json logo" />
+                            <span>JSON</span>
+                        </Link>
+                        <Link to="languages/dart" style={{ "background-color": "#2BB6F6", "color": "#000000"  }}>
+                            <img src={DartLogo} alt="dart logo" />
+                            <span>Dart</span>
+                        </Link>
+                        <Link to="languages/python" style={{ "background-color": "#002750", "color": "#FFFFFF" }}>
+                            <img src={PythonLogo} alt="python logo" />
+                            <span>Python</span>
+                        </Link>
+                    </div>
+                </>
+            )
 
         default:
             document.title = "Languages";
