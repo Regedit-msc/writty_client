@@ -11,7 +11,7 @@ const Renderer = ({code : doc}) => {
             srcDoc={doc}
             sandbox="allow-scripts"
             frameBorder="0"
-          
+          loading="lazy"
         />
    }
     </>
