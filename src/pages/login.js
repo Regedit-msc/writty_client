@@ -119,6 +119,7 @@ const Login = ({ history }) => {
                 setUserToken(jsonRes.message);
                 console.log("Success", jsonRes)
                 if (jsonRes.profileStatus) {
+                    localStorage.setItem("new_user", "notreg");
                     history.replace(localStorage.getItem("lastVisited") ? localStorage.getItem("lastVisited") : '/dash');
                 } else {
                     history.replace("/onboard");

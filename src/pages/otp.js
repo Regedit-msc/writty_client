@@ -52,8 +52,9 @@ const OTP = ({ history }) => {
         setOtpState(e.target.value);
     }
 
-
+   
     useEffect(() => {
+        if(!localStorage.getItem("user_token")) return   history.replace("/signup");
         if (localStorage.getItem("new_user") === "notreg" || !localStorage.getItem("new_user")) {
             return;
         } else {

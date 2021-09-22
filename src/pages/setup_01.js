@@ -20,7 +20,8 @@ import React from "react";
 const Setup_01 = ({ history }) => {
 
     useEffect(() => {
-        if (localStorage.getItem("new_user") === "notreg") {
+         if(!localStorage.getItem("user_token")) return   history.replace("/signup");
+        if (localStorage.getItem("new_user") === "notreg" || !localStorage.getItem("new_user")) {
             return;
         } else {
             history.replace(localStorage.getItem("last_visited") ?? "/dash");
