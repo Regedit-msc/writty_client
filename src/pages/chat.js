@@ -244,6 +244,31 @@ const Chat = (props) => {
     convertTextLinksToHyperLinks(".message_box");
     setInputVal("");
   }
+  useEffect(() => {
+    if (!socket) return;
+    document.addEventListener("keydown", handleKeyPress1);
+    function handleKeyPress1(e) {
+      if (e.key === "Enter") {
+        if (inputVal === "") return;
+        socket.emit("message", { msg: inputVal });
+        setMessages([
+          ...messages,
+          {
+            room: room,
+            body: inputVal,
+            user: { _id: userID },
+            type: "message",
+            _id: uuidV4(),
+          },
+        ]);
+        messagesRef.current.scrollTo(0, messagesRef.current.scrollHeight);
+        console.log(messagesRef.current.scrollHeight);
+        convertTextLinksToHyperLinks(".message_box");
+        setInputVal("");
+      }
+    }
+    return () => document.removeEventListener("keydown", handleKeyPress1);
+  }, [inputVal, room, userID, messages, socket]);
 
   function toRender(message, idx) {
     switch (message.type) {

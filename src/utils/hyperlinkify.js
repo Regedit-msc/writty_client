@@ -8,6 +8,11 @@ export function convertTextLinksToHyperLinks(classname) {
     }
   );
   for (let i = 0; i < elems.length; i++) {
+    if (
+      elems[i].innerHTML.indexOf("<a") > -1 ||
+      elems[i].innerHTML.indexOf('target="_blank"') > -1
+    )
+      return;
     elems[i].innerHTML = elems[i].innerHTML.replace(
       replacePattern1,
       '<a href="$1" target="_blank">$1</a>'
