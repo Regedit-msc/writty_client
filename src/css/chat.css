@@ -932,21 +932,26 @@
     }
 .message_box a{
     color: orange;
+    font-weight: bold;
 }
 a:link {
   color: red;
+  font-weight: bold;
 }
 
 .message_box a:visited {
   color: orange;
+  font-weight: bold;
 }
 
 
 .message_box a:hover {
   color: hotpink;
+  font-weight: bold;
 }
 
 
 .message_box a:active {
   color:purple;
+  font-weight: bold;
 }
