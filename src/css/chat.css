@@ -938,7 +938,7 @@ a:link {
 }
 
 .message_box a:visited {
-  color: green;
+  color: orange;
 }
 
 
@@ -948,5 +948,5 @@ a:link {
 
 
 .message_box a:active {
-  color: blue;
+  color:purple;
 }
