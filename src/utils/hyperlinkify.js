@@ -15,7 +15,11 @@ export function convertTextLinksToHyperLinks(classname) {
       return;
     elems[i].innerHTML = elems[i].innerHTML.replace(
       replacePattern1,
-      '<a href="$1" target="_blank" rel="noreferrer noopener" >$1</a>'
+      `<a href="$1" target="_blank" ${
+        elems[i].textContent.match("live-gists")
+          ? ""
+          : 'rel = "noreferrer noopener"'
+      } >$1</a>`
     );
   }
 }
