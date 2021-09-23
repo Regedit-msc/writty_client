@@ -88,6 +88,7 @@ const NavBar = () => {
          "profile_user_pic",
          jsonRes.message.profileImageUrl
        );
+       localStorage.setItem("profile_user_id", jsonRes.message._id);
        localStorage.setItem("profile_user_name", jsonRes.message.username);
      })
      .catch(() => {
@@ -104,6 +105,7 @@ const NavBar = () => {
    localStorage.removeItem("user_token");
    localStorage.setItem("new_user", "notreg");
    localStorage.removeItem("profile_user_image");
+   localStorage.removeItem("profile_user_id");
    history.push("/");
  }
  const handleChange = (event) => {

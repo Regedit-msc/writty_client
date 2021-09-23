@@ -22,314 +22,361 @@ import InfoBar from "../info";
 import LiveLogo from "../../images/livegists_logo.png";
 import { themeContext } from "../../App";
 const Profile = (props) => {
-    const { name } = useParams();
-    useTitle(name.toUpperCase() + "'s Profile page");
-    const { theme } = useContext(themeContext);
-    const [info, setInfo] = useState();
-    const [showInfo, setShowInfo] = useState(false);
-    const [err, setErr] = useState();
-    const [showErr, setShowErr] = useState(false);
-    const [docsB, setDocsB] = useState([]);
-    const [userData, setUserData] = useState(null);
-    const [userID, setUserID] = useState('');
-    useEffect(() => {
-        fetch(API_ENDPOINT + `/details/public?name=${name.trim()}`).then(res => res.json()).then((response) => {
-            if (response.success) {
-                console.log(response.message);
-                setUserData(response.message);
-                setDocsB(response.message.code);
-                setUserID(response.message.userID);
+  const { name } = useParams();
+  useTitle(name.toUpperCase() + "'s Profile page");
+  const { theme } = useContext(themeContext);
+  const [info, setInfo] = useState();
+  const [showInfo, setShowInfo] = useState(false);
+  const [err, setErr] = useState();
+  const [showErr, setShowErr] = useState(false);
+  const [docsB, setDocsB] = useState([]);
+  const [userData, setUserData] = useState(null);
+  const [profileID, setProfileID] = useState("");
+  useEffect(() => {
+    fetch(API_ENDPOINT + `/details/public?name=${name.trim()}`)
+      .then((res) => res.json())
+      .then((response) => {
+        if (response.success) {
+          console.log(response.message);
+          setUserData(response.message);
+          setDocsB(response.message.code);
+          setProfileID(response.message.userID);
+        } else {
+          props.history.push("/user_does_not_exist");
+        }
+      });
+  }, [name, props.history]);
+
+  // function sortBy(stringToSortBy) {
+  //     switch (stringToSortBy) {
+  //         case "date":
+  //             setUserData({ ...userData, code: [...userData.code.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))] });
+  //             break;
+  //         case "name":
+  //             console.log([...userData.code.sort(
+
+  //                 function (a, b) {
+  //                     if (a.name > b.name) {
+  //                         return 1;
+  //                     }
+  //                     if (b.name > a.name) {
+  //                         return -1;
+  //                     }
+  //                     return 0;
+  //                 }
+  //             )])
+  //             setUserData({ ...userData, code: [...userData.code.sort()] });
+  //             break;
+  //         default:
+  //             setUserData(userData);
+  //             break;
+  //     }
+  // }
+  // function handleChange(e) {
+  //     console.log(e.target.value);
+  //     switch (e.target.name) {
+  //         case "sort":
+  //             sortBy(e.target.value);
+  //             break;
+  //         case "search":
+  //             if (e.target.value.length > 3) {
+  //                 setUserData({ ...userData, code: [...userData.code.filter((d) => d.language.toLowerCase().includes(e.target.value))] });
+  //             }
+
+  //             if (e.target.value === "") {
+  //                 setUserData({ ...userData, code: docsB });
+  //             }
+  //             break;
+  //         default:
+  //             break;
+  //     }
+
+  // }
+
+  function handleCopy(val, text) {
+    navigator.clipboard.writeText(val);
+    setInfo(text);
+    setShowInfo(true);
+    setTimeout(() => {
+      setInfo("");
+      setShowInfo(false);
+    }, 3000);
+  }
+
+  function handleLikeClick(id) {
+    console.log(docsB);
+    fetch(`${API_ENDPOINT}/like`, {
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+      },
+      method: "POST",
+      body: JSON.stringify({ publicLink: id }),
+    })
+      .then((res) => res.json())
+      .then((jsonRes) => {
+        console.log(jsonRes);
+        if (jsonRes.success) {
+          let newArr = [];
+          for (let i = 0; i < userData.code.length; i++) {
+            if (userData.code[i].publicLink === id) {
+              newArr.push({
+                ...userData.code[i],
+                likes:
+                  userData.code[i]?.likes.findIndex(
+                    (e) => e.user === localStorage.getItem("profile_user_id")
+                  ) === -1
+                    ? [
+                        ...userData.code[i]?.likes,
+                        { user: localStorage.getItem("profile_user_id") },
+                      ]
+                    : [
+                        ...userData.code[i]?.likes.filter(
+                          (e) =>
+                            e.user !== localStorage.getItem("profile_user_id")
+                        ),
+                      ],
+              });
             } else {
-                props.history.push('/user_does_not_exist')
+              newArr.push(userData.code[i]);
             }
+          }
 
-        });
-    }, [name, props.history]);
+          setUserData({ ...userData, code: newArr });
+        } else {
+          setErr("You have to be logged in to like.");
+          setShowErr(true);
+          setTimeout(() => {
+            setErr("");
+            setShowErr(false);
+          }, 3000);
+        }
+      });
+  }
+  function handleFollow() {
+    fetch(`${API_ENDPOINT}/user/follow`, {
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+      },
+      method: "POST",
+      body: JSON.stringify({ followId: profileID }),
+    })
+      .then((res) => res.json())
+      .then((jsonRes) => {
+        if (jsonRes.success) {
+          console.log(jsonRes);
+          const isFollowing =
+            userData?.followers?.length > 0
+              ? userData.followers.findIndex(
+                  (e) => e.user === localStorage.getItem("profile_user_id")
+                )
+              : -1;
+          if (isFollowing === -1) {
+            setUserData({
+              ...userData,
+              followers: [
+                ...userData.followers,
+                { user: localStorage.getItem("profile_user_id") },
+              ],
+            });
+          } else {
+            setUserData({
+              ...userData,
+              followers: [
+                ...userData.followers.filter(
+                  (e) => e.user !== localStorage.getItem("profile_user_id")
+                ),
+              ],
+            });
+          }
+        } else {
+        }
+      });
+  }
 
+  function handleCommentClick(id) {
+    props.history.push(`/comments/editor/${id}`);
+  }
+  return (
+    <>
+      {showInfo ? <InfoBar color="green" text={info} /> : ""}
+      {showErr ? <InfoBar color="red" text={err} /> : ""}
+      <main>
+        <section className="profile-container">
+          <div>
+            {userData ? (
+              <img className="display-p" src={userData?.image} alt="dp" />
+            ) : (
+              <CustomShimmer>
+                <div className={props.classes.circleBig} />
+              </CustomShimmer>
+            )}
 
-    // function sortBy(stringToSortBy) {
-    //     switch (stringToSortBy) {
-    //         case "date":
-    //             setUserData({ ...userData, code: [...userData.code.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))] });
-    //             break;
-    //         case "name":
-    //             console.log([...userData.code.sort(
-
-    //                 function (a, b) {
-    //                     if (a.name > b.name) {
-    //                         return 1;
-    //                     }
-    //                     if (b.name > a.name) {
-    //                         return -1;
-    //                     }
-    //                     return 0;
-    //                 }
-    //             )])
-    //             setUserData({ ...userData, code: [...userData.code.sort()] });
-    //             break;
-    //         default:
-    //             setUserData(userData);
-    //             break;
-    //     }
-    // }
-    // function handleChange(e) {
-    //     console.log(e.target.value);
-    //     switch (e.target.name) {
-    //         case "sort":
-    //             sortBy(e.target.value);
-    //             break;
-    //         case "search":
-    //             if (e.target.value.length > 3) {
-    //                 setUserData({ ...userData, code: [...userData.code.filter((d) => d.language.toLowerCase().includes(e.target.value))] });
-    //             }
-
-    //             if (e.target.value === "") {
-    //                 setUserData({ ...userData, code: docsB });
-    //             }
-    //             break;
-    //         default:
-    //             break;
-    //     }
-
-    // }
-
-
-
-    // {
-    //     "languages": [],
-    //         "skills": [],
-    //             "about": "",
-    //                 "image": "https://ik.imagekit.io/tcu4tmaa6/profile_image_from_live_gists_AAuiCha8iKi.webp",
-    //                     "code": [],
-    //                         "email": "efusanyaee@gmail.com",
-    //                             "userID": "60fad0273a1f37386054079d"
-    // }
-
-
-
-    function handleCopy(val, text) {
-        navigator.clipboard.writeText(val);
-        setInfo(text);
-        setShowInfo(true);
-        setTimeout(() => {
-            setInfo("");
-            setShowInfo(false);
-        }, 3000)
-    }
-
-
-    function handleLikeClick(id) {
-        console.log(docsB);
-        fetch(`${API_ENDPOINT}/like`, {
-            headers: {
-                'Content-Type': 'application/json; charset=UTF-8',
-                "Authorization": `Bearer ${localStorage.getItem("user_token")}`
-            },
-            method: "POST",
-            body: JSON.stringify({ publicLink: id })
-
-        }).then(res => res.json()
-        ).then(jsonRes => {
-
-            console.log(jsonRes);
-            if (jsonRes.success) {
-                let newArr = [];
-                for (let i = 0; i < userData.code.length; i++) {
-                    if (userData.code[i].publicLink === id) {
-                        newArr.push({
-                            ...userData.code[i],
-                            likes: userData.code[i]?.likes.findIndex(e => e.user === userID) === -1 ? [...userData.code[i]?.likes, { user: userID }] : [...userData.code[i]?.likes.filter(e => e.user !== userID)]
-                        })
-                    } else {
-                        newArr.push(userData.code[i])
+            <p>{name}</p>
+            <p className="graphics">
+              {userData?.skills?.length > 0 ? userData.skills[0] : ""}
+            </p>
+          </div>
+          <div>
+            <p>
+              {userData !== null ? userData?.followers?.length : 0}
+              <br />
+              <span className="sub-p">Followers</span>
+            </p>
+            <p>
+              {userData !== null ? userData?.following?.length : 0}
+              <br />
+              <span className="sub-p">Following</span>
+            </p>
+            <p>
+              {userData !== null ? userData?.code?.length : 0}
+              <br />
+              <span className="sub-p"> Gists</span>
+            </p>
+          </div>
+          <div>
+            {name === localStorage.getItem("profile_user_name") ? (
+              ""
+            ) : (
+              <>
+                <p>
+                  {userData !== null ? (
+                    userData.followers.findIndex(
+                      (e) => e.user === localStorage.getItem("profile_user_id")
+                    ) === -1 ? (
+                      <Link onClick={handleFollow}>Follow</Link>
+                    ) : (
+                      <Link onClick={handleFollow}>Following</Link>
+                    )
+                  ) : (
+                    ""
+                  )}
+                </p>
+                <p>
+                  <Link to={`/@/${name}/chat`}>Message</Link>
+                </p>
+                <p>
+                  <Link
+                    to="#"
+                    onClick={() =>
+                      handleCopy(userData.email, "Copied email to clipboard.")
                     }
-
-                }
-
-                setUserData({ ...userData, code: newArr });
-            } else {
-                setErr("You have to be logged in to like.");
-                setShowErr(true);
-                setTimeout(() => {
-                    setErr("");
-                    setShowErr(false);
-                }, 3000)
-
-            }
-        })
-    }
-
-
-    function handleCommentClick(id) {
-        props.history.push(`/comments/editor/${id}`)
-
-    }
-    return <>
-        {showInfo ? <InfoBar
-            color="green"
-            text={info}
-        /> : ""}
-        {showErr ? <InfoBar
-            color="red"
-            text={err}
-        /> : ""}
-        <main>
-            <section className="profile-container">
-                <div>
-
-
-                    {userData ? <img className="display-p" src={userData?.image} alt="dp" /> :
-                        <CustomShimmer>
-                            <div className={props.classes.circleBig} />
-                        </CustomShimmer>
-                    }
-
-                    <p>{name}</p>
-                    <p className="graphics">{userData?.skills?.length > 0 ? userData.skills[0] : ''}</p>
-                </div>
-                <div>
-                    <p>
-                        246
-                        <br />
-                        <span className="sub-p">Followers</span>
-                    </p>
-                    <p>
-                        87
-                        <br />
-                        <span className="sub-p">Following</span>
-                    </p>
-                    <p>
-                        {userData !== null ? userData?.code?.length : 0}
-                        <br />
-                        <span className="sub-p"> Gists</span>
-                    </p>
-                </div>
-                <div>
-                    {
-                        name === localStorage.getItem("profile_user_name") ? "" : <>
-                            <p>
-                                <Link to="/dash">Follow</Link>
-                            </p>
-                            <p>
-                                <Link to={`/@/${name}/chat`}>Message</Link>
-                            </p>
-                            <p>
-                                <Link to="#" onClick={() => handleCopy(userData.email, "Copied email to clipboard.")} >Connect</Link>
-                            </p></>
-                    }
-                </div>
-            </section>
-            <section className="profile-overview">
-                <aside className="profile-summary">
-                    {
-                        userData?.about === '' ? '' : <div className="about">
-                            <h2>
-                                <span className="style">About</span>
-                            </h2>
-                            <p>
-                                {userData?.about}
-                            </p>
+                  >
+                    Connect
+                  </Link>
+                </p>
+              </>
+            )}
+          </div>
+        </section>
+        <section className="profile-overview">
+          <aside className="profile-summary">
+            {userData?.about === "" ? (
+              ""
+            ) : (
+              <div className="about">
+                <h2>
+                  <span className="style">About</span>
+                </h2>
+                <p>{userData?.about}</p>
+              </div>
+            )}
+            <div className="experience">
+              {userData?.experience?.length > 0 ? (
+                <>
+                  <div>
+                    <h2>
+                      <span className="style">Exper</span>ience
+                    </h2>
+                    {userData.experience.map((experience, index) => {
+                      return (
+                        <div key={index}>
+                          <h3>{experience?.company?.toUpperCase()}</h3>
+                          <h4>{experience?.role}</h4>
+                          <p>{experience?.task}</p>
                         </div>
-                    }
-                    <div className="experience">
-
-                        {
-                            userData?.experience?.length > 0 ? <>
-
-                                <div>
-                                    <h2>
-                                        <span className="style">Exper</span>ience
-                                    </h2>
-                                    {
-                                        userData.experience.map((experience, index) => {
-                                            return <div key={index}>
-
-                                                <h3>{experience?.company?.toUpperCase()}</h3>
-                                                <h4>{experience?.role}</h4>
-                                                <p>
-                                                    {experience?.task}
-                                                </p>
-                                            </div>
-                                        })
-                                    }
-                                </div>
-
-                            </> : ''
-                        }
-                        <div className="skill">
-                            {
-                                userData?.skills?.length > 0 ? <>
-
-
-                                    <h3>
-                                        <span className="style">Skills </span>
-                                    </h3>
-                                    {
-                                        userData.skills.map((skill, index) => {
-                                            return <p key={index}>
-                                                <i className="fas fa-star" />
-                                                {skill}
-                                            </p>
-                                        })
-                                    }
-
-                                </> : ''
-                            }
-                        </div>
-                    </div>
-
-                    <div className="social-media">
-                        <h3>
-                            <span className="style">Social</span> Media Links
-                        </h3>
-                        <p>
-                            <a href="https://www.instagram.com/izzy_graphix">
-                                <i className="fab fa-instagram" />
-                            </a>
+                      );
+                    })}
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
+              <div className="skill">
+                {userData?.skills?.length > 0 ? (
+                  <>
+                    <h3>
+                      <span className="style">Skills </span>
+                    </h3>
+                    {userData.skills.map((skill, index) => {
+                      return (
+                        <p key={index}>
+                          <i className="fas fa-star" />
+                          {skill}
                         </p>
-                        <p>
-                            <a href="https://www.facebook.com/izzy_graphix">
-                                <i className="fab fa-facebook" />
-                            </a>
-                        </p>
-                        <p>
-                            <a href="https://www.polywork.com/izzy_graphix">
-                                <i className="fas fa-cube" />
-                            </a>
-                        </p>
-                        <p>
-                            <a href="https://www.behance.net/izzy_graphix">
-                                <i className="fab fa-behance" />
-                            </a>
-                        </p>
-                    </div>
-                    {
-                        userData?.languages?.length > 0 ? <>
-                            <div className="languages">
-                                <h3>
-                                    <span className="style">Lang</span>uages
-                                </h3>
-                                <div>
-                                    {userData.languages.map((language, index) => {
-                                        return <p key={index}>{language}</p>
+                      );
+                    })}
+                  </>
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
 
-                                    })}
-                                </div>
-                            </div>
-                        </> : ''
-                    }
-                    <div className="badges">
-                        <h3>
-                            <span className="style">Badge</span>s
-                        </h3>
-                        <p>Answered a question</p>
-                        <p>Organized a competition</p>
-                        <p>Posted 20 gists</p>
-                        <p>Reached 100 favourites</p>
-                        <p>Solved a complex problem</p>
-                    </div>
-                </aside>
-                {/* <section className="code-content">
+            <div className="social-media">
+              <h3>
+                <span className="style">Social</span> Media Links
+              </h3>
+              <p>
+                <a href="https://www.instagram.com/izzy_graphix">
+                  <i className="fab fa-instagram" />
+                </a>
+              </p>
+              <p>
+                <a href="https://www.facebook.com/izzy_graphix">
+                  <i className="fab fa-facebook" />
+                </a>
+              </p>
+              <p>
+                <a href="https://www.polywork.com/izzy_graphix">
+                  <i className="fas fa-cube" />
+                </a>
+              </p>
+              <p>
+                <a href="https://www.behance.net/izzy_graphix">
+                  <i className="fab fa-behance" />
+                </a>
+              </p>
+            </div>
+            {userData?.languages?.length > 0 ? (
+              <>
+                <div className="languages">
+                  <h3>
+                    <span className="style">Lang</span>uages
+                  </h3>
+                  <div>
+                    {userData.languages.map((language, index) => {
+                      return <p key={index}>{language}</p>;
+                    })}
+                  </div>
+                </div>
+              </>
+            ) : (
+              ""
+            )}
+            <div className="badges">
+              <h3>
+                <span className="style">Badge</span>s
+              </h3>
+              <p>Answered a question</p>
+              <p>Organized a competition</p>
+              <p>Posted 20 gists</p>
+              <p>Reached 100 favourites</p>
+              <p>Solved a complex problem</p>
+            </div>
+          </aside>
+          {/* <section className="code-content">
                     <p>
                         <span className="gists">All Gists</span>{" "}
                         <span className="filter">
@@ -339,73 +386,112 @@ const Profile = (props) => {
 
 
                 </section> */}
-                <div className="profile-editors">
-                    <div className="profile_gists">
+          <div className="profile-editors">
+            <div className="profile_gists">
+              {userData !== null ? (
+                userData.code.map((doc, index) => {
+                  return (
+                    <div key={index}>
+                      <div
+                        className={theme === "light" ? "mac1_light" : "mac1"}
+                      >
+                        <img src={Code} alt="mac_buttons" />
+                        <p>{moment(doc.createdAt).startOf("hour").fromNow()}</p>
+                        <p>
+                          {doc.name.toUpperCase()} /{" "}
+                          <span
+                            className="language_button"
+                            style={{
+                              paddingLeft: "10px",
+                              paddingRight: "10px",
+                              paddingTop: "2px",
+                              paddingBottom: "2px",
+                            }}
+                            id={
+                              doc.language[0].toUpperCase() +
+                              doc.language.slice(1, doc.language.length)
+                            }
+                          >
+                            {doc.language[0].toUpperCase() +
+                              doc.language.slice(1, doc.language.length)}{" "}
+                          </span>{" "}
+                        </p>
+                      </div>
+                      <CodeMirror
+                        className="code11"
+                        value={doc.data}
+                        options={{
+                          lineWrapping: true,
+                          lint: true,
+                          mode: doc?.language,
+                          theme: "elegant",
+                          lineNumbers: false,
+                          scrollbarStyle: "null",
+                        }}
+                      />
+                      <div
+                        className={theme === "light" ? "mac2_light" : "mac2"}
+                      >
+                        <p className="user_info">
+                          <img
+                            className="profile_pic"
+                            src={doc.user?.profileImageUrl ?? LiveLogo}
+                            alt="profile."
+                          />
+                        </p>
 
-                        {
-                            userData !== null ? userData.code.map((doc, index) => {
-                                return <div key={index}>
-                                    <div className={theme === "light" ? "mac1_light" : "mac1"}>
-                                        <img src={Code} alt="mac_buttons" />
-                                        <p>{moment(doc.createdAt).startOf('hour').fromNow()}</p>
-                                        <p >{doc.name.toUpperCase()} / <span className="language_button" style={{ paddingLeft: "10px", paddingRight: "10px", paddingTop: "2px", paddingBottom: "2px" }} id={doc.language[0].toUpperCase() + doc.language.slice(1, doc.language.length)}>{doc.language[0].toUpperCase() + doc.language.slice(1, doc.language.length)} </span>   </p>
+                        <div className="like_comment">
+                          <div id="likes">
+                            <img
+                              src={
+                                doc?.likes?.findIndex(
+                                  (e) =>
+                                    e.user ===
+                                    localStorage.getItem("profile_user_id")
+                                ) === -1
+                                  ? notLike
+                                  : like
+                              }
+                              alt="like button"
+                              onClick={() => handleLikeClick(doc.publicLink)}
+                            />{" "}
+                            <span>{doc?.likes?.length ?? 0}</span>
+                          </div>
 
-                                    </div>
-                                    <CodeMirror
-                                        className="code11"
-                                        value={doc.data}
-                                        options={{
-                                            lineWrapping: true,
-                                            lint: true,
-                                            mode: doc?.language,
-                                            theme: "elegant",
-                                            lineNumbers: false,
-                                            scrollbarStyle: "null"
-                                        }}
-                                    />
-                                    <div className={theme === "light" ? "mac2_light" : "mac2"}>
-
-                                        <p className="user_info"><img className="profile_pic" src={doc.user?.profileImageUrl ?? LiveLogo} alt="profile." /></p>
-
-                                        <div className="like_comment">
-                                            <div id="likes"><img src={doc?.likes?.findIndex(e => e.user === userID) === -1 ? notLike : like} alt="like button" onClick={() => handleLikeClick(doc.publicLink)} /> <span>{doc?.likes?.length ?? 0}</span></div>
-
-                                            <div id="comments"><img src={comment} alt="comment button" onClick={() => handleCommentClick(doc.publicLink)} /> <span>{doc?.comments?.length ?? 0}</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-                            }) : <div>
-                                <div >
-
-                                    <CustomShimmer>
-                                        <div className={props.classes.codeBox} />
-                                    </CustomShimmer>
-                                </div>
-                                <div >
-
-                                    <CustomShimmer>
-                                        <div className={props.classes.codeBox} />
-                                    </CustomShimmer>
-                                </div>
-                                <div>
-
-
-                                </div>
-
-                            </div>
-                        }
+                          <div id="comments">
+                            <img
+                              src={comment}
+                              alt="comment button"
+                              onClick={() => handleCommentClick(doc.publicLink)}
+                            />{" "}
+                            <span>{doc?.comments?.length ?? 0}</span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-
-
+                  );
+                })
+              ) : (
+                <div>
+                  <div>
+                    <CustomShimmer>
+                      <div className={props.classes.codeBox} />
+                    </CustomShimmer>
+                  </div>
+                  <div>
+                    <CustomShimmer>
+                      <div className={props.classes.codeBox} />
+                    </CustomShimmer>
+                  </div>
+                  <div></div>
                 </div>
-
-            </section>
-        </main>
-
+              )}
+            </div>
+          </div>
+        </section>
+      </main>
     </>
+  );
 }
 Profile.propTypes = {
     classes: PropTypes.object,

@@ -37,7 +37,20 @@ margin-top: 5rem;
 .profile-container div p {
   text-align: center;
   color: white;
+
 }
+/* .following {
+  text-align: center !important;
+ background-color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgb(0, 0, 0);
+    transition: ease-in-out 100ms;
+    transform: scale(1);
+} */
+
 .display-p {
   vertical-align: middle;
   width: 14rem;
