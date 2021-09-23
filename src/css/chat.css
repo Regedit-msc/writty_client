@@ -930,3 +930,23 @@
     #new_message {
        width: fit-content;
     }
+.message_box a{
+    color: orange;
+}
+a:link {
+  color: red;
+}
+
+.message_box a:visited {
+  color: green;
+}
+
+
+.message_box a:hover {
+  color: hotpink;
+}
+
+
+.message_box a:active {
+  color: blue;
+}
