@@ -24,14 +24,8 @@
   z-index: 5;
   font-weight: 900;
 }
-.link_preview_container .link_preview_heading{
-    background-color: rgba(0, 0, 0, 0.26);
-    /* width: 100%; */display: flex;
-
-    margin-top: 0.063rem;
-    padding-left: 1.2rem;
-    padding-right: 1.2rem;
-    border-radius: 1.8rem 0px 0px 0px;
+.link_preview_container .link_preview_heading > p{
+    font-size: 1.3rem;
 }
 
 .link_preview_container .link_preview_p {

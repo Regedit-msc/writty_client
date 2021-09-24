@@ -75,7 +75,7 @@ const LinkPreview = ({ text, classP }) => {
           </div>{" "}
           <div
             className={styles.link_preview_heading}
-            style={{ border: `2px solid ${dominantColor}` }}
+            style={{ color: dominantColor === "white" ? "black" : "white" }}
           >
             {" "}
             <p> {linkData[0]?.title}</p>
