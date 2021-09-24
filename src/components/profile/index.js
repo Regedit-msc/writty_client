@@ -117,32 +117,39 @@ const Profile = (props) => {
       .then((jsonRes) => {
         console.log(jsonRes);
         if (jsonRes.success) {
-          let newArr = [];
-          for (let i = 0; i < userData.code.length; i++) {
-            if (userData.code[i].publicLink === id) {
-              newArr.push({
-                ...userData.code[i],
-                likes:
-                  userData.code[i]?.likes.findIndex(
-                    (e) => e.user === localStorage.getItem("profile_user_id")
-                  ) === -1
-                    ? [
-                        ...userData.code[i]?.likes,
-                        { user: localStorage.getItem("profile_user_id") },
-                      ]
-                    : [
-                        ...userData.code[i]?.likes.filter(
-                          (e) =>
-                            e.user !== localStorage.getItem("profile_user_id")
-                        ),
-                      ],
-              });
-            } else {
-              newArr.push(userData.code[i]);
+          // let newArr = [];
+          const codeWithoutCodeToChange = userData.code.filter(
+            (e) => e.publicLink !== id
+          );
+          const codeToChange = userData.code.filter(
+            (e) => e.publicLink === id
+          )[0];
+          const newCode = Object.assign(
+            {},
+            {
+              ...codeToChange,
+              likes: [
+                ...(codeToChange.likes.findIndex(
+                  (e) => e.user === localStorage.getItem("profile_user_id")
+                ) === -1
+                  ? [
+                      ...codeToChange.likes,
+                      { user: localStorage.getItem("profile_user_id") },
+                    ]
+                  : [
+                      ...codeToChange.likes.filter(
+                        (e) =>
+                          e.user !== localStorage.getItem("profile_user_id")
+                      ),
+                    ]),
+              ],
             }
-          }
-
-          setUserData({ ...userData, code: newArr });
+          );
+          console.log(newCode, "newCode");
+          setUserData({
+            ...userData,
+            code: [...codeWithoutCodeToChange, newCode],
+          });
         } else {
           setErr("You have to be logged in to like.");
           setShowErr(true);
@@ -247,7 +254,9 @@ const Profile = (props) => {
                     ) === -1 ? (
                       <Link onClick={handleFollow}>Follow</Link>
                     ) : (
-                      <Link onClick={handleFollow}>Following</Link>
+                      <Link onClick={handleFollow} className="following">
+                        Following
+                      </Link>
                     )
                   ) : (
                     ""

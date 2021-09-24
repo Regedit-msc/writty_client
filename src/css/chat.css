@@ -932,11 +932,12 @@
     #new_message {
        width: fit-content;
     }
-.message_box a{
+.message_box a:link {
     color: orange;
     font-weight: bold;
 }
-a:link {
+
+.message_box a{
   color:orange ;
   font-weight: bold;
 }
