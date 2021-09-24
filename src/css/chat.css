@@ -412,6 +412,8 @@
         padding: 16px 20px 16px 20px;
         margin-bottom: 20px;
         width: fit-content;
+        margin-top:100px;
+        margin-bottom: 50px;
         max-width: 500px;
         border-radius: 8px;
     }
@@ -935,7 +937,7 @@
     font-weight: bold;
 }
 a:link {
-  color: red;
+  color:orange ;
   font-weight: bold;
 }
 

@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^12.8.3",
     "codemirror": "^5.57.0",
     "emoji-picker-react": "^3.4.8",
+    "get-urls": "^10.0.0",
     "moment": "^2.29.1",
     "monaco-editor": "^0.23.0",
     "notistack": "^1.0.10",

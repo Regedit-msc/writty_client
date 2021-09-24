@@ -39,6 +39,7 @@ import { useContext } from "react";
 import { useSnackbar } from 'notistack';
 import { makePriv } from "../auth_hoc/checkAuth";
 import { convertTextLinksToHyperLinks } from "../utils/hyperlinkify";
+import LinkPreview from "../components/link_preview";
 
 const Chat = (props) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -276,21 +277,27 @@ const Chat = (props) => {
         return (
           <>
             {message.user._id === userID ? (
-              <div className="message_box mine">
-                {message.body}
-                <div className="time_stamp">
-                  {message.time || moment(message.createdAt).fromNow()}
-                  <img src={DoubleTicks} alt="" className="double_tick" />
+              <>
+                <LinkPreview text={message.body} classP="mine" />
+                <div className="message_box mine">
+                  {message.body}
+                  <div className="time_stamp">
+                    {message.time || moment(message.createdAt).fromNow()}
+                    <img src={DoubleTicks} alt="" className="double_tick" />
+                  </div>
                 </div>
-              </div>
+              </>
             ) : (
-              <div className="message_box yours">
-                {message.body}
-                <div className="time_stamp_yours">
-                  {moment(message.createdAt).fromNow()}
-                  <img src={DoubleTicks} alt="" className="double_tick" />
+              <>
+                <LinkPreview text={message.body} classP="yours" />
+                <div className="message_box yours">
+                  {message.body}
+                  <div className="time_stamp_yours">
+                    {moment(message.createdAt).fromNow()}
+                    <img src={DoubleTicks} alt="" className="double_tick" />
+                  </div>
                 </div>
-              </div>
+              </>
             )}
           </>
         );
