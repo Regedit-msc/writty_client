@@ -41,8 +41,10 @@ import Forgot_02 from "./pages/forgot_02"
 import Forgot_03 from "./pages/forgot_03"
 import Forgot_04 from "./pages/forgot_04"
 import Languages from "./pages/languages"
-import Search from "./pages/search"
-import CreateGist from "./pages/create_gist"
+import Search from "./pages/search";
+import CreateGist from "./pages/create_gist";
+import Feed from "./pages/feed";
+
 
 
 
@@ -149,6 +151,7 @@ function App(props) {
                   <Route exact path="/Forgot_04" component={mobile ? Mobile : Forgot_04} />
                   <Route exact path="/languages" component={mobile ? Mobile : Languages} />
                   <Route exact path="/languages/:language" component={mobile ? Mobile : Languages} />
+                  <Route exact path="/feed" component={mobile ? Mobile : Feed} />
                   {/* <Route path="/public/editor/:lang/:id" component={NoEditEditor} /> */}
                   <Route exact path="/public/editor/:id" component={mobile ? Mobile : PublicEditor} />
                   <Route exact path="/edit/:id" component={mobile ? Mobile : TextEditor} />
