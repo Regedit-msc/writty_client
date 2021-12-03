@@ -66,6 +66,7 @@ const Signup = () => {
                 console.log(jsonRes);
                 localStorage.setItem("user_token", jsonRes.message);
                 enqueueSnackbar("A mail containing a one time password\n has been sent to your registered email address.");
+                enqueueSnackbar("If you don't see the mail check your spam.");
                 history.replace("/otp");
             } else {
                 enqueueSnackbar(jsonRes.message);

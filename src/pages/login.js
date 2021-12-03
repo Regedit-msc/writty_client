@@ -16,7 +16,7 @@ import LogoPlaceholder from "../images/logo.png"
 import Google from "../images/google-icon.png"
 import GitHub from "../images/github-icon.png"
 import LoginBackgroundImage from "../images/login-background.png"
-import withPageTransition from "../components/page_transition/page_transition";
+// import withPageTransition from "../components/page_transition/page_transition";
 
 const Login = ({ history }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -270,4 +270,4 @@ const Login = ({ history }) => {
 Login.propTypes = {
   history: PropTypes.any,
 };
-export default withRouter(withPageTransition(Login));
+export default withRouter(Login);
