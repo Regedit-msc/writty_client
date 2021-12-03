@@ -11,7 +11,8 @@ import React from "react";
 import styles from "../css/create_gist.module.css";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import { API_ENDPOINT } from "./url";
-const CreateGist = ({history}) => {
+import withPageTransition from "../components/page_transition/page_transition";
+const CreateGist = ({ history }) => {
   // eslint-disable-next-line no-unused-vars
   const { enqueueSnackbar } = useSnackbar();
   const { theme } = useContext(themeContext);
@@ -63,29 +64,29 @@ const CreateGist = ({history}) => {
       return enqueueSnackbar("Gist name must be up to 5 characters.");
     } else if (gist.data === "") {
       return enqueueSnackbar("Gist cannot be empty.");
-      }
-       fetch(`${API_ENDPOINT}/create/doc`, {
-            headers: {
-                'Content-Type': 'application/json; charset=UTF-8',
-                "Authorization": `Bearer ${localStorage.getItem("user_token")}`
-            },
-            method: "POST",
-            body: JSON.stringify(gist)
-        }).then(res => res.json()
-        ).then(jsonRes => {
-            console.log(jsonRes);
-            if (jsonRes.success) {
-                 enqueueSnackbar("Successfully created gist.", {
-                 variant:"success"
-                 });
-                history.replace("/dash");
-            } else {
-              
-                enqueueSnackbar("There was an error creating your gist.", {
-                 variant:"error"
-             });
-            }
-        })
+    }
+    fetch(`${API_ENDPOINT}/create/doc`, {
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+      },
+      method: "POST",
+      body: JSON.stringify(gist),
+    })
+      .then((res) => res.json())
+      .then((jsonRes) => {
+        console.log(jsonRes);
+        if (jsonRes.success) {
+          enqueueSnackbar("Successfully created gist.", {
+            variant: "success",
+          });
+          history.replace("/dash");
+        } else {
+          enqueueSnackbar("There was an error creating your gist.", {
+            variant: "error",
+          });
+        }
+      });
   }
 
   return (
@@ -207,4 +208,4 @@ const CreateGist = ({history}) => {
   );
 };
 
-export default makePriv(withRouter(CreateGist));
+export default makePriv(withRouter(withPageTransition(CreateGist)));

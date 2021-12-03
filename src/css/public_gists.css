@@ -128,8 +128,13 @@
         background-color: #E31792;
         color: #FFFFFF;
         text-align: center;
-    }
+        transition: 100ms;
+       transform: scale(0.9);
+}
 
+    .language_button:hover {
+  transform: scale(1);
+}
     .big {
         position: relative;
         top: 25.6px;

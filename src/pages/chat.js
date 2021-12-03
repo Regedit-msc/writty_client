@@ -40,6 +40,7 @@ import { useSnackbar } from 'notistack';
 import { makePriv } from "../auth_hoc/checkAuth";
 import { convertTextLinksToHyperLinks } from "../utils/hyperlinkify";
 import LinkPreview from "../components/link_preview";
+import withPageTransition from "../components/page_transition/page_transition";
 
 const Chat = (props) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -683,4 +684,6 @@ const Chat = (props) => {
     </>
   );
 };
-export default withRouter(makePriv(injectSheet(StyleSheet)(Chat)));
+export default withRouter(
+  withPageTransition(makePriv(injectSheet(StyleSheet)(Chat)))
+);
