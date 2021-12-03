@@ -178,15 +178,15 @@ const Landing = () => {
       </div>
       <div>
         <Link
-          to={``}
-          onClick={() => {
-            history.push("/login");
-            // if (hasRan) {
-            //   history.push("/login");
-            // } else {
-            //   alert("Please run the code first boss!");
-            // }
-          }}
+          to={`/login`}
+          //   onClick={() => {
+          //     history.push("/login");
+          //     // if (hasRan) {
+          //     //   history.push("/login");
+          //     // } else {
+          //     //   alert("Please run the code first boss!");
+          //     // }
+          //   }}
           className={theme === "light" ? "get_started_light" : "get_started"}
         >
           Get Started
