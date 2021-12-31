@@ -953,10 +953,7 @@ const FeedComponent = () => {
               })}
             </section>
             <aside className="feed-aside">
-              <ToFollowFromFollowers
-                type="tofollow"
-               
-              />
+              <ToFollowFromFollowers type="tofollow" />
             </aside>
           </main>
         </>
@@ -973,7 +970,10 @@ const FeedComponent = () => {
                 />
                 <div className="text-editor">
                   <div id="insert-object">
-                    <span style={{ backgroundColor: "#478E0E" }}>
+                    <span
+                      style={{ backgroundColor: "#478E0E", cursor: "pointer" }}
+                      onClick={handleImageClick}
+                    >
                       <img src={Upload} alt="upload" />
                       Image
                     </span>
@@ -997,7 +997,10 @@ const FeedComponent = () => {
                       <img src={Question} alt="question" />
                       Question
                     </span>
-                    <span style={{ backgroundColor: "#000000" }}>
+                    <span
+                      style={{ backgroundColor: "#000000", cursor: "pointer" }}
+                      onClick={handlePostClick}
+                    >
                       <img src={AddWhite} alt="addwhite" />
                       Create Post
                     </span>
