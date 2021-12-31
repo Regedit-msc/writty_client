@@ -7,7 +7,7 @@ import { API_ENDPOINT } from "./url";
 import { useSnackbar } from "notistack";
 import { makePriv } from "../auth_hoc/checkAuth";
 import React from "react";
-import withPageTransition from "../components/page_transition/page_transition";
+
 const ChatWaitingRoom = () => {
   const [image, setImage] = useState("");
   const [name, setName] = useState("");
@@ -61,4 +61,4 @@ const ChatWaitingRoom = () => {
     </>
   );
 };
-export default makePriv(withPageTransition(ChatWaitingRoom));
+export default makePriv(ChatWaitingRoom);

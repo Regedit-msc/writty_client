@@ -15,7 +15,7 @@ import InfoBar from "../components/info";
 import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
 import CustomShimmer from "../components/shimmerComp";
-import withPageTransition from "../components/page_transition/page_transition";
+
 
 const Settings = (props) => {
   const defaultImage =
@@ -232,4 +232,4 @@ const Settings = (props) => {
 Settings.propTypes = {
   classes: PropTypes.object,
 };
-export default withPageTransition(makePriv(injectSheet(StyleSheet)(Settings)));
+export default makePriv(injectSheet(StyleSheet)(Settings));

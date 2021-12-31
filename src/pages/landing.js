@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { useContext, useState, useEffect, useRef } from "react"
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import React from "react";
 // import PropTypes from "prop-types"
 import { API_ENDPOINT } from "./url";
@@ -21,7 +21,6 @@ import { IO } from "../utils/socket_stuff";
 
 // import Pyodide from "../components/pydiode";
 const Landing = () => {
-  const history = useHistory();
   const checkBox = useRef();
   const { setTheTheme, theme } = useContext(themeContext);
   const codeEditorRef = useRef();

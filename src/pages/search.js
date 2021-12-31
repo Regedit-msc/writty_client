@@ -10,7 +10,6 @@ import PlaceholderProfileImage from "../images/placeholder-profile-image.png"
 import { useRef } from "react";
 import { useHistory } from "react-router";
 import { makePriv } from "../auth_hoc/checkAuth";
-import withPageTransition from "../components/page_transition/page_transition";
 // import { createRef } from "react";
 // import ProfileImage from "../components/profileImage";
 // import { useCallback } from "react";
@@ -228,4 +227,4 @@ const Search = () => {
   );
 };
 
-export default makePriv(withPageTransition(Search));
+export default makePriv(Search);

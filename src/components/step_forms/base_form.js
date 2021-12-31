@@ -205,49 +205,64 @@ const Step1 = ({ currentStep, setStep, setStepsState, stepsState, snack }) => {
     }
 
     const fileChangeHandler = (e) => {
-        if (e.target.files[0]) {
-
-            if (e.target.files[0].size > 3000000) {
-                snack("Image is larger than 3MB.");
-                return;
-            }
-            setImage(URL.createObjectURL(e.target.files[0]));
-            var file = e.target.files[0];
-            var reader = new FileReader();
-            const imageV = {
-                b64: '',
-                type: (e?.target?.files[0].type.split("/")[1]),
-                image: (URL.createObjectURL(e?.target?.files[0]))
-            }
-            reader.onloadend = function () {
-                imageV.b64 = reader.result.split(",")[1];
-                setStepsState({ ...stepsState, image: imageV });
-            }
-            reader.readAsDataURL(file);
+      // for (let i = 0; i < event.target.files.length; i++) {
+      //   images.push(URL.createObjectURL(event.target.files[i]));
+      // }
+      if (e.target.files[0]) {
+        if (e.target.files[0].size > 3000000) {
+          snack("Image is larger than 3MB.");
+          return;
         }
-    }
+        setImage(URL.createObjectURL(e.target.files[0]));
+        var file = e.target.files[0];
+        var reader = new FileReader();
+        const imageV = {
+          b64: "",
+          type: e?.target?.files[0].type.split("/")[1],
+          image: URL.createObjectURL(e?.target?.files[0]),
+        };
+        reader.onloadend = function () {
+          imageV.b64 = reader.result.split(",")[1];
+          setStepsState({ ...stepsState, image: imageV });
+        };
+        reader.readAsDataURL(file);
+      }
+    };
 
     function handleClick() {
-        console.log(stepsState?.image);
-        if (!stepsState?.image) return snack("You must provide a profile image.");
-        setStep(currentStep + 1);
-
+      console.log(stepsState?.image);
+      if (!stepsState?.image) return snack("You must provide a profile image.");
+      setStep(currentStep + 1);
     }
-    return <>
-
+    return (
+      <>
         <div className="setup_body">
-            <div className="setup_message">
-                <h5>Upload Photo</h5>
-                Get your face easily regognized by your network
+          <div className="setup_message">
+            <h5>Upload Photo</h5>
+            Get your face easily regognized by your network
+          </div>
+          <img
+            src={image ?? stepsState?.image?.image ?? PlaceholderProfileImage}
+            className="placeholder-profile-image"
+            alt="background_account_creation"
+          />
+          <div id="image-upload_form">
+            <div className="upload_photo" onClick={openFilePicker}>
+              Upload Photo
             </div>
-            <img src={image ?? (stepsState?.image?.image ?? PlaceholderProfileImage)} className="placeholder-profile-image" alt="background_account_creation" />
-            <div id="image-upload_form">
-                <div className="upload_photo" onClick={openFilePicker}  >Upload Photo</div>
-                <input type="submit" value="Continue" onClick={handleClick} />
-                <input type="file" name="image" ref={fileInput} onChange={fileChangeHandler} style={{ display: "none" }} />
-            </div>
+            <input type="submit" value="Continue" onClick={handleClick} />
+            <input
+              type="file"
+              name="image"
+              accept="image/*"
+              ref={fileInput}
+              onChange={fileChangeHandler}
+              style={{ display: "none" }}
+            />
+          </div>
         </div>
-    </>
+      </>
+    );
 }
 const Step2 = ({ currentStep, setStep, setStepsState, stepsState, snack, setShowNext }) => {
     const [formState, setFormState] = useState('');

@@ -873,4 +873,4 @@ const Languages = ({ history }) => {
   }
 };
 
-export default withRouter(withPageTransition(Languages));
+export default withRouter(Languages);

@@ -11,6 +11,8 @@ const SideBar = ({ page, history }) => {
     const { theme } = useContext(themeContext);
     function logOut() {
         localStorage.removeItem("user_token");
+        localStorage.removeItem("profile_user_id");
+        localStorage.removeItem("profile_user_name");
         history.push('/');
     }
     let themeToUse = (theme === "light" ? "focus_light" : "focus");

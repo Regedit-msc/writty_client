@@ -58,7 +58,7 @@ import InfoBox from "../components/info_box";
 // import NavBar from "../components/navbar";
 import PublicGistsInfo from "../images/public_gists.svg";
 import LanguageButton from "../components/language_button/language_button";
-import withPageTransition from "../components/page_transition/page_transition";
+
 
 const { API_ENDPOINT } = require("./url");
 
@@ -421,6 +421,4 @@ const PublicGists = (props) => {
   return newUI;
 };
 
-export default withRouter(
-  withPageTransition(injectSheet(StyleSheet)(PublicGists))
-);
+export default withRouter(injectSheet(StyleSheet)(PublicGists));

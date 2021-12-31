@@ -12,7 +12,7 @@ function withPageTransition(WrappedComponent) {
               animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
               style={{ opacity: 0 }}
-              //   initial={false}
+              initial={false}
             >
               <WrappedComponent />
             </motion.div>

@@ -208,4 +208,4 @@ const CreateGist = ({ history }) => {
   );
 };
 
-export default makePriv(withRouter(withPageTransition(CreateGist)));
+export default makePriv(withRouter(CreateGist));
