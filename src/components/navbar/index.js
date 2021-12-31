@@ -31,7 +31,7 @@ const NavBar = () => {
      "/settings",
      "/chat",
      "/new/gist",
-     "/notification",
+     "/notifications",
    ],
    []
  );
@@ -253,9 +253,12 @@ const NavBar = () => {
                  <i className="fas fa-comment-dots"></i>
                </Link>
              </li>
-             <li>
-               <i className="far fa-bell"></i>
-             </li>
+             <Link to="/notifications">
+               <li>
+                 <i className="far fa-bell"></i>
+               </li>
+             </Link>
+
              <li>
                <Link
                  to={
@@ -323,8 +326,18 @@ const NavBar = () => {
                  <i className="fas fa-sliders-h"></i> <span>Settings</span>
                </p>
 
-               <p>
-                 <span style={{ marginRight: "1rem" }}>
+               <div
+                 style={{
+                   display: "flex",
+                   alignItems: "center",
+                   justifyContent: "center",
+                 }}
+               >
+                 <span
+                   style={{
+                     marginRight: "1rem",
+                   }}
+                 >
                    {theme === "light" ? "Dark Mode" : "Light Mode"}
                  </span>{" "}
                  <div className="switch">
@@ -340,7 +353,7 @@ const NavBar = () => {
                    />
                    <label htmlFor="toggle1"></label>
                  </div>
-               </p>
+               </div>
                <p onClick={logOut}>
                  <i className="fas fa-sign-out-alt"></i> <span>Sign Out</span>
                </p>

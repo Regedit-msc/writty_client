@@ -47,6 +47,7 @@ import CreateGist from "./pages/create_gist";
 import Feed from "./pages/feed";
 import { AnimatePresence } from "framer-motion";
 import PyodideProvider from "./contexts/pyDiodeContext";
+import Notification from "./pages/notification";
 
 export const themeContext = createContext();
 function App(props) {
@@ -171,6 +172,11 @@ function App(props) {
                           exact
                           path="/onboard"
                           component={mobile ? Mobile : Setup_01}
+                        />
+                        <Route
+                          exact
+                          path="/notifications"
+                          component={mobile ? Mobile : Notification}
                         />
 
                         <Route
