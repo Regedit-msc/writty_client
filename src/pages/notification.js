@@ -3,6 +3,7 @@ import { API_ENDPOINT } from "./url";
 import moment from "moment";
 import styled from "styled-components";
 import ProfileImageWrapper from "../components/profile_image_wrapper";
+import { makePriv } from "../auth_hoc/checkAuth";
 
 const Container = styled.div`
   display: flex;
@@ -105,4 +106,4 @@ const Notification = () => {
   );
 };
 
-export default Notification;
+export default makePriv(Notification);
