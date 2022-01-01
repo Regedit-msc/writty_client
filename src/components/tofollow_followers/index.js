@@ -1,6 +1,7 @@
 import VerifiedTag from "../../images/verified-tag.png";
 import { useState, useEffect } from "react";
 import { API_ENDPOINT } from "../../pages/url";
+import ProfileImageWrapper from "../profile_image_wrapper";
 const ToFollowFromFollowers = ({ type }) => {
   const [tofollow, setToFollow] = useState([]);
   useEffect(() => {
@@ -102,7 +103,10 @@ const ToFollowFromFollowers = ({ type }) => {
 
             return (
               <div className="user-account" key={index}>
-                <img src={user?.userToFollow?.profileImageUrl} alt="klaus" />
+                <ProfileImageWrapper
+                  profileImageUrl={user?.userToFollow?.profileImageUrl}
+                  username={user?.userToFollow?.username}
+                />
                 <div className="user-account-info">
                   <div>
                     <span className="user-account-username">

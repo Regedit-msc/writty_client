@@ -24,7 +24,6 @@ const Home = (props) => {
   const { theme } = useContext(themeContext);
   const [username, setUsername] = useState();
   const [docs, setDocs] = useState();
-  // const [setIsLoading] = useState(true);
   const [docsBackUp, setDocsBackUp] = useState([]);
   useEffect(() => {
     const userToken = localStorage.getItem("user_token");

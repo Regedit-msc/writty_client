@@ -3,7 +3,7 @@
     height: 200px;
     border-radius: var(--brd_rad_small);
     background-color: #151515;
-    box-shadow: 0px 0px 320px 0px rgba(0, 0, 0, .25);
+  
     display: none;
     left: 100px;
     flex-direction: row;

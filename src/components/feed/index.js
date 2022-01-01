@@ -32,6 +32,7 @@ import ImageCollage from "../image_collage";
 import LanguageButton from "../language_button/language_button";
 import InfoBox from "../info_box";
 import ToFollowFromFollowers from "../tofollow_followers";
+import ProfileImageWrapper from "../profile_image_wrapper";
 const ManiMenuContainer = styled.div`
   position: absolute;
   top: 50%;
@@ -577,7 +578,10 @@ const FollowedComponent = ({ result }) => {
     <>
       <section className="post image">
         <div className="post-head">
-          <img src={result?.whoFollowedId?.profileImageUrl} alt="klaus" />
+          <ProfileImageWrapper
+            profileImageUrl={result?.whoFollowedId?.profileImageUrl}
+            username={result?.whoFollowedId?.username}
+          />
           <div className="post-user-info">
             <div>
               <span className="post-username">
@@ -598,10 +602,9 @@ const FollowedComponent = ({ result }) => {
             : result.followedId.username}
         </span>
         <div className="post-main">
-          <img
-            src={result.followedId.profileImageUrl}
-            className="post-image"
-            alt="post_image"
+          <ProfileImageWrapper
+            profileImageUrl={result.followedId.profileImageUrl}
+            username={result.followedId.username}
           />
         </div>
       </section>
@@ -615,7 +618,10 @@ const SnippetPostComponent = ({ result }) => {
     <>
       <section className="post code-snippet">
         <div className="post-head">
-          <img src={result?.snippetId?.user?.profileImageUrl} alt="klaus" />
+          <ProfileImageWrapper
+            profileImageUrl={result?.snippetId?.user?.profileImageUrl}
+            username={result?.snippetId?.user?.username}
+          />
           <div className="post-user-info">
             <div>
               <span className="post-username">
@@ -680,7 +686,10 @@ const QuestionPostComponent = ({ result }) => {
     <>
       <section className="post code-snippet">
         <div className="post-head">
-          <img src={result?.questionId?.user?.profileImageUrl} alt="klaus" />
+          <ProfileImageWrapper
+            profileImageUrl={result?.questionId?.user?.profileImageUrl}
+            username={result?.questionId?.user?.profileImageUrl}
+          />
           <div className="post-user-info">
             <div>
               <span className="post-username">
@@ -727,7 +736,10 @@ const PostComponent = ({ result }) => {
     <>
       <section className="post code-snippet">
         <div className="post-head">
-          <img src={result?.postId?.user?.profileImageUrl} alt="klaus" />
+          <ProfileImageWrapper
+            profileImageUrl={result?.postId?.user?.profileImageUrl}
+            username={result?.postId?.user?.username}
+          />
           <div className="post-user-info">
             <div>
               <span className="post-username">
@@ -771,7 +783,10 @@ const ImagePostComponent = ({ result }) => {
     <>
       <section className="post code-snippet">
         <div className="post-head">
-          <img src={result?.imagePostId?.user?.profileImageUrl} alt="klaus" />
+          <ProfileImageWrapper
+            profileImageUrl={result?.imagePostId?.user?.profileImageUrl}
+            username={result?.imagePostId?.user?.username}
+          />
           <div className="post-user-info">
             <div>
               <span className="post-username">
@@ -898,9 +913,9 @@ const FeedComponent = () => {
                 imageWidth="50%"
               />
               <section className="create-post">
-                <img
-                  src={localStorage.getItem("profile_user_pic")}
-                  alt="profile"
+                <ProfileImageWrapper
+                  profileImageUrl={localStorage.getItem("profile_user_pic")}
+                  username={localStorage.getItem("profile_user_name")}
                 />
                 <div className="text-editor">
                   <div id="insert-object">
@@ -964,9 +979,9 @@ const FeedComponent = () => {
               <div>Follow more people to get feed.</div>
 
               <section className="create-post">
-                <img
-                  src={localStorage.getItem("profile_user_pic")}
-                  alt="profile"
+                <ProfileImageWrapper
+                  profileImageUrl={localStorage.getItem("profile_user_pic")}
+                  username={localStorage.getItem("profile_user_name")}
                 />
                 <div className="text-editor">
                   <div id="insert-object">

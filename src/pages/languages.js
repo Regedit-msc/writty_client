@@ -18,7 +18,7 @@ import JSONLogo from "../images/json-logo.png";
 import JSXLogo from "../images/jsx-logo.png";
 import PythonLogo from "../images/python-logo.png";
 import { useTitle } from "../utils/title";
-import withPageTransition from "../components/page_transition/page_transition";
+
 
 const Languages = ({ history }) => {
   const { theme } = useContext(themeContext);

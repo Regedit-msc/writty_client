@@ -48,6 +48,8 @@ import Feed from "./pages/feed";
 import { AnimatePresence } from "framer-motion";
 import PyodideProvider from "./contexts/pyDiodeContext";
 import Notification from "./pages/notification";
+import Tags from "./pages/tags";
+import NewProfilePage from "./pages/new_profile_page";
 
 export const themeContext = createContext();
 function App(props) {
@@ -241,6 +243,11 @@ function App(props) {
                         />
                         <Route
                           exact
+                          path="/tag/:tag"
+                          component={mobile ? Mobile : Tags}
+                        />
+                        <Route
+                          exact
                           path="/feed"
                           component={mobile ? Mobile : Feed}
                         />
@@ -273,7 +280,7 @@ function App(props) {
                         <Route
                           exact
                           path="/@/:name"
-                          component={mobile ? Mobile : UserProfile}
+                          component={mobile ? Mobile : NewProfilePage}
                         />
                         <Route
                           exact
