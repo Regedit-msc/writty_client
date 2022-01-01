@@ -27,7 +27,7 @@ const NotificationDiv = styled.div`
 const Notification = () => {
   const [notifications, setNotifications] = useState([]);
   useEffect(() => {
-    fetch(`${API_ENDPOINT}/notifications`, {
+    fetch(`${API_ENDPOINT}/notifications/paginated?page=1&limit=10`, {
       headers: {
         "Content-Type": "application/json; charset=UTF-8",
         Authorization: `Bearer ${localStorage.getItem("user_token")}`,
@@ -37,7 +37,8 @@ const Notification = () => {
       .then((res) => res.json())
       .then((jsonRes) => {
         if (jsonRes.success) {
-          setNotifications(jsonRes.message);
+          console.log(jsonRes);
+          setNotifications(jsonRes.message.results);
         }
       });
   }, []);
@@ -47,8 +48,8 @@ const Notification = () => {
       <Container>
         {notifications.map((notification, index) => {
           return (
-            <div>
-              <ContainerDiv key={index}>
+            <div key={index}>
+              <ContainerDiv>
                 <img src={notification?.from?.profileImageUrl} alt="profile" />
                 <NotificationDiv>
                   <p>{notification.body}</p>
