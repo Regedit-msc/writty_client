@@ -11,7 +11,7 @@ import React from "react";
 import styles from "../css/create_gist.module.css";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import { API_ENDPOINT } from "./url";
-import withPageTransition from "../components/page_transition/page_transition";
+// import withPageTransition from "../components/page_transition/page_transition";
 const CreateGist = ({ history }) => {
   // eslint-disable-next-line no-unused-vars
   const { enqueueSnackbar } = useSnackbar();
