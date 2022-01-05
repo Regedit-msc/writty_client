@@ -44,7 +44,13 @@ const ImagePreview = forwardRef(
       convertTextLinksToHyperLinks(".message_box");
       setImageShow(false);
       ref.current.scrollTo(0, ref?.current?.scrollHeight);
-      socket.emit("image", { b64, type, userID, room, caption: captionVal });
+      socket.emit("image", {
+        b64,
+        type,
+        userID,
+        room,
+        caption: captionVal,
+      });
     }
 
     function handleChange(e) {

@@ -822,6 +822,73 @@ const ImagePostComponent = ({ result }) => {
     </>
   );
 };
+const LikeComponent = ({ result }) => {
+  const { theme } = useContext(themeContext);
+  return (
+    <>
+      <section className="post code-snippet">
+        <div className="post-head">
+          <ProfileImageWrapper
+            profileImageUrl={result?.whoLikedId?.profileImageUrl}
+            username={result?.whoLikedId?.username}
+          />
+          <div className="post-user-info">
+            <div>
+              <span className="post-username">
+                {result?.whoLikedId?.username}
+              </span>
+              <img src={VerifiedTag} alt="verifiedtag" />
+              <span className="post-email">{""}</span>
+            </div>
+            <div className="post-timestamp">
+              {moment(result.createdAt).format("LLL")}
+            </div>
+          </div>
+        </div>
+        <span className="post-desc">
+          {localStorage.getItem("profile_user_id") === result?.whoLikedId?._id
+            ? "you "
+            : result?.whoLikedId?.username + " "}
+          liked a gist.
+        </span>
+        <div className="post-main">
+          <h3 className="post-title">{result?.docId?.name}</h3>
+          <div className="snippet_container">
+            <div
+              style={{
+                display: "flex",
+                padding: "10px",
+                justifyContent: "flex-end",
+              }}
+            >
+              {" "}
+              <LanguageButton language={result?.docId?.language} />
+            </div>
+            <CodeMirror
+              className={styles.snippet_editor}
+              value={result?.docId?.data}
+              options={{
+                lineWrapping: true,
+                lint: false,
+                mode: result?.docId?.language,
+                theme: result?.docId?.theme,
+                scrollbarStyle: "null",
+              }}
+            />
+          </div>
+          <div className="post-actions">
+            <div>
+              <img src={like} alt="like" /> 21
+            </div>
+            <div>
+              <img src={comment} alt="comment" /> 15
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
 
 const FeedComponent = () => {
   const [menuName, setMenuName] = useState("snippet");
@@ -859,7 +926,7 @@ const FeedComponent = () => {
   const feedByType = (result) => {
     switch (result.type) {
       case "likeddoc":
-        return "Liked a public gist";
+        return <LikeComponent result={result} />;
       case "follow":
         return <FollowedComponent result={result} />;
       case "snippet":

@@ -31,8 +31,8 @@ const ChatSideBar = ({ profileImage, name, messages = null, history, ...props })
         }).then(res => res.json()
         ).then(jsonRes => {
             if (jsonRes.success) {
-                setRooms(jsonRes.message);
-                console.log(jsonRes)
+              setRooms(jsonRes.message);
+              // console.log(jsonRes)
             }
         })
     }

@@ -247,12 +247,10 @@ const NewProfileComp = (props) => {
         console.log(jsonRes);
         if (jsonRes.success) {
           // let newArr = [];
-          const codeWithoutCodeToChange = userData.code.filter(
+          const codeWithoutCodeToChange = gists.filter(
             (e) => e.publicLink !== id
           );
-          const codeToChange = userData.code.filter(
-            (e) => e.publicLink === id
-          )[0];
+          const codeToChange = gists.filter((e) => e.publicLink === id)[0];
           const newCode = Object.assign(
             {},
             {
@@ -275,10 +273,7 @@ const NewProfileComp = (props) => {
             }
           );
           console.log(newCode, "newCode");
-          setUserData({
-            ...userData,
-            code: [...codeWithoutCodeToChange, newCode],
-          });
+          setGists([...codeWithoutCodeToChange, newCode]);
         } else {
           snack("You have to be logged in to like.");
         }

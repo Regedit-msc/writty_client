@@ -447,7 +447,7 @@ const Chat = (props) => {
           <input
             ref={imageFieldRef}
             type="file"
-            class="image"
+            className="image"
             accept="image/*"
             style={{ display: "none" }}
             onChange={handleImageFieldChange}
