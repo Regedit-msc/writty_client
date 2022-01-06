@@ -176,6 +176,22 @@ const LanguageButton = styled.div`
   border: 1px solid ${(props) => props.color};
   color: ${(props) => props.color};
 `;
+
+
+const ImageP = styled.img`
+  vertical-align: middle;
+  width: 14rem;
+  height: 14rem;
+  border-radius: 50%;
+  border: 4px solid #2e36ff;
+  margin-bottom: 1rem;
+  transition: 1s;
+
+  &:hover {
+    transform: rotateY(180deg);
+  }
+`;
+
 const NewProfileComp = (props) => {
   const { enqueueSnackbar: snack } = useSnackbar();
   const [initialPage, setInitPage] = useState(1);
@@ -331,7 +347,7 @@ const NewProfileComp = (props) => {
           <ProfileContainer>
             <Profile1Container>
               {userData ? (
-                <img className="display-p" src={userData?.image} alt="dp" />
+                <ImageP src={userData?.image} alt="dp" />
               ) : (
                 <CustomShimmer>
                   <div className={props.classes.circleBig} />
