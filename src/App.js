@@ -50,6 +50,7 @@ import PyodideProvider from "./contexts/pyDiodeContext";
 import Notification from "./pages/notification";
 import Tags from "./pages/tags";
 import NewProfilePage from "./pages/new_profile_page";
+import NewLanding from "./pages/new_landing";
 
 export const themeContext = createContext();
 function App(props) {
@@ -135,7 +136,7 @@ function App(props) {
                         <Route
                           exact
                           path="/"
-                          component={mobile ? Mobile : Landing}
+                          component={mobile ? Mobile : NewLanding}
                         />
                         {/* <Route exact path="/home" component={mobile ? Mobile : Home} /> */}
                         {/* <Route path="/editor/:lang/:id" component={Editor} /> */}

@@ -20,6 +20,8 @@
     color: #FFFFFF;
     font-family: Gilroy;
     margin: 0px;
+    padding: 0px;
+     box-sizing: border-box;
 }
 
  .light {
@@ -28,6 +30,8 @@
     color:  #24252D;
     font-family: Gilroy;
     margin: 0px;
+    padding: 0px;
+     box-sizing: border-box;
 }
 
 
