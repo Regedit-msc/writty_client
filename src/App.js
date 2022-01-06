@@ -25,7 +25,7 @@ import Signup from "./pages/signup";
 import { withGetScreen } from "react-getscreen";
 import Mobile from "./pages/mobile";
 import CommentPage from "./pages/comment";
-import UserProfile from "./pages/user_profile";
+// import UserProfile from "./pages/user_profile";
 import Chat from "./pages/chat";
 import { SnackbarProvider } from "notistack";
 import OTP from "./pages/otp";
