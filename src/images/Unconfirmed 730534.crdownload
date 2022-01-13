@@ -1,0 +1,27 @@
+#excercise 2
+from random import randint
+
+while True:
+    rand = randint(1, 15)
+    if rand <=10:
+        if rand % 2 ==0:
+            print(str(rand) + ' is an even number')
+        else:
+            print(str(rand) + ' is an odd number')
+            pass
+
+#Exercise 1
+i= 1
+while i < 61:
+    #print(i)
+    #i+=1
+    if i % 3 ==0:
+        print("Multiple of 3")
+    elif i% 4 ==0:
+        print("Multiple of 4")
+    elif i%3 ==0 and i%4 == 0:
+        print('Multiples of 3 and 4')
+    else:
+        print(i)
+
+
