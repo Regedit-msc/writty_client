@@ -1,10 +1,5 @@
 
-.public_editors_container{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
+
 .public_editors {
     display: grid;
     grid-template-columns: 50% 50%;	
@@ -65,10 +60,7 @@
     font-size: 13.0;
     color: grey;
 }
- .home-code-editor1{
-    width: 600px;
-    height: auto;
-}
+
 
 .big2{
     font-weight: 500;

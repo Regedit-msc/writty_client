@@ -14,12 +14,23 @@ const ProfileImageWrapperImage = styled.img`
   border-radius: 50%;
 `;
 
-const ProfileImageWrapper = ({ username, profileImageUrl }) => {
+const ProfileImageWrapper = ({
+  username,
+  profileImageUrl,
+  alt,
+  onMouseOver,
+  onMouseLeave,
+}) => {
   return (
     <>
       <Link to={`/${username}`}>
         <ProfileImageWrapperContainer>
-          <ProfileImageWrapperImage src={profileImageUrl} alt="profile" />
+          <ProfileImageWrapperImage
+            src={profileImageUrl}
+            alt={"profile" ?? alt}
+            onMouseLeave
+            onMouseOver
+          />
         </ProfileImageWrapperContainer>
       </Link>
     </>

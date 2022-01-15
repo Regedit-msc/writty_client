@@ -58,6 +58,15 @@ import InfoBox from "../components/info_box";
 // import NavBar from "../components/navbar";
 import PublicGistsInfo from "../images/public_gists.svg";
 import LanguageButton from "../components/language_button/language_button";
+import {
+  SearchWrapper,
+  ManinPublicGistsContainer,
+  ManinPublicGists,
+  MacDiv,
+  EditorDiv,
+  Mac2Div,
+  MainEditorDiv,
+} from "./styles/public_gists";
 
 const { API_ENDPOINT } = require("./url");
 
@@ -240,16 +249,12 @@ const PublicGists = (props) => {
           about="See code other programmers have made public. Search quickly for solutions and find variety of answers in one place."
           image={PublicGistsInfo}
           ref={infoBoxRef}
-          width="60%"
+          width="50%"
           height="450px"
         />
       </div>
       {/* <p className={theme === "light" ? "big2_light" : "big2"}>PUBLIC GISTS.</p> */}
-      <div
-        className={
-          theme === "light" ? "search_wrapper_light" : "search_wrapper"
-        }
-      >
+      <SearchWrapper dark={theme !== "light"}>
         <button>
           {" "}
           <img className="search-icon" src={Search} alt="search" />{" "}
@@ -258,45 +263,57 @@ const PublicGists = (props) => {
           className="search"
           type="search"
           name="search"
-          placeholder="Search by name"
+          placeholder="Search gists by name"
           onChange={handleChange}
           ref={inputRef}
         />
-      </div>
-      <div className="public_editors_container">
-        <div className="public_editors">
+      </SearchWrapper>
+      <ManinPublicGistsContainer>
+        <ManinPublicGists>
           {docs && docs.length > 0 ? (
             docs.map((doc, index) => (
               <div key={index}>
-                <div className="public_editor">
-                  <div className={theme === "light" ? "mac1_light" : "mac1"}>
+                <MainEditorDiv>
+                  <MacDiv light={theme === "light"}>
                     <img src={Code} alt="mac_buttons" />
                     <p>{moment(doc.createdAt).startOf("hour").fromNow()}</p>
                     <p>
                       {doc.name.toUpperCase()} /{" "}
                       <LanguageButton language={doc.language} />{" "}
                     </p>
-                  </div>
-                  <CodeMirror
-                    ref={codeEditorRef}
-                    className="home-code-editor1"
-                    value={doc.data}
-                    options={{
-                      lineWrapping: true,
-                      lint: true,
-                      mode: doc.language === "html" ? "xml" : doc.language,
-                      theme: doc.theme ?? "mdn-like",
-                      lineNumbers: false,
-                      scrollbarStyle: "null",
-                    }}
-                  />
+                  </MacDiv>
+                  <EditorDiv>
+                    <CodeMirror
+                      ref={codeEditorRef}
+                      value={doc.data}
+                      options={{
+                        lineWrapping: true,
+                        lint: true,
+                        mode: doc.language === "html" ? "xml" : doc.language,
+                        theme: doc.theme ?? "mdn-like",
+                        lineNumbers: false,
+                        scrollbarStyle: "null",
+                      }}
+                    />
+                  </EditorDiv>
 
-                  <div className={theme === "light" ? "mac2_light" : "mac2"}>
-                    <p className="user_info">
-                      {" "}
+                  <Mac2Div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        width: "8rem",
+                      }}
+                    >
                       <Link to={`/${doc?.user?.username}`}>
                         <img
-                          className="profile_pic"
+                          style={{
+                            width: "2.5rem",
+                            height: "auto",
+                            borderRadius: "50%",
+                          }}
                           src={doc.user?.profileImageUrl ?? defaultImage}
                           alt="profile ."
                           onMouseOver={() => {
@@ -324,22 +341,32 @@ const PublicGists = (props) => {
                           }}
                         />
                       </Link>
-                      <span>{doc?.user?.username}</span>{" "}
-                    </p>
-                    <ProfileImage
-                      image={doc?.user?.profileImageUrl ?? defaultImage}
-                      name={doc?.user?.username}
-                      title={
-                        doc?.user?.userSkills?.length > 0
-                          ? doc.user.userSkills[0]
-                          : ""
-                      }
-                      about={doc?.user?.about}
-                      ref={ref.current[index]}
-                    />
-
-                    <div className="like_comment">
-                      <div id="likes">
+                      <p>
+                        {" "}
+                        <span>{doc?.user?.username}</span>{" "}
+                      </p>
+                      <ProfileImage
+                        image={doc?.user?.profileImageUrl ?? defaultImage}
+                        name={doc?.user?.username}
+                        title={
+                          doc?.user?.userSkills?.length > 0
+                            ? doc.user.userSkills[0]
+                            : ""
+                        }
+                        about={doc?.user?.about}
+                        ref={ref.current[index]}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        width: "7rem",
+                      }}
+                    >
+                      <div>
                         <img
                           src={
                             doc?.likes?.findIndex((e) => e.user === userID) ===
@@ -349,21 +376,23 @@ const PublicGists = (props) => {
                           }
                           alt="like button"
                           onClick={() => handleLikeClick(doc.publicLink)}
+                          style={{ width: "2rem" }}
                         />{" "}
                         <span>{doc?.likes?.length ?? 0}</span>
                       </div>
 
-                      <div id="comments">
+                      <div>
                         <img
                           src={comment}
                           alt="comment button"
                           onClick={() => handleCommentClick(doc.publicLink)}
+                          style={{ width: "2rem" }}
                         />{" "}
                         <span>{doc?.comments?.length ?? 0}</span>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  </Mac2Div>
+                </MainEditorDiv>
               </div>
             ))
           ) : (
@@ -388,8 +417,8 @@ const PublicGists = (props) => {
               </CustomShimmer>
             </>
           )}
-        </div>
-      </div>
+        </ManinPublicGists>
+      </ManinPublicGistsContainer>
       <div style={{ display: "flex", justifyContent: "space-evenly" }}>
         {pagePrev ? (
           <button

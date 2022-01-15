@@ -3,6 +3,7 @@ import "./navbar.css"
 import "../../css/main.css";
 import "../../css/landing.css";
 import LogoPlaceholder from "../../images/logo.png";
+import MobileMenu from "../../images/mobile_menu.svg";
 import React from "react";
 // import Jorja from "../../images/jorja.png"
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -16,7 +17,7 @@ import { useMemo } from "react";
 import { useRef } from "react";
 import { debounce } from "@material-ui/core";
 import { defaultImage } from "../../utils/defaultProfileImage";
-
+import { MainNavDiv, MobileNavDiv } from "./styles";
 const NavBar = () => {
   const { setTheTheme, theme } = useContext(themeContext);
   const location = useLocation();
@@ -152,219 +153,235 @@ const NavBar = () => {
       {location.pathname === "/" || location.pathname === "/home" ? (
         ""
       ) : (
-        <nav className={theme === "light" ? "navbar" : "navbar_dark"}>
-          <ul>
-            <li>
-              <img className="comments" src={LogoPlaceholder} alt="icon" />
-            </li>
-            <li>
-              <Link
-                to="/gists"
-                className={location.pathname === "/gists" ? "active" : ""}
-              >
-                Public Gists
-              </Link>
-            </li>
-            {token ? (
+        <>
+          <MainNavDiv light={theme === "light"}>
+            <ul>
+              <li>
+                <img className="comments" src={LogoPlaceholder} alt="icon" />
+              </li>
               <li>
                 <Link
-                  to="/feed"
-                  className={location.pathname === "/feed" ? "active" : ""}
+                  to="/gists"
+                  className={location.pathname === "/gists" ? "active" : ""}
                 >
-                  Feed
+                  Public Gists
                 </Link>
               </li>
+              {token ? (
+                <li>
+                  <Link
+                    to="/feed"
+                    className={location.pathname === "/feed" ? "active" : ""}
+                  >
+                    Feed
+                  </Link>
+                </li>
+              ) : (
+                <></>
+              )}
+            </ul>
+            {token ? (
+              <ul className="search-tab">
+                <li>
+                  <input
+                    type="search"
+                    name="search"
+                    id="search-nav"
+                    className="search-c"
+                    placeholder="Search"
+                    autoComplete="off"
+                    onClick={() => {
+                      document.querySelector(
+                        ".search_suggestions"
+                      ).style.display = "flex";
+                    }}
+                    onChange={handleChange}
+                    onFocus={() => {
+                      document.querySelector(
+                        ".search_suggestions"
+                      ).style.display = "flex";
+                    }}
+                    value={value}
+                    onKeyPress={handleKeyPress}
+                  />
+                </li>
+
+                <div
+                  className="search_suggestions"
+                  onMouseLeave={() => {
+                    document.querySelector(
+                      ".search_suggestions"
+                    ).style.display = "none";
+                  }}
+                >
+                  {users
+                    ? users.map((user, index) => {
+                        return (
+                          <div key={index}>
+                            <div
+                              className="search_suggestion"
+                              onClick={() => {
+                                setValue("");
+                                navigate(`/${user?.username}`, {
+                                  replace: true,
+                                });
+                                document.querySelector(
+                                  ".search_suggestions"
+                                ).style.display = "none";
+                              }}
+                            >
+                              {" "}
+                              <img
+                                alt="search_user"
+                                className="profile-img"
+                                src={user?.profileImageUrl ?? defaultImage}
+                              />{" "}
+                              <span>{user?.username}</span>
+                            </div>
+                          </div>
+                        );
+                      })
+                    : ""}
+                </div>
+              </ul>
             ) : (
               <></>
             )}
-          </ul>
-          {token ? (
-            <ul className="search-tab">
-              <li>
-                <input
-                  type="search"
-                  name="search"
-                  id="search-nav"
-                  className="search-c"
-                  placeholder="Search"
-                  autoComplete="off"
-                  onClick={() => {
-                    document.querySelector(
-                      ".search_suggestions"
-                    ).style.display = "flex";
-                  }}
-                  onChange={handleChange}
-                  onFocus={() => {
-                    document.querySelector(
-                      ".search_suggestions"
-                    ).style.display = "flex";
-                  }}
-                  value={value}
-                  onKeyPress={handleKeyPress}
-                />
-              </li>
-
-              <div
-                className="search_suggestions"
-                onMouseLeave={() => {
-                  document.querySelector(".search_suggestions").style.display =
-                    "none";
-                }}
-              >
-                {users
-                  ? users.map((user, index) => {
-                      return (
-                        <div key={index}>
-                          <div
-                            className="search_suggestion"
-                            onClick={() => {
-                              setValue("");
-                              navigate(`/${user?.username}`, {
-                                replace: true,
-                              });
-                              document.querySelector(
-                                ".search_suggestions"
-                              ).style.display = "none";
-                            }}
-                          >
-                            {" "}
-                            <img
-                              alt="search_user"
-                              className="profile-img"
-                              src={user?.profileImageUrl ?? defaultImage}
-                            />{" "}
-                            <span>{user?.username}</span>
-                          </div>
-                        </div>
-                      );
-                    })
-                  : ""}
-              </div>
-            </ul>
-          ) : (
-            <></>
-          )}
-          {token ? (
-            <ul>
-              <li className="create-g">
-                <Link to="/new/gist">Create Gist</Link>
-              </li>
-              <li>
-                {" "}
-                <Link to="/chat">
-                  <i className="fas fa-comment-dots"></i>
-                </Link>
-              </li>
-              <Link to="/notifications">
-                <li>
-                  <i className="far fa-bell"></i>
+            {token ? (
+              <ul>
+                <li className="create-g">
+                  <Link to="/new/gist">Create Gist</Link>
                 </li>
-              </Link>
-
-              <li>
-                <Link
-                  to={
-                    localStorage.getItem("profile_user_name")
-                      ? `/${localStorage.getItem("profile_user_name")}`
-                      : "/dash"
-                  }
-                >
-                  <img
-                    src={profileImage ?? defaultImage}
-                    className="profile-img"
-                    alt="profile"
-                  />
+                <li>
+                  {" "}
+                  <Link to="/chat">
+                    <i className="fas fa-comment-dots"></i>
+                  </Link>
+                </li>
+                <Link to="/notifications">
+                  <li>
+                    <i className="far fa-bell"></i>
+                  </li>
                 </Link>
-              </li>
-              <li>
-                <i
-                  className="fas fa-chevron-circle-down dropdown"
-                  onMouseOver={() => {
-                    document.querySelector(
-                      theme === "light"
-                        ? ".dropdown-content"
-                        : ".dropdown-content_dark"
-                    ).style.display = "block";
-                  }}
-                ></i>
-              </li>
-              <div
-                className={
-                  theme === "light"
-                    ? "dropdown-content"
-                    : "dropdown-content_dark"
-                }
-                style={{ right: 0 }}
-                onMouseLeave={() => {
-                  document.querySelector(
-                    theme === "light"
-                      ? ".dropdown-content"
-                      : ".dropdown-content_dark"
-                  ).style.display = "none";
-                }}
-              >
-                <p
-                  onClick={() => {
-                    navigate("/dash");
-                    document.querySelector(
-                      theme === "light"
-                        ? ".dropdown-content"
-                        : ".dropdown-content_dark"
-                    ).style.display = "none";
-                  }}
-                >
-                  <i className="fas fa-house-user"></i> <span>Dashboard</span>{" "}
-                </p>
-                <p
-                  onClick={() => {
-                    navigate("/settings");
-                    document.querySelector(
-                      theme === "light"
-                        ? ".dropdown-content"
-                        : ".dropdown-content_dark"
-                    ).style.display = "none";
-                  }}
-                >
-                  <i className="fas fa-sliders-h"></i> <span>Settings</span>
-                </p>
 
+                <li>
+                  <Link
+                    to={
+                      localStorage.getItem("profile_user_name")
+                        ? `/${localStorage.getItem("profile_user_name")}`
+                        : "/dash"
+                    }
+                  >
+                    <img
+                      src={profileImage ?? defaultImage}
+                      className="profile-img"
+                      alt="profile"
+                    />
+                  </Link>
+                </li>
+                <li>
+                  <i
+                    className="fas fa-chevron-circle-down dropdown"
+                    onMouseOver={() => {
+                      document.querySelector(
+                        theme === "light"
+                          ? ".dropdown-content"
+                          : ".dropdown-content_dark"
+                      ).style.display = "block";
+                    }}
+                  ></i>
+                </li>
                 <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                  className={
+                    theme === "light"
+                      ? "dropdown-content"
+                      : "dropdown-content_dark"
+                  }
+                  style={{ right: 0 }}
+                  onMouseLeave={() => {
+                    document.querySelector(
+                      theme === "light"
+                        ? ".dropdown-content"
+                        : ".dropdown-content_dark"
+                    ).style.display = "none";
                   }}
                 >
-                  <span
-                    style={{
-                      marginRight: "1rem",
+                  <p
+                    onClick={() => {
+                      navigate("/dash");
+                      document.querySelector(
+                        theme === "light"
+                          ? ".dropdown-content"
+                          : ".dropdown-content_dark"
+                      ).style.display = "none";
                     }}
                   >
-                    {theme === "light" ? "Dark Mode" : "Light Mode"}
-                  </span>{" "}
-                  <div className="switch">
-                    <input
-                      id="toggle1"
-                      onChange={handleTheme}
-                      className={
-                        theme === "light" ? "toggle-round1" : "toggle-round"
-                      }
-                      name="toggle"
-                      type="checkbox"
-                      ref={checkBox1}
-                    />
-                    <label htmlFor="toggle1"></label>
+                    <i className="fas fa-house-user"></i> <span>Dashboard</span>{" "}
+                  </p>
+                  <p
+                    onClick={() => {
+                      navigate("/settings");
+                      document.querySelector(
+                        theme === "light"
+                          ? ".dropdown-content"
+                          : ".dropdown-content_dark"
+                      ).style.display = "none";
+                    }}
+                  >
+                    <i className="fas fa-sliders-h"></i> <span>Settings</span>
+                  </p>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <span
+                      style={{
+                        marginRight: "1rem",
+                      }}
+                    >
+                      {theme === "light" ? "Dark Mode" : "Light Mode"}
+                    </span>{" "}
+                    <div className="switch">
+                      <input
+                        id="toggle1"
+                        onChange={handleTheme}
+                        className={
+                          theme === "light" ? "toggle-round1" : "toggle-round"
+                        }
+                        name="toggle"
+                        type="checkbox"
+                        ref={checkBox1}
+                      />
+                      <label htmlFor="toggle1"></label>
+                    </div>
                   </div>
+                  <p onClick={logOut}>
+                    <i className="fas fa-sign-out-alt"></i>{" "}
+                    <span>Sign Out</span>
+                  </p>
                 </div>
-                <p onClick={logOut}>
-                  <i className="fas fa-sign-out-alt"></i> <span>Sign Out</span>
-                </p>
-              </div>
-            </ul>
-          ) : (
-            <></>
-          )}
-        </nav>
+              </ul>
+            ) : (
+              <></>
+            )}
+          </MainNavDiv>
+          <MobileNavDiv light={theme === "light"}>
+            <img className="comments" src={LogoPlaceholder} alt="icon" />
+            <img
+              className="comments"
+              src={MobileMenu}
+              alt="icon"
+              onClick={() => {
+                logOut();
+              }}
+              style={{ width: "2.5rem" }}
+            />
+          </MobileNavDiv>
+        </>
       )}
     </>
   );
