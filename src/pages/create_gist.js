@@ -1,7 +1,7 @@
 import { useSnackbar } from "notistack";
 import { useState, useContext } from "react";
 import { useRef } from "react";
-import { withRouter } from "react-router";
+import { useNavigate } from "react-router";
 import { makePriv } from "../auth_hoc/checkAuth";
 import InfoBox from "../components/info_box";
 import CreateGistInfo from "../images/create_gist.svg";
@@ -12,8 +12,9 @@ import styles from "../css/create_gist.module.css";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import { API_ENDPOINT } from "./url";
 // import withPageTransition from "../components/page_transition/page_transition";
-const CreateGist = ({ history }) => {
+const CreateGist = () => {
   // eslint-disable-next-line no-unused-vars
+  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const { theme } = useContext(themeContext);
   const infoBoxRef = useRef();
@@ -80,7 +81,7 @@ const CreateGist = ({ history }) => {
           enqueueSnackbar("Successfully created gist.", {
             variant: "success",
           });
-          history.replace("/dash");
+          navigate("/dash", { replace: true });
         } else {
           enqueueSnackbar("There was an error creating your gist.", {
             variant: "error",
@@ -208,4 +209,4 @@ const CreateGist = ({ history }) => {
   );
 };
 
-export default makePriv(withRouter(CreateGist));
+export default makePriv(CreateGist);

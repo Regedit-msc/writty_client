@@ -8,7 +8,7 @@ import React from "react";
 import { useMemo } from "react";
 import PlaceholderProfileImage from "../images/placeholder-profile-image.png"
 import { useRef } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { makePriv } from "../auth_hoc/checkAuth";
 // import { createRef } from "react";
 // import ProfileImage from "../components/profileImage";
@@ -19,7 +19,7 @@ import { makePriv } from "../auth_hoc/checkAuth";
 
 // import { useCallback } from "react";
 const Search = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const query = useQuery();
   const inputRef = useRef();
   const [inputValue, setInputValue] = useState("");
@@ -127,7 +127,7 @@ const Search = () => {
                                 /> */}
                     <img
                       onClick={() => {
-                        history.replace(`/@/${result?.username}`);
+                        navigate(`/${result?.username}`, { replace: true });
                       }}
                       alt="search_restult"
                       src={result?.profileImageUrl ?? PlaceholderProfileImage}

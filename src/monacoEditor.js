@@ -3,7 +3,7 @@ import Editor from "@monaco-editor/react";
 import { useEffect, useState } from "react"
 
 import { API_ENDPOINT } from "./pages/url"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom";
 import { IO } from "./utils/socket_stuff";
 import Renderer from "./components/renderer";
 import { debounce } from "@material-ui/core";
@@ -11,6 +11,7 @@ import { useRef } from "react";
 import EditorPreloader from "./components/editor_preloader";
 
 function TextEditor(props) {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [socket, setSocket] = useState();
   const [theEditor, setTheEditor] = useState();
@@ -61,10 +62,10 @@ function TextEditor(props) {
         if (jsonRes.success) {
           setUsername(jsonRes.username);
         } else {
-          props.history.push("/not_allowed");
+          navigate("/not_allowed");
         }
       });
-  }, [props.history]);
+  }, [navigate]);
 
   useEffect(() => {
     codeRef.current = debounce(sendCode, 700);
@@ -89,13 +90,13 @@ function TextEditor(props) {
         monaco.editor.setModelLanguage(theEditor.getModel(), code.language);
         setLoading(false);
       } else {
-        props.history.push("/not_allowed");
+        navigate("/not_allowed");
       }
     });
     socket.once("code_does_not_exist", () => {
-      props.history.push("/code_not_found");
+      navigate("/code_not_found");
     });
-  }, [socket, theEditor, id, username, props.history, monaco]);
+  }, [socket, theEditor, id, username, navigate, monaco]);
 
   useEffect(() => {
     const s = IO(`${API_ENDPOINT}/editor1`);

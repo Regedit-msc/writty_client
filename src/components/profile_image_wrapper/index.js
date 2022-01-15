@@ -17,7 +17,7 @@ const ProfileImageWrapperImage = styled.img`
 const ProfileImageWrapper = ({ username, profileImageUrl }) => {
   return (
     <>
-      <Link to={`/@/${username}`}>
+      <Link to={`/${username}`}>
         <ProfileImageWrapperContainer>
           <ProfileImageWrapperImage src={profileImageUrl} alt="profile" />
         </ProfileImageWrapperContainer>

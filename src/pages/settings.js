@@ -4,7 +4,7 @@ import React from "react";
 import "../css/account_settings.css";
 import PropTypes from "prop-types"
 import "../css/main.css"
-import { Link } from "react-router-dom"
+// import { Link } from "react-router-dom"
 import { themeContext } from "../App";
 import { useContext, useRef, useEffect, useState } from "react";
 import { makePriv } from "../auth_hoc/checkAuth";
@@ -170,12 +170,12 @@ const Settings = (props) => {
               </CustomShimmer>
             </>
           )}
-          <Link
+          <button
             onClick={handleUploadClick}
             id={theme === "light" ? "change_button_light" : "change_button"}
           >
             Change
-          </Link>
+          </button>
           <input
             ref={imageFieldRef}
             type="file"

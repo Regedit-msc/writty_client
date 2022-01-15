@@ -1,15 +1,12 @@
+/* eslint-disable react/jsx-pascal-case */
 /* eslint-disable no-undef */
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
+import { Route, Routes, Outlet } from "react-router-dom";
 import MainErrorBoundary from "./components/main_error_boundary/main_boundary";
 import React from "react";
 import UserContextProvider from "./contexts/userContext";
 import ImageContextProvider from "./contexts/imageContext";
-import dash from "./pages/dash";
+import Dash from "./pages/dash";
 import PublicGists from "./pages/public_gists";
 import TextEditor from "./monacoEditor";
 import PublicEditor from "./publicEditor";
@@ -22,7 +19,7 @@ import { useEffect, createContext, useState } from "react";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 // import { withGetScreen } from "react-getscreen";
-import Mobile from "./pages/mobile";
+// import Mobile from "./pages/mobile";
 import CommentPage from "./pages/comment";
 // import UserProfile from "./pages/user_profile";
 import Chat from "./pages/chat";
@@ -31,15 +28,15 @@ import OTP from "./pages/otp";
 import NavBar from "./components/navbar";
 import Setup_01 from "./pages/setup_01";
 // import Setup_02 from "./pages/setup_02"
-import Setup_03 from "./pages/setup_03";
-import Setup_04 from "./pages/setup_04";
-import Setup_05 from "./pages/setup_05";
-import Setup_06 from "./pages/setup_06";
+// import Setup_03 from "./pages/setup_03";
+// import Setup_04 from "./pages/setup_04";
+// import Setup_05 from "./pages/setup_05";
+// import Setup_06 from "./pages/setup_06";
 import ChatWaitingRoom from "./pages/chat_waiting_room";
-import Forgot_01 from "./pages/forgot_01";
-import Forgot_02 from "./pages/forgot_02";
-import Forgot_03 from "./pages/forgot_03";
-import Forgot_04 from "./pages/forgot_04";
+// import Forgot_01 from "./pages/forgot_01";
+// import Forgot_02 from "./pages/forgot_02";
+// import Forgot_03 from "./pages/forgot_03";
+// import Forgot_04 from "./pages/forgot_04";
 import Languages from "./pages/languages";
 import Search from "./pages/search";
 import CreateGist from "./pages/create_gist";
@@ -58,7 +55,7 @@ function App(props) {
   //   height: undefined,
   // });
   const [theme, setTheme] = useState("");
-  const [mobile] = useState(false);
+  // const [mobile] = useState(false);
   function setTheTheme(value) {
     setTheme(value);
   }
@@ -108,7 +105,7 @@ function App(props) {
   // useEffect(() => {
   //   return () => window.removeEventListener("resize", handleResize);
   // }, []);
-  const notAllowedR = ["/", "/register", "/login", "/signup", "/otp"];
+  // const notAllowedR = ["/", "/register", "/auth/login", "/signup", "/otp"];
 
   return (
     <>
@@ -123,171 +120,72 @@ function App(props) {
             >
               <ImageContextProvider>
                 <UserContextProvider>
-                  <Router>
-                    {notAllowedR.includes(window.location.pathname) ||
+                  <AnimatePresence exitBeforeEnter>
+                    <Routes>
+                      {/* {notAllowedR.includes(window.location.pathname) ||
                     window.location.pathname.includes("chat") ? (
                       ""
                     ) : (
                       <NavBar />
-                    )}
-                    <AnimatePresence exitBeforeEnter>
-                      <Switch>
-                        <Route exact path="/" component={NewLanding} />
-                        {/* <Route exact path="/home" component={mobile ? Mobile : Home} /> */}
-                        {/* <Route path="/editor/:lang/:id" component={Editor} /> */}
+                    )} */}
+
+                      <Route
+                        path="/"
+                        element={
+                          <>
+                            <NavBar />
+                            <Outlet />
+                          </>
+                        }
+                      >
+                        <Route index element={<NewLanding />} />
+                        <Route path="dash" element={<Dash />} />
+                        <Route path="gists" element={<PublicGists />} />
+                        <Route path="search" element={<Search />} />
+                        <Route
+                          path="notifications"
+                          element={<Notification />}
+                        />
+                        <Route path="feed" element={<Feed />} />
+                        <Route path="settings" element={<Settings />} />
+                        <Route path="new/gist" element={<CreateGist />} />
+                        <Route path="languages" element={<Languages />} />
 
                         <Route
-                          exact
-                          path="/dash"
-                          component={mobile ? Mobile : dash}
+                          path="languages/:language"
+                          element={<Languages />}
                         />
+                        <Route path="tag/:tag" element={<Tags />} />
+
                         <Route
-                          exact
-                          path="/gists"
-                          component={mobile ? Mobile : PublicGists}
+                          path="public/editor/:id"
+                          element={<PublicEditor />}
                         />
+                        <Route path="edit/:id" element={<TextEditor />} />
+                        <Route path=":name" element={<NewProfilePage />} />
                         <Route
-                          exact
-                          path="/login"
-                          component={mobile ? Mobile : Login}
-                        />
-                        <Route
-                          exact
-                          path="/search"
-                          component={mobile ? Mobile : Search}
-                        />
-                        <Route
-                          exact
-                          path="/signup"
-                          component={mobile ? Mobile : Signup}
-                        />
-                        <Route
-                          exact
-                          path="/otp"
-                          component={mobile ? Mobile : OTP}
-                        />
-                        <Route
-                          exact
-                          path="/onboard"
-                          component={mobile ? Mobile : Setup_01}
-                        />
-                        <Route
-                          exact
-                          path="/notifications"
-                          component={mobile ? Mobile : Notification}
+                          path="comments/editor/:id"
+                          element={<CommentPage />}
                         />
 
                         <Route
-                          exact
-                          path="/new/gist"
-                          component={mobile ? Mobile : CreateGist}
+                          path="editor/collab/:id"
+                          element={<CollabEditor />}
                         />
-                        <Route
-                          exact
-                          path="/Setup_03"
-                          component={mobile ? Mobile : Setup_03}
-                        />
-                        <Route
-                          exact
-                          path="/Setup_04"
-                          component={mobile ? Mobile : Setup_04}
-                        />
-                        <Route
-                          exact
-                          path="/Setup_05"
-                          component={mobile ? Mobile : Setup_05}
-                        />
-                        <Route
-                          exact
-                          path="/Setup_06"
-                          component={mobile ? Mobile : Setup_06}
-                        />
-                        <Route
-                          exact
-                          path="/chat"
-                          component={mobile ? Mobile : ChatWaitingRoom}
-                        />
-                        <Route
-                          exact
-                          path="/Forgot_01"
-                          component={mobile ? Mobile : Forgot_01}
-                        />
-                        <Route
-                          exact
-                          path="/Forgot_02"
-                          component={mobile ? Mobile : Forgot_02}
-                        />
-                        <Route
-                          exact
-                          path="/Forgot_03"
-                          component={mobile ? Mobile : Forgot_03}
-                        />
-                        <Route
-                          exact
-                          path="/Forgot_04"
-                          component={mobile ? Mobile : Forgot_04}
-                        />
-                        <Route
-                          exact
-                          path="/languages"
-                          component={mobile ? Mobile : Languages}
-                        />
-                        <Route
-                          exact
-                          path="/languages/:language"
-                          component={mobile ? Mobile : Languages}
-                        />
-                        <Route
-                          exact
-                          path="/tag/:tag"
-                          component={mobile ? Mobile : Tags}
-                        />
-                        <Route
-                          exact
-                          path="/feed"
-                          component={mobile ? Mobile : Feed}
-                        />
-                        {/* <Route path="/public/editor/:lang/:id" component={NoEditEditor} /> */}
-                        <Route
-                          exact
-                          path="/public/editor/:id"
-                          component={mobile ? Mobile : PublicEditor}
-                        />
-                        <Route
-                          exact
-                          path="/edit/:id"
-                          component={mobile ? Mobile : TextEditor}
-                        />
-                        <Route
-                          exact
-                          path="/comments/editor/:id"
-                          component={mobile ? Mobile : CommentPage}
-                        />
-                        <Route
-                          exact
-                          path="/settings"
-                          component={mobile ? Mobile : Settings}
-                        />
-                        <Route
-                          exact
-                          path="/editor/collab/:id"
-                          component={mobile ? Mobile : CollabEditor}
-                        />
-                        <Route
-                          exact
-                          path="/@/:name"
-                          component={mobile ? Mobile : NewProfilePage}
-                        />
-                        <Route
-                          exact
-                          path="/@/:name/chat"
-                          component={mobile ? Mobile : Chat}
-                        />
-                        <Route exact path="/mobile" component={Mobile} />
-                        <Route exact component={mobile ? Mobile : NotFound} />
-                      </Switch>
-                    </AnimatePresence>
-                  </Router>
+
+                        <Route path="*" element={<NotFound />} />
+                      </Route>
+                      <Route path="chat" element={<ChatWaitingRoom />} />
+                      <Route path=":name/chat" element={<Chat />} />
+                      <Route path="auth" element={<Login />}>
+                        <Route path="login" element={<Login />} />
+                        <Route path="signup" element={<Signup />} />
+                        <Route path="otp" element={<OTP />} />
+                        <Route path="onboard" element={<Setup_01 />} />
+                        <Route path="*" element={<NotFound />} />
+                      </Route>
+                    </Routes>
+                  </AnimatePresence>
                 </UserContextProvider>
               </ImageContextProvider>
             </SnackbarProvider>

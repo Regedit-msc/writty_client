@@ -1,7 +1,7 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function LanguageButton({ language }) {
-  const history = useHistory();
+  const navigate = useNavigate();
   return (
     <>
       <span
@@ -14,7 +14,7 @@ function LanguageButton({ language }) {
           cursor: "pointer",
         }}
         onClick={() => {
-          history.push(`/languages/${language}`);
+          navigate(`/languages/${language}`);
         }}
         id={language[0].toUpperCase() + language.slice(1, language.length)}
       >

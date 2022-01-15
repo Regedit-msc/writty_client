@@ -19,7 +19,7 @@ import PostImage from "../../images/post-image.png";
 import moment from "moment";
 import styles from "./feed.module.css";
 import comment from "../../images/comments.png";
-import { Link, withRouter } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import injectSheet from "react-jss";
 import { StyleSheet } from "../../utils/shimmer";
 import { useEffect } from "react";
@@ -1097,4 +1097,4 @@ const FeedComponent = () => {
   );
 };
 
-export default withRouter(injectSheet(StyleSheet)(FeedComponent));
+export default injectSheet(StyleSheet)(FeedComponent);

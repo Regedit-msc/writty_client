@@ -2,16 +2,16 @@
 /* eslint-disable no-undef */
 import { useEffect, useState } from "react"
 import { API_ENDPOINT } from "./url"
-import { useParams, withRouter, Link } from "react-router-dom"
-import { Controlled as CodeMirror } from 'react-codemirror2';
-import moment from "moment"
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { Controlled as CodeMirror } from "react-codemirror2";
+import moment from "moment";
 import { v4 as uuidV4 } from "uuid";
 import "../css/comments.css";
 import React from "react";
-import LiveLogo from "../images/livegists_logo.png"
+import LiveLogo from "../images/livegists_logo.png";
 import { useRef } from "react";
 import InfoBar from "../components/info";
-import Picker from 'emoji-picker-react';
+import Picker from "emoji-picker-react";
 import { themeContext } from "../App";
 import { useContext } from "react";
 import injectSheet from "react-jss";
@@ -21,6 +21,7 @@ import { useScroll } from "../utils/scroll";
 import LanguageButton from "../components/language_button/language_button";
 const CommentPage = (props) => {
   useScroll();
+  const navigate = useNavigate();
   const { theme } = useContext(themeContext);
   const [err, setErr] = useState();
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -36,7 +37,7 @@ const CommentPage = (props) => {
     fetch(API_ENDPOINT + `/get/code?id=${id}`)
       .then((res) => res.json())
       .then((response) => {
-        if (response.success === false) return props.history.push("/not_found");
+        if (response.success === false) return navigate("/not_found");
         setCode(response.message);
         console.log(response);
         fetch(API_ENDPOINT + `/get/comments?id=${id}`)
@@ -60,7 +61,7 @@ const CommentPage = (props) => {
             }
           });
       });
-  }, [id, props.history]);
+  }, [id, navigate]);
 
   const onEmojiClick = (event, emojiObject) => {
     setCommentBody(commentBody + emojiObject?.emoji);
@@ -154,7 +155,7 @@ const CommentPage = (props) => {
         <div id="active_block" style={{ marginLeft: "15px" }}>
           <span className={theme === "light" ? "line1" : "line1_dark"}>
             {" "}
-            <Link to={`/@/${code ? code?.user?.username : ""}`}>
+            <Link to={`/${code ? code?.user?.username : ""}`}>
               {code !== null ? (
                 code?.user?.username
               ) : (
@@ -221,7 +222,7 @@ const CommentPage = (props) => {
                             }
                           >
                             {" "}
-                            <Link to={`/@/${c?.user?.username}`}>
+                            <Link to={`/${c?.user?.username}`}>
                               {c?.user?.username}{" "}
                             </Link>{" "}
                           </div>
@@ -352,4 +353,4 @@ const CommentPage = (props) => {
     </>
   );
 };
-export default withRouter(injectSheet(StyleSheet)(CommentPage));
+export default injectSheet(StyleSheet)(CommentPage);

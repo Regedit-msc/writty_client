@@ -1,7 +1,7 @@
 import { IO } from "../utils/socket_stuff"
 import { useEffect, useState } from "react";
 import "../css/chat.css"
-import { useParams, withRouter } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom";
 import { API_ENDPOINT } from "./url";
 import { v4 as uuidV4 } from "uuid";
 import { useRef } from "react";
@@ -19,7 +19,7 @@ import BackDark from "../images/back.png";
 import BackLight from "../images/back_light.png";
 import DeleteDark from "../images/delete-blue.png";
 import DeleteLight from "../images/delete-black.png";
-import DoubleTicks from "../images/double-tick-blue.png"
+import DoubleTicks from "../images/double-tick-blue.png";
 import injectSheet from "react-jss";
 import PlayBlue from "../images/play-blue.png";
 import PauseBlue from "../images/pause-blue.png";
@@ -36,13 +36,13 @@ import ChatSideBar from "../components/chatSidebar";
 import ImagePreview from "../components/imagePreview";
 import CustomImage from "../components/customImage";
 import { useContext } from "react";
-import { useSnackbar } from 'notistack';
+import { useSnackbar } from "notistack";
 import { makePriv } from "../auth_hoc/checkAuth";
 import { convertTextLinksToHyperLinks } from "../utils/hyperlinkify";
 import LinkPreview from "../components/link_preview";
 
-
 const Chat = (props) => {
+  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const imageFieldRef = useRef();
   const messagesRef = useRef();
@@ -134,10 +134,10 @@ const Chat = (props) => {
           }
         );
       } else {
-        props.history.push("/" + e.split(" ").join("_"));
+        navigate("/" + e.split(" ").join("_"));
       }
     });
-  }, [socket, name, props.history, enqueueSnackbar]);
+  }, [socket, name, navigate, enqueueSnackbar]);
 
   useEffect(() => {
     if (!socket) return;
@@ -523,12 +523,13 @@ const Chat = (props) => {
   }
 
   function handleBackClick() {
-    props.history.replace(
+    navigate(
       `${
         window.location.href
           .split(`${window.location.origin}`)[1]
           .split("/chat")[0]
-      }`
+      }`,
+      { replace: true }
     );
   }
   return (
@@ -684,4 +685,4 @@ const Chat = (props) => {
     </>
   );
 };
-export default withRouter(makePriv(injectSheet(StyleSheet)(Chat)));
+export default makePriv(injectSheet(StyleSheet)(Chat));

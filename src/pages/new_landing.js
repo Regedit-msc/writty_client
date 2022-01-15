@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import LogoPlaceholder from "../images/logo.png";
-import { withRouter, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import HomeRect from "../images/home_rect.svg";
 import Private from "../images/private.svg";
 import Public from "../images/public.svg";
@@ -138,6 +138,7 @@ const ColouredButton = styled.div`
 `;
 
 const NewLanding = (props) => {
+  const navigate = useNavigate();
   return (
     <>
       <LandingNavBar>
@@ -159,10 +160,10 @@ const NewLanding = (props) => {
         </div>
         <div style={{ display: "flex", marginRight: "10px" }}>
           <LandingNavBarButton color={"black"}>
-            <Link to={`/signup`}>Create account</Link>
+            <Link to={`/auth/signup`}>Create account</Link>
           </LandingNavBarButton>
           <LandingNavBarOutlinedButton color={"black"}>
-            <Link to={`/login`}>Login</Link>
+            <Link to={`/auth/login`}>Login</Link>
           </LandingNavBarOutlinedButton>
         </div>
       </LandingNavBar>
@@ -195,7 +196,7 @@ const NewLanding = (props) => {
           </p>
           <GetStartedButton color="black">
             {" "}
-            <Link to={`/login`}>Get Started</Link>
+            <Link to={`/auth/login`}>Get Started</Link>
           </GetStartedButton>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -537,42 +538,42 @@ const NewLanding = (props) => {
             <h2>LANGUAGES</h2>
             <p
               onClick={() => {
-                props.history.push("/languages/html");
+                navigate("/languages/html");
               }}
             >
               HTML
             </p>
             <p
               onClick={() => {
-                props.history.push("/languages/dart");
+                navigate("/languages/dart");
               }}
             >
               Dart
             </p>
             <p
               onClick={() => {
-                props.history.push("/languages/javascript");
+                navigate("/languages/javascript");
               }}
             >
               JavaScript
             </p>
             <p
               onClick={() => {
-                props.history.push("/languages/html");
+                navigate("/languages/html");
               }}
             >
               Css
             </p>
             <p
               onClick={() => {
-                props.history.push("/languages/python");
+                navigate("/languages/python");
               }}
             >
               Python
             </p>
             <p
               onClick={() => {
-                props.history.push("/languages/jsx");
+                navigate("/languages/jsx");
               }}
             >
               React
@@ -613,4 +614,4 @@ const NewLanding = (props) => {
   );
 };
 
-export default withRouter(NewLanding);
+export default NewLanding;

@@ -45,9 +45,9 @@ import 'codemirror/theme/liquibyte.css';
 import "../css/not_auth_public_gists.css"
 import { useTitle } from "../utils/title";
 import Search from "../images/search-button.svg";
-import { Link, withRouter } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InfoBar from "../components/info";
-import moment from "moment"
+import moment from "moment";
 import injectSheet from "react-jss";
 import { StyleSheet } from "../utils/shimmer";
 import CustomShimmer from "../components/shimmerComp";
@@ -59,11 +59,11 @@ import InfoBox from "../components/info_box";
 import PublicGistsInfo from "../images/public_gists.svg";
 import LanguageButton from "../components/language_button/language_button";
 
-
 const { API_ENDPOINT } = require("./url");
 
 const PublicGists = (props) => {
   useScroll();
+  const navigate = useNavigate();
   const defaultImage =
     "https://cdn3.vectorstock.com/i/thumb-large/76/57/portrait-young-bearded-man-in-eyeglasses-vector-34397657.jpg";
   const { theme } = useContext(themeContext);
@@ -139,7 +139,7 @@ const PublicGists = (props) => {
   }
 
   function handleCommentClick(id) {
-    props.history.push(`/comments/editor/${id}`);
+    navigate(`/comments/editor/${id}`);
   }
   const debounce = function (fn, d) {
     let timer;
@@ -294,7 +294,7 @@ const PublicGists = (props) => {
                   <div className={theme === "light" ? "mac2_light" : "mac2"}>
                     <p className="user_info">
                       {" "}
-                      <Link to={`/@/${doc?.user?.username}`}>
+                      <Link to={`/${doc?.user?.username}`}>
                         <img
                           className="profile_pic"
                           src={doc.user?.profileImageUrl ?? defaultImage}
@@ -421,4 +421,4 @@ const PublicGists = (props) => {
   return newUI;
 };
 
-export default withRouter(injectSheet(StyleSheet)(PublicGists));
+export default injectSheet(StyleSheet)(PublicGists);

@@ -13,7 +13,7 @@ import moment from "moment";
 import Code from "../../images/code.svg";
 import { useState, useEffect, useContext } from "react"
 import { Controlled as CodeMirror } from 'react-codemirror2';
-import { Link, useParams, withRouter } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useTitle } from "../../utils/title";
 import injectSheet from "react-jss";
 import { StyleSheet } from "../../utils/shimmer";
@@ -21,7 +21,9 @@ import CustomShimmer from "../shimmerComp";
 import InfoBar from "../info";
 import LiveLogo from "../../images/livegists_logo.png";
 import { themeContext } from "../../App";
+
 const Profile = (props) => {
+  const navigate = useNavigate();
   const { name } = useParams();
   useTitle(name.toUpperCase() + "'s Profile page");
   const { theme } = useContext(themeContext);
@@ -42,10 +44,10 @@ const Profile = (props) => {
           setDocsB(response.message.code);
           setProfileID(response.message.userID);
         } else {
-          props.history.push("/user_does_not_exist");
+          navigate("/user_does_not_exist");
         }
       });
-  }, [name, props.history]);
+  }, [name, navigate]);
 
   // function sortBy(stringToSortBy) {
   //     switch (stringToSortBy) {
@@ -203,7 +205,7 @@ const Profile = (props) => {
   }
 
   function handleCommentClick(id) {
-    props.history.push(`/comments/editor/${id}`);
+    navigate(`/comments/editor/${id}`);
   }
   return (
     <>
@@ -263,7 +265,7 @@ const Profile = (props) => {
                   )}
                 </p>
                 <p>
-                  <Link to={`/@/${name}/chat`}>Message</Link>
+                  <Link to={`/${name}/chat`}>Message</Link>
                 </p>
                 <p>
                   <Link
@@ -501,9 +503,8 @@ const Profile = (props) => {
       </main>
     </>
   );
-}
+};
 Profile.propTypes = {
-    classes: PropTypes.object,
-    history: PropTypes.any
-}
-export default withRouter(injectSheet(StyleSheet)(Profile));
+  classes: PropTypes.object,
+};
+export default injectSheet(StyleSheet)(Profile);

@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
-import { Link, withRouter } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom";
 import "../css/login.css";
-import PropTypes from "prop-types"
+// import PropTypes from "prop-types"
 import React from "react";
 import { API_ENDPOINT } from "./url";
 import { themeContext } from "../App";
@@ -9,16 +9,17 @@ import { useContext, useState, useEffect } from "react";
 import { userContext } from "../contexts/userContext";
 import InfoBar from "../components/info";
 import { useTitle } from "../utils/title";
-import GoogleLogin from 'react-google-login';
-import { useSnackbar } from 'notistack';
-import LoginGithub from 'react-login-github';
-import LogoPlaceholder from "../images/logo.png"
-import Google from "../images/google-icon.png"
-import GitHub from "../images/github-icon.png"
-import LoginBackgroundImage from "../images/login-background.png"
+import GoogleLogin from "react-google-login";
+import { useSnackbar } from "notistack";
+import LoginGithub from "react-login-github";
+import LogoPlaceholder from "../images/logo.png";
+import Google from "../images/google-icon.png";
+import GitHub from "../images/github-icon.png";
+import LoginBackgroundImage from "../images/login-background.png";
 // import withPageTransition from "../components/page_transition/page_transition";
 
-const Login = ({ history }) => {
+const Login = () => {
+  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   useTitle("Login.");
   const [err, setErr] = useState();
@@ -34,13 +35,14 @@ const Login = ({ history }) => {
     const token = localStorage.getItem("user_token");
     if (token) {
       enqueueSnackbar("Auto login.", { variant: "success" });
-      history.replace(
+      navigate(
         localStorage.getItem("lastVisited")
           ? localStorage.getItem("lastVisited")
-          : "/dash"
+          : "/dash",
+        { replace: true }
       );
     }
-  }, [enqueueSnackbar, history]);
+  }, [enqueueSnackbar, navigate]);
 
   function handleChange(e) {
     switch (e.target.name) {
@@ -56,7 +58,7 @@ const Login = ({ history }) => {
   }
   function handleSubmit() {
     console.log(formState);
-    fetch(`${API_ENDPOINT}/login`, {
+    fetch(`${API_ENDPOINT}/auth/login`, {
       headers: {
         "Content-Type": "application/json; charset=UTF-8",
       },
@@ -69,10 +71,11 @@ const Login = ({ history }) => {
         if (jsonRes.success) {
           setUserToken(jsonRes.message);
 
-          history.replace(
+          navigate(
             localStorage.getItem("lastVisited")
               ? localStorage.getItem("lastVisited")
-              : "/dash"
+              : "/dash",
+            { replace: true }
           );
         } else {
           enqueueSnackbar(jsonRes.message, {
@@ -130,13 +133,14 @@ const Login = ({ history }) => {
           console.log("Success", jsonRes);
           if (jsonRes.profileStatus) {
             localStorage.setItem("new_user", "notreg");
-            history.replace(
+            navigate(
               localStorage.getItem("lastVisited")
                 ? localStorage.getItem("lastVisited")
-                : "/dash"
+                : "/dash",
+              { replace: true }
             );
           } else {
-            history.replace("/onboard");
+            navigate("/onboard");
           }
         } else {
           setErr(jsonRes.message);
@@ -161,7 +165,7 @@ const Login = ({ history }) => {
 
       <div className={theme === "light" ? "login-main_light" : "login-main"}>
         <div>
-          <Link to="/home">
+          <Link to="/">
             <img
               src={LogoPlaceholder}
               className="logo"
@@ -253,7 +257,7 @@ const Login = ({ history }) => {
               </div>
               <div>
                 <span>Don&apos;t have an account?</span>{" "}
-                <Link to="/signup" className="signup_link">
+                <Link to="/auth/signup" className="signup_link">
                   Sign up
                 </Link>
               </div>
@@ -267,7 +271,5 @@ const Login = ({ history }) => {
     </>
   );
 };
-Login.propTypes = {
-  history: PropTypes.any,
-};
-export default withRouter(Login);
+
+export default Login;

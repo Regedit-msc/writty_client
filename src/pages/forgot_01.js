@@ -1,4 +1,4 @@
-import { Link, withRouter } from "react-router-dom"
+import { Link } from "react-router-dom";
 import "../css/forgot.css";
 // import { API_ENDPOINT } from "./url";
 // import { themeContext } from "../App";
@@ -7,49 +7,62 @@ import "../css/forgot.css";
 // import InfoBar from "../components/info";
 import { useTitle } from "../utils/title";
 import backgroundAccountCreation from "../images/background-account-creation.png";
-import LogoPlaceholder from "../images/logo.png"
+import LogoPlaceholder from "../images/logo.png";
 
+const Forgot_01 = () => {
+  useTitle("Forgot Password");
 
-const Forgot_01 = ({ history }) => {
-    useTitle("Forgot Password");
+  return (
+    <>
+      <div className="forgot-password-main">
+        <div>
+          <Link to="/home">
+            <img
+              src={LogoPlaceholder}
+              className="logo"
+              alt="Logo Placeholder"
+            />
+          </Link>
+        </div>
 
-    return (
-        <>
-            <div className="forgot-password-main">
-                <div>
-                    <Link to="/home"><img src={LogoPlaceholder} className="logo" alt="Logo Placeholder" /></Link>
-                </div>
-
-                <div className="grid-col-2">
-                    <div id="forgot-password_box">
-                        <header>
-                            <div>
-                                <h5 className="lnk-prev_next">PREVIOUS</h5>
-                                <h5 id="setup-step">STEP 1 OF 4</h5>
-                                <h5 className="lnk-prev_next">NEXT</h5>
-                            </div>
-                            <hr />
-                        </header>
-                        <div className="forgot-password_body">
-                            <div>
-                                <h3 id="forgot-password_head">Forgot Password?</h3>
-                            </div>
-                            <div id="forgot-password_message">
-                                Enter the email address used when you registered. An OTP (One-Time Password) will be sent to it.
-                            </div>
-                            <div id="forgot-password_form">
-                                <input type="email" name="email" placeholder="livegistsdev@gmail.com" />
-                                <input type="submit" value="Continue" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="grid-col-3">
-                    <img src={backgroundAccountCreation} alt="background_account_creation" />
-                </div>
+        <div className="grid-col-2">
+          <div id="forgot-password_box">
+            <header>
+              <div>
+                <h5 className="lnk-prev_next">PREVIOUS</h5>
+                <h5 id="setup-step">STEP 1 OF 4</h5>
+                <h5 className="lnk-prev_next">NEXT</h5>
+              </div>
+              <hr />
+            </header>
+            <div className="forgot-password_body">
+              <div>
+                <h3 id="forgot-password_head">Forgot Password?</h3>
+              </div>
+              <div id="forgot-password_message">
+                Enter the email address used when you registered. An OTP
+                (One-Time Password) will be sent to it.
+              </div>
+              <div id="forgot-password_form">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="livegistsdev@gmail.com"
+                />
+                <input type="submit" value="Continue" />
+              </div>
             </div>
-        </>
-    )
-}
+          </div>
+        </div>
+        <div className="grid-col-3">
+          <img
+            src={backgroundAccountCreation}
+            alt="background_account_creation"
+          />
+        </div>
+      </div>
+    </>
+  );
+};
 
-export default withRouter(Forgot_01);
+export default Forgot_01;

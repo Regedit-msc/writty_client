@@ -10,7 +10,7 @@ import Code from "../../images/code.svg";
 import notLike from "../../images/not_like.png";
 import CustomShimmer from "../shimmerComp";
 import comment from "../../images/comments.png";
-import { useParams, withRouter, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 //generate random colors
 function getRandomColor() {
@@ -177,7 +177,6 @@ const LanguageButton = styled.div`
   color: ${(props) => props.color};
 `;
 
-
 const ImageP = styled.img`
   vertical-align: middle;
   width: 14rem;
@@ -193,6 +192,7 @@ const ImageP = styled.img`
 `;
 
 const NewProfileComp = (props) => {
+  const navigate = useNavigate();
   const { enqueueSnackbar: snack } = useSnackbar();
   const [initialPage, setInitPage] = useState(1);
   const [pagePrev, setPagePrev] = useState();
@@ -224,10 +224,10 @@ const NewProfileComp = (props) => {
           setUserData(response.message);
           setProfileID(response.message.userID);
         } else {
-          props.history.push("/user_does_not_exist");
+          navigate("/user_does_not_exist");
         }
       });
-  }, [name, props.history]);
+  }, [name, navigate]);
 
   function previous() {
     setGists([]);
@@ -338,7 +338,7 @@ const NewProfileComp = (props) => {
   }
 
   function handleCommentClick(id) {
-    props.history.push(`/comments/editor/${id}`);
+    navigate(`/comments/editor/${id}`);
   }
   return (
     <>
@@ -406,7 +406,7 @@ const NewProfileComp = (props) => {
                         )}
                       </OtherProfileButton>
                       <OtherProfileButton color="black">
-                        <Link to={`/@/${name}/chat`}>
+                        <Link to={`/${name}/chat`}>
                           {" "}
                           <b>Message</b>
                         </Link>
@@ -615,4 +615,4 @@ const NewProfileComp = (props) => {
     </>
   );
 };
-export default withRouter(injectSheet(StyleSheet)(NewProfileComp));
+export default injectSheet(StyleSheet)(NewProfileComp);

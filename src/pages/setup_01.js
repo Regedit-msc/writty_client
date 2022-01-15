@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
-import { withRouter } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import "../css/setup.css";
-import PropTypes from "prop-types"
+// import PropTypes from "prop-types"
 // import { API_ENDPOINT } from "./url";
 // import { themeContext } from "../App";
 // import { useContext, useState, useEffect } from "react";
@@ -15,27 +15,27 @@ import { useEffect } from "react";
 import { makePriv } from "../auth_hoc/checkAuth";
 import React from "react";
 
+const Setup_01 = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!localStorage.getItem("user_token"))
+      return navigate("/signup", { replace: true });
+    if (
+      localStorage.getItem("new_user") === "notreg" ||
+      !localStorage.getItem("new_user")
+    ) {
+      return;
+    } else {
+      navigate(localStorage.getItem("last_visited") ?? "/dash", {
+        replace: true,
+      });
+    }
+  }, [navigate]);
+  return (
+    <>
+      <BaseForm />
+    </>
+  );
+};
 
-
-const Setup_01 = ({ history }) => {
-
-    useEffect(() => {
-         if(!localStorage.getItem("user_token")) return   history.replace("/signup");
-        if (localStorage.getItem("new_user") === "notreg" || !localStorage.getItem("new_user")) {
-            return;
-        } else {
-            history.replace(localStorage.getItem("last_visited") ?? "/dash");
-        }
-    }, [history]);
-    return (
-        <>
-            <BaseForm />
-
-        </>
-    )
-}
-Setup_01.propTypes = {
-    history: PropTypes.any,
-}
-
-export default withRouter(makePriv(Setup_01));
+export default makePriv(Setup_01);

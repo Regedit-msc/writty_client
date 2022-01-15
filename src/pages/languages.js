@@ -1,4 +1,4 @@
-import { Link, withRouter } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { themeContext } from "../App";
 import { useContext } from "react";
@@ -19,12 +19,11 @@ import JSXLogo from "../images/jsx-logo.png";
 import PythonLogo from "../images/python-logo.png";
 import { useTitle } from "../utils/title";
 
-
-const Languages = ({ history }) => {
+const Languages = () => {
   const { theme } = useContext(themeContext);
   const { language } = useParams();
   useTitle(`Language-${language}`);
-
+  const navigate = useNavigate();
   switch (language) {
     case "css":
       let sideColorCSS = { "--bar-clr": "#1693D1" };
@@ -52,7 +51,7 @@ const Languages = ({ history }) => {
               <div className="lang-back-div">
                 <Link
                   to="#"
-                  onClick={() => history.goBack()}
+                  onClick={() => navigate(-1)}
                   className={
                     theme === "light" ? "lang-back_light" : "lang-back"
                   }
@@ -126,7 +125,7 @@ const Languages = ({ history }) => {
               <div className="lang-back-div">
                 <Link
                   to="#"
-                  onClick={() => history.goBack()}
+                  onClick={() => navigate(-1)}
                   className={
                     theme === "light" ? "lang-back_light" : "lang-back"
                   }
@@ -203,7 +202,7 @@ const Languages = ({ history }) => {
               <div className="lang-back-div">
                 <Link
                   to="#"
-                  onClick={() => history.goBack()}
+                  onClick={() => navigate(-1)}
                   className={
                     theme === "light" ? "lang-back_light" : "lang-back"
                   }
@@ -299,7 +298,7 @@ const Languages = ({ history }) => {
               <div className="lang-back-div">
                 <Link
                   to="#"
-                  onClick={() => history.goBack()}
+                  onClick={() => navigate(-1)}
                   className={
                     theme === "light" ? "lang-back_light" : "lang-back"
                   }
@@ -418,7 +417,7 @@ const Languages = ({ history }) => {
               <div className="lang-back-div">
                 <Link
                   to="#"
-                  onClick={() => history.goBack()}
+                  onClick={() => navigate(-1)}
                   className={
                     theme === "light" ? "lang-back_light" : "lang-back"
                   }
@@ -508,7 +507,7 @@ const Languages = ({ history }) => {
               <div className="lang-back-div">
                 <Link
                   to="#"
-                  onClick={() => history.goBack()}
+                  onClick={() => navigate(-1)}
                   className={
                     theme === "light" ? "lang-back_light" : "lang-back"
                   }
@@ -590,7 +589,7 @@ const Languages = ({ history }) => {
               <div className="lang-back-div">
                 <Link
                   to="#"
-                  onClick={() => history.goBack()}
+                  onClick={() => navigate(-1)}
                   className={
                     theme === "light" ? "lang-back_light" : "lang-back"
                   }
@@ -691,7 +690,7 @@ const Languages = ({ history }) => {
               <div className="lang-back-div">
                 <Link
                   to="#"
-                  onClick={() => history.goBack()}
+                  onClick={() => navigate(-1)}
                   className={
                     theme === "light" ? "lang-back_light" : "lang-back"
                   }
@@ -873,4 +872,4 @@ const Languages = ({ history }) => {
   }
 };
 
-export default withRouter(Languages);
+export default Languages;

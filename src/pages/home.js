@@ -148,7 +148,7 @@ const Home = (props) => {
                         src={user?.profileImageUrl ?? defaultImage}
                         alt="user_profile_image"
                       />
-                      <Link to={`/@/${user.username}`}>
+                      <Link to={`/${user.username}`}>
                         <span>{user.username}</span>
                       </Link>
                     </div>

@@ -177,11 +177,11 @@ const Landing = () => {
       </div>
       <div>
         <Link
-          to={`/login`}
+          to={`/auth/login`}
           //   onClick={() => {
-          //     history.push("/login");
+          //     history.push("/auth/login");
           //     // if (hasRan) {
-          //     //   history.push("/login");
+          //     //   history.push("/auth/login");
           //     // } else {
           //     //   alert("Please run the code first boss!");
           //     // }
