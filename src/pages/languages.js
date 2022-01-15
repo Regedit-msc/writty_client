@@ -812,56 +812,56 @@ const Languages = ({ history }) => {
         <>
           <div className="languages-wrapper">
             <Link
-              to="./css"
+              to="/css"
               style={{ backgroundColor: "#1693D1", color: "#000000" }}
             >
               <img src={CSSLogo} alt="css logo" />
               <span>CSS</span>
             </Link>
             <Link
-              to="./jsx"
+              to="/jsx"
               style={{ backgroundColor: "#8A53A6", color: "#FFFFFF" }}
             >
               <img src={JSXLogo} alt="jsx logo" />
               <span>JSX</span>
             </Link>
             <Link
-              to="./html"
+              to="/html"
               style={{ backgroundColor: "#F3642C", color: "#000000" }}
             >
               <img src={HTMLLogo} alt="html logo" />
               <span>HTML</span>
             </Link>
             <Link
-              to="./java"
+              to="/java"
               style={{ backgroundColor: "#FF0C0E", color: "#FFFFFF" }}
             >
               <img src={JavaLogo} alt="java logo" />
               <span>Java</span>
             </Link>
             <Link
-              to="./javascript"
+              to="/javascript"
               style={{ backgroundColor: "#FED73C", color: "#000000" }}
             >
               <img src={JavaScriptLogo} alt="javascript logo" />
               <span>JavaScript</span>
             </Link>
             <Link
-              to="./json"
+              to="/json"
               style={{ backgroundColor: "#3A3A3A", color: "#FFFFFF" }}
             >
               <img src={JSONLogo} alt="json logo" />
               <span>JSON</span>
             </Link>
             <Link
-              to="./dart"
+              to="/dart"
               style={{ backgroundColor: "#2BB6F6", color: "#000000" }}
             >
               <img src={DartLogo} alt="dart logo" />
               <span>Dart</span>
             </Link>
             <Link
-              to="./python"
+              to="/python"
               style={{ backgroundColor: "#002750", color: "#FFFFFF" }}
             >
               <img src={PythonLogo} alt="python logo" />

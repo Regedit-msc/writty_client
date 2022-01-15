@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import MainErrorBoundary from "./components/main_error_boundary/main_boundary";
 import React from "react";
-import Landing from "./pages/landing";
 import UserContextProvider from "./contexts/userContext";
 import ImageContextProvider from "./contexts/imageContext";
 import dash from "./pages/dash";
@@ -22,7 +21,7 @@ import Settings from "./pages/settings";
 import { useEffect, createContext, useState } from "react";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
-import { withGetScreen } from "react-getscreen";
+// import { withGetScreen } from "react-getscreen";
 import Mobile from "./pages/mobile";
 import CommentPage from "./pages/comment";
 // import UserProfile from "./pages/user_profile";
@@ -54,12 +53,12 @@ import NewLanding from "./pages/new_landing";
 
 export const themeContext = createContext();
 function App(props) {
-  const [windowSize, setWindowSize] = useState({
-    width: undefined,
-    height: undefined,
-  });
+  // const [windowSize, setWindowSize] = useState({
+  //   width: undefined,
+  //   height: undefined,
+  // });
   const [theme, setTheme] = useState("");
-  const [mobile, setMobile] = useState();
+  const [mobile] = useState(false);
   function setTheTheme(value) {
     setTheme(value);
   }
@@ -90,25 +89,25 @@ function App(props) {
         break;
     }
   }, []);
-  useEffect(() => {
-    if (props.isMobile()) {
-      setMobile(true);
-    } else {
-      setMobile(false);
-    }
-  }, [props, windowSize]);
+  // useEffect(() => {
+  //   if (props.isMobile()) {
+  //     setMobile(true);
+  //   } else {
+  //     setMobile(false);
+  //   }
+  // }, [props, windowSize]);
 
-  window.addEventListener("resize", handleResize);
-  function handleResize() {
-    setWindowSize({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
-  }
+  // window.addEventListener("resize", handleResize);
+  // function handleResize() {
+  //   setWindowSize({
+  //     width: window.innerWidth,
+  //     height: window.innerHeight,
+  //   });
+  // }
 
-  useEffect(() => {
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  // useEffect(() => {
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
   const notAllowedR = ["/", "/register", "/login", "/signup", "/otp"];
 
   return (
@@ -133,11 +132,7 @@ function App(props) {
                     )}
                     <AnimatePresence exitBeforeEnter>
                       <Switch>
-                        <Route
-                          exact
-                          path="/"
-                          component={mobile ? Mobile : NewLanding}
-                        />
+                        <Route exact path="/" component={NewLanding} />
                         {/* <Route exact path="/home" component={mobile ? Mobile : Home} /> */}
                         {/* <Route path="/editor/:lang/:id" component={Editor} /> */}
 
@@ -303,7 +298,7 @@ function App(props) {
   );
 }
 App.propTypes = {
-  isMobile: PropTypes.func
-}
+  isMobile: PropTypes.func,
+};
 
-export default withGetScreen(App)
+export default App;

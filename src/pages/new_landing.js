@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import LogoPlaceholder from "../images/logo.png";
-import CodeCollaboration from "../images/code_collaboration.svg";
+import { withRouter, Link } from "react-router-dom";
 import HomeRect from "../images/home_rect.svg";
 import Private from "../images/private.svg";
 import Public from "../images/public.svg";
@@ -12,6 +12,8 @@ import LandingSection2 from "../images/landing_section_2.svg";
 import LandingSection1Image from "../images/landing_section_1_image.svg";
 import LightMode from "../images/light_mode_landing.svg";
 import DarkMode from "../images/dark_mode_landing.svg";
+import { device } from "../utils/responsive";
+
 const LandingNavBar = styled.div`
   margin: 0;
   padding: 0;
@@ -28,6 +30,28 @@ const LandingNavBar = styled.div`
   left: 0;
   right: 0;
   color: black;
+
+  @media ${device.laptop} {
+    display: none;
+  }
+`;
+const LandingMobileNavBar = styled.div`
+  display: none;
+
+  @media ${device.laptop} {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    color: black;
+    width: auto;
+    background-color: yellow;
+  }
 `;
 const LandingNavBarLogo = styled.img`
   width: 52px;
@@ -76,6 +100,11 @@ const SectionLanding = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
 `;
 const GetStartedButton = styled.div`
   cursor: pointer;
@@ -108,7 +137,7 @@ const ColouredButton = styled.div`
   border-radius: 10px;
 `;
 
-const NewLanding = () => {
+const NewLanding = (props) => {
   return (
     <>
       <LandingNavBar>
@@ -119,24 +148,29 @@ const NewLanding = () => {
           </LandingNavBarText>
         </div>
         <div>
-          <input
+          {/* <input
             type="search"
             name="search"
             id="search-nav"
             className="search-c"
             placeholder="Search"
             autoComplete="off"
-          />
+          /> */}
         </div>
         <div style={{ display: "flex", marginRight: "10px" }}>
           <LandingNavBarButton color={"black"}>
-            Create Account
+            <Link to={`/signup`}>Create account</Link>
           </LandingNavBarButton>
           <LandingNavBarOutlinedButton color={"black"}>
-            Login
+            <Link to={`/login`}>Login</Link>
           </LandingNavBarOutlinedButton>
         </div>
       </LandingNavBar>
+      <LandingMobileNavBar>
+        <LandingNavBarLogo alt={"logo"} src={LogoPlaceholder} />
+        <LandingNavBarLogo alt={"logo"} src={LogoPlaceholder} />
+        <LandingNavBarLogo alt={"logo"} src={LogoPlaceholder} />
+      </LandingMobileNavBar>
       <SectionLanding>
         <div
           style={{
@@ -159,14 +193,17 @@ const NewLanding = () => {
             Live Gists is a code sharing platform where developers can
             collaborate and write code simultaneously.
           </p>
-          <GetStartedButton color="black">Get Started</GetStartedButton>
+          <GetStartedButton color="black">
+            {" "}
+            <Link to={`/login`}>Get Started</Link>
+          </GetStartedButton>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <img style={{ width: "700px" }} src={LandingSection1} alt="" />
           <div
             style={{
               position: "absolute",
-              top: "50%",
+              top: "55%",
               left: "80%",
               transform: "translate(-50%, -50%)",
             }}
@@ -238,7 +275,7 @@ const NewLanding = () => {
       <SectionLanding
         style={{
           marginTop: "100px",
-          backgroundColor: "rgba(122,153,200,0.52)",
+          backgroundColor: "#BACAE2",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -465,21 +502,115 @@ const NewLanding = () => {
               width: "500px",
             }}
           >
-            <LandingNavBarButton color="black" padding="10px">
+            <LandingNavBarButton
+              color="black"
+              padding="0.5rem 2rem 0.5rem 2rem"
+            >
               Join the dev team?
             </LandingNavBarButton>
             <LandingNavBarOutlinedButton
               color={"black"}
               width="auto"
-              padding="10px"
+              padding="0.5rem 2rem 0.5rem 2rem"
             >
               Sign up for early access
             </LandingNavBarOutlinedButton>
           </div>
         </div>
       </SectionLanding>
+      <footer>
+        <div
+          style={{
+            height: "20rem",
+            width: "100ww",
+            backgroundColor: "#24252D",
+            color: "white",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+            padding: " 3rem 8rem 1rem 8rem",
+            fontWeight: "bold",
+          }}
+        >
+          <div style={{ cursor: "pointer" }}>
+            <h2>LANGUAGES</h2>
+            <p
+              onClick={() => {
+                props.history.push("/languages/html");
+              }}
+            >
+              HTML
+            </p>
+            <p
+              onClick={() => {
+                props.history.push("/languages/dart");
+              }}
+            >
+              Dart
+            </p>
+            <p
+              onClick={() => {
+                props.history.push("/languages/javascript");
+              }}
+            >
+              JavaScript
+            </p>
+            <p
+              onClick={() => {
+                props.history.push("/languages/html");
+              }}
+            >
+              Css
+            </p>
+            <p
+              onClick={() => {
+                props.history.push("/languages/python");
+              }}
+            >
+              Python
+            </p>
+            <p
+              onClick={() => {
+                props.history.push("/languages/jsx");
+              }}
+            >
+              React
+            </p>
+          </div>
+          <div>
+            <h2>PAGES</h2>
+            <p>Public gists</p>
+            <p>Feed</p>
+            <p>Create gist</p>
+            <p>Messages</p>
+            <p>Notifications</p>
+            <p>Menu</p>
+          </div>
+          <div>
+            <h2>COMPANY</h2>
+            <p>About</p>
+            <p>Contact Us</p>
+          </div>
+          <div></div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+
+            width: "100%",
+            alignItems: "center",
+            backgroundColor: "#2E3340",
+            padding: "0.5rem 8rem 0.5rem 8rem",
+          }}
+        >
+          <LandingNavBarLogo alt={"logo"} src={LogoPlaceholder} />
+        </div>
+      </footer>
     </>
   );
 };
 
-export default NewLanding;
+export default withRouter(NewLanding);
