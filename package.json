@@ -22,6 +22,7 @@
     "react-dom": "^16.13.1",
     "react-getscreen": "^1.1.3",
     "react-google-login": "^5.2.2",
+    "react-icons": "^4.3.1",
     "react-login-github": "^1.0.7",
     "react-router-dom": "^6.2.1",
     "react-scripts": "4.0.3",

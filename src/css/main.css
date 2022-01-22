@@ -1,262 +1,352 @@
 @font-face {
-    font-family: Gilroy;
-    src: url(fonts/gl.otf);
+  font-family: Gilroy;
+  src: url(fonts/gl.otf);
 }
 
 :root {
-    --brd_rad_small: 22px;
-    --brd_rad_big: 36px;
-	
-	font-size: 14px;
+  --brd_rad_small: 22px;
+  --brd_rad_big: 36px;
+
+  font-size: 16px;
 }
-*{
-    outline: none;
+* {
+  outline: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.dark { 
-    transition: background-color 0.5s ;
-     transition-timing-function: cubic-bezier(.17,.67,.83,.67);
-    background-color: #24252D;
-    color: #FFFFFF;
-    font-family: Gilroy;
-    margin: 0;
-    padding: 0;
-     box-sizing: border-box;
+.dark {
+  transition: background-color 0.5s;
+  transition-timing-function: cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  background-color: #24252d;
+  color: #ffffff;
+  font-family: Gilroy;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
- .light {
-      transition: background-color 0.5s ease-out;
-    background-color: #FFFFFF;
-    color:  #24252D;
-    font-family: Gilroy;
-    margin: 0;
-    padding: 0;
-     box-sizing: border-box;
+.light {
+  transition: background-color 0.5s ease-out;
+  background-color: #ffffff;
+  color: #24252d;
+  font-family: Gilroy;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+footer {
+  max-width: 100%;
+  width: 100vw;
+}
+
+footer > div {
+  padding: 4rem 12vw;
+}
+footer h4 {
+  font-size: 18px;
+}
+
+footer p {
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+footer .bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
 
 @media only screen and (min-width: 1024px) {
-
   /*background color the language banners*/
-  #Html{
-      background-color: #0EAA3A;
+  #Html {
+    background-color: #0eaa3a;
   }
-  #Css{
-      background-color:#B00F18;
+  #Css {
+    background-color: #b00f18;
   }
-    #Typescript {
-        background-color: #E31792;
-    }
-    #Python {
-        background-color: #3137DC;
-    }
-    #Dart {
-        background-color: #534B4B;
-    }
-    #Ruby {
-        background-color: #B00F18;
-    }
-    #JavaScript {
-        background-color: #31B3DC;
-    }
-    #Flutter {
-        background-color: #0EAA3A;
-    }
+  #Typescript {
+    background-color: #e31792;
+  }
+  #Python {
+    background-color: #3137dc;
+  }
+  #Dart {
+    background-color: #534b4b;
+  }
+  #Ruby {
+    background-color: #b00f18;
+  }
+  #JavaScript {
+    background-color: #31b3dc;
+  }
+  #Flutter {
+    background-color: #0eaa3a;
+  }
 
-    .logo {
-        width: 52px;
-        margin-top: 25px;
-        margin-left: 32px;
-    }
+  h1 {
+    font-size: 3.052rem;
+  }
 
-    .view {
-        position: absolute;
-        width: 242.6px;
-        height: 29.2px;
-        left: 40px;
-        top: 20px;
+  .logo {
+    width: 52px;
+    margin-top: 25px;
+    margin-left: 32px;
+  }
 
-        font-size: 18px;
-        line-height:24.5px;
-        color: #BFBFBF;
-        font-style: normal;
-        font-weight: 400;
-    }
+  .view {
+    position: absolute;
+    width: 242.6px;
+    height: 29.2px;
+    left: 40px;
+    top: 20px;
 
-     .view_light {
-        position: absolute;
-        width: 242.6px;
-        height: 29.2px;
-        left: 40px;
-        top: 20px;
+    font-size: 18px;
+    line-height: 24.5px;
+    color: #bfbfbf;
+    font-style: normal;
+    font-weight: 400;
+  }
 
-        font-size: 18px;
-        line-height:24.5px;
-        color: #221e1e;
-        font-style: normal;
-        font-weight: 400;
-    }
+  .view_light {
+    position: absolute;
+    width: 242.6px;
+    height: 29.2px;
+    left: 40px;
+    top: 20px;
 
-    #gists {
-        position: absolute;
-        width: 120px;
-        height: 44px;
-        left: 57.6px;
-        top: 1.5em;
-        margin: 0;
+    font-size: 18px;
+    line-height: 24.5px;
+    color: #221e1e;
+    font-style: normal;
+    font-weight: 400;
+  }
 
-        font-size: 36px;
-        line-height: 40px;
-        font-style: normal;
-        font-weight: 500;
+  #gists {
+    position: absolute;
+    width: 120px;
+    height: 44px;
+    left: 57.6px;
+    top: 1.5em;
+    margin: 0;
 
-        color: #FFFFFF
-    }
+    font-size: 36px;
+    line-height: 40px;
+    font-style: normal;
+    font-weight: 500;
 
-    #gists_light {
-        position: absolute;
-        width: 120px;
-        height: 44px;
-        left: 57.6px;
-        top: 1.5em;
-        margin: 0;
+    color: #ffffff;
+  }
 
-        font-size: 36px;
-        line-height: 40px;
-        font-style: normal;
-        font-weight: 500;
+  #gists_light {
+    position: absolute;
+    width: 120px;
+    height: 44px;
+    left: 57.6px;
+    top: 1.5em;
+    margin: 0;
 
-        color: #1F1F1F
-    }
+    font-size: 36px;
+    line-height: 40px;
+    font-style: normal;
+    font-weight: 500;
 
+    color: #1f1f1f;
+  }
 
+  #socials {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 104px;
+    left: 51.2px;
+    top: 95vh;
+  }
+  #socials img {
+    width: 14.4px;
+  }
 
-    #socials {
-        position: absolute;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        width:104px;
-        left: 51.2px;
-        top: 95vh;
-
-    }
-    #socials img {
-        width: 14.4px;
-    }
-
-    .image_cropper {
-        position: relative;
-        width: 45px;
-        height: 45px;
-        margin-left: 60px;
-        border-radius: 50%;
-        overflow: hidden;
-        
-    }
-    /* img{
+  .image_cropper {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    margin-left: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  /* img{
         border-radius: 50%;
         object-fit: contain;
     } */
-    
-    .loading {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-       height: 100vh;
-    }
 
-    /* input:active {
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+
+  /* input:active {
         outline: none;
     } */
 }
 
-@media only screen and (min-width: 768px) and (max-width: 1023px) {
-    .view {
-        position: absolute;
-        width: 242.6px;
-        height: 29.2px;
-        left: 40px;
-        top: 20px;
+@media only screen and (min-width: 768px) {
+  .view {
+    position: absolute;
+    width: 242.6px;
+    height: 29.2px;
+    left: 40px;
+    top: 20px;
 
-        font-size: 18px;
-        line-height:24.5px;
-        color: #BFBFBF;
-        font-style: normal;
-        font-weight: 400;
-    }
+    font-size: 18px;
+    line-height: 24.5px;
+    color: #bfbfbf;
+    font-style: normal;
+    font-weight: 400;
+  }
 
-     .view_light {
-        position: absolute;
-        width: 242.6px;
-        height: 29.2px;
-        left: 40px;
-        top: 20px;
+  .view_light {
+    position: absolute;
+    width: 242.6px;
+    height: 29.2px;
+    left: 40px;
+    top: 20px;
 
-        font-size: 18px;
-        line-height:24.5px;
-        color: #221e1e;
-        font-style: normal;
-        font-weight: 400;
-    }
+    font-size: 18px;
+    line-height: 24.5px;
+    color: #221e1e;
+    font-style: normal;
+    font-weight: 400;
+  }
 }
 .CodeMirror {
   border: 2px solid rgb(15, 15, 15);
-  border-radius:0px  0px 5px 5px ;
+  border-radius: 0px 0px 5px 5px;
   height: 300px;
   padding: 30px;
   z-index: 2;
   font-size: 15px;
-  box-shadow: 10px 10px  #827897;
+  box-shadow: 10px 10px #827897;
 }
 
-.info_blue{
-     transition: background-color 0.5s ;
-     transition-timing-function: cubic-bezier(.17,.67,.83,.67);
-     z-index: 5;
-    position: sticky;
-    top: 0px;
-    height: 50px;
-   width: 100%;
-   color: white;
-   background-color: rgb(17, 142, 158);
+.info_blue {
+  transition: background-color 0.5s;
+  transition-timing-function: cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  z-index: 5;
+  position: sticky;
+  top: 0px;
+  height: 50px;
+  width: 100%;
+  color: white;
+  background-color: rgb(17, 142, 158);
 }
-.info_red{
-     transition: background-color 0.5s ;
-     transition-timing-function: cubic-bezier(.17,.67,.83,.67);
-     z-index: 5;
-     position: sticky;
-    top: 0px;
-    height: 50px;
-   width: 100%;
-   color: white;
-   background-color: rgb(209, 12, 12);
-
+.info_red {
+  transition: background-color 0.5s;
+  transition-timing-function: cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  z-index: 5;
+  position: sticky;
+  top: 0px;
+  height: 50px;
+  width: 100%;
+  color: white;
+  background-color: rgb(209, 12, 12);
 }
-.info_green{
-     transition: background-color 0.5s ;
-     transition-timing-function: cubic-bezier(.17,.67,.83,.67);
-    z-index: 5;
-    position: sticky;
-    top: 0px;
-    height: 50px;
-   width: 100%;
-   color: white;
-   background-color: rgb(2, 146, 9);
+.info_green {
+  transition: background-color 0.5s;
+  transition-timing-function: cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  z-index: 5;
+  position: sticky;
+  top: 0px;
+  height: 50px;
+  width: 100%;
+  color: white;
+  background-color: rgb(2, 146, 9);
 }
-.info1{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.info1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .info1 span {
-    font-weight: bold;
+  font-weight: bold;
 }
-.live_logo{
-    object-fit: contain;
-    width: 50px;
-    height: 50px;
+.live_logo {
+  object-fit: contain;
+  width: 50px;
+  height: 50px;
 }
-ul{
-    list-style-type: none;
+ul {
+  list-style-type: none;
+}
+
+/* Fontsss */
+
+@media only screen and (max-width: 599px) {
+  h1 {
+    font-size: 1.9rem;
+    font-weight: 700;
+  }
+  p {
+    font-size: 0.875rem;
+  }
+  footer > div {
+    padding: 4rem 1.2rem;
+  }
+  footer .bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 1023px) {
+  h1 {
+    font-size: 1.9rem;
+    font-weight: 700;
+  }
+  p {
+    font-size: 0.875rem;
+  }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1920px) {
+  h1 {
+    font-size: 3.052rem;
+    line-height: 3.8rem;
+    font-weight: 700;
+  }
+  h2 {
+    font-size: 2.441rem;
+    line-height: 3.2rem;
+    font-weight: 700;
+  }
+  h3 {
+    font-size: 1.953rem;
+    font-weight: 700;
+  }
+  h4 {
+    font-size: 1.563rem;
+    font-weight: 700;
+  }
+  p {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (min-width: 1921px) {
+  h1 {
+    font-size: 3.052rem;
+    line-height: 3.8rem;
+    font-weight: 700;
+  }
+  p {
+    font-size: 1rem;
+  }
 }
