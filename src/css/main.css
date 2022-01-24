@@ -19,8 +19,8 @@
 .dark {
   transition: background-color 0.5s;
   transition-timing-function: cubic-bezier(0.17, 0.67, 0.83, 0.67);
-  background-color: #24252d;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #24252d;
   font-family: Gilroy;
   margin: 0;
   padding: 0;
