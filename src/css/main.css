@@ -88,16 +88,6 @@ footer .bottom {
     background-color: #0eaa3a;
   }
 
-  h1 {
-    font-size: 3.052rem;
-  }
-
-  .logo {
-    width: 52px;
-    margin-top: 25px;
-    margin-left: 32px;
-  }
-
   .view {
     position: absolute;
     width: 242.6px;
@@ -287,12 +277,22 @@ ul {
 
 /* Fontsss */
 
+.logo {
+  position: fixed;
+  top: 32px;
+  left: 32px;
+}
+.logo img {
+  width: 52px;
+}
 @media only screen and (max-width: 599px) {
   h1 {
     font-size: 1.9rem;
     font-weight: 700;
   }
-  p {
+  p,
+  input,
+  span {
     font-size: 0.875rem;
   }
   footer > div {
@@ -311,7 +311,9 @@ ul {
     font-size: 1.9rem;
     font-weight: 700;
   }
-  p {
+  p,
+  input,
+  span {
     font-size: 0.875rem;
   }
 }
@@ -335,7 +337,9 @@ ul {
     font-size: 1.563rem;
     font-weight: 700;
   }
-  p {
+  p,
+  input,
+  span {
     font-size: 1rem;
   }
 }
@@ -346,7 +350,9 @@ ul {
     line-height: 3.8rem;
     font-weight: 700;
   }
-  p {
+  p,
+  input,
+  span {
     font-size: 1rem;
   }
 }

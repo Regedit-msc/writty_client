@@ -177,7 +177,7 @@ function App(props) {
                       </Route>
                       <Route path="chat" element={<ChatWaitingRoom />} />
                       <Route path=":name/chat" element={<Chat />} />
-                      <Route path="auth" element={<Login />}>
+                      <Route path="auth">
                         <Route path="login" element={<Login />} />
                         <Route path="signup" element={<Signup />} />
                         <Route path="otp" element={<OTP />} />
