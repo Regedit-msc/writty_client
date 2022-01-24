@@ -1,9 +1,8 @@
 /* eslint-disable no-undef */
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { themeContext } from "../App";
 import React from "react";
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { API_ENDPOINT } from "./url";
 import { useTitle } from "../utils/title";
 import { useSnackbar } from "notistack";
@@ -144,7 +143,6 @@ const Signup = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   useTitle("Sign Up.");
-  const { theme } = useContext(themeContext);
   const [formState, setFormState] = useState({
     username: "",
     password: "",

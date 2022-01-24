@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 // import PropTypes from "prop-types"
 import React from "react";
 import { API_ENDPOINT } from "./url";
-import { themeContext } from "../App";
 import { useContext, useState, useEffect } from "react";
 import { userContext } from "../contexts/userContext";
 import InfoBar from "../components/info";
@@ -154,7 +153,6 @@ const Login = () => {
   useTitle("Login.");
   const [err, setErr] = useState();
   const [showErr, setShowErr] = useState(false);
-  const { theme } = useContext(themeContext);
   const { setUserToken } = useContext(userContext);
   const [formState, setFormState] = useState({
     username: "",
