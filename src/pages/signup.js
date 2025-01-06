@@ -196,7 +196,7 @@ const Signup = () => {
             "A mail containing a one time password\n has been sent to your registered email address."
           );
           enqueueSnackbar("If you don't see the mail check your spam.");
-          navigate("/otp", { replace: true });
+          navigate("/auth/otp", { replace: true });
         } else {
           enqueueSnackbar(jsonRes.message);
         }

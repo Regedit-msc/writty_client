@@ -96,11 +96,8 @@ const Dash = (props) => {
     })
       .then((res) => res.json())
       .then((jsonRes) => {
-        console.log(jsonRes);
         if (jsonRes.success) {
-          // setUsername(jsonRes.username);
           setDocs(jsonRes.message);
-          // profileImageRef.current.src = jsonRes.image;
         } else {
           enqueueSnackbar("Your session has expired.", { variant: "error" });
           localStorage.removeItem("user_token");
@@ -109,9 +106,6 @@ const Dash = (props) => {
       });
   }, [enqueueSnackbar, navigate]);
 
-  // function createDoc() {
-  //     setCreatingDoc(true);
-  // }
   function handleChange(e) {
     switch (e.target.name) {
       case "name":

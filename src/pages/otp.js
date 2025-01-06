@@ -35,7 +35,7 @@ const OTP = () => {
       .then((jsonRes) => {
         console.log(jsonRes);
         if (jsonRes.success) {
-          navigate("/onboard", { replace: true });
+          navigate("/auth/onboard", { replace: true });
           enqueueSnackbar(jsonRes.message, {
             variant: "success",
           });

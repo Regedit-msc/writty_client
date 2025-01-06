@@ -242,7 +242,6 @@ const Login = () => {
     const payloadG = {
       code: access_token,
     };
-    console.log(access_token, "Access token");
     fetch(`${API_ENDPOINT}/login/${provider}`, {
       headers: {
         "Content-Type": "application/json; charset=UTF-8",
@@ -255,10 +254,9 @@ const Login = () => {
     })
       .then((res) => res.json())
       .then((jsonRes) => {
-        console.log(jsonRes);
         if (jsonRes.success) {
           setUserToken(jsonRes.message);
-          console.log("Success", jsonRes);
+      
           if (jsonRes.profileStatus) {
             localStorage.setItem("new_user", "notreg");
             navigate(
@@ -268,7 +266,9 @@ const Login = () => {
               { replace: true }
             );
           } else {
-            navigate("/onboard");
+    
+            navigate("/auth/onboard");
+            localStorage.setItem("new_user", "reg");
           }
         } else {
           setErr(jsonRes.message);

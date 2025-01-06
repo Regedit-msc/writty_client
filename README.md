@@ -1,9 +1,13 @@
 # Live - Gists
 
-Features :
-- Live code mirroring (Delete , line break , paste )
-- Persistence 
+Features: 
+- Real-time code sharing (deletes, line breaks, pastes, and highlights)
+- Persistence
 - Shareable link
-- Syntax highlighting (JS, python , html, css , json , yaml , haml)
+- Syntax highlighting (JS, Python, HTML, CSS, JSON, YAML, Haml)
+
+## Requirements
+- Node v14.19.1 
+- React-based client for live collaboration and gist management
 
 Live [live-gists](https://live-gists.netlify.app/)
