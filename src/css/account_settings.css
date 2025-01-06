@@ -1,0 +1,285 @@
+ @font-face {
+    font-family: Gilroy;
+    src: url(fonts/gl.otf);
+}
+ #profile_pic1 {
+        position: absolute;
+        width: 198.7px;
+        left: 330px;
+        top: 155.8px;
+    }
+    #settings {
+        position: absolute;
+        margin: 0;
+        font-size: 25.6px;
+        line-height: 28.8px;
+        left: 354px;
+        top: 58.6px;
+        font-style: normal;
+        font-weight: 500;
+    }
+
+    #change_button {
+        position: absolute;
+        flex-direction: column;
+        display:flex;
+        justify-content: center;
+
+        width: 147.2px;
+        height: 45.7px;
+        left: 355.7px;
+        top: 390px;
+        border-radius: 5.6px;
+        background-color: #4F33F6;
+
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 18px;
+        color: #FFFFFF;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    #change_button_light {
+        position: absolute;
+        flex-direction: column;
+        display:flex;
+        justify-content: center;
+
+        width: 147.2px;
+        height: 45.7px;
+        left: 355.7px;
+        top: 390px;
+        border-radius: 5.6px;
+        background-color: #1F1F1F;
+
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 18px;
+        color: #FFFFFF;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    #form1 {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+
+        position: absolute;
+        left: 693px;
+        top: 155.8px;
+        height: 400px;
+        width: 420px;
+    }
+
+    #Name, #Email, #Password  {
+        display: flex;
+
+        background-color: #1F1F1F;
+        color: #585858;
+        font-family: Gilroy;
+        font-style: normal;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 30.5px;
+        text-align: left;
+        padding: 0 18px 0 18px;
+
+        box-sizing: border-box;
+        margin:0px;
+        width: 406px;
+        height: 52px;
+        border-radius: 7.8px;
+        border: 4px solid #3C3C3C;
+    }
+    #form1 input:hover {
+        color: #FFFFFF;
+        border: 4px solid #FAFAFA;
+    }
+    #form1 input:focus {
+        color: #FFFFFF;
+        border: 4px solid #FAFAFA;
+    }
+    #form1 input:valid {
+        color: #FFFFFF;
+        background-color: #1F1F1F;
+    }
+
+    #form1 input[type=submit] {
+        flex-direction: column;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 214px;
+        height: 45px;
+        border-radius: 5.6px;
+        background-color: #4F33F6;
+        border: none;
+
+        font-family: Gilroy;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 18px;
+        text-decoration: none;
+    }
+
+    #dark_mode {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+
+        width: 406px;
+        height: 52px;
+        background-color: #1A1A1A;
+        border-radius: 7.8px;
+        padding: 0 18px 0 18px;
+    }
+    
+    /*  light mode  */
+    #form1_light {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+
+        position: absolute;
+        left: 693px;
+        top: 155.8px;
+        height: 400px;
+        width: 420px;
+    }
+
+    #form1_light input:hover {
+        color: #1F1F1F;
+        border: 4px solid #FAFAFA;
+    }
+    #form1_light input:focus {
+        color: #1F1F1F;
+        border: 4px solid #FAFAFA;
+    }
+    #form1_light input:valid {
+        color: #1F1F1F;
+        background-color: #FAFAFA;
+    }
+
+    #form1_light input[type=submit] {
+        flex-direction: column;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 214px;
+        height: 45px;
+        border-radius: 5.6px;
+        color: #FFFFFF;
+        background-color: #1F1F1F;
+        border: none;
+
+        font-family: Gilroy;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 18px;
+        text-decoration: none;
+    }
+
+    #Name_light, #Email_light, #Password_light  {
+        display: flex;
+
+        background-color: #FFFFFF;
+        color: #1F1F1F;
+        font-family: Gilroy;
+        font-style: normal;
+        font-size: 5rem;
+        font-weight: 500;
+        line-height: 30.5px;
+        text-align: left;
+        padding: 0 18px 0 18px;
+
+        box-sizing: border-box;
+        margin:0px;
+        width: 406px;
+        height: 52px;
+        border-radius: 7.8px;
+        border: 4px solid #B0B0B0;
+    }
+
+    #dark_mode_light {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+
+        width: 406px;
+        height: 52px;
+        background-color: #f0f0f0;
+        border-radius: 7.8px;
+        padding: 0 18px 0 18px;
+    }
+
+    
+
+    /* toggle switch */
+   /* .toggle-round {
+        position: absolute;
+        margin-left: -9999px;
+        visibility: hidden;
+      }
+      .toggle-round + label {
+        display: block;
+        position: relative;
+        cursor: pointer;
+        outline: none;
+        user-select: none;
+      }
+
+    input [type=checkbox] {
+        height:30px;
+    }
+    input.toggle-round + label {
+        padding: 2px;
+        width: 42.88px;
+        height: 19.4px;
+        background-color: #343434;
+        border-radius: 60px;
+      }
+      input.toggle-round + label:before,
+      input.toggle-round + label:after {
+        display: block;
+        position: absolute;
+        top: 1px;
+        left: 1px;
+        bottom: 1px;
+        content: "";
+      }
+      input.toggle-round + label:before {
+        right: 1px;
+        background-color: #343434;
+        border-radius: 60px;
+        transition: background 0.4s;
+      }
+      input.toggle-round + label:after {
+        width: 22px;
+        background-color: #4F33F6;
+        border-radius: 100%;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        transition: margin 0.4s;
+      }
+      input.toggle-round:checked + label:before {
+        background-color: #252525;
+      }
+      input.toggle-round:checked + label:after {
+        margin-left: 24px;
+      }
+      */

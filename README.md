@@ -1,9 +1,13 @@
-# Writty Client 
+# Live - Gists
 
-Features : 
-- Document editing collaboration 
-- Data persistence 
+Features: 
+- Real-time code sharing (deletes, line breaks, pastes, and highlights)
+- Persistence
 - Shareable link
-- feature rich text-editing capabilities
+- Syntax highlighting (JS, Python, HTML, CSS, JSON, YAML, Haml)
 
-Live [writty](https://writty-collab.netlify.app/)
+## Requirements
+- Node v14.19.1 
+- React-based client for live collaboration and gist management
+
+Live [live-gists](https://live-gists.netlify.app/)

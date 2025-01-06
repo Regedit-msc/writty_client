@@ -1,0 +1,122 @@
+@font-face {
+    font-family: Gilroy;
+    src: url(fonts/gl.otf);
+}
+.forgot-password-main {
+    display: grid;
+    grid-template-columns: 1fr 480px 1fr;
+	max-width: 100vw;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.grid-col-2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+}
+
+#forgot-password_box {
+    width: auto;
+    height: 400px;
+    box-sizing: border-box;
+    border-radius: var(--brd_rad_small);
+
+    background-color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    text-align: center;
+
+    box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, .25);
+}
+
+#forgot-password_head {
+    font-size: 18px;
+    margin: 12px;
+}
+
+
+.forgot-password_body {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#forgot-password_message {
+    width: 300px;
+    color: #6B6B6B;
+}
+
+#forgot-password_form {
+    height: 160px;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#forgot-otp {
+    display: block;
+
+    box-sizing: border-box;
+    height: 50px;
+    width: 270px;
+    padding: 15px 36px;
+    border: none;
+    border-radius: var(--brd_rad_big);
+
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    font-style: normal;
+    text-align: center;
+
+    background-color: #D2D2D2;
+    color: #000000;
+}
+#forgot-otp::-webkit-outer-spin-button, #forgot-otp::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+
+.forgot-password_body input[type=submit], #new-password-form input[type=submit] {
+    background-color: #000000;
+    color: #FFFFFF;
+    width: 400px;
+    height: 60px;
+}
+
+#forgot-password_form input[type=email], #new-password-form input[type=password] {
+    background-color: #EEEEEE;
+    width: 400px;
+}
+
+#forgot-password_form input:focus {
+    border: 2px solid #EEEEEE;
+    outline: none;
+}
+
+#new-password-form {
+    text-align: left;
+}
+
+.new-pass-div {
+    margin-bottom: 10px;
+}
+
+
+.grid-col-3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center; 
+}
+.grid-col-3 img {
+    width: 300px;
+}

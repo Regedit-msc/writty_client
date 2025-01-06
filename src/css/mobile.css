@@ -1,0 +1,14 @@
+.info_mobile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.info_mobile_text{
+    padding: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -1,0 +1,47 @@
+/* .shimmer_cust{
+     background: '#f2f2f2';
+    display: 'inline-block';
+    background-image: 'linear-gradient(to right,#eeeeee 40%,#dddddd 50%,#eeeeee 60%)';
+    background-size: '800px 104px';
+    background-repeat: 'repeat';
+    animation: 'shimmerAnim 2s infinite linear';
+} */
+.dark .shimmer_cust {
+    display: inline-block;
+    animation: cShimmerAnim 2s infinite linear;
+    background-size: auto;
+    background-repeat: repeat;
+    background-image: linear-gradient( 
+315deg
+ , #2d3436 0%, #000000 74%);
+}
+.light .shimmer_cust {
+    display: inline-block;
+    animation: cShimmerAnim 2s infinite linear;
+    background-size: auto;
+    background-repeat: repeat;
+    background-color: #d9d9d9;
+    background-image: linear-gradient(
+315deg
+, #d9d9d9 0%, #f6f2f2 74%);
+}
+ .shimmer_cust {
+    display: inline-block;
+    animation: cShimmerAnim 2s infinite linear;
+}
+@-webkit-keyframes cShimmerAnim {
+  from {
+    background-position: 0px;
+  }
+  to {
+    background-position: 960px;
+  }
+}
+@keyframes cShimmerAnim {
+  from {
+    background-position: 0px;
+  }
+  to {
+    background-position: 960px;
+  }
+}

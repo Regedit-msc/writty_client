@@ -1,0 +1,16 @@
+@font-face {
+    font-family: Gilroy;
+    src: url(fonts/gl.otf);
+}
+.four_o_four{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 100px;
+}
+
+
+.four_o_four h1 {
+    font-size: 100px;
+}

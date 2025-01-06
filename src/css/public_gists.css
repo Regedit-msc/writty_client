@@ -1,0 +1,202 @@
+
+    #view_code {
+        position: absolute;
+        width: 131px;
+        height: 18.4px;
+        top: 192px;
+        left: 310px;
+        margin: 0;
+
+        font-size: 13.6px;
+        line-height: 17.6px;
+        color: #939393;
+        font-style: normal;
+        font-weight: 500;
+    }
+    #greeting {
+        position: absolute;
+        left: 310.5px;
+        top: 36px;
+        font-size: 19.2px;
+        line-height: 24px;
+        font-style: normal;
+        font-weight: 500;
+        margin: 1em 0 1em 0;
+    }
+    #heading {
+        position: absolute;
+        font-size: 25.6px;
+        line-height: 28.8px;
+        left: 310.5px;
+        top: 64px;
+        font-style: normal;
+        font-weight: 500;
+    }
+
+    #languages {
+        position: absolute;
+        display: flex;
+        flex-flow: row wrap;
+        /* width: 1024px;
+        height: 176px; */
+        top: 240px;
+        left: 310.5px;
+        height: 432px;
+        overflow: scroll;
+    }
+    #languages::-webkit-scrollbar {
+        display: none;
+    }
+    #languages {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+
+
+    .language_box {
+        display: flex;
+        flex-direction: column;
+        background-color: #FAFAFA;
+        color: #000000;
+        border-radius: 9.6px;
+        width: 152.64px;
+        height: 164px;
+        padding: 6px;
+        margin: 0 48px 40px 0;
+        
+    }
+    .language_box_light {
+        display: flex;
+        flex-direction: column;
+        background-color: #292929;
+        color: #000000;
+        border-radius: 9.6px;
+        width: 152.64px;
+        height: 164px;
+        padding: 6px;
+        margin: 0 48px 40px 0;
+        
+    }
+
+    .language_box img {
+        display: inline;
+        width: 30px;
+        height: 30px;
+    }
+    .language_box_light img {
+        display: inline;
+        width: 30px;
+        height: 30px;
+    }
+
+    .language_box span {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 12px;
+        color: #4F33F6;
+    }
+    .language_box_light span {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 12px;
+        color: #FFFFFF;
+    }
+
+    .language_box hr {
+        position: relative;
+        color: #E2E1EA;
+        width: 120px;
+        top: 55px;
+    }
+    .language_box_light hr {
+        position: relative;
+        color: #E2E1EA;
+        width: 120px;
+        top: 55px;
+    }
+    
+    .language_button {
+        font-size: 11.2px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 19.2px;
+        width: 96px;
+        height: 19.2px;
+        border-radius: 9.6px;
+        background-color: #E31792;
+        color: #FFFFFF;
+        text-align: center;
+        transition: 100ms;
+       transform: scale(0.9);
+}
+
+    .language_button:hover {
+  transform: scale(1);
+}
+    .big {
+        position: relative;
+        top: 25.6px;
+        left: 8px;
+        font-size: 21.6px;
+        line-height: 24px;
+        height: 48px;
+    }
+    .big a{
+        color: #4F33F6;
+        text-decoration: none;
+        font-style: normal;
+        font-weight: 500;
+    }
+
+    .big_light {
+        position: relative;
+        top: 25.6px;
+        left: 8px;
+        font-size: 21.6px;
+        line-height: 24px;
+        height: 48px;
+        font-style: normal;
+        font-weight: 500;
+    }
+    .big_light a{
+        color: #FFFFFF;
+        text-decoration: none;
+        font-style: normal;
+        font-weight: 500;
+    }
+
+    .info {
+        position: relative;
+        top: 68px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        padding-left: 6.4px;
+    }
+    .info img {
+        padding-right: 6.4px;
+    }
+
+
+
+
+
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .view {
+        position: absolute;
+        /*width: 135.8px;*/
+        height: 29.2px;
+        left: 50px;
+        top: 2em;
+
+        font-size: 24px;
+        line-height: 32px;
+        color: #BFBFBF;
+        font-style: normal;
+        font-weight: 400;
+    }
+}

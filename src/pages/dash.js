@@ -1,173 +1,523 @@
+/* eslint-disable no-undef */
 import { makePriv } from "../auth_hoc/checkAuth";
-import { useState, useEffect } from "react"
-import { useHistory } from "react-router-dom"
+import { useState, useEffect, useContext } from "react"
 import { API_ENDPOINT } from "./url";
+import { Link, useNavigate } from "react-router-dom";
+import injectSheet from "react-jss";
+import { StyleSheet } from "../utils/shimmer";
 import { v4 as uuidV4 } from "uuid";
-
-
+import React from "react";
+import PropTypes from "prop-types";
+// import PadLock from "../images/padlock.png";
+import DeleteLight from "../images/icon-delete_light.png";
+import Delete from "../images/icon-delete.png";
+import Share from "../images/icon-share.png";
+import ShareLight from "../images/icon-share_light.png";
+import ViewCode from "../images/icon-view_code.png";
+import ViewCodeLight from "../images/icon-view_code_light.png";
+import CollabCode from "../images/icon-collab.png";
+import CollabCodeLight from "../images/icon-collab_light.png";
+import PrivateCode from "../images/icon-private_code.png";
+import PrivateCodeLight from "../images/icon-private_code_light.png";
+import "../css/dashboard.css";
+// import SideBar from "../components/sidebar";
+import { themeContext } from "../App";
+import InfoBar from "../components/info";
+import { useTitle } from "../utils/title";
+import CustomShimmer from "../components/shimmerComp";
+import { useSnackbar } from "notistack";
+// import NavBar from "../components/navbar";
 
 const Dash = (props) => {
-    let history = useHistory();
-    const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+  useTitle("Dashboard.");
+  // const profileImageRef = useRef();
+  // const defaultImage = 'https://cdn3.vectorstock.com/i/thumb-large/76/57/portrait-young-bearded-man-in-eyeglasses-vector-34397657.jpg'
+  const { theme } = useContext(themeContext);
+  const [isLoadingCreateDoc, setIsLoadingCreateDoc] = useState(false);
+  const [info, setInfo] = useState();
+  const [showInfo, setShowInfo] = useState(false);
+  const [err, setErr] = useState();
+  const [showErr, setShowErr] = useState(false);
+  const [newDocName, setNewDocName] = useState({
+    name: "",
+    _id: "",
+    language: "javascript",
+    private: true,
+    publicLink: uuidV4(),
+  });
+  const [docs, setDocs] = useState();
+  const [creatingDoc, setCreatingDoc] = useState();
+  // const [username, setUsername] = useState();
+  useEffect(() => {
+    const isSubbed = localStorage.getItem("Subbed");
+    const sub = JSON.parse(localStorage.getItem("SUB"));
+    console.log("Sub", isSubbed);
+    if (isSubbed?.toString() === "true") {
+      fetch(`${API_ENDPOINT}/notifications/subscribe`, {
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+          Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+        },
+        method: "POST",
+        body: JSON.stringify(sub),
+      })
+        .then((res) => res.json())
+        .then((jsonRes) => {
+          if (jsonRes.success) {
+            localStorage.setItem("SUB_ADDED", true);
+          }
+        });
+    } else {
+      // setInfo();
+      // setShowInfo(true);
+      // setTimeout(() => {
+      //     setInfo("");
+      //     setShowInfo(false);
+      // }, 3000)
+      enqueueSnackbar(
+        "You didn't allow notifications. You will not receive notifications on likes, comments, etc. You can although manually check notifications in the notifications tab.",
 
-    const [info, setInfo] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const [isLoadingCreateDoc, setIsLoadingCreateDoc] = useState(false);
-    const [newDocName, setNewDocName] = useState({
-        name: '',
-        _id: '',
-    });
-    const [docs, setDocs] = useState();
-    const [creatingDoc, setCreatingDoc] = useState();
-    const [username, setUsername] = useState();
-    useEffect(() => {
-        const userToken = localStorage.getItem("user_token");
-        fetch(`${API_ENDPOINT}/details`, {
-            headers: {
-                'Content-Type': 'application/json; charset=UTF-8',
-                "Authorization": `Bearer ${userToken}`
-            },
-            method: "GET",
-        }).then(res => res.json()
-        ).then(jsonRes => {
-            console.log(jsonRes);
-            if (jsonRes.success) {
-                setUsername(jsonRes.username);
-                setDocs(jsonRes.message);
-                setIsLoading(false);
-            } else {
-                /// show error 
-            }
-        })
-    }, []);
-    function createDoc() {
-        setCreatingDoc(true);
+        {
+          variant: "info",
+        }
+      );
     }
-    function handleChange(e) {
+  }, [enqueueSnackbar]);
+
+  useEffect(() => {
+    fetch(`${API_ENDPOINT}/details`, {
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+      },
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((jsonRes) => {
+        if (jsonRes.success) {
+          setDocs(jsonRes.message);
+        } else {
+          enqueueSnackbar("Your session has expired.", { variant: "error" });
+          localStorage.removeItem("user_token");
+          navigate("/", { replace: true });
+        }
+      });
+  }, [enqueueSnackbar, navigate]);
+
+  function handleChange(e) {
+    switch (e.target.name) {
+      case "name":
         setNewDocName({
-            ...newDocName,
-            name: e.target.value, _id: uuidV4()
-
-        })
+          ...newDocName,
+          name: e.target.value,
+          _id: uuidV4(),
+        });
+        break;
+      case "language":
+        setNewDocName({
+          ...newDocName,
+          language: e.target.value,
+        });
+        break;
+      case "private":
+        console.log(e.target.value);
+        setNewDocName({
+          ...newDocName,
+          private: e.target.value === "true" ? true : false,
+        });
+        break;
+      default:
+        break;
     }
-    function handleSubmit() {
-        const userToken = localStorage.getItem("user_token");
-        setIsLoadingCreateDoc(true);
-        fetch(`${API_ENDPOINT}/create/doc`, {
-            headers: {
-                'Content-Type': 'application/json; charset=UTF-8',
-                "Authorization": `Bearer ${userToken}`
-            },
-            method: "POST",
-            body: JSON.stringify(newDocName)
-        }).then(res => res.json()
-        ).then(jsonRes => {
-            console.log(jsonRes);
-            if (jsonRes.success) {
-                setCreatingDoc(false);
-                setDocs([...docs, newDocName]);
-                setIsLoadingCreateDoc(false);
+  }
+  function handleSubmit() {
+    console.log(newDocName);
+
+    setIsLoadingCreateDoc(true);
+    fetch(`${API_ENDPOINT}/create/doc`, {
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+      },
+      method: "POST",
+      body: JSON.stringify(newDocName),
+    })
+      .then((res) => res.json())
+      .then((jsonRes) => {
+        console.log(jsonRes);
+        if (jsonRes.success) {
+          setCreatingDoc(false);
+          setDocs([...docs, newDocName]);
+          setIsLoadingCreateDoc(false);
+          setInfo("Successfully created playground✋🏻.");
+          setShowInfo(true);
+          setTimeout(() => {
+            setInfo("");
+            setShowInfo(false);
+          }, 3000);
+        } else {
+          setErr("Unable to create playground✋🏻.");
+          setShowErr(true);
+          setTimeout(() => {
+            setErr("");
+            setShowErr(false);
+          }, 3000);
+        }
+      });
+  }
+  function handleVisibility(id) {
+    fetch(`${API_ENDPOINT}/update/visibility/doc`, {
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+      },
+      method: "POST",
+      body: JSON.stringify({ docID: id }),
+    })
+      .then((res) => res.json())
+      .then((jsonRes) => {
+        console.log(jsonRes);
+        const newDocArray = [];
+        if (jsonRes.success) {
+          for (let i = 0; i < docs.length; i++) {
+            if (docs[i]._id === id) {
+              const newObj = {
+                _id: docs[i]._id,
+                language: docs[i].language,
+                name: docs[i].name,
+                user: docs[i].user,
+                private: !docs[i].private,
+                publicLink: docs[i].publicLink,
+                collabLink: docs[i].collabLink ?? "",
+              };
+              newDocArray.push(newObj);
             } else {
-                /// show error 
+              newDocArray.push(docs[i]);
             }
-        })
-    }
+          }
+          setDocs(newDocArray);
+          setInfo(
+            "Updated code visibility✋🏻. If public the code will be available as a public gist."
+          );
+          setShowInfo(true);
+          setTimeout(() => {
+            setInfo("");
+            setShowInfo(false);
+          }, 3000);
+        } else {
+          setErr("Unable to update visibility✋🏻.");
+          setShowErr(true);
+          setTimeout(() => {
+            setErr("");
+            setShowErr(false);
+          }, 3000);
+        }
+      });
+  }
 
-    function viewTheDoc(id) {
-        console.log(id);
+  function handleDelete(id) {
+    fetch(`${API_ENDPOINT}/delete/doc`, {
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+      },
+      method: "POST",
+      body: JSON.stringify({ docID: id }),
+    })
+      .then((res) => res.json())
+      .then((jsonRes) => {
+        console.log(jsonRes);
+        if (jsonRes.success) {
+          const newDocs = docs.filter((doc) => doc._id !== id);
+          setDocs(newDocs);
+          setInfo("Successfully cleared code✋🏻.");
+          setShowInfo(true);
+          setTimeout(() => {
+            setInfo("");
+            setShowInfo(false);
+          }, 3000);
+        } else {
+          setErr("Unable to delete code✋🏻.");
+          setShowErr(true);
+          setTimeout(() => {
+            setErr("");
+            setShowErr(false);
+          }, 3000);
+        }
+      });
+  }
 
-        history.push(`/document/${id}`)
-
-    }
-    function handleDelete(id) {
-        fetch(`${API_ENDPOINT}/delete/doc`, {
-            headers: {
-                'Content-Type': 'application/json; charset=UTF-8',
-            },
-            method: "POST",
-            body: JSON.stringify({ docID: id })
-        }).then(res => res.json()
-        ).then(jsonRes => {
-            console.log(jsonRes);
-            if (jsonRes.success) {
-                const newDocs = docs.filter((doc) => doc._id !== id);
-                setDocs(newDocs);
-                setInfo(jsonRes.message + "🦑");
-                setTimeout(() => {
-                    setInfo(null);
-                }, 5000)
+  function initiateCollab(id) {
+    const collabLink = uuidV4();
+    const scheme =
+      process.env.NODE_ENV === "development" ? "http://" : "https://";
+    const url = scheme + window.location.host + "/editor/collab/" + collabLink;
+    const copyText = url.replace(/\s+/g, "");
+    var input = document.body.appendChild(document.createElement("input"));
+    input.value = copyText;
+    input.focus();
+    input.select();
+    document.execCommand("copy");
+    input.parentNode.removeChild(input);
+    // setInfo('Collaboration link copied to clipboard✋🏻');
+    // setTimeout(() => {
+    //     setInfo(null);
+    // }, 5000);
+    fetch(`${API_ENDPOINT}/create/collab`, {
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${localStorage.getItem("user_token")}`,
+      },
+      method: "POST",
+      body: JSON.stringify({ docID: id, collabLink }),
+    })
+      .then((res) => res.json())
+      .then((jsonRes) => {
+        console.log(jsonRes);
+        const newDocArray = [];
+        if (jsonRes.success) {
+          for (let i = 0; i < docs.length; i++) {
+            if (docs[i]._id === id) {
+              const newObj = {
+                _id: docs[i]._id,
+                language: docs[i].language,
+                name: docs[i].name,
+                user: docs[i].user,
+                private: docs[i].private,
+                publicLink: docs[i].publicLink,
+                collabLink: collabLink,
+              };
+              newDocArray.push(newObj);
             } else {
-                setError(jsonRes.message + "🦥");
-                setTimeout(() => {
-                    setError(null);
-                }, 2000)
+              newDocArray.push(docs[i]);
             }
-        })
-    }
+          }
+          setDocs(newDocArray);
+          setInfo(
+            "Collab link copied to clipboard✋🏻.To collaborate create the link and then click on the code name to edit."
+          );
+          setShowInfo(true);
+          setTimeout(() => {
+            setInfo("");
+            setShowInfo(false);
+          }, 5000);
+        } else {
+          setErr("Collab link not created.");
+          setShowErr(true);
+          setTimeout(() => {
+            setErr("");
+            setShowErr(false);
+          }, 3000);
+        }
+      });
+  }
+  function share(id) {
+    const scheme =
+      process.env.NODE_ENV === "development" ? "http://" : "https://";
+    const url = scheme + window.location.host + "/public/editor/" + id;
+    const copyText = url.replace(/\s+/g, "");
+    var input = document.body.appendChild(document.createElement("input"));
+    input.value = copyText;
+    input.focus();
+    input.select();
+    document.execCommand("copy");
+    input.parentNode.removeChild(input);
 
-    function initiateCollab(id) {
-        const copyText = `Let's collaborate on my writeup. Join me here ${window.location.host + "/document/" + id}💅🏻.`;
-        var input = document.body.appendChild(document.createElement("input"));
-        input.value = copyText;
-        input.focus();
-        input.select();
-        document.execCommand('copy');
-        input.parentNode.removeChild(input);
-        setInfo('Details copied to clipboard✋🏻');
-        setTimeout(() => {
-            setInfo(null);
-        }, 5000)
-    }
+    setInfo("Public link copied to clipboard✋🏻.");
+    setShowInfo(true);
+    setTimeout(() => {
+      setInfo("");
+      setShowInfo(false);
+    }, 3000);
+  }
 
-    function logOut() {
-        localStorage.removeItem("user_token");
-        history.push('/');
-    }
+  const PrivateOr = theme === "light" ? PrivateCodeLight : PrivateCode;
+  const ViewOr = theme === "light" ? ViewCodeLight : ViewCode;
+  return (
+    <>
+      {creatingDoc ? <div className="background_create_doc"></div> : ""}
+      {showErr ? <InfoBar color="red" text={err} /> : ""}
+      {showInfo ? <InfoBar color="blue" text={info} /> : ""}
 
-    const UI =
-        isLoading ? (<div>
-            Loading... 🍏 🍎 🍐 🍊 🍋 🍌 🍉 🍇 🍓
-        </div >
+      {/* <SideBar
+                page="gists"
+            /> */}
+      {isLoadingCreateDoc ? <div>Creating gist...</div> : <div></div>}
+      <div id="main">
+        {/* <img src={PadLock} id="padlock" className="point" alt="padlock" /> */}
+        {/* {docs ? <img ref={profileImageRef} src={defaultImage} id="profile_pic" className="point" alt="profile_pic" /> : <> <CustomShimmer>
+                    <div className={props.classes.circle} />
+                </CustomShimmer> </>}
+                <h3 id="greeting">Dev {username ? username : <> <CustomShimmer>
+                    <div className={props.classes.line} />
+                </CustomShimmer> </>}</h3>
+                <h5 id="welcome">Welcome to your dashboard</h5>
+                <Link id={theme === "light" ? "create_button_light" : "create_button"} to="/dash" onClick={createDoc} className="point" >Create a gist</Link> */}
 
+        <p id="your_codes">Your Codes</p>
+        {creatingDoc ? (
+          <div
+            className={
+              theme === "light" ? "create_doc_bg_light" : "create_doc_bg"
+            }
+          >
+            <input
+              type="text"
+              className={
+                theme === "light"
+                  ? "create_doc_input_light"
+                  : "create_doc_input"
+              }
+              onChange={handleChange}
+              name="name"
+              placeholder="Name"
+              autoComplete="false"
+            />
+            <br />
+            <select
+              className={
+                theme === "light"
+                  ? "create_doc_dropdown_light"
+                  : "create_doc_dropdown"
+              }
+              name="language"
+              placeholder="Language"
+              onChange={handleChange}
+            >
+              <option value="javascript">JavaScript</option>
+              <option value="css">CSS</option>
+              <option value="python">Python</option>
+              <option value="xml">HTML</option>
+              <option value="dart">Dart</option>
+              <option value="java">JAVA</option>
+              <option value="javascript">JSON</option>
+              <option value="javascript">JSX</option>
+            </select>
+            <br />
+            <div className="radio_buttons_doc" onChange={handleChange}>
+              <input type="radio" value={true} name="private" checked />
+              Private
+              <input type="radio" value={false} name="private" />
+              Public
+            </div>
+            <div
+              className={
+                theme === "light"
+                  ? "create_button_div_light"
+                  : "create_button_div"
+              }
+            >
+              <button onClick={handleSubmit}>Create</button>
+            </div>
+
+            <br />
+          </div>
         ) : (
-            <div className="relative">
-                {info ? <div className="bg-purple-500 absolute  bottom-2 left-3 text-white p-2 rounded"><p>{info}</p></div> : <div></div>}
-                {error ? <div className="bg-red-500 absolute  bottom-2  left-3  text-white p-2 rounded"><p>{error}</p></div> : <div></div>}
-                    <div className="my-2 mx-2 flex flex-col w-3/4 lg:w-1/4 space-y-3 ">
+          <div></div>
+        )}
 
-                        <p><span className="font-bold text-2xl my-b-20 uppercase">Great Sage {username}!!</span><br /> <span className="font-bold text-lg my-b-20  text-purple-900">Welcome to your dash.🧙‍♂️</span>.</p>
-                    <button className="bg-green-500 hover:bg-purple-700 p-2 rounded text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={createDoc}>Create a doc</button>
-                    <button className="bg-yellow-900 hover:bg-purple-700 p-2 rounded text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={logOut}>Log Out</button>
+        <div id="projects">
+          {docs ? (
+            docs.map(({ name, _id, language, private: priv, publicLink }) => {
+              return (
+                <div
+                  className={
+                    theme === "light" ? "project_box_light" : "project_box"
+                  }
+                  key={_id}
+                >
+                  <div
+                    className="language_button"
+                    id={
+                      language[0].toUpperCase() +
+                      language.slice(1, language.length)
+                    }
+                  >
+                    {language[0].toUpperCase() +
+                      language.slice(1, language.length)}{" "}
+                    {priv ? <i className="fa fa-lock"></i> : ""}
+                  </div>
+                  <div className={theme === "light" ? "big_light" : "big"}>
+                    <Link className="point" to={`/edit/${_id}`}>
+                      {name.slice(0, 6).toUpperCase() + "..."}
+                    </Link>
+                  </div>
+
+                  <div className="options">
+                    <img
+                      src={theme === "light" ? DeleteLight : Delete}
+                      alt="Delete code"
+                      className="point"
+                      onClick={() => handleDelete(_id)}
+                    />
+                    <img
+                      src={theme === "light" ? ShareLight : Share}
+                      alt="Share code"
+                      className="point"
+                      onClick={() => share(publicLink, priv)}
+                    />
+                    {/* <img src={ViewCode} alt="View code" className="point" /> */}
+                    <img
+                      src={priv ? PrivateOr : ViewOr}
+                      alt="Private code"
+                      className="point"
+                      onClick={() => handleVisibility(_id)}
+                    />
+                    {/* <img src={Edit} alt="Edit code" className="point" /> */}
+                    <img
+                      src={theme === "light" ? CollabCodeLight : CollabCode}
+                      alt="Collab code"
+                      className="point"
+                      onClick={() => initiateCollab(_id)}
+                    />
+                  </div>
                 </div>
-                {(docs && docs.length > 0) ? docs.map((doc, index, _) => <div key={doc._id} className=" flex flex-col bg-gray-100 mx-5 mb-2"><span className=" p-3"> {index + 1}. {doc.name}</span>  <span className="flex flex-row space-x-3 justify-end mx-3 my-3"><button className="bg-red-600 hover:bg-purple-700 p-2   rounded shadow-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={() => handleDelete(doc._id)}>Delete doc</button>  <button className="bg-blue-600 hover:bg-purple-700 p-2 rounded shadow-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={() => viewTheDoc(doc._id)}>View doc</button> <button className="bg-gray-800 hover:bg-purple-700 p-2  rounded shadow-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={() => initiateCollab(doc._id)}> Collab</button></span></div>) : <h3 className="flex items-center justify-center font-bold text-4xl">You have no docs yet🧛🏿‍♂️. Create one to get started🏋🏿‍♀️.</h3>}
-
-
-                {creatingDoc ? (
-                        <div className="ml-2 lg:ml-4">
-                        <input className="bg-purple-100 placeholder-indigo-800 border border-transparent  focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent p-2 h-10 w-70 " type="text" onChange={handleChange} name="name" placeholder="name" autoComplete="false" />
-                        <button className=" mx-5 bg-purple-600 hover:bg-purple-700 p-2 w-20  rounded shadow-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" onClick={handleSubmit}>Create</button>
-                        <br />
-                        {isLoadingCreateDoc ? <div>Creating Doc...</div> : <div></div>}
-                    </div>
-
-
-
-                ) :
-                    <div>
-
-                    </div>
-
-
-
-                }
-
-
-            </div >
-        )
-
-    return UI;
-
-
+              );
+            })
+          ) : (
+            <>
+              <CustomShimmer>
+                <div className={props.classes.projectBox} />
+              </CustomShimmer>
+              <CustomShimmer>
+                <div className={props.classes.projectBox} />
+              </CustomShimmer>{" "}
+              <CustomShimmer>
+                <div className={props.classes.projectBox} />
+              </CustomShimmer>{" "}
+              <CustomShimmer>
+                <div className={props.classes.projectBox} />
+              </CustomShimmer>{" "}
+              <CustomShimmer>
+                <div className={props.classes.projectBox} />
+              </CustomShimmer>{" "}
+              <CustomShimmer>
+                <div className={props.classes.projectBox} />
+              </CustomShimmer>{" "}
+              <CustomShimmer>
+                <div className={props.classes.projectBox} />
+              </CustomShimmer>{" "}
+              <CustomShimmer>
+                <div className={props.classes.projectBox} />
+              </CustomShimmer>{" "}
+              <CustomShimmer>
+                <div className={props.classes.projectBox} />
+              </CustomShimmer>{" "}
+              <CustomShimmer>
+                <div className={props.classes.projectBox} />
+              </CustomShimmer>
+            </>
+          )}
+        </div>
+      </div>
+    </>
+  );
+};
+Dash.propTypes = {
+    classes: PropTypes.object
 }
+export default makePriv(injectSheet(StyleSheet)(Dash));
 
-export default makePriv(Dash);
+
